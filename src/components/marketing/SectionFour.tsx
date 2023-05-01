@@ -1,6 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import { globalStyles } from "../../styles";
-import { constants } from "../../constants";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
