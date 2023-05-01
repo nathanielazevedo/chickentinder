@@ -17,31 +17,42 @@ const NavBar = () => {
             </Typography>
           </Link>
           <Box sx={styles.linksContainer}>
-            <Button
-              variant="contained"
-              sx={{
-                width: "20%",
-                fontSize: "1rem",
-                background:
-                  "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+            <Link
+              to="home"
+              style={{
+                width: "100%",
+                display: "flex",
+                justifyContent: "flex-end",
               }}
             >
-              Get Started
-            </Button>
+              <Button
+                variant="contained"
+                sx={{
+                  width: "20%",
+                  fontSize: "1rem",
+                  background:
+                    "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+                }}
+              >
+                Get Started
+              </Button>
+            </Link>
           </Box>
           <Box sx={styles.menuContainer}>
-            <Button
-              variant="contained"
-              sx={{
-                width: "100%",
-                height: "50px",
-                fontSize: "1rem",
-                background:
-                  "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
-              }}
-            >
-              Get Started
-            </Button>
+            <Link to="home">
+              <Button
+                variant="contained"
+                sx={{
+                  width: "100%",
+                  height: "50px",
+                  fontSize: "1rem",
+                  background:
+                    "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+                }}
+              >
+                Get Started
+              </Button>
+            </Link>
           </Box>
         </Toolbar>
       </Container>
