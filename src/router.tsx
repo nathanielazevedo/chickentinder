@@ -1,3 +1,4 @@
+import Create from "./components/Create";
 import Home from "./components/Home";
 import Intro from "./components/marketing/Intro";
 import { createBrowserRouter } from "react-router-dom";
@@ -11,6 +12,10 @@ export const router = createBrowserRouter(
     {
       path: "/home",
       element: <Home />,
+    },
+    {
+      path: "/create",
+      element: <Create />,
     },
   ],
   {

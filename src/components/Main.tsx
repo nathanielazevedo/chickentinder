@@ -242,6 +242,7 @@ const Main = () => {
                     flexDirection: "row",
                     gap: "10px",
                     justifySelf: "flex-end",
+                    flexWrap: "wrap",
                   }}
                 >
                   {result.categories.map((category: any) => {
@@ -259,9 +260,10 @@ const Main = () => {
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "center",
             width: "30%",
             marginTop: "40px",
+            gap: "40px",
             // backgroundColor: "white",
             // padding: "20px",
             // borderRadius: "10px",
@@ -328,7 +330,8 @@ const styles = {
   container: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "center",
+    justifyContent: { xs: "flex-start", md: "center" },
+    paddingTop: { xs: "40px", md: "0px" },
     alignItems: "center",
     maxHeight: "93vh",
     height: "93vh",
@@ -343,7 +346,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "flex-start",
     height: "400px",
-    width: "500px",
+    width: { xs: "350px", md: "500px" },
     borderRadius: "10px",
     backgroundColor: "black",
   },
