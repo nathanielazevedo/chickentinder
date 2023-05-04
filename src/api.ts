@@ -1,6 +1,6 @@
 const localUrl = "http://localhost:6001";
 const prodUrl =
-  "http://chickentinder.eba-hn9224mj.us-west-2.elasticbeanstalk.com/";
+  "https://chickentinder.eba-hn9224mj.us-west-2.elasticbeanstalk.com/";
 
 const baseUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
 
