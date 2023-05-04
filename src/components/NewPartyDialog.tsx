@@ -2,8 +2,10 @@ import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { Box, DialogContent, Typography } from "@mui/material";
 // import baseUrl from "../api.js";
+const localUrl = "http://localhost:3000/";
+const prodUrl = "https://nathanielazevedo.github.io/chickentinder/";
 
-const baseUrl = "https://healthy-red-cricket.cyclic.app/";
+const baseUrl = process.env.NODE_ENV === "development" ? localUrl : prodUrl;
 
 export interface NewPartyDialog {
   open: boolean;
