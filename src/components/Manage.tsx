@@ -1,11 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Results from "./Results";
 import NavBar from "./Navbar";
 
 const Manage = () => {
-  const { id } = useParams<any>();
+  const { id } = useParams<{ id: string }>();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [party, setParty] = useState<any>(undefined);
 
   useEffect(() => {

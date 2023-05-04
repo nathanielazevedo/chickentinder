@@ -1,16 +1,16 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import NavBar from "./Navbar";
 import { Box, Card, Rating, Typography } from "@mui/material";
 // import { data } from "../../tomtom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useEffect, useState } from "react";
-import drum from "../assets/drum.svg";
 import food from "../assets/food.jpeg";
 import { useParams } from "react-router-dom";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Swipe = () => {
-  const { id } = useParams<any>();
+  const { id } = useParams<{ id: string }>();
   const [party, setParty] = useState<any>(undefined);
   const [likes, setLikes] = useState<any>([]);
   const [swipe, setSwipe] = useState<any>(undefined);
@@ -30,7 +30,7 @@ const Swipe = () => {
     });
   }, [id]);
 
-  const getSwipe = (id: any) => {
+  const getSwipe = (id: string) => {
     if (swipe?.id === id) {
       if (swipe.direction === "left") {
         return "cssanimation sequence fadeOutLeft";
