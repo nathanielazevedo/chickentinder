@@ -1,0 +1,38 @@
+import { Box } from "@mui/material";
+import Results from "./Results";
+import Navbar from "./Navbar";
+
+const ResultsPage = () => {
+  return (
+    <>
+      <Navbar />
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <Box
+          sx={{
+            backgroundColor: "white",
+            padding: "40px",
+            borderRadius: "20px",
+            width: "500px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "flex-start",
+            gap: "20px",
+          }}
+        >
+          <Results />
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+export default ResultsPage;

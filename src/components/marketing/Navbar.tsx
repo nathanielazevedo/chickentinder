@@ -18,7 +18,7 @@ const NavBar = () => {
           </Link>
           <Box sx={styles.linksContainer}>
             <Link
-              to="home"
+              to="create"
               style={{
                 width: "100%",
                 display: "flex",
@@ -39,7 +39,7 @@ const NavBar = () => {
             </Link>
           </Box>
           <Box sx={styles.menuContainer}>
-            <Link to="home">
+            <Link to="create">
               <Button
                 variant="contained"
                 sx={{

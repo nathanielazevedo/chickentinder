@@ -1,17 +1,34 @@
 import NavBar from "./Navbar";
 import { Box, Card, Rating, Typography } from "@mui/material";
-import { data } from "../../tomtom";
+// import { data } from "../../tomtom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import drum from "../assets/drum.svg";
 import food from "../assets/food.jpeg";
+import { useParams } from "react-router-dom";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Main = () => {
-  const [restaurants, setRestaurants] = useState<any>(data.businesses);
+const Swipe = () => {
+  const { id } = useParams<any>();
+  const [party, setParty] = useState<any>(undefined);
   const [likes, setLikes] = useState<any>([]);
   const [swipe, setSwipe] = useState<any>(undefined);
+  const [restaurants, setRestaurants] = useState<any>(undefined);
+
+  useEffect(() => {
+    fetch("http://localhost:6001/party/" + id, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }).then((res) => {
+      res.json().then((data) => {
+        setParty(data);
+        setRestaurants(structuredClone(data.restaurants));
+      });
+    });
+  }, [id]);
 
   const getSwipe = (id: any) => {
     if (swipe?.id === id) {
@@ -25,20 +42,51 @@ const Main = () => {
     }
   };
 
-  if (restaurants.length === 0) {
+  useEffect(() => {
+    const submitVotes = () => {
+      fetch("http://localhost:6001/party/" + id + "/vote", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ votes: likes }),
+      }).then((res) => {
+        res.json().then((data) => {
+          console.log(data);
+          console.log("success");
+        });
+      });
+    };
+    if (party && party?.restaurants?.length === 0) {
+      submitVotes();
+    }
+  }, [id, likes, party]);
+
+  if (!party) {
+    return (
+      <>
+        <Typography>Loading</Typography>
+      </>
+    );
+  }
+
+  if (party?.restaurants?.length === 0) {
     return (
       <>
         <NavBar />
-        <Box sx={{ ...styles.container, gap: "70px", flexDirection: "row" }}>
+        <Box sx={{ ...styles.container, gap: "10px", flexDirection: "column" }}>
           <Box
             sx={{
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
               gap: "20px",
+              backgroundColor: "white",
+              padding: "20px",
+              borderRadius: "20px",
             }}
           >
-            <img src={drum} alt="drum" width="200px" />
+            {/* <img src={drum} alt="drum" width="200px" /> */}
             <Typography variant="h4" color={"primary"}>
               Awesome! You liked {likes.length} restaurants!
             </Typography>
@@ -52,7 +100,7 @@ const Main = () => {
               gap: "20px",
             }}
           >
-            {data.businesses.map((result: any) => {
+            {restaurants.map((result: any) => {
               if (!likes.includes(result.id)) return null;
               return (
                 <Card
@@ -144,7 +192,7 @@ const Main = () => {
                             variant="h6"
                             color="secondary"
                           >
-                            {category.title}
+                            #{category.title}
                           </Typography>
                         );
                       })}
@@ -158,105 +206,102 @@ const Main = () => {
       </>
     );
   }
+  const restaurant = party.restaurants[party.restaurants.length - 1];
   return (
     <>
       <NavBar />
       <Box sx={styles.container}>
-        {restaurants.map((result: any, index: number) => {
-          const last = restaurants.length - 1;
-          return (
-            <Card
-              elevation={3}
-              key={result.id}
-              className={getSwipe(result?.id)}
-              sx={{
-                ...styles.restaurantContainer,
-                position: "relative",
-                display: index === last ? "flex" : "none",
-                padding: "20px",
-              }}
-            >
-              <img
-                src={result.image_url}
-                alt={result.name}
-                style={{
-                  maxWidth: "100%",
-                  maxHeight: "100%",
-                  position: "absolute",
-                  filter: "brightness(40%)",
-                  borderRadius: "10px",
-                  right: 0,
-                }}
-              />
+        <Card
+          elevation={3}
+          key={restaurant.id}
+          className={getSwipe(restaurant?.id)}
+          sx={{
+            ...styles.restaurantContainer,
+            position: "relative",
+            display: "flex",
+            padding: "20px",
+          }}
+        >
+          <img
+            src={restaurant.image_url}
+            alt={restaurant.name}
+            style={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              position: "absolute",
+              filter: "brightness(40%)",
+              borderRadius: "10px",
+              right: 0,
+            }}
+          />
+          <Box
+            sx={{
+              zIndex: 1,
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              alignItems: "flex-start",
+            }}
+          >
+            <Box>
+              <Typography variant="h5" color="secondary">
+                {restaurant.name}
+              </Typography>
+              <Typography variant="h6" color="secondary">
+                {restaurant.location?.address1}, {restaurant.location?.city}
+              </Typography>
+              {restaurant.price && (
+                <Typography variant="h6" color="secondary">
+                  Price: {restaurant.price}
+                </Typography>
+              )}
               <Box
                 sx={{
-                  zIndex: 1,
-                  height: "100%",
                   display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
-                <Box>
-                  <Typography variant="h5" color="secondary">
-                    {result.name}
-                  </Typography>
-                  <Typography variant="h6" color="secondary">
-                    {result.location?.address1}, {result.location?.city}
-                  </Typography>
-                  {result.price && (
-                    <Typography variant="h6" color="secondary">
-                      Price: {result.price}
-                    </Typography>
-                  )}
-                  <Box
-                    sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      alignItems: "center",
-                    }}
-                  >
-                    <Rating
-                      name="simple-controlled"
-                      value={result.rating}
-                      disabled
-                    />
-                    <Typography variant="h6" color="secondary">
-                      - {result.review_count} reviews
-                    </Typography>
-                  </Box>
-
-                  <Typography variant="h6" color="secondary">
-                    {result.display_phone}
-                  </Typography>
-                  <a href={result.url} target="_blank">
-                    <Typography sx={styles.link} variant="h6" color="secondary">
-                      View on Yelp
-                    </Typography>
-                  </a>
-                </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "row",
-                    gap: "10px",
-                    justifySelf: "flex-end",
-                    flexWrap: "wrap",
-                  }}
-                >
-                  {result.categories.map((category: any) => {
-                    return (
-                      <Typography variant="h6" color="secondary">
-                        #{category.title}
-                      </Typography>
-                    );
-                  })}
-                </Box>
+                <Rating
+                  name="simple-controlled"
+                  value={restaurant.rating}
+                  disabled
+                />
+                <Typography variant="h6" color="secondary">
+                  - {restaurant.review_count} reviews
+                </Typography>
               </Box>
-            </Card>
-          );
-        })}
+
+              <Typography variant="h6" color="secondary">
+                {restaurant.display_phone}
+              </Typography>
+              <a href={restaurant.url} target="_blank">
+                <Typography sx={styles.link} variant="h6" color="secondary">
+                  View on Yelp
+                </Typography>
+              </a>
+            </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "10px",
+                justifySelf: "flex-end",
+                flexWrap: "wrap",
+              }}
+            >
+              {restaurant.categories.map((category: any, index: number) => {
+                return (
+                  <Typography variant="h6" color="secondary" key={index}>
+                    #{category.title}
+                  </Typography>
+                );
+              })}
+            </Box>
+          </Box>
+        </Card>
+
         <Box
           sx={{
             display: "flex",
@@ -283,12 +328,12 @@ const Main = () => {
             }}
             color="error"
             onClick={() => {
-              const selected = restaurants[restaurants.length - 1];
+              const selected = party.restaurants[party.restaurants.length - 1];
               setSwipe({ id: selected.id, direction: "left" });
               setTimeout(() => {
-                setRestaurants((prevState: any) => {
-                  prevState.pop();
-                  return [...prevState];
+                setParty((prevState: any) => {
+                  prevState.restaurants.pop();
+                  return { ...prevState };
                 });
               }, 1000);
             }}
@@ -307,13 +352,13 @@ const Main = () => {
             }}
             color="success"
             onClick={() => {
-              const selected = restaurants[restaurants.length - 1];
+              const selected = party.restaurants[party.restaurants.length - 1];
               setLikes((prevState: any) => [...prevState, selected.id]);
               setSwipe({ id: selected.id, direction: "right" });
               setTimeout(() => {
-                setRestaurants((prevState: any) => {
-                  prevState.pop();
-                  return [...prevState];
+                setParty((prevState: any) => {
+                  prevState.restaurants.pop();
+                  return { ...prevState };
                 });
               }, 1000);
             }}
@@ -324,7 +369,7 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Swipe;
 
 const styles = {
   container: {
