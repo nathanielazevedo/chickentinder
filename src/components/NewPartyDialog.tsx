@@ -1,6 +1,7 @@
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { Box, DialogContent, Typography } from "@mui/material";
+import baseUrl from "../api.js";
 
 export interface NewPartyDialog {
   open: boolean;
@@ -38,16 +39,13 @@ const NewPartyDialog = ({ open, setOpen, party }: NewPartyDialog) => {
             }}
           >
             <Typography>Send this link to your friends!</Typography>
-            <a
-              href={`http://localhost:5173/chickentinder/party/` + party._id}
-              target="_blank"
-            >
+            <a href={baseUrl + party._id} target="_blank">
               <Typography
                 sx={{
                   color: "blue",
                 }}
               >
-                http://localhost:5173/chickentinder/party/{party._id}
+                {baseUrl}/{party._id}
               </Typography>
             </a>
           </Box>
