@@ -43,7 +43,7 @@ const NewPartyDialog = ({ open, setOpen, party }: NewPartyDialog) => {
             }}
           >
             <Typography>Send this link to your friends!</Typography>
-            <a href={baseUrl + party._id} target="_blank">
+            <a href={baseUrl + "/party/" + party._id} target="_blank">
               <Typography
                 sx={{
                   color: "blue",
