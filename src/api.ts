@@ -1,8 +1,7 @@
 const localUrl = "http://localhost:6001";
 const prodUrl = "https://healthy-red-cricket.cyclic.app/";
 
-// const baseUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
-const baseUrl = prodUrl;
+const baseUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
 
 const getParty = async (id: string): Promise<any> => {
   return fetch(baseUrl + "party/" + id, {
