@@ -1,8 +1,8 @@
 const localUrl = "http://localhost:6001";
-const prodUrl =
-  "https://chickentinder.eba-hn9224mj.us-west-2.elasticbeanstalk.com/";
+const prodUrl = "https://healthy-red-cricket.cyclic.app/";
 
-const baseUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
+// const baseUrl = process.env.NODE_ENV === "production" ? prodUrl : localUrl;
+const baseUrl = prodUrl;
 
 const getParty = async (id: string): Promise<any> => {
   return fetch(baseUrl + "party/" + id, {
