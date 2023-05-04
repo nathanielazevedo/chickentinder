@@ -7,6 +7,7 @@ import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useEffect, useState } from "react";
 import food from "../assets/food.jpeg";
 import { useParams } from "react-router-dom";
+import API from "../api";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Swipe = () => {
@@ -17,17 +18,17 @@ const Swipe = () => {
   const [restaurants, setRestaurants] = useState<any>(undefined);
 
   useEffect(() => {
-    fetch("http://localhost:6001/party/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      res.json().then((data) => {
-        setParty(data);
-        setRestaurants(structuredClone(data.restaurants));
-      });
-    });
+    const getParty = async () => {
+      try {
+        if (!id) return;
+        const party = await API.getParty(id);
+        setParty(party);
+        setRestaurants(structuredClone(party.restaurants));
+      } catch {
+        console.log("error");
+      }
+    };
+    getParty();
   }, [id]);
 
   const getSwipe = (id: string) => {
@@ -44,18 +45,12 @@ const Swipe = () => {
 
   useEffect(() => {
     const submitVotes = () => {
-      fetch("http://localhost:6001/party/" + id + "/vote", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ votes: likes }),
-      }).then((res) => {
-        res.json().then((data) => {
-          console.log(data);
-          console.log("success");
-        });
-      });
+      try {
+        if (!id) return;
+        API.vote(id, likes);
+      } catch {
+        console.log("error");
+      }
     };
     if (party && party?.restaurants?.length === 0) {
       submitVotes();

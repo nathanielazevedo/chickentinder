@@ -9,6 +9,7 @@ import {
 import { useState } from "react";
 import NewPartyDialog from "./NewPartyDialog";
 import { DateTimePicker } from "@mui/x-date-pickers";
+import API from "../api";
 
 const Create = () => {
   const [party, setParty] = useState(undefined);
@@ -31,21 +32,15 @@ const Create = () => {
     return Math.floor(miles);
   };
 
-  const createParty = () => {
-    fetch("http://localhost:6001/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-      body: JSON.stringify(formData),
-    }).then((res) => {
-      res.json().then((data) => {
-        setParty(data);
-        setOpen(true);
-        console.log(data);
-      });
-    });
+  const createParty = async () => {
+    try {
+      const party = await API.createParty(formData);
+      console.log(party);
+      setOpen(true);
+      setParty(party);
+    } catch {
+      console.log("error");
+    }
   };
 
   return (
@@ -130,6 +125,7 @@ const Create = () => {
                 width: "100%",
               }}
               value={formData.expirationDate}
+              // eslint-disable-next-line @typescript-eslint/no-explicit-any
               onChange={(newValue: any) =>
                 setFormData({ ...formData, expirationDate: newValue })
               }

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Results from "./Results";
 import NavBar from "./Navbar";
+import API from "../api";
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,16 +11,14 @@ const Manage = () => {
   const [party, setParty] = useState<any>(undefined);
 
   useEffect(() => {
-    fetch("http://localhost:6001/party/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      res.json().then((data) => {
-        setParty(data);
+    try {
+      if (!id) return;
+      API.getParty(id).then((res) => {
+        setParty(res);
       });
-    });
+    } catch (err) {
+      console.log(err);
+    }
   }, [id]);
 
   return (

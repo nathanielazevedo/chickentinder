@@ -6,6 +6,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import API from "../api";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function FormDialog({ open, setOpen }: any) {
@@ -17,21 +18,15 @@ export default function FormDialog({ open, setOpen }: any) {
     setOpen(false);
   };
 
-  const checkPassword = () => {
-    fetch("http://localhost:6001/party/" + id + "/password", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password: password }),
-    }).then((res) => {
-      if (res.status === 200) {
-        setOpen(false);
-        navigate("/party/" + id + "/manage");
-      } else {
-        setError(true);
-      }
-    });
+  const checkPassword = async () => {
+    if (!id) return;
+    const response = await API.validatePassword(id, password);
+    if (response) {
+      setOpen(false);
+      navigate("/party/" + id + "/manage");
+    } else {
+      setError(true);
+    }
   };
 
   return (

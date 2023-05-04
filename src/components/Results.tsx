@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import LinearProgress, {
   LinearProgressProps,
 } from "@mui/material/LinearProgress";
+import API from "../api";
 
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
@@ -28,13 +29,10 @@ const Results = () => {
   const [party, setParty] = React.useState<any>(undefined);
 
   useEffect(() => {
-    fetch("http://localhost:6001/party/" + id, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then((res) => {
-      res.json().then((data) => {
+    const getParty = async () => {
+      try {
+        if (!id) return;
+        const data = await API.getParty(id);
         data.restaurants.forEach((restaurant: any) => {
           if (data.votes[restaurant.id]) {
             restaurant.votes = data.votes[restaurant.id];
@@ -46,8 +44,11 @@ const Results = () => {
           return b.votes - a.votes;
         });
         setParty(data);
-      });
-    });
+      } catch {
+        console.log("error");
+      }
+    };
+    getParty();
   }, [id]);
 
   return (
