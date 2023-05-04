@@ -49,7 +49,7 @@ const NewPartyDialog = ({ open, setOpen, party }: NewPartyDialog) => {
                   color: "blue",
                 }}
               >
-                {baseUrl + party._id}
+                {baseUrl + "/party/" + party._id}
               </Typography>
             </a>
           </Box>
