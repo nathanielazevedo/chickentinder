@@ -1,7 +1,9 @@
 import DialogTitle from "@mui/material/DialogTitle";
 import Dialog from "@mui/material/Dialog";
 import { Box, DialogContent, Typography } from "@mui/material";
-import baseUrl from "../api.js";
+// import baseUrl from "../api.js";
+
+const baseUrl = "https://healthy-red-cricket.cyclic.app/";
 
 export interface NewPartyDialog {
   open: boolean;
@@ -45,7 +47,7 @@ const NewPartyDialog = ({ open, setOpen, party }: NewPartyDialog) => {
                   color: "blue",
                 }}
               >
-                {baseUrl}/{party._id}
+                {baseUrl + party._id}
               </Typography>
             </a>
           </Box>
