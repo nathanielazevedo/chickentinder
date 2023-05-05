@@ -8,7 +8,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import NewPartyDialog from "./NewPartyDialog";
 import { DateTimePicker } from "@mui/x-date-pickers";
 import API from "../api";
 import Navbar from "./Navbar";
@@ -17,7 +16,7 @@ import NewPartyScreen from "./NewPartyScreen";
 
 const Create = () => {
   const [party, setParty] = useState(undefined);
-  const [open, setOpen] = useState(false);
+  const setOpen = useState(false)[1];
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",

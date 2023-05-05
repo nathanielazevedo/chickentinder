@@ -5,7 +5,6 @@ import { Box, Card, Rating, Typography } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useEffect, useState } from "react";
-import food from "../assets/food.jpeg";
 import { useParams } from "react-router-dom";
 import API from "../api";
 
@@ -76,127 +75,128 @@ const Swipe = () => {
               flexDirection: "column",
               alignItems: "center",
               gap: "20px",
-              backgroundColor: "white",
               padding: "20px",
               borderRadius: "20px",
             }}
           >
-            {/* <img src={drum} alt="drum" width="200px" /> */}
-            <Typography variant="h4" color={"primary"}>
+            <Typography variant="h4" color="scondary">
               Awesome! You liked {likes.length} restaurants!
             </Typography>
           </Box>
-          <Box
-            sx={{
-              height: "800px",
-              overflowY: "scroll",
-              display: "flex",
-              flexDirection: "column",
-              gap: "20px",
-            }}
-          >
-            {restaurants.map((result: any) => {
-              if (!likes.includes(result.id)) return null;
-              return (
-                <Card
-                  elevation={3}
-                  key={result.id}
-                  sx={{
-                    ...styles.restaurantContainer,
-                    position: "relative",
-                    padding: "20px",
-                    minHeight: "300px",
-                  }}
-                >
-                  <img
-                    src={result.image_url}
-                    alt={result.name}
-                    style={{
-                      maxWidth: "100%",
-                      maxHeight: "100%",
-                      position: "absolute",
-                      filter: "brightness(40%)",
-                      borderRadius: "10px",
-                      right: 0,
-                    }}
-                  />
-                  <Box
+          {likes.length != 0 && (
+            <Box
+              sx={{
+                height: "800px",
+                overflowY: "scroll",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+              }}
+            >
+              {restaurants.map((result: any) => {
+                if (!likes.includes(result.id)) return null;
+                return (
+                  <Card
+                    elevation={3}
+                    key={result.id}
                     sx={{
-                      zIndex: 1,
-                      height: "100%",
-                      display: "flex",
-                      flexDirection: "column",
-                      justifyContent: "space-between",
-                      alignItems: "flex-start",
+                      ...styles.restaurantContainer,
+                      position: "relative",
+                      padding: "20px",
+                      minHeight: "300px",
                     }}
                   >
-                    <Box>
-                      <Typography variant="h5" color="secondary">
-                        {result.name}
-                      </Typography>
-                      <Typography variant="h6" color="secondary">
-                        {result.location?.address1}, {result.location?.city}
-                      </Typography>
-                      {result.price && (
-                        <Typography variant="h6" color="secondary">
-                          Price: {result.price}
+                    <img
+                      src={result.image_url}
+                      alt={result.name}
+                      style={{
+                        maxWidth: "100%",
+                        maxHeight: "100%",
+                        position: "absolute",
+                        filter: "brightness(40%)",
+                        borderRadius: "10px",
+                        right: 0,
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        zIndex: 1,
+                        height: "100%",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "space-between",
+                        alignItems: "flex-start",
+                      }}
+                    >
+                      <Box>
+                        <Typography variant="h5" color="secondary">
+                          {result.name}
                         </Typography>
-                      )}
+                        <Typography variant="h6" color="secondary">
+                          {result.location?.address1}, {result.location?.city}
+                        </Typography>
+                        {result.price && (
+                          <Typography variant="h6" color="secondary">
+                            Price: {result.price}
+                          </Typography>
+                        )}
+                        <Box
+                          sx={{
+                            display: "flex",
+                            flexDirection: "row",
+                            alignItems: "center",
+                          }}
+                        >
+                          <Rating
+                            name="simple-controlled"
+                            value={result.rating}
+                            disabled
+                          />
+                          <Typography variant="h6" color="secondary">
+                            - {result.review_count} reviews
+                          </Typography>
+                        </Box>
+
+                        <Typography variant="h6" color="secondary">
+                          {result.display_phone}
+                        </Typography>
+                        <a href={result.url} target="_blank">
+                          <Typography
+                            sx={styles.link}
+                            variant="h6"
+                            color="secondary"
+                          >
+                            View on Yelp
+                          </Typography>
+                        </a>
+                      </Box>
                       <Box
                         sx={{
                           display: "flex",
                           flexDirection: "row",
-                          alignItems: "center",
+                          gap: "10px",
+                          justifySelf: "flex-end",
+                          flexWrap: "wrap",
                         }}
                       >
-                        <Rating
-                          name="simple-controlled"
-                          value={result.rating}
-                          disabled
-                        />
-                        <Typography variant="h6" color="secondary">
-                          - {result.review_count} reviews
-                        </Typography>
+                        {result.categories.map((category: any) => {
+                          return (
+                            <Typography
+                              key={category.alias}
+                              variant="h6"
+                              color="secondary"
+                            >
+                              #{category.title}
+                            </Typography>
+                          );
+                        })}
                       </Box>
-
-                      <Typography variant="h6" color="secondary">
-                        {result.display_phone}
-                      </Typography>
-                      <a href={result.url} target="_blank">
-                        <Typography
-                          sx={styles.link}
-                          variant="h6"
-                          color="secondary"
-                        >
-                          View on Yelp
-                        </Typography>
-                      </a>
                     </Box>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: "10px",
-                        justifySelf: "flex-end",
-                      }}
-                    >
-                      {result.categories.map((category: any) => {
-                        return (
-                          <Typography
-                            key={category.alias}
-                            variant="h6"
-                            color="secondary"
-                          >
-                            #{category.title}
-                          </Typography>
-                        );
-                      })}
-                    </Box>
-                  </Box>
-                </Card>
-              );
-            })}
-          </Box>
+                  </Card>
+                );
+              })}
+            </Box>
+          )}
         </Box>
       </>
     );
@@ -215,6 +215,7 @@ const Swipe = () => {
             position: "relative",
             display: "flex",
             padding: "20px",
+            border: "0.1px solid white",
           }}
         >
           <img
@@ -377,8 +378,8 @@ const styles = {
     height: "93vh",
     width: "100vw",
     maxWidth: "100vw",
-    backgroundColor: "white",
-    backgroundImage: `url(${food})`,
+    backgroundColor: "#060816",
+    // backgroundImage: `url(${food})`,
   },
   restaurantContainer: {
     display: "flex",
