@@ -1,16 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NavBar from "./Navbar";
-import { Box, Card, CircularProgress, Rating, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Card,
+  CircularProgress,
+  Rating,
+  Typography,
+} from "@mui/material";
 // import { data } from "../../tomtom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import API from "../api";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Swipe = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [party, setParty] = useState<any>(undefined);
   const [likes, setLikes] = useState<any>([]);
   const [swipe, setSwipe] = useState<any>(undefined);
@@ -21,6 +30,9 @@ const Swipe = () => {
       try {
         if (!id) return;
         const party = await API.getParty(id);
+        if (party?.winner) {
+          navigate(`/party/${id}`);
+        }
         setParty(party);
         setRestaurants(structuredClone(party.restaurants));
       } catch {
@@ -28,7 +40,7 @@ const Swipe = () => {
       }
     };
     getParty();
-  }, [id]);
+  }, [id, navigate]);
 
   const getSwipe = (id: string) => {
     if (swipe?.id === id) {
@@ -93,6 +105,19 @@ const Swipe = () => {
             <Typography variant="h4" color="scondary">
               Awesome! You liked {likes.length} restaurants!
             </Typography>
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                height: "50px",
+                fontSize: "1rem",
+                background:
+                  "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+              }}
+              onClick={() => navigate(`/party/${id}`)}
+            >
+              Go to Main
+            </Button>
           </Box>
           {likes.length != 0 && (
             <Box
