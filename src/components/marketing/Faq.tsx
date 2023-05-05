@@ -103,8 +103,7 @@ export default function Faq() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              You can enter the final round. There's only one vote allowed per
-              user. Or, have us choose for you.
+              Chicken Tinder will randomly select one of the tied options.
             </Typography>
           </AccordionDetails>
         </Accordion>

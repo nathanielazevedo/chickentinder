@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { polygons } from "../../assets";
 import { constants } from "../../constants";
 import { globalStyles } from "../../styles";
@@ -25,23 +26,26 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
             </Typography>
             <Typography>
               Choose a location and a max distance from that location. We'll
-              fetch all the restaurants in that area. Swipe right on the
-              restaurants you like and left on the ones you don't. Once everyone
-              has swiped, the app will show you the restaurants that everyone
-              liked.
+              fetch all the restaurants in that area and generate a unique link
+              which you can send to your friends. Swipe right on the restaurants
+              you like and left on the ones you don't. Once everyone has swiped,
+              or the party creator ends the voting, you will be shown the
+              winner.
             </Typography>
-            <Button
-              variant="contained"
-              fullWidth
-              onClick={() => setOpen(true)}
-              sx={{
-                height: "50px",
-                marginTop: "20px",
-                background: globalStyles.gradientBg,
-              }}
-            >
-              Get Started
-            </Button>
+            <Link to="create">
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => setOpen(true)}
+                sx={{
+                  height: "50px",
+                  marginTop: "20px",
+                  background: globalStyles.gradientBg,
+                }}
+              >
+                Create a Party
+              </Button>
+            </Link>
           </Box>
           <Box
             sx={{

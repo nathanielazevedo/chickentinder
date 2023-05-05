@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import iphone from "../../assets/iphone.png";
 import { globalStyles } from "../../styles";
+import { Link } from "react-router-dom";
 
 const SectionThree = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   return (
@@ -10,7 +11,10 @@ const SectionThree = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
           <img src={iphone} width="200px" />
         </Box>
         <Box sx={styles.wordContainer}>
-          <Typography variant="h4" sx={{ fontWeight: "bold" }}>
+          <Typography
+            variant="h4"
+            sx={{ fontWeight: "bold", marginBottom: "5px" }}
+          >
             Where are we eating?
           </Typography>
           <Typography>
@@ -18,14 +22,16 @@ const SectionThree = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
             quickly and easily decide where to eat. Blame Chicken Tinder if you
             don't like the restaurant.
           </Typography>
-          <Button
-            fullWidth
-            sx={styles.button}
-            variant="contained"
-            onClick={() => setOpen(true)}
-          >
-            Get Started
-          </Button>
+          <Link to="create">
+            <Button
+              fullWidth
+              sx={styles.button}
+              variant="contained"
+              onClick={() => setOpen(true)}
+            >
+              Create a Party
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>
@@ -59,7 +65,7 @@ const styles = {
     alignSelf: { xs: "flex-start", lg: "center" },
   },
   button: {
-    marginTop: "20px",
+    marginTop: "30px",
     height: "50px",
     background: globalStyles.gradientBg,
   },

@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import { globalStyles } from "../../styles";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { Link } from "react-router-dom";
 
 const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   return (
@@ -20,17 +21,23 @@ const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
             quickly and easily decide where to eat with your friends. No more
             arguing over text.
           </Typography>
-          <Button
-            variant="contained"
-            onClick={() => setOpen(true)}
-            sx={styles.button}
-            color="success"
-          >
-            Get Started
-          </Button>
+          <Link to="create">
+            <Button
+              variant="contained"
+              onClick={() => setOpen(true)}
+              sx={styles.button}
+              color="success"
+            >
+              Create a Party
+            </Button>
+          </Link>
         </Box>
+
         <Box>
-          <CheckCircleOutlineIcon color="success" sx={{ fontSize: "200px" }} />
+          <CheckCircleOutlineIcon
+            color="success"
+            sx={{ fontSize: "200px", color: "lightblue" }}
+          />
         </Box>
       </Box>
     </Box>

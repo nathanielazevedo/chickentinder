@@ -41,13 +41,13 @@ export const constants = {
     {
       title: "Vote",
       description:
-        "You and your friends can vote on the location you want to go to. We'll show you all the matches and make a decision for you.",
+        "You and your friends can vote on the restaurant you want to go to. We'll tally up the votes and show you the winner.",
       icon: mobile,
     },
     {
       title: "Done",
       description:
-        "The decision is made. We'll show you the location and directions to get there. Have fun!",
+        "The decision is made! The generated link will remain active so party voters can see the results.",
       icon: creator,
     },
   ],
