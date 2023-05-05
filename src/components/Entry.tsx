@@ -22,7 +22,7 @@ const Entry = () => {
         <PasswordDialog open={open} setOpen={setOpen} />
         <Box
           sx={{
-            backgroundColor: "white",
+            // backgroundColor: "white",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -37,7 +37,7 @@ const Entry = () => {
             variant="h5"
             sx={{
               fontWeight: "bold",
-              color: "black",
+              color: "white",
               alignSelf: "flex-start",
             }}
           >
@@ -54,7 +54,7 @@ const Entry = () => {
               fullWidth
               sx={{
                 height: "50px",
-                fontSize: "1rem",
+                fontSize: "14px",
                 background:
                   "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
               }}
@@ -73,7 +73,7 @@ const Entry = () => {
               fullWidth
               sx={{
                 height: "50px",
-                fontSize: "1rem",
+                fontSize: "14px",
                 background:
                   "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
               }}
@@ -87,7 +87,7 @@ const Entry = () => {
             onClick={() => setOpen(true)}
             sx={{
               height: "50px",
-              fontSize: "1rem",
+              fontSize: "14px",
               background:
                 "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
             }}
