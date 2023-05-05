@@ -29,12 +29,12 @@ const Entry = () => {
             justifyContent: "center",
             padding: "40px",
             borderRadius: "20px",
-            width: "500px",
+            width: { xs: "100%", sm: "500px" },
             gap: "40px",
           }}
         >
           <Typography
-            variant="h4"
+            variant="h5"
             sx={{
               fontWeight: "bold",
               color: "black",

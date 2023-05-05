@@ -38,10 +38,11 @@ function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
               color="secondary"
               sx={{
                 display: "flex",
-                height: "30px",
+                height: "25px",
               }}
             >
               <Typography
+                fontSize="15px"
                 onClick={() => {
                   navigate(-1);
                 }}

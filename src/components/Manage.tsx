@@ -39,7 +39,7 @@ const Manage = () => {
               backgroundColor: "white",
               padding: "40px",
               borderRadius: "20px",
-              width: "500px",
+              width: { xs: "100%", sm: "500px" },
               display: "flex",
               flexDirection: "column",
               alignItems: "flex-start",

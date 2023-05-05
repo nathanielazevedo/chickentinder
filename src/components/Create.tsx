@@ -130,7 +130,7 @@ const Create = () => {
             backgroundColor: "white",
             padding: "40px",
             borderRadius: "20px",
-            width: "500px",
+            width: { xs: "100%", sm: "500px" },
           }}
         >
           <Typography
@@ -167,7 +167,7 @@ const Create = () => {
                   setFormData({ ...formData, location: e.target.value });
                 }}
               />
-              <Box sx={{ width: 400 }}>
+              <Box sx={{ width: { xs: 300, md: 400 } }}>
                 <Typography
                   id="slider"
                   gutterBottom

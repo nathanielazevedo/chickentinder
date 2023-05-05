@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import NavBar from "./Navbar";
-import { Box, Card, Rating, Typography } from "@mui/material";
+import { Box, Card, CircularProgress, Rating, Typography } from "@mui/material";
 // import { data } from "../../tomtom";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
@@ -59,7 +59,18 @@ const Swipe = () => {
   if (!party) {
     return (
       <>
-        <Typography>Loading</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+          }}
+        >
+          <Box>
+            <CircularProgress color="success" />
+          </Box>
+        </Box>
       </>
     );
   }
@@ -305,9 +316,6 @@ const Swipe = () => {
             width: "30%",
             marginTop: "40px",
             gap: "40px",
-            // backgroundColor: "white",
-            // padding: "20px",
-            // borderRadius: "10px",
           }}
         >
           <ThumbDownIcon
