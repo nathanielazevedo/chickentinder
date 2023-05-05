@@ -24,6 +24,7 @@ const Swipe = () => {
   const [likes, setLikes] = useState<any>([]);
   const [swipe, setSwipe] = useState<any>(undefined);
   const [restaurants, setRestaurants] = useState<any>(undefined);
+  const [buttonsActive, setButtonsActive] = useState<boolean>(true);
 
   useEffect(() => {
     const getParty = async () => {
@@ -357,6 +358,8 @@ const Swipe = () => {
             }}
             color="error"
             onClick={() => {
+              if (!buttonsActive) return;
+              setButtonsActive(false);
               const selected = party.restaurants[party.restaurants.length - 1];
               setSwipe({ id: selected.id, direction: "left" });
               setTimeout(() => {
@@ -364,6 +367,7 @@ const Swipe = () => {
                   prevState.restaurants.pop();
                   return { ...prevState };
                 });
+                setButtonsActive(true);
               }, 1000);
             }}
           />
@@ -381,6 +385,8 @@ const Swipe = () => {
             }}
             color="success"
             onClick={() => {
+              if (!buttonsActive) return;
+              setButtonsActive(false);
               const selected = party.restaurants[party.restaurants.length - 1];
               setLikes((prevState: any) => [...prevState, selected.id]);
               setSwipe({ id: selected.id, direction: "right" });
@@ -389,6 +395,7 @@ const Swipe = () => {
                   prevState.restaurants.pop();
                   return { ...prevState };
                 });
+                setButtonsActive(true);
               }, 1000);
             }}
           />
