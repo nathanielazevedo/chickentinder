@@ -18,6 +18,7 @@ const Create = () => {
   const [party, setParty] = useState(undefined);
   const setOpen = useState(false)[1];
   const [loading, setLoading] = useState(false);
+  const [generalError, setGeneralError] = useState("");
   const [formData, setFormData] = useState({
     name: "",
     location: "",
@@ -26,8 +27,14 @@ const Create = () => {
     maxVoters: "",
     password: "",
   });
-
-  console.log(formData);
+  const [errors, setErrors] = useState({
+    name: "",
+    location: "",
+    maxDistance: "",
+    expirationDate: "",
+    maxVoters: "",
+    password: "",
+  });
 
   const toMeters = (miles: number) => {
     const meters = miles * 1609.34;
@@ -40,9 +47,42 @@ const Create = () => {
   };
 
   const createParty = async () => {
+    const validation = () => {
+      let errorCount = 0;
+      if (formData.name === "") {
+        setErrors({ ...errors, name: "Name is required." });
+        errorCount += 1;
+      }
+      if (formData.location === "") {
+        setErrors({ ...errors, location: "Location is required." });
+        errorCount += 1;
+      }
+      if (formData.maxVoters === "") {
+        setErrors({ ...errors, maxVoters: "Max Voters is required." });
+        errorCount += 1;
+      }
+      if (formData.password === "") {
+        setErrors({ ...errors, password: "Password is required." });
+        errorCount += 1;
+      }
+      if (errorCount > 0) {
+        return false;
+      } else {
+        return true;
+      }
+    };
+    const valid = validation();
+    if (!valid) return;
     setLoading(true);
     try {
       const party = await API.createParty(formData);
+      console.log(party);
+      if (party?.error?.message) {
+        console.log(party.error);
+        setGeneralError(party.error.message);
+        setLoading(false);
+        return;
+      }
       setOpen(true);
       setParty(party);
       setLoading(false);
@@ -160,15 +200,23 @@ const Create = () => {
             >
               <TextField
                 label="Party Name"
+                error={errors.name !== ""}
                 fullWidth
+                required
+                helperText={errors.name}
                 onChange={(e) => {
+                  setErrors({ ...errors, name: "" });
                   setFormData({ ...formData, name: e.target.value });
                 }}
               />
               <TextField
                 label="City Name or Zip Code"
+                error={errors.location !== ""}
+                helperText={errors.location}
                 fullWidth
+                required
                 onChange={(e) => {
+                  setErrors({ ...errors, location: "" });
                   setFormData({ ...formData, location: e.target.value });
                 }}
               />
@@ -214,10 +262,17 @@ const Create = () => {
               <TextField
                 label="Number of Voters"
                 fullWidth
+                error={errors.maxVoters !== ""}
+                type="number"
                 onChange={(e) => {
+                  setErrors({ ...errors, maxVoters: "" });
                   setFormData({ ...formData, maxVoters: e.target.value });
                 }}
-                helperText="Voting will end when this many people have voted. Leave blank for no limit."
+                helperText={
+                  errors.maxVoters
+                    ? errors.maxVoters
+                    : "Voting will end when this many people have voted."
+                }
               />
               <Box
                 sx={{
@@ -226,11 +281,18 @@ const Create = () => {
               >
                 <TextField
                   label="Password"
+                  error={errors.password !== ""}
+                  type="password"
                   fullWidth
                   onChange={(e) => {
+                    setErrors({ ...errors, password: "" });
                     setFormData({ ...formData, password: e.target.value });
                   }}
-                  helperText="You can use this password later to manage this party."
+                  helperText={
+                    errors.password
+                      ? errors.password
+                      : "You can use this later to manage the party."
+                  }
                 />
               </Box>
               <Button
@@ -247,6 +309,16 @@ const Create = () => {
                 Create Party
               </Button>
             </FormControl>
+            {generalError && (
+              <Typography
+                color="error"
+                sx={{
+                  marginTop: "20px",
+                }}
+              >
+                {generalError}
+              </Typography>
+            )}
           </Box>
         </Box>
       </Box>

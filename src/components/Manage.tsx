@@ -210,6 +210,15 @@ const Manage = () => {
             >
               {party.name}
             </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                fontWeight: "bold",
+                color: "black",
+              }}
+            >
+              {party.voters} / {party.maxVoters} voters have voted
+            </Typography>
             <Results />
             <Button
               fullWidth

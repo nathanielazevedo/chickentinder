@@ -38,7 +38,9 @@ const createParty = async (formData: any): Promise<any> => {
           return data;
         });
       } else {
-        throw new Error("Error creating party");
+        return res.json().then((data) => {
+          return { error: data };
+        });
       }
     })
     .catch((err) => {
