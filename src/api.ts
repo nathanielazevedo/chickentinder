@@ -81,4 +81,21 @@ const validatePassword = async (id: string, password: string): Promise<any> => {
   });
 };
 
-export default { getParty, vote, validatePassword, createParty };
+const endParty = async (id: string): Promise<any> => {
+  return fetch(baseUrl + "party/" + id + "/end", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.json().then((data) => {
+        return data.winner;
+      });
+    } else {
+      return false;
+    }
+  });
+};
+
+export default { getParty, vote, validatePassword, createParty, endParty };

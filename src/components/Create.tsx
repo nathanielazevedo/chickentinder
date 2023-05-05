@@ -8,7 +8,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useState } from "react";
-import { DateTimePicker } from "@mui/x-date-pickers";
+// import { DateTimePicker } from "@mui/x-date-pickers";
 import API from "../api";
 import Navbar from "./Navbar";
 import dayjs from "dayjs";
@@ -23,8 +23,11 @@ const Create = () => {
     location: "",
     maxDistance: 10000,
     expirationDate: dayjs("2023-05-15T15:30"),
+    maxVoters: "",
     password: "",
   });
+
+  console.log(formData);
 
   const toMeters = (miles: number) => {
     const meters = miles * 1609.34;
@@ -130,7 +133,7 @@ const Create = () => {
           sx={{
             backgroundColor: "white",
             padding: "40px",
-            // borderRadius: "20px",
+            borderRadius: { xs: 0, sm: "20px" },
             width: { xs: "100%", sm: "500px" },
             height: { xs: "100%", sm: "auto" },
           }}
@@ -192,7 +195,7 @@ const Create = () => {
                   }}
                 />
               </Box>
-              <DateTimePicker
+              {/* <DateTimePicker
                 label="Expiration Date"
                 sx={{
                   width: "100%",
@@ -207,6 +210,14 @@ const Create = () => {
                     helperText: "This is when the party will complete.",
                   },
                 }}
+              /> */}
+              <TextField
+                label="Number of Voters"
+                fullWidth
+                onChange={(e) => {
+                  setFormData({ ...formData, maxVoters: e.target.value });
+                }}
+                helperText="Voting will end when this many people have voted. Leave blank for no limit."
               />
               <Box
                 sx={{

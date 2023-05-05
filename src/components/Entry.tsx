@@ -1,12 +1,24 @@
 import { Box, Button, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import PasswordDialog from "./PasswordDialog";
 import Navbar from "./Navbar";
+import API from "../api";
 
 const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
+  const [party, setParty] = useState({} as any);
+
+  useEffect(() => {
+    const getParty = async () => {
+      if (!id) return;
+      const res = await API.getParty(id);
+      setParty(res);
+    };
+    getParty();
+  }, [id]);
+
   return (
     <>
       <Navbar showButton={false} />
@@ -44,7 +56,7 @@ const Entry = () => {
             What are you here for?
           </Typography>
           <Link
-            to={`/party/${id}/vote`}
+            to={party.winner ? `/party/${id}/` : `/party/${id}/vote`}
             style={{
               width: "100%",
             }}
@@ -52,6 +64,7 @@ const Entry = () => {
             <Button
               variant="contained"
               fullWidth
+              disabled={party.winner ? true : false}
               sx={{
                 height: "50px",
                 fontSize: "14px",
@@ -59,7 +72,7 @@ const Entry = () => {
                   "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
               }}
             >
-              Vote
+              {party.winner ? "Winner Chosen" : "Vote"}
             </Button>
           </Link>
           <Link
