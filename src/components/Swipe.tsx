@@ -378,6 +378,7 @@ const styles = {
     height: "93vh",
     width: "100vw",
     maxWidth: "100vw",
+    overflow: "hidden",
     backgroundColor: "#060816",
     // backgroundImage: `url(${food})`,
   },
