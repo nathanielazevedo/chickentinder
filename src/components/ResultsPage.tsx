@@ -18,7 +18,7 @@ const ResultsPage = () => {
         <Box
           sx={{
             backgroundColor: "white",
-            padding: "40px",
+            padding: { xs: "40px 5px", sm: "40px" },
             borderRadius: "20px",
             width: { xs: "100%", sm: "600px" },
             display: "flex",

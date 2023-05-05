@@ -222,7 +222,7 @@ const styles = {
     flexDirection: "column",
     alignItems: "flex-start",
     height: "400px",
-    width: { xs: "350px", md: "500px" },
+    width: { xs: "100%", md: "500px" },
     borderRadius: "10px",
     backgroundColor: "black",
   },
