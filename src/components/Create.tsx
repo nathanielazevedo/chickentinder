@@ -5,7 +5,6 @@ import {
   FormControl,
   Slider,
   TextField,
-  ThemeProvider,
   Typography,
 } from "@mui/material";
 import { useState } from "react";
@@ -14,7 +13,6 @@ import API from "../api";
 import Navbar from "./Navbar";
 import dayjs from "dayjs";
 import NewPartyScreen from "./NewPartyScreen";
-import { darkTheme, theme } from "../theme";
 
 const Create = () => {
   const [party, setParty] = useState(undefined);
