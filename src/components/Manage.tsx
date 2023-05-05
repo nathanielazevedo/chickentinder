@@ -30,7 +30,7 @@ const Manage = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "100vh",
+          height: "calc(100vh - 80px)",
         }}
       >
         {party && (

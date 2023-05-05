@@ -9,14 +9,14 @@ const Entry = () => {
   const [open, setOpen] = useState(false);
   return (
     <>
-      <Navbar />
+      <Navbar showButton={false} />
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          height: "100vh",
+          height: "calc(100vh - 80px)",
         }}
       >
         <PasswordDialog open={open} setOpen={setOpen} />
@@ -34,7 +34,7 @@ const Entry = () => {
           }}
         >
           <Typography
-            variant="h5"
+            variant="h4"
             sx={{
               fontWeight: "bold",
               color: "black",
@@ -53,7 +53,7 @@ const Entry = () => {
               variant="contained"
               fullWidth
               sx={{
-                heigth: "50px",
+                height: "50px",
                 fontSize: "1rem",
                 background:
                   "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
@@ -72,7 +72,7 @@ const Entry = () => {
               variant="contained"
               fullWidth
               sx={{
-                heigth: "50px",
+                height: "50px",
                 fontSize: "1rem",
                 background:
                   "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
@@ -86,7 +86,7 @@ const Entry = () => {
             fullWidth
             onClick={() => setOpen(true)}
             sx={{
-              heigth: "50px",
+              height: "50px",
               fontSize: "1rem",
               background:
                 "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",

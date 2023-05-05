@@ -1,4 +1,4 @@
-const localUrl = "http://localhost:6001";
+const localUrl = "http://localhost:6001/";
 const prodUrl = "https://healthy-red-cricket.cyclic.app/";
 
 export const baseUrl =

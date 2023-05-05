@@ -11,46 +11,25 @@ const NavBar = () => {
     <AppBar position="static" elevation={0}>
       <Container sx={styles.container}>
         <Toolbar disableGutters>
-          <Link to="/intro">
+          <Link to="/">
             <Typography variant="h6" noWrap sx={styles.name}>
               CHICKEN TINDER
             </Typography>
           </Link>
-          <Box sx={styles.linksContainer}>
-            <Link
-              to="create"
-              style={{
-                width: "100%",
-                display: "flex",
-                justifyContent: "flex-end",
-              }}
-            >
-              <Button
-                variant="contained"
-                sx={{
-                  width: "20%",
-                  fontSize: "1rem",
-                  background:
-                    "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
-                }}
-              >
-                Get Started
-              </Button>
-            </Link>
-          </Box>
           <Box sx={styles.menuContainer}>
             <Link to="create">
               <Button
+                color="primary"
                 variant="contained"
                 sx={{
                   width: "100%",
-                  height: "50px",
-                  fontSize: "1rem",
+                  height: "30px",
+                  fontSize: { xs: "12px", sm: "16px" },
                   background:
                     "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
                 }}
               >
-                Get Started
+                Create a Party
               </Button>
             </Link>
           </Box>
@@ -68,7 +47,7 @@ const styles = {
   name: {
     mr: 2,
     fontWeight: 400,
-    fontSize: "1.7rem",
+    fontSize: { xs: "12px", sm: "16px" },
     letterSpacing: ".3rem",
   },
   linksContainer: {
@@ -78,7 +57,7 @@ const styles = {
   },
   menuContainer: {
     flexGrow: 1,
-    display: { xs: "flex", lg: "none" },
+    display: "flex",
     justifyContent: "flex-end",
   },
 };

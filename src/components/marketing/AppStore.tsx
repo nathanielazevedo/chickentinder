@@ -1,11 +1,12 @@
 import { Box, Button, Typography } from "@mui/material";
 import { globalStyles } from "../../styles";
+import { Link } from "react-router-dom";
 
 const SectionOne = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
-        <Box sx={{ width: "50%" }}>
+        <Box sx={{ width: { xs: "90%", md: "50%" } }}>
           <Typography color="black" variant="h4" fontWeight="bold" mb={1}>
             Get Started Now
           </Typography>
@@ -15,17 +16,24 @@ const SectionOne = () => {
           </Typography>
         </Box>
         <Box sx={styles.imageContainer}>
-          <Button
-            variant="contained"
-            fullWidth
-            sx={{
-              height: "50px",
-              marginTop: "20px",
-              background: globalStyles.gradientBg,
+          <Link
+            to="/create"
+            style={{
+              width: "100%",
             }}
           >
-            Request Access
-          </Button>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                height: "50px",
+                marginTop: "20px",
+                background: globalStyles.gradientBg,
+              }}
+            >
+              Create a Party
+            </Button>
+          </Link>
         </Box>
       </Box>
     </Box>
@@ -55,7 +63,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "40%",
+    width: { xs: "90%", md: "40%" },
     paddingTop: { xs: "50px", lg: "0" },
   },
 };

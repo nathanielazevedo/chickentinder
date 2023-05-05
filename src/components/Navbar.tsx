@@ -2,9 +2,10 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { Button } from "@mui/material";
 
-function ResponsiveAppBar() {
+function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
   const navigate = useNavigate();
   return (
     <AppBar position="static" elevation={0}>
@@ -16,28 +17,39 @@ function ResponsiveAppBar() {
             justifyContent: "space-between",
           }}
         >
-          <Typography
-            variant="h6"
-            noWrap
-            sx={{
-              mr: 2,
-              fontWeight: 400,
-              fontSize: "1.7rem",
-              letterSpacing: ".3rem",
-            }}
-          >
-            CHICKEN TINDER
-          </Typography>
-          <Typography
-            sx={{
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              navigate(-1);
-            }}
-          >
-            Go Back
-          </Typography>
+          <Link to="/">
+            <Typography
+              variant="h6"
+              noWrap
+              sx={{
+                mr: 2,
+                fontWeight: 400,
+                fontSize: { xs: "10px", sm: "16px" },
+                letterSpacing: ".3rem",
+                cursor: "pointer",
+              }}
+            >
+              CHICKEN TINDER
+            </Typography>
+          </Link>
+          {showButton && (
+            <Button
+              variant="contained"
+              color="secondary"
+              sx={{
+                display: "flex",
+                height: "30px",
+              }}
+            >
+              <Typography
+                onClick={() => {
+                  navigate(-1);
+                }}
+              >
+                Go Back
+              </Typography>
+            </Button>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

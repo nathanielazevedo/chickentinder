@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { hero } from "../../assets";
+import { Link } from "react-router-dom";
 
 const Hero = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   return (
@@ -27,24 +28,27 @@ const Hero = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
             Where are we eating?
           </Typography>
           <Typography mb={3}>
-            A simple app to help you and your friends decide where to eat. Treat
-            making decisions as a dating app. Swipe right on the restaurants you
-            like and left on the ones you don't. Once everyone has swiped, the
-            app will show you the restaurants that everyone liked.
+            Chicken Tinder is an app to help you and your friends decide where
+            to eat. Treat making decisions as a dating app. Swipe right on the
+            restaurants you like and left on the ones you don't. Once everyone
+            has swiped, the app will show you the restaurants that everyone
+            liked.
           </Typography>
-          <Button
-            variant="contained"
-            sx={{
-              width: "100%",
-              height: "50px",
-              fontSize: "1rem",
-              background:
-                "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
-            }}
-            onClick={() => setOpen(true)}
-          >
-            Get Started
-          </Button>
+          <Link to="/create">
+            <Button
+              variant="contained"
+              sx={{
+                width: "100%",
+                height: "50px",
+                fontSize: "1rem",
+                background:
+                  "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+              }}
+              onClick={() => setOpen(true)}
+            >
+              Create a Party
+            </Button>
+          </Link>
         </Box>
         <Box
           sx={{
