@@ -1,20 +1,20 @@
-const localUrl = "http://localhost:6001/";
-const prodUrl = "https://healthy-red-cricket.cyclic.app/";
+const localUrl = 'http://localhost:6001/';
+const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
 
 export const baseUrl =
-  process.env.NODE_ENV === "production" ? prodUrl : localUrl;
+  process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
 
 const getParty = async (id: string): Promise<any> => {
-  return fetch(baseUrl + "party/" + id, {
-    method: "GET",
+  return fetch(baseUrl + 'party/' + id, {
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error("Error getting party");
+      if (res.status !== 200) throw new Error('Error getting party');
       return res.json().then((data) => {
-        console.log("here", data);
+        console.log('here', data);
         return data;
       });
     })
@@ -25,10 +25,10 @@ const getParty = async (id: string): Promise<any> => {
 
 const createParty = async (formData: any): Promise<any> => {
   return fetch(baseUrl, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
     body: JSON.stringify(formData),
   })
@@ -49,15 +49,15 @@ const createParty = async (formData: any): Promise<any> => {
 };
 
 const vote = async (id: string, likes: any): Promise<any> => {
-  return fetch(baseUrl + "party/" + id + "/vote", {
-    method: "POST",
+  return fetch(baseUrl + 'party/' + id + '/vote', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ votes: likes }),
   })
     .then((res) => {
-      if (res.status !== 200) throw new Error("Error voting");
+      if (res.status !== 200) throw new Error('Error voting');
       return res.json().then((data) => {
         return data;
       });
@@ -68,10 +68,10 @@ const vote = async (id: string, likes: any): Promise<any> => {
 };
 
 const validatePassword = async (id: string, password: string): Promise<any> => {
-  return fetch(baseUrl + "party/" + id + "/password", {
-    method: "POST",
+  return fetch(baseUrl + 'party/' + id + '/password', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({ password: password }),
   }).then((res) => {
@@ -84,10 +84,10 @@ const validatePassword = async (id: string, password: string): Promise<any> => {
 };
 
 const endParty = async (id: string): Promise<any> => {
-  return fetch(baseUrl + "party/" + id + "/end", {
-    method: "POST",
+  return fetch(baseUrl + 'party/' + id + '/end', {
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   }).then((res) => {
     if (res.status === 200) {
