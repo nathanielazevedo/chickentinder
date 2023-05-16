@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Coming+Soon&family=Poppins:wght@200;300;500&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -44,4 +45,24 @@ a {
     opacity: 0;
     transform: translateX(80%);
   }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #727070;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #484747;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

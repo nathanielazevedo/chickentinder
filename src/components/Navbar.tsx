@@ -1,55 +1,57 @@
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { Link, useNavigate } from "react-router-dom";
-import { Button } from "@mui/material";
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { Link, useNavigate } from 'react-router-dom';
+import { logo_white } from '../assets';
 
 function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
   const navigate = useNavigate();
   return (
-    <AppBar position="static" elevation={0}>
-      <Container sx={{ width: { xs: "100%", lg: "1200px" } }}>
+    <AppBar position='static' elevation={0}>
+      <Container sx={{ width: { xs: '100%', lg: '1200px' } }}>
         <Toolbar
           disableGutters
           sx={{
-            display: "flex",
-            justifyContent: "space-between",
+            display: 'flex',
+            justifyContent: 'space-between',
           }}
         >
-          <Link to="/">
+          <Link
+            to='/'
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '10px',
+            }}
+          >
+            <img src={logo_white} alt='' style={{ height: '40px' }} />
             <Typography
-              variant="h6"
+              variant='h6'
               noWrap
               sx={{
                 mr: 2,
                 fontWeight: 400,
-                fontSize: { xs: "10px", sm: "16px" },
-                letterSpacing: ".3rem",
-                cursor: "pointer",
+                fontSize: { xs: '10px', sm: '16px' },
+                letterSpacing: '.3rem',
+                cursor: 'pointer',
               }}
             >
               CHICKEN TINDER
             </Typography>
           </Link>
           {showButton && (
-            <Button
-              variant="contained"
-              color="secondary"
+            <Typography
+              fontSize='15px'
               sx={{
-                display: "flex",
-                height: "25px",
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                navigate(-1);
               }}
             >
-              <Typography
-                fontSize="15px"
-                onClick={() => {
-                  navigate(-1);
-                }}
-              >
-                Go Back
-              </Typography>
-            </Button>
+              Go Back
+            </Typography>
           )}
         </Toolbar>
       </Container>

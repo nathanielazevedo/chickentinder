@@ -48,6 +48,35 @@ const createParty = async (formData: any): Promise<any> => {
     });
 };
 
+const fetchRestaurants = async (formData: any): Promise<any> => {
+  return fetch(baseUrl + 'restaurants', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+    body: JSON.stringify({
+      location: formData.location,
+      maxDistance: formData.maxDistance,
+      number_of_restaurants: formData.number_of_restaurants,
+    }),
+  })
+    .then(async (res) => {
+      if (res.status === 200) {
+        return res.json().then((data) => {
+          return data;
+        });
+      } else {
+        return res.json().then((data) => {
+          return { error: data };
+        });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
 const vote = async (id: string, likes: any): Promise<any> => {
   return fetch(baseUrl + 'party/' + id + '/vote', {
     method: 'POST',
@@ -100,4 +129,11 @@ const endParty = async (id: string): Promise<any> => {
   });
 };
 
-export default { getParty, vote, validatePassword, createParty, endParty };
+export default {
+  getParty,
+  vote,
+  validatePassword,
+  createParty,
+  endParty,
+  fetchRestaurants,
+};

@@ -1,50 +1,53 @@
-import { Box, Typography } from "@mui/material";
-import { polygons } from "../../assets";
+import { Box, Typography } from '@mui/material';
+import { logo_no_word } from '../../assets';
 
 const Footer = () => {
   return (
     <Box
       sx={{
-        height: "40vh",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#060816",
-        maxWidth: "100vw",
+        height: '40vh',
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        maxWidth: '100vw',
       }}
     >
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-          alignItems: "center",
-          backgroundColor: "#060816",
-          width: { xs: "90%", sm: "90%", lg: "1200px" },
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
+          width: { xs: '90%', sm: '100%' },
         }}
       >
         <Box>
           <Typography
             sx={{
               fontWeight: 400,
-              fontSize: "1.7rem",
-              letterSpacing: ".3rem",
+              fontSize: '1.7rem',
+              letterSpacing: '.3rem',
             }}
           >
             Chicken Tinder
           </Typography>
           <Typography
             sx={{
-              fontStyle: "italic",
+              fontStyle: 'italic',
             }}
           >
             Copyright @2023
           </Typography>
           <Typography>All Rights Reserved</Typography>
         </Box>
-        <Box>
-          <img src={polygons} alt="" style={{ width: "170px" }} />
+        <Box
+          sx={{
+            width: { xs: '100px', sm: '200px' },
+          }}
+        >
+          <img src={logo_no_word} alt='' style={{ width: '100%' }} />
         </Box>
       </Box>
     </Box>

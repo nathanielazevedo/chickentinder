@@ -1,9 +1,9 @@
-import { Box, Button, Card, Rating, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import Results from "./Results";
-import NavBar from "./Navbar";
-import API from "../api";
+import { Box, Button, Card, Rating, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import Results from './Results';
+import NavBar from './Navbar';
+import API from '../api';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
@@ -40,33 +40,31 @@ const Manage = () => {
         <NavBar />
         <Box
           sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            height: "calc(100vh - 80px)",
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            height: 'calc(100vh - 80px)',
           }}
         >
           {party && (
             <Box
               sx={{
-                backgroundColor: "white",
-                padding: "40px",
-                borderRadius: "20px",
-                width: { xs: "100%", sm: "600px" },
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                gap: "20px",
+                padding: '40px',
+                borderRadius: '20px',
+                width: { xs: '100%', sm: '600px' },
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'flex-start',
+                gap: '20px',
               }}
             >
               <Typography
-                variant="h4"
+                variant='h4'
                 sx={{
-                  fontWeight: "bold",
-                  color: "black",
-                  alignSelf: "flex-start",
+                  fontWeight: 'bold',
+                  alignSelf: 'flex-start',
                 }}
               >
                 And the winner is...
@@ -76,91 +74,79 @@ const Manage = () => {
                 key={result.id}
                 sx={{
                   ...styles.restaurantContainer,
-                  position: "relative",
-                  padding: "20px",
-                  minHeight: "300px",
+                  position: 'relative',
+                  padding: '20px',
+                  minHeight: '300px',
                 }}
               >
                 <img
                   src={result.image_url}
                   alt={result.name}
                   style={{
-                    maxWidth: "100%",
-                    maxHeight: "100%",
-                    position: "absolute",
-                    filter: "brightness(40%)",
-                    borderRadius: "10px",
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    position: 'absolute',
+                    filter: 'brightness(40%)',
+                    borderRadius: '10px',
                     right: 0,
                   }}
                 />
                 <Box
                   sx={{
                     zIndex: 1,
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    alignItems: 'flex-start',
                   }}
                 >
                   <Box>
-                    <Typography variant="h5" color="secondary">
-                      {result.name}
-                    </Typography>
-                    <Typography variant="h6" color="secondary">
+                    <Typography variant='h5'>{result.name}</Typography>
+                    <Typography variant='h6'>
                       {result.location?.address1}, {result.location?.city}
                     </Typography>
                     {result.price && (
-                      <Typography variant="h6" color="secondary">
+                      <Typography variant='h6'>
                         Price: {result.price}
                       </Typography>
                     )}
                     <Box
                       sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        alignItems: "center",
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'center',
                       }}
                     >
                       <Rating
-                        name="simple-controlled"
+                        name='simple-controlled'
                         value={result.rating}
                         disabled
                       />
-                      <Typography variant="h6" color="secondary">
+                      <Typography variant='h6'>
                         - {result.review_count} reviews
                       </Typography>
                     </Box>
 
-                    <Typography variant="h6" color="secondary">
-                      {result.display_phone}
-                    </Typography>
-                    <a href={result.url} target="_blank">
-                      <Typography
-                        sx={styles.link}
-                        variant="h6"
-                        color="secondary"
-                      >
+                    <Typography variant='h6'>{result.display_phone}</Typography>
+                    <a href={result.url} target='_blank'>
+                      <Typography sx={styles.link} variant='h6'>
                         View on Yelp
                       </Typography>
                     </a>
                   </Box>
                   <Box
                     sx={{
-                      display: "flex",
-                      flexDirection: "row",
-                      gap: "10px",
-                      justifySelf: "flex-end",
-                      flexWrap: "wrap",
+                      display: 'flex',
+                      flexDirection: 'row',
+                      gap: '10px',
+                      justifySelf: 'flex-end',
+                      flexWrap: 'wrap',
                     }}
                   >
                     {result.categories.map((category: any) => {
                       return (
-                        <Typography
-                          key={category.alias}
-                          variant="h6"
-                          color="secondary"
-                        >
+                        <Typography key={category.alias} variant='h6'>
                           #{category.title}
                         </Typography>
                       );
@@ -180,41 +166,38 @@ const Manage = () => {
       <NavBar />
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          height: "calc(100vh - 80px)",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 'calc(100vh - 80px)',
         }}
       >
         {party && (
           <Box
             sx={{
-              backgroundColor: "white",
-              padding: "40px",
-              borderRadius: "20px",
-              width: { xs: "100%", sm: "500px" },
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "flex-start",
-              justifyContent: "flex-start",
-              gap: "20px",
+              padding: '40px',
+              borderRadius: '20px',
+              width: { xs: '100%', sm: '500px' },
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-start',
+              justifyContent: 'flex-start',
+              gap: '20px',
             }}
           >
             <Typography
-              variant="h3"
+              variant='h3'
               sx={{
-                fontWeight: "bold",
-                color: "black",
+                fontWeight: 'bold',
               }}
             >
               {party.name}
             </Typography>
             <Typography
-              variant="h5"
+              variant='h5'
               sx={{
-                fontWeight: "bold",
-                color: "black",
+                fontWeight: 'bold',
               }}
             >
               {party.voters} / {party.maxVoters} voters have voted
@@ -223,12 +206,12 @@ const Manage = () => {
             <Button
               fullWidth
               sx={{
-                heigth: "50px",
-                fontSize: "1rem",
-                fontWeight: "bold",
-                color: "white",
+                heigth: '50px',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                color: 'white',
                 background:
-                  "radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)",
+                  'radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)',
               }}
               onClick={endParty}
             >
@@ -245,31 +228,29 @@ export default Manage;
 
 const styles = {
   container: {
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: { xs: "flex-start", md: "center" },
-    paddingTop: { xs: "40px", md: "0px" },
-    alignItems: "center",
-    maxHeight: "93vh",
-    height: "93vh",
-    width: "100vw",
-    maxWidth: "100vw",
-    overflow: "hidden",
-    backgroundColor: "#060816",
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: { xs: 'flex-start', md: 'center' },
+    paddingTop: { xs: '40px', md: '0px' },
+    alignItems: 'center',
+    maxHeight: '93vh',
+    height: '93vh',
+    width: '100vw',
+    maxWidth: '100vw',
+    overflow: 'hidden',
     // backgroundImage: `url(${food})`,
   },
   restaurantContainer: {
-    display: "flex",
-    justifyContent: "center",
-    flexDirection: "column",
-    alignItems: "flex-start",
-    height: "400px",
-    width: { xs: "100%", md: "500px" },
-    borderRadius: "10px",
-    backgroundColor: "black",
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    height: '400px',
+    width: { xs: '100%', md: '500px' },
+    borderRadius: '10px',
   },
   link: {
-    textDecoration: "underline",
-    color: "lightblue",
+    textDecoration: 'underline',
+    color: 'lightblue',
   },
 };
