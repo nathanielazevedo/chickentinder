@@ -6,6 +6,7 @@ import {
   Card,
   CircularProgress,
   Rating,
+  Tooltip,
   Typography,
 } from '@mui/material';
 // import { data } from "../../tomtom";
@@ -15,6 +16,8 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import API from '../api';
+import { chick } from '../assets';
+import { party as partyM } from './mockP';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Swipe = () => {
@@ -23,6 +26,7 @@ const Swipe = () => {
   const [party, setParty] = useState<any>(undefined);
   const [likes, setLikes] = useState<any>([]);
   const [swipe, setSwipe] = useState<any>(undefined);
+  const [length, setLength] = useState<number>(0);
   const [restaurants, setRestaurants] = useState<any>(undefined);
   const [buttonsActive, setButtonsActive] = useState<boolean>(true);
 
@@ -36,11 +40,14 @@ const Swipe = () => {
         }
         setParty(party);
         setRestaurants(structuredClone(party.restaurants));
+        setLength(party.restaurants.length);
       } catch {
         console.log('error');
       }
     };
     getParty();
+
+    setParty(partyM);
   }, [id, navigate]);
 
   const getSwipe = (id: string) => {
@@ -92,7 +99,14 @@ const Swipe = () => {
     return (
       <>
         <NavBar />
-        <Box sx={{ ...styles.container, gap: '10px', flexDirection: 'column' }}>
+        <Box
+          sx={{
+            ...styles.container,
+            gap: '10px',
+            flexDirection: 'column',
+            marginTop: '50px',
+          }}
+        >
           <Box
             sx={{
               display: 'flex',
@@ -101,6 +115,7 @@ const Swipe = () => {
               gap: '20px',
               padding: '20px',
               borderRadius: '20px',
+              overflowX: 'hidden',
             }}
           >
             <Typography variant='h4' color='scondary'>
@@ -112,8 +127,6 @@ const Swipe = () => {
                 width: '100%',
                 height: '50px',
                 fontSize: '1rem',
-                background:
-                  'radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)',
               }}
               onClick={() => navigate(`/party/${id}`)}
             >
@@ -123,8 +136,6 @@ const Swipe = () => {
           {likes.length != 0 && (
             <Box
               sx={{
-                height: '800px',
-                overflowY: 'scroll',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '20px',
@@ -166,12 +177,14 @@ const Swipe = () => {
                       }}
                     >
                       <Box>
-                        <Typography variant='h5'>{result.name}</Typography>
-                        <Typography variant='h6'>
+                        <Typography variant='h5' color='white'>
+                          {result.name}
+                        </Typography>
+                        <Typography variant='h6' color='white'>
                           {result.location?.address1}, {result.location?.city}
                         </Typography>
                         {result.price && (
-                          <Typography variant='h6'>
+                          <Typography variant='h6' color='white'>
                             Price: {result.price}
                           </Typography>
                         )}
@@ -187,20 +200,16 @@ const Swipe = () => {
                             value={result.rating}
                             disabled
                           />
-                          <Typography variant='h6'>
+                          <Typography variant='h6' color='white'>
                             - {result.review_count} reviews
                           </Typography>
                         </Box>
 
-                        <Typography variant='h6' color='secondary'>
+                        <Typography variant='h6' color='white'>
                           {result.display_phone}
                         </Typography>
                         <a href={result.url} target='_blank'>
-                          <Typography
-                            sx={styles.link}
-                            variant='h6'
-                            color='secondary'
-                          >
+                          <Typography sx={styles.link} variant='h6'>
                             View on Yelp
                           </Typography>
                         </a>
@@ -219,7 +228,7 @@ const Swipe = () => {
                             <Typography
                               key={category.alias}
                               variant='h6'
-                              color='secondary'
+                              color='white'
                             >
                               #{category.title}
                             </Typography>
@@ -241,6 +250,26 @@ const Swipe = () => {
     <>
       <NavBar />
       <Box sx={styles.container}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: { xs: '350px', md: '500px' },
+          }}
+        >
+          <img
+            src={chick}
+            alt='chicken'
+            width='70px'
+            style={{
+              marginBottom: '10px',
+            }}
+          />
+          <Typography variant='h4'>
+            {length + 1 - party.restaurants.length} of {length}
+          </Typography>
+        </Box>
         <Card
           elevation={3}
           key={restaurant.id}
@@ -276,14 +305,14 @@ const Swipe = () => {
             }}
           >
             <Box>
-              <Typography variant='h5' color='primary'>
+              <Typography variant='h5' color='white'>
                 {restaurant.name}
               </Typography>
-              <Typography variant='h6' color='primary'>
+              <Typography variant='h6' color='white'>
                 {restaurant.location?.address1}, {restaurant.location?.city}
               </Typography>
               {restaurant.price && (
-                <Typography variant='h6' color='primary'>
+                <Typography variant='h6' color='white'>
                   Price: {restaurant.price}
                 </Typography>
               )}
@@ -299,16 +328,16 @@ const Swipe = () => {
                   value={restaurant.rating}
                   disabled
                 />
-                <Typography variant='h6' color='primary'>
+                <Typography variant='h6' color='white'>
                   - {restaurant.review_count} reviews
                 </Typography>
               </Box>
 
-              <Typography variant='h6' color='primary'>
+              <Typography variant='h6' color='white'>
                 {restaurant.display_phone}
               </Typography>
               <a href={restaurant.url} target='_blank'>
-                <Typography sx={styles.link} variant='h6' color='primary'>
+                <Typography sx={styles.link} variant='h6' color='white'>
                   View on Yelp
                 </Typography>
               </a>
@@ -324,7 +353,7 @@ const Swipe = () => {
             >
               {restaurant.categories.map((category: any, index: number) => {
                 return (
-                  <Typography variant='h6' color='primary' key={index}>
+                  <Typography variant='h6' color='white' key={index}>
                     #{category.title}
                   </Typography>
                 );
@@ -342,61 +371,65 @@ const Swipe = () => {
             gap: '40px',
           }}
         >
-          <ThumbDownIcon
-            sx={{
-              fontSize: '80px',
-              cursor: 'pointer',
-              border: '3px solid red',
-              borderRadius: '50%',
-              padding: '10px',
-              backgroundColor: 'white',
-              ':hover': {
-                backgroundColor: 'lightcoral',
-              },
-            }}
-            color='error'
-            onClick={() => {
-              if (!buttonsActive) return;
-              setButtonsActive(false);
-              const selected = party.restaurants[party.restaurants.length - 1];
-              setSwipe({ id: selected.id, direction: 'left' });
-              setTimeout(() => {
-                setParty((prevState: any) => {
-                  prevState.restaurants.pop();
-                  return { ...prevState };
-                });
-                setButtonsActive(true);
-              }, 1000);
-            }}
-          />
-          <ThumbUpIcon
-            sx={{
-              fontSize: '80px',
-              cursor: 'pointer',
-              border: '3px solid green',
-              borderRadius: '50%',
-              padding: '10px',
-              backgroundColor: 'white',
-              ':hover': {
-                backgroundColor: 'lightgreen',
-              },
-            }}
-            color='success'
-            onClick={() => {
-              if (!buttonsActive) return;
-              setButtonsActive(false);
-              const selected = party.restaurants[party.restaurants.length - 1];
-              setLikes((prevState: any) => [...prevState, selected.id]);
-              setSwipe({ id: selected.id, direction: 'right' });
-              setTimeout(() => {
-                setParty((prevState: any) => {
-                  prevState.restaurants.pop();
-                  return { ...prevState };
-                });
-                setButtonsActive(true);
-              }, 1000);
-            }}
-          />
+          <Tooltip title='Dislike'>
+            <ThumbDownIcon
+              sx={{
+                fontSize: '80px',
+                cursor: 'pointer',
+                border: '3px solid red',
+                borderRadius: '50%',
+                padding: '10px',
+                ':hover': {
+                  backgroundColor: 'lightcoral',
+                },
+              }}
+              color='error'
+              onClick={() => {
+                if (!buttonsActive) return;
+                setButtonsActive(false);
+                const selected =
+                  party.restaurants[party.restaurants.length - 1];
+                setSwipe({ id: selected.id, direction: 'left' });
+                setTimeout(() => {
+                  setParty((prevState: any) => {
+                    prevState.restaurants.pop();
+                    return { ...prevState };
+                  });
+                  setButtonsActive(true);
+                }, 1000);
+              }}
+            />
+          </Tooltip>
+          <Tooltip title='Like'>
+            <ThumbUpIcon
+              sx={{
+                fontSize: '80px',
+                cursor: 'pointer',
+                border: '3px solid green',
+                borderRadius: '50%',
+                padding: '10px',
+                ':hover': {
+                  backgroundColor: 'lightgreen',
+                },
+              }}
+              color='success'
+              onClick={() => {
+                if (!buttonsActive) return;
+                setButtonsActive(false);
+                const selected =
+                  party.restaurants[party.restaurants.length - 1];
+                setLikes((prevState: any) => [...prevState, selected.id]);
+                setSwipe({ id: selected.id, direction: 'right' });
+                setTimeout(() => {
+                  setParty((prevState: any) => {
+                    prevState.restaurants.pop();
+                    return { ...prevState };
+                  });
+                  setButtonsActive(true);
+                }, 1000);
+              }}
+            />
+          </Tooltip>
         </Box>
       </Box>
     </>
@@ -412,11 +445,10 @@ const styles = {
     justifyContent: { xs: 'flex-start', md: 'center' },
     paddingTop: { xs: '40px', md: '0px' },
     alignItems: 'center',
-    maxHeight: '93vh',
-    height: '93vh',
+
     width: '100vw',
     maxWidth: '100vw',
-    overflow: 'hidden',
+    overflowX: 'hidden',
   },
   restaurantContainer: {
     display: 'flex',

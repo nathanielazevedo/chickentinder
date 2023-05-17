@@ -43,6 +43,7 @@ function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
           {showButton && (
             <Typography
               fontSize='15px'
+              color='white'
               sx={{
                 cursor: 'pointer',
               }}

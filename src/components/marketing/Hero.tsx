@@ -2,6 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { logo_no_word } from '../../assets';
 import { bg } from '../../assets';
+import { globalStyles } from '../../styles';
 
 const Hero = () => {
   return (
@@ -12,6 +13,7 @@ const Hero = () => {
         alignItems: 'center',
         height: '80vh',
         maxWidth: '100vw',
+        backgroundColor: 'black',
         backgroundImage: `url(${bg})`,
         backgroundPosition: 'center',
       }}
@@ -35,21 +37,25 @@ const Hero = () => {
           sx={{
             width: '600px',
             zIndex: 1,
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
             padding: { xs: '20px', sm: '30px 5px' },
             borderRadius: '10px',
           }}
         >
           <Box>
-            <Typography variant='h1' sx={{ fontWeight: 'bold' }} mb={1.5}>
+            <Typography
+              variant='h1'
+              sx={{ fontWeight: 'bold' }}
+              mb={1.5}
+              color='white'
+            >
               Where are we eating?
             </Typography>
-            <Typography mb={3} variant='h5'>
-              Chicken Tinder helps your party decide where to eat and when.
-              Treat making decisions like a dating app. Swipe right on the
-              restaurants you like and left on the ones you don't. Your votes
-              are anonymous, so you can vote for your favorite restaurants
-              without worrying about peer pressure.
+            <Typography mb={3} variant='h5' color='white'>
+              Trying to organize a group dinner? Tired of the endless back and
+              forth? Chicken Tinder helps your party decide where to eat and
+              when. Swipe right on the restaurants you like and left on the ones
+              you don't. Your votes are anonymous, so you can vote for your
+              favorite restaurants without worrying about peer pressure.
             </Typography>
           </Box>
           <Link to='/create'>
@@ -58,6 +64,7 @@ const Hero = () => {
               sx={{
                 width: '100%',
                 height: '50px',
+                backgroundImage: globalStyles.gradientBg,
               }}
             >
               <Typography variant='h5' fontWeight='bold'>

@@ -11,6 +11,7 @@ const Footer = () => {
         justifyContent: 'center',
         alignItems: 'center',
         maxWidth: '100vw',
+        backgroundColor: 'black',
       }}
     >
       <Box
@@ -25,22 +26,25 @@ const Footer = () => {
       >
         <Box>
           <Typography
+            variant='h4'
+            color='white'
             sx={{
               fontWeight: 400,
-              fontSize: '1.7rem',
+
               letterSpacing: '.3rem',
             }}
           >
             Chicken Tinder
           </Typography>
           <Typography
+            color='white'
             sx={{
               fontStyle: 'italic',
             }}
           >
             Copyright @2023
           </Typography>
-          <Typography>All Rights Reserved</Typography>
+          <Typography color='white'>All Rights Reserved</Typography>
         </Box>
         <Box
           sx={{

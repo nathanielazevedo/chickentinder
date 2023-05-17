@@ -2,14 +2,15 @@ import { Link } from 'react-router-dom';
 import { logo_white } from '../../assets';
 import { constants } from '../../constants';
 import { Box, Button, Card, Typography } from '@mui/material';
+import { globalStyles } from '../../styles';
 
 const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   return (
     <Box sx={styles.container}>
       <Box
         sx={{
-          maxWidth: { xs: '90%', sm: '90%', md: '1100px' },
-          width: { xs: '100%', sm: '100%' },
+          maxWidth: { xs: '88%', sm: '90%', md: '1100px' },
+          width: { xs: '90%', sm: '100%' },
         }}
       >
         <Box
@@ -25,10 +26,15 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
               width: '550px',
             }}
           >
-            <Typography variant='h2' mb={0.5} sx={{ fontWeight: 'bold' }}>
+            <Typography
+              variant='h2'
+              mb={0.5}
+              sx={{ fontWeight: 'bold' }}
+              color='white'
+            >
               How It Works
             </Typography>
-            <Typography>
+            <Typography color='white'>
               Choose a location and a max distance from that location. We'll
               fetch all the restaurants in that area and generate a unique link
               which you can send to your friends. Swipe right on the restaurants
@@ -44,6 +50,7 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
                 sx={{
                   height: '50px',
                   marginTop: '20px',
+                  backgroundImage: globalStyles.gradientBg,
                 }}
               >
                 <Typography>Create a Party</Typography>
@@ -99,7 +106,7 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
                     alignItems: 'center',
                     zIndex: 1,
                     color: 'white',
-                    background: '#a82720',
+                    backgroundImage: globalStyles.gradientBg,
                   }}
                 >
                   <Typography variant='h4'>{i + 1}</Typography>
@@ -153,6 +160,7 @@ const styles = {
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: { xs: '150px 0', lg: '100px' },
+    padding: { xs: '100px 0', lg: '100px' },
+    backgroundColor: 'black',
   },
 };

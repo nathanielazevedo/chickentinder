@@ -57,7 +57,7 @@ const fetchRestaurants = async (formData: any): Promise<any> => {
     },
     body: JSON.stringify({
       location: formData.location,
-      maxDistance: formData.maxDistance,
+      max_distance: formData.max_distance,
       number_of_restaurants: formData.number_of_restaurants,
     }),
   })

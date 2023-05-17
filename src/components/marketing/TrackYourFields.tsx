@@ -67,5 +67,6 @@ const styles = {
   button: {
     marginTop: '30px',
     height: '50px',
+    backgroundImage: globalStyles.gradientBg,
   },
 };

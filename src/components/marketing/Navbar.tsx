@@ -5,6 +5,7 @@ import Toolbar from '@mui/material/Toolbar';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { logo_white } from '../../assets';
+import { globalStyles } from '../../styles';
 
 const NavBar = () => {
   return (
@@ -42,9 +43,9 @@ const styles = {
   },
   name: {
     mr: 2,
-    fontWeight: 400,
-    fontSize: { xs: '12px', sm: '16px' },
     letterSpacing: '.3rem',
+    fontWeight: 400,
+    fontSize: { xs: '10px', sm: '16px' },
   },
   linksContainer: {
     flexGrow: 1,

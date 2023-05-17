@@ -102,12 +102,14 @@ const Manage = () => {
                   }}
                 >
                   <Box>
-                    <Typography variant='h5'>{result.name}</Typography>
-                    <Typography variant='h6'>
+                    <Typography variant='h5' color='white'>
+                      {result.name}
+                    </Typography>
+                    <Typography variant='h6' color='white'>
                       {result.location?.address1}, {result.location?.city}
                     </Typography>
                     {result.price && (
-                      <Typography variant='h6'>
+                      <Typography variant='h6' color='white'>
                         Price: {result.price}
                       </Typography>
                     )}
@@ -123,14 +125,16 @@ const Manage = () => {
                         value={result.rating}
                         disabled
                       />
-                      <Typography variant='h6'>
+                      <Typography variant='h6' color='white'>
                         - {result.review_count} reviews
                       </Typography>
                     </Box>
 
-                    <Typography variant='h6'>{result.display_phone}</Typography>
+                    <Typography variant='h6' color='white'>
+                      {result.display_phone}
+                    </Typography>
                     <a href={result.url} target='_blank'>
-                      <Typography sx={styles.link} variant='h6'>
+                      <Typography sx={styles.link} variant='h6' color='white'>
                         View on Yelp
                       </Typography>
                     </a>
@@ -146,7 +150,11 @@ const Manage = () => {
                   >
                     {result.categories.map((category: any) => {
                       return (
-                        <Typography key={category.alias} variant='h6'>
+                        <Typography
+                          key={category.alias}
+                          variant='h6'
+                          color='white'
+                        >
                           #{category.title}
                         </Typography>
                       );
@@ -205,13 +213,11 @@ const Manage = () => {
             <Results />
             <Button
               fullWidth
+              variant='contained'
               sx={{
                 heigth: '50px',
                 fontSize: '1rem',
                 fontWeight: 'bold',
-                color: 'white',
-                background:
-                  'radial-gradient(926px at 2.7% 11%, #30a7d0 0%, rgb(178, 31, 102) 90%)',
               }}
               onClick={endParty}
             >
@@ -248,6 +254,7 @@ const styles = {
     height: '400px',
     width: { xs: '100%', md: '500px' },
     borderRadius: '10px',
+    backgroundColor: 'black',
   },
   link: {
     textDecoration: 'underline',

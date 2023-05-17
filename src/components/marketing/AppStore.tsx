@@ -1,5 +1,6 @@
 import { Box, Button, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { globalStyles } from '../../styles';
 
 const SectionOne = () => {
   return (
@@ -27,6 +28,7 @@ const SectionOne = () => {
               sx={{
                 height: '50px',
                 marginTop: '0px',
+                backgroundImage: globalStyles.gradientBg,
               }}
             >
               <Typography>Create a Party</Typography>
@@ -63,6 +65,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     width: { xs: '90%', sm: '90%', md: '55%', lg: '30%' },
-    paddingTop: { xs: '50px', lg: '0' },
+    paddingTop: { xs: '20px', lg: '0' },
   },
 };

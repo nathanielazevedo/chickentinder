@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Link, Typography } from '@mui/material';
 // import baseUrl from "../api.js";
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
@@ -13,7 +13,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
   return (
     <>
       <Typography
-        variant='h5'
+        variant='h3'
         sx={{
           fontWeight: 'bold',
         }}
@@ -28,11 +28,19 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           marginTop: '20px',
         }}
       >
-        <Typography>Send this link to your friends!</Typography>
-        <Typography color='error' fontWeight='bold'>
-          Don't lose this link!
-        </Typography>
-        <a href={baseUrl + 'party/' + party._id} target='_blank'>
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '10px',
+            marginBottom: '10px',
+          }}
+        >
+          <Typography>Send this link to your friends!</Typography>
+          <Typography color='error' fontWeight='bold'>
+            Don't lose it!
+          </Typography>
+        </Box>
+        <Link href={baseUrl + 'party/' + party._id} target='_blank'>
           <Typography
             sx={{
               wordBreak: 'break-all',
@@ -40,7 +48,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           >
             {baseUrl + 'party/' + party._id}
           </Typography>
-        </a>
+        </Link>
       </Box>
       <Box
         sx={{
