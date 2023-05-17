@@ -1,21 +1,19 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { Link } from 'react-router-dom';
 import Button from '../../components/Button';
+import TwoStack from '../../components/TwoStack';
 
-const SectionOne = () => {
+const GetStarted = () => {
   return (
-    <Box sx={styles.container}>
+    <Box sx={styles.outerContainer}>
       <Box sx={styles.innerContainer}>
-        <Box sx={{ width: { xs: '90%', md: '55%' } }}>
-          <Typography variant='h4' fontWeight='bold' mb={1}>
-            Get Started Now
-          </Typography>
-          <Typography>
-            Chicken Tinder is easy to use and doesn't require an account. Just
-            generate a new link and share it with your friends.
-          </Typography>
-        </Box>
-        <Box sx={styles.imageContainer}>
+        <TwoStack
+          variant='body'
+          title='Get Started Now'
+          body="Chicken Tinder is easy to use and doesn't require an account. Just
+            generate a new link and share it with your friends."
+        />
+        <Box>
           <Link
             to='/create'
             style={{
@@ -30,10 +28,10 @@ const SectionOne = () => {
   );
 };
 
-export default SectionOne;
+export default GetStarted;
 
 const styles = {
-  container: {
+  outerContainer: {
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
@@ -49,12 +47,5 @@ const styles = {
     alignItems: 'center',
     maxWidth: { xs: '100%', sm: '90%', md: '1100px' },
     width: { xs: '100%', sm: '100%' },
-  },
-  imageContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: { xs: '90%', sm: '90%', md: '55%', lg: '30%' },
-    paddingTop: { xs: '20px', lg: '0' },
   },
 };

@@ -4,6 +4,7 @@ import { constants } from '../../constants';
 import { Box, Card, Typography } from '@mui/material';
 import { globalStyles } from '../../styles';
 import Button from '../../components/Button';
+import TwoStack from '../../components/TwoStack';
 
 const HowItWorks = () => {
   return (
@@ -27,7 +28,19 @@ const HowItWorks = () => {
               width: '550px',
             }}
           >
-            <Typography
+            <TwoStack
+              variant='dark'
+              title='How It Works'
+              body="
+              Choose a location and a max distance from that location. We'll
+              fetch all the restaurants in that area and generate a unique link
+              which you can send to your friends. Swipe right on the restaurants
+              you like and left on the ones you don't. Once everyone has swiped,
+              or the party creator ends the voting, you will be shown the
+              winner.
+            "
+            />
+            {/* <Typography
               variant='h2'
               mb={0.5}
               sx={{ fontWeight: 'bold' }}
@@ -47,7 +60,7 @@ const HowItWorks = () => {
               you like and left on the ones you don't. Once everyone has swiped,
               or the party creator ends the voting, you will be shown the
               winner.
-            </Typography>
+            </Typography> */}
             <Link to='create'>
               <Button text='Create a Party' />
             </Link>

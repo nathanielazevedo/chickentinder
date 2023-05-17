@@ -12,12 +12,7 @@ const TwoStack = ({
   if (variant === 'hero') {
     return (
       <Box>
-        <Typography
-          variant='h1'
-          sx={{ fontWeight: 'bold' }}
-          mb={1.5}
-          color='white'
-        >
+        <Typography variant='h1' fontWeight='bold' mb={1.5} color='white'>
           {title}
         </Typography>
         <Typography mb={3} variant='h5' color='white'>
@@ -26,7 +21,21 @@ const TwoStack = ({
       </Box>
     );
   } else {
-    return <></>;
+    return (
+      <Box sx={{ width: { xs: '90%', md: '55%' } }}>
+        <Typography
+          variant='h4'
+          fontWeight='bold'
+          mb={1}
+          color={variant == 'dark' ? 'white' : 'black'}
+        >
+          {title}
+        </Typography>
+        <Typography color={variant == 'dark' ? 'white' : 'black'}>
+          {body}
+        </Typography>
+      </Box>
+    );
   }
 };
 
