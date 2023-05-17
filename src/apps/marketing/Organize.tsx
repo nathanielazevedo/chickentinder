@@ -1,9 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import iphone from '../../assets/iphone.png';
 import { globalStyles } from '../../styles';
 import { Link } from 'react-router-dom';
+import Button from '../../components/Button';
 
-const SectionThree = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
+const SectionThree = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
@@ -17,20 +18,17 @@ const SectionThree = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
           >
             Where are we eating?
           </Typography>
-          <Typography>
+          <Typography
+            sx={{
+              marginBottom: '20px',
+            }}
+          >
             Stop trying to organize your friends over text. Use our app to
             quickly and easily decide where to eat. Blame Chicken Tinder if you
             don't like the restaurant.
           </Typography>
           <Link to='create'>
-            <Button
-              fullWidth
-              sx={styles.button}
-              variant='contained'
-              onClick={() => setOpen(true)}
-            >
-              Create a Party
-            </Button>
+            <Button text='Create a Party' />
           </Link>
         </Box>
       </Box>

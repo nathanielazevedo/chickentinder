@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
 import { logo_white } from '../../assets';
 import { constants } from '../../constants';
-import { Box, Button, Card, Typography } from '@mui/material';
+import { Box, Card, Typography } from '@mui/material';
 import { globalStyles } from '../../styles';
+import Button from '../../components/Button';
 
-const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
+const HowItWorks = () => {
   return (
     <Box sx={styles.container}>
       <Box
@@ -34,7 +35,12 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
             >
               How It Works
             </Typography>
-            <Typography color='white'>
+            <Typography
+              color='white'
+              sx={{
+                marginBottom: '20px',
+              }}
+            >
               Choose a location and a max distance from that location. We'll
               fetch all the restaurants in that area and generate a unique link
               which you can send to your friends. Swipe right on the restaurants
@@ -43,18 +49,7 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
               winner.
             </Typography>
             <Link to='create'>
-              <Button
-                variant='contained'
-                fullWidth
-                onClick={() => setOpen(true)}
-                sx={{
-                  height: '50px',
-                  marginTop: '20px',
-                  backgroundImage: globalStyles.gradientBg,
-                }}
-              >
-                <Typography>Create a Party</Typography>
-              </Button>
+              <Button text='Create a Party' />
             </Link>
           </Box>
           <Box
@@ -85,6 +80,7 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
           {constants.marketingCards.map((card, i) => {
             return (
               <Box
+                key={i}
                 sx={{
                   display: 'flex',
                   flexDirection: 'column',
@@ -152,7 +148,7 @@ const SectionTwo = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   );
 };
 
-export default SectionTwo;
+export default HowItWorks;
 
 const styles = {
   container: {

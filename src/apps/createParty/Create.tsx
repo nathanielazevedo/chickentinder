@@ -1,27 +1,25 @@
+import API from '../../api';
+import { Formik } from 'formik';
+import { useState } from 'react';
+import { chick } from '../../assets';
+import { globalStyles } from '../../styles';
+import { object, string, number } from 'yup';
+import Navbar from '../../components/Navbar';
+import NewPartyScreen from './NewPartyScreen';
+import FormLabel from '@mui/material/FormLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import RestaurantsPreview from './RestaurantsPreview';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import {
   Box,
   Button,
   Checkbox,
-  CircularProgress,
   FormControl,
   Slider,
   Switch,
   TextField,
   Typography,
 } from '@mui/material';
-import { useState } from 'react';
-import API from '../api';
-import Navbar from './Navbar';
-import dayjs from 'dayjs';
-import NewPartyScreen from './NewPartyScreen';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import RestaurantsPreview from './RestaurantsPreview';
-import { chick } from '../assets';
-import { object, string, number, date, InferType } from 'yup';
-import { Formik } from 'formik';
-import { globalStyles } from '../styles';
 
 const partySchema = object({
   name: string().required('Required'),

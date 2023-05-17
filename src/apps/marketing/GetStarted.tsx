@@ -1,6 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { globalStyles } from '../../styles';
+import Button from '../../components/Button';
 
 const SectionOne = () => {
   return (
@@ -22,17 +22,7 @@ const SectionOne = () => {
               width: '100%',
             }}
           >
-            <Button
-              variant='contained'
-              fullWidth
-              sx={{
-                height: '50px',
-                marginTop: '0px',
-                backgroundImage: globalStyles.gradientBg,
-              }}
-            >
-              <Typography>Create a Party</Typography>
-            </Button>
+            <Button text='Create a Party' />
           </Link>
         </Box>
       </Box>

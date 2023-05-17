@@ -1,6 +1,6 @@
 import { Box } from '@mui/material';
 import Results from './Results';
-import Navbar from './Navbar';
+import Navbar from '../../components/NavBar';
 
 const ResultsPage = () => {
   return (

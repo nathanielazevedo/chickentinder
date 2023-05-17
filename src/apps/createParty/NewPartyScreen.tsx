@@ -50,29 +50,6 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           </Typography>
         </Link>
       </Box>
-      <Box
-        sx={{
-          marginTop: '20px',
-        }}
-      >
-        <Typography
-          variant='h6'
-          sx={{
-            fontWeight: 'bold',
-          }}
-        >
-          Restaurants:
-        </Typography>
-        <Box
-          sx={{
-            marginLeft: '20px',
-          }}
-        >
-          {party.restaurants.map((restaurant: any) => {
-            return <Typography>{restaurant.name}</Typography>;
-          })}
-        </Box>
-      </Box>
     </>
   );
 };

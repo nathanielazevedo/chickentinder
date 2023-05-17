@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
-import API from '../api';
+import API from '../../api';
 
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }

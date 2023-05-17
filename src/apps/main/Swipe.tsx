@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import NavBar from './Navbar';
+import NavBar from '../../components/NavBar';
 import {
   Box,
   Button,
@@ -9,17 +8,15 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-// import { data } from "../../tomtom";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import API from '../api';
-import { chick } from '../assets';
-import { party as partyM } from './mockP';
+import API from '../../api';
+import { chick } from '../../assets';
+import { party as partyM } from '../../mockData/mockP';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Swipe = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();

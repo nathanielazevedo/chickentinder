@@ -1,5 +1,5 @@
 import { Box, Button, Card, Link, Typography } from '@mui/material';
-import { chick } from '../assets';
+import { chick } from '../../assets';
 import Checkbox from '@mui/material/Checkbox';
 
 const RestaurantsPreview = ({

@@ -1,22 +1,20 @@
 import Faq from './Faq';
 import Hero from './Hero';
 import Footer from './Footer';
-import Navbar from './Navbar';
-import AppStore from './AppStore';
+import AppStore from './GetStarted';
 import HowItWorks from './HowItWorks';
-import SectionFour from './SectionFour';
+import Decisions from './Decisions';
 
-import TrackYourFields from './TrackYourFields';
+import Organize from './Organize';
 
 const Intro = () => {
   return (
     <>
-      <Navbar />
       <Hero />
       <AppStore />
       <HowItWorks />
-      <TrackYourFields />
-      <SectionFour />
+      <Organize />
+      <Decisions />
       <Faq />
       <Footer />
     </>

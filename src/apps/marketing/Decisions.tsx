@@ -1,9 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { Link } from 'react-router-dom';
 import { globalStyles } from '../../styles';
+import Button from '../../components/Button';
 
-const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
+const Decisions = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
@@ -16,23 +17,23 @@ const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
           <Typography
             variant='h3'
             color={'white'}
-            sx={{ fontWeight: 'bold', marginBottom: '10px' }}
+            mb={0.5}
+            sx={{ fontWeight: 'bold' }}
           >
             Make Decisions Faster
           </Typography>
-          <Typography color='white'>
+          <Typography
+            color='white'
+            sx={{
+              marginBottom: '20px',
+            }}
+          >
             Making decisions has never been easier. With Chicken Tinder, you can
             quickly and easily decide where to eat with your friends. No more
             arguing over text.
           </Typography>
           <Link to='create'>
-            <Button
-              variant='contained'
-              onClick={() => setOpen(true)}
-              sx={styles.button}
-            >
-              Create a Party
-            </Button>
+            <Button text='Create a Party' />
           </Link>
         </Box>
 
@@ -44,7 +45,7 @@ const SectionFour = ({ setOpen }: { setOpen: (val: boolean) => void }) => {
   );
 };
 
-export default SectionFour;
+export default Decisions;
 
 const styles = {
   container: {

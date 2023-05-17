@@ -2,8 +2,8 @@ import { Box, Button, Card, Rating, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Results from './Results';
-import NavBar from './Navbar';
-import API from '../api';
+import NavBar from '../../components/NavBar';
+import API from '../../api';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();

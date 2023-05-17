@@ -2,9 +2,9 @@ import { Box, Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PasswordDialog from './PasswordDialog';
-import Navbar from './Navbar';
-import API from '../api';
-import { chick } from '../assets';
+import Navbar from '../../components/NavBar';
+import API from '../../api';
+import { chick } from '../../assets';
 
 const Entry = () => {
   const { id } = useParams();

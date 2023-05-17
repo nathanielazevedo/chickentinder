@@ -1,39 +1,45 @@
-import Create from "./components/Create";
-import Entry from "./components/Entry";
-import Manage from "./components/Manage";
-import ResultsPage from "./components/ResultsPage";
-import Swipe from "./components/Swipe";
-import Intro from "./components/marketing/Intro";
-import { createBrowserRouter } from "react-router-dom";
+import Create from './apps/createParty/Create';
+import Entry from './apps/main/Entry';
+import Manage from './apps/main/Manage';
+import ResultsPage from './apps/main/ResultsPage';
+import Swipe from './apps/main/Swipe';
+import Intro from './apps/marketing/Intro';
+import { createBrowserRouter } from 'react-router-dom';
+import NavBar from './components/NavBar';
 
 export const router = createBrowserRouter(
   [
     {
-      path: "/",
-      element: <Intro />,
+      path: '/',
+      element: (
+        <>
+          <NavBar showButton={false} />
+          <Intro />
+        </>
+      ),
     },
     {
-      path: "/create",
+      path: '/create',
       element: <Create />,
     },
     {
-      path: "/party/:id/vote",
+      path: '/party/:id/vote',
       element: <Swipe />,
     },
     {
-      path: "/party/:id/results",
+      path: '/party/:id/results',
       element: <ResultsPage />,
     },
     {
-      path: "/party/:id/manage",
+      path: '/party/:id/manage',
       element: <Manage />,
     },
     {
-      path: "/party/:id",
+      path: '/party/:id',
       element: <Entry />,
     },
   ],
   {
-    basename: "/chickentinder",
+    basename: '/chickentinder',
   }
 );
