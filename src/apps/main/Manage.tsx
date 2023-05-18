@@ -2,7 +2,7 @@ import { Box, Button, Card, Rating, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Results from './Results';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/Navbar';
 import API from '../../api';
 import { Restaurant } from '../../models/Restaurant';
 import { Party } from '../../models/Party';

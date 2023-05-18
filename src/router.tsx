@@ -5,7 +5,7 @@ import ResultsPage from './apps/main/ResultsPage';
 import Swipe from './apps/main/Swipe';
 import Intro from './apps/marketing/Intro';
 import { createBrowserRouter } from 'react-router-dom';
-import NavBar from './components/NavBar';
+import NavBar from './components/Navbar';
 
 export const router = createBrowserRouter(
   [

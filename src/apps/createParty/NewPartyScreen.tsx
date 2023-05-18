@@ -1,5 +1,5 @@
 import { Box, Link, Typography } from '@mui/material';
-import Navbar from '../../components/NavBar';
+import Navbar from '../../components/Navbar';
 import { Party } from '../../models/Party';
 
 const localUrl = 'http://localhost:5173/chickentinder/';

@@ -1,5 +1,5 @@
 import { chick } from '../../assets';
-import Navbar from '../../components/NavBar';
+import Navbar from '../../components/Navbar';
 import { Box, Typography } from '@mui/material';
 
 const CreateLoad = () => {

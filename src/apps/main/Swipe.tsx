@@ -2,7 +2,7 @@ import API from '../../api';
 import { chick } from '../../assets';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../components/Navbar';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { Restaurant } from '../../models/Restaurant';

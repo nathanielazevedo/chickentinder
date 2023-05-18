@@ -1,7 +1,7 @@
 import { Box, Button, Card, Link, Typography } from '@mui/material';
 import { chick } from '../../assets';
 import Checkbox from '@mui/material/Checkbox';
-import Navbar from '../../components/NavBar';
+import Navbar from '../../components/Navbar';
 import { Restaurant } from '../../models/Restaurant';
 
 type RestaurantsPreviewProps = {

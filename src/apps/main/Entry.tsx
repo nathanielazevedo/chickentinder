@@ -2,7 +2,7 @@ import { Box, Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PasswordDialog from './PasswordDialog';
-import Navbar from '../../components/NavBar';
+import Navbar from '../../components/Navbar';
 import API from '../../api';
 import { chick } from '../../assets';
 import { Party } from '../../models/Party';

@@ -5,7 +5,7 @@ import { chick } from '../../assets';
 import CreateLoad from './CreateLoad';
 import { Party } from '../../models/Party';
 import { globalStyles } from '../../styles';
-import Navbar from '../../components/NavBar';
+import Navbar from '../../components/Navbar';
 import NewPartyScreen from './NewPartyScreen';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
