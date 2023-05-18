@@ -2,14 +2,21 @@ import { Box, Button, Card, Link, Typography } from '@mui/material';
 import { chick } from '../../assets';
 import Checkbox from '@mui/material/Checkbox';
 import Navbar from '../../components/NavBar';
+import { Restaurant } from '../../models/Restaurant';
+
+type RestaurantsPreviewProps = {
+  restaurants: Restaurant[];
+  moveAhead: () => void;
+  setRestaurants: (restaurants: Restaurant[] | undefined) => void;
+};
 
 const RestaurantsPreview = ({
   restaurants,
   moveAhead,
   setRestaurants,
-}: any) => {
-  const handleCheck = (id: number) => {
-    const newRestaurants = restaurants.map((restaurant: any) => {
+}: RestaurantsPreviewProps) => {
+  const handleCheck = (id: string) => {
+    const newRestaurants = restaurants.map((restaurant) => {
       if (restaurant.id === id) {
         return {
           ...restaurant,
@@ -62,7 +69,7 @@ const RestaurantsPreview = ({
                 marginTop: '25px',
               }}
             >
-              {restaurants.map((restaurant: any) => (
+              {restaurants.map((restaurant: Restaurant) => (
                 <Card
                   key={restaurant.id}
                   sx={{

@@ -209,10 +209,6 @@ const Create = () => {
                         onChange={(_e, value) => {
                           const inKm = toMeters(value as number);
                           setFieldValue('max_distance', inKm);
-                          // setFormData({
-                          //   ...formData,
-                          //   maxDistance: inKm as number,
-                          // });
                         }}
                       />
                     </Box>

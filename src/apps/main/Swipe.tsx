@@ -1,4 +1,13 @@
+import API from '../../api';
+import { chick } from '../../assets';
+import { Party } from '../../models/Party';
+import { useEffect, useState } from 'react';
 import NavBar from '../../components/NavBar';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import { Restaurant } from '../../models/Restaurant';
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import {
   Box,
   Button,
@@ -8,23 +17,19 @@ import {
   Tooltip,
   Typography,
 } from '@mui/material';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import API from '../../api';
-import { chick } from '../../assets';
-import { party as partyM } from '../../mockData/mockP';
 
 const Swipe = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [party, setParty] = useState<any>(undefined);
-  const [likes, setLikes] = useState<any>([]);
-  const [swipe, setSwipe] = useState<any>(undefined);
+  const [party, setParty] = useState<Party | undefined>(undefined);
+  const [likes, setLikes] = useState<string[]>([]);
+  const [swipe, setSwipe] = useState<
+    { id: string; direction: string } | undefined
+  >(undefined);
   const [length, setLength] = useState<number>(0);
-  const [restaurants, setRestaurants] = useState<any>(undefined);
+  const [restaurants, setRestaurants] = useState<Restaurant[] | undefined>(
+    undefined
+  );
   const [buttonsActive, setButtonsActive] = useState<boolean>(true);
 
   useEffect(() => {
@@ -43,8 +48,6 @@ const Swipe = () => {
       }
     };
     getParty();
-
-    setParty(partyM);
   }, [id, navigate]);
 
   const getSwipe = (id: string) => {
@@ -130,7 +133,7 @@ const Swipe = () => {
               Go to Main
             </Button>
           </Box>
-          {likes.length != 0 && (
+          {likes.length != 0 && restaurants && (
             <Box
               sx={{
                 display: 'flex',
@@ -138,7 +141,7 @@ const Swipe = () => {
                 gap: '20px',
               }}
             >
-              {restaurants.map((result: any) => {
+              {restaurants.map((result) => {
                 if (!likes.includes(result.id)) return null;
                 return (
                   <Card
@@ -220,7 +223,7 @@ const Swipe = () => {
                           flexWrap: 'wrap',
                         }}
                       >
-                        {result.categories.map((category: any) => {
+                        {result.categories.map((category) => {
                           return (
                             <Typography
                               key={category.alias}
@@ -348,7 +351,7 @@ const Swipe = () => {
                 flexWrap: 'wrap',
               }}
             >
-              {restaurant.categories.map((category: any, index: number) => {
+              {restaurant.categories.map((category, index) => {
                 return (
                   <Typography variant='h6' color='white' key={index}>
                     #{category.title}
@@ -388,7 +391,8 @@ const Swipe = () => {
                   party.restaurants[party.restaurants.length - 1];
                 setSwipe({ id: selected.id, direction: 'left' });
                 setTimeout(() => {
-                  setParty((prevState: any) => {
+                  setParty((prevState: Party | undefined) => {
+                    if (!prevState) return;
                     prevState.restaurants.pop();
                     return { ...prevState };
                   });
@@ -415,10 +419,11 @@ const Swipe = () => {
                 setButtonsActive(false);
                 const selected =
                   party.restaurants[party.restaurants.length - 1];
-                setLikes((prevState: any) => [...prevState, selected.id]);
+                setLikes((prevState) => [...prevState, selected.id]);
                 setSwipe({ id: selected.id, direction: 'right' });
                 setTimeout(() => {
-                  setParty((prevState: any) => {
+                  setParty((prevState: Party | undefined) => {
+                    if (!prevState) return;
                     prevState.restaurants.pop();
                     return { ...prevState };
                   });

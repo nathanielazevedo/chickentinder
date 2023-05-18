@@ -5,7 +5,7 @@ import Container from '@mui/material/Container';
 import { Link, useNavigate } from 'react-router-dom';
 import { logo_white } from '../assets';
 
-function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
+const NavBar = ({ showButton = true }: { showButton?: boolean }) => {
   const navigate = useNavigate();
   return (
     <AppBar position='static' elevation={0}>
@@ -58,5 +58,5 @@ function ResponsiveAppBar({ showButton = true }: { showButton?: boolean }) {
       </Container>
     </AppBar>
   );
-}
-export default ResponsiveAppBar;
+};
+export default NavBar;

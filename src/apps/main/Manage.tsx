@@ -4,12 +4,14 @@ import { useParams } from 'react-router-dom';
 import Results from './Results';
 import NavBar from '../../components/NavBar';
 import API from '../../api';
+import { Restaurant } from '../../models/Restaurant';
+import { Party } from '../../models/Party';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [party, setParty] = useState<any>(undefined);
-  const [result, setResult] = useState<any>(undefined);
+  const [party, setParty] = useState<Party | undefined>(undefined);
+  const [result, setResult] = useState<Restaurant | undefined>(undefined);
 
   useEffect(() => {
     try {
@@ -25,9 +27,9 @@ const Manage = () => {
 
   const endParty = async () => {
     try {
-      if (!id) return;
+      if (!id || !party) return;
       const res = await API.endParty(id);
-      const result = party.restaurants.find((r: any) => r.id === res);
+      const result = party.restaurants.find((r) => r.id === res);
       setResult(result);
     } catch (err) {
       console.log(err);
@@ -148,7 +150,7 @@ const Manage = () => {
                       flexWrap: 'wrap',
                     }}
                   >
-                    {result.categories.map((category: any) => {
+                    {result.categories.map((category) => {
                       return (
                         <Typography
                           key={category.alias}

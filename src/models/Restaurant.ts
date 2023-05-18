@@ -17,9 +17,16 @@ export type Restaurant = {
   };
   transactions: string[];
   price: string;
-  location: Location;
+  location: {
+    address1: string;
+    address2: string;
+    address3: string;
+    city: string;
+  };
   phone: string;
   display_phone: string;
   distance: number;
   checked: boolean;
+  description: string;
+  votes: number;
 };

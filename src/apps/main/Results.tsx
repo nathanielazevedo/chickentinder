@@ -1,10 +1,12 @@
-import { Box, Card, Rating, Typography } from '@mui/material';
+import API from '../../api';
 import React, { useEffect } from 'react';
+import { Party } from '../../models/Party';
 import { useParams } from 'react-router-dom';
+import { Restaurant } from '../../models/Restaurant';
+import { Box, Card, Rating, Typography } from '@mui/material';
 import LinearProgress, {
   LinearProgressProps,
 } from '@mui/material/LinearProgress';
-import API from '../../api';
 
 function LinearProgressWithLabel(
   props: LinearProgressProps & { value: number }
@@ -26,8 +28,8 @@ function LinearProgressWithLabel(
 
 const Results = () => {
   const { id } = useParams<{ id: string }>();
-  const [party, setParty] = React.useState<any>(undefined);
-  const [result, setResult] = React.useState<any>(undefined);
+  const [party, setParty] = React.useState<Party | undefined>(undefined);
+  const [result, setResult] = React.useState<Restaurant | undefined>(undefined);
 
   useEffect(() => {
     const getParty = async () => {
@@ -36,14 +38,14 @@ const Results = () => {
         const data = await API.getParty(id);
         if (data.winner) setResult(data.winner);
 
-        data.restaurants.forEach((restaurant: any) => {
+        data.restaurants.forEach((restaurant: Restaurant) => {
           if (data.votes[restaurant.id]) {
             restaurant.votes = data.votes[restaurant.id];
           } else {
             restaurant.votes = 0;
           }
         });
-        data.restaurants.sort((a: any, b: any) => {
+        data.restaurants.sort((a: Restaurant, b: Restaurant) => {
           return b.votes - a.votes;
         });
         setParty(data);
@@ -146,7 +148,7 @@ const Results = () => {
                 flexWrap: 'wrap',
               }}
             >
-              {result.categories.map((category: any) => {
+              {result.categories.map((category) => {
                 return (
                   <Typography key={category.alias} variant='h6' color='white'>
                     #{category.title}
@@ -173,7 +175,7 @@ const Results = () => {
         Voting Results
       </Typography>
       {party &&
-        party.restaurants.map((restaurant: any) => {
+        party.restaurants.map((restaurant) => {
           return (
             <Box
               sx={{

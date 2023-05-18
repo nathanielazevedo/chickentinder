@@ -10,7 +10,7 @@ export type Party = {
   updatedAt: string;
   password: string;
   winner: Restaurant | null;
-  maxVotes: number;
+  maxVoters: number;
   voters: number;
   restaurants: Restaurant[];
   voteTime: boolean;

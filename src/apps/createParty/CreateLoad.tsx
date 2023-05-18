@@ -1,7 +1,6 @@
-import { Box, Typography } from '@mui/material';
-import React from 'react';
 import { chick } from '../../assets';
 import Navbar from '../../components/NavBar';
+import { Box, Typography } from '@mui/material';
 
 const CreateLoad = () => {
   return (

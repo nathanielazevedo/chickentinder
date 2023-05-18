@@ -5,11 +5,12 @@ import PasswordDialog from './PasswordDialog';
 import Navbar from '../../components/NavBar';
 import API from '../../api';
 import { chick } from '../../assets';
+import { Party } from '../../models/Party';
 
 const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [party, setParty] = useState({} as any);
+  const [party, setParty] = useState({} as Party);
 
   useEffect(() => {
     const getParty = async () => {

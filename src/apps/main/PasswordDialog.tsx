@@ -8,8 +8,12 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import API from '../../api';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function FormDialog({ open, setOpen }: any) {
+type Props = {
+  open: boolean;
+  setOpen: (open: boolean) => void;
+};
+
+export default function FormDialog({ open, setOpen }: Props) {
   const { id } = useParams<{ id: string }>();
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
