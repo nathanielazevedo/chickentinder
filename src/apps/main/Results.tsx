@@ -163,13 +163,21 @@ const Results = () => {
   }
 
   return (
-    <>
+    <Box
+      sx={{
+        width: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
       <Typography
         variant='h3'
         sx={{
           fontWeight: 'bold',
           color: 'black',
-          alignSelf: 'flex-start',
+
+          marginBottom: '20px',
         }}
       >
         Voting Results
@@ -182,8 +190,8 @@ const Results = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'flex-start',
-                justifyContent: 'flex-start',
-                width: '100%',
+                justifyContent: 'center',
+                width: '90%',
               }}
             >
               <Typography sx={{ color: 'black' }}>{restaurant.name}</Typography>
@@ -193,7 +201,7 @@ const Results = () => {
             </Box>
           );
         })}
-    </>
+    </Box>
   );
 };
 

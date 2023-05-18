@@ -1,13 +1,13 @@
 import { Box } from '@mui/material';
 import TwoStack from '../../components/TwoStack';
-import { chick_dark } from '../../assets';
+import { play } from '../../assets';
 
 const GetStarted = () => {
   return (
     <Box sx={styles.outerContainer}>
       <Box sx={styles.innerContainer}>
         <Box display={{ xs: 'none', lg: 'flex' }}>
-          <img src={chick_dark} width='200px' />
+          <img src={play} width='250px' />
         </Box>
         <TwoStack
           variant='body'

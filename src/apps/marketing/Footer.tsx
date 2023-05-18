@@ -1,5 +1,5 @@
 import { Box, Typography } from '@mui/material';
-import { logo_no_word } from '../../assets';
+import { logo_c_trans } from '../../assets';
 
 const Footer = () => {
   return (
@@ -51,7 +51,7 @@ const Footer = () => {
             width: { xs: '100px', sm: '200px' },
           }}
         >
-          <img src={logo_no_word} alt='' style={{ width: '100%' }} />
+          <img src={logo_c_trans} alt='' style={{ width: '100%' }} />
         </Box>
       </Box>
     </Box>

@@ -4,13 +4,14 @@ import { useState } from 'react';
 import { chick } from '../../assets';
 import CreateLoad from './CreateLoad';
 import { Party } from '../../models/Party';
-import { globalStyles } from '../../styles';
+// import { globalStyles } from '../../styles';
 import Navbar from '../../components/Navbar';
 import NewPartyScreen from './NewPartyScreen';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import RestaurantsPreview from './RestaurantsPreview';
 import { Restaurant } from '../../models/Restaurant';
+// import { restaurants as restaurantsM } from '../../mockData/mockR';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {
   Box,
@@ -73,15 +74,16 @@ const Create = () => {
     const officialHours = Object.keys(hours).filter(
       (h) => hours[h as keyof hoursType] === true
     );
-    const hoursAsObject = officialHours.map((h) => {
-      return { [h]: 0 };
-    });
+
+    const hoursHash = officialHours.reduce((acc, h) => {
+      return { ...acc, [h]: 0 };
+    }, {});
 
     const party = await API.createParty({
       ...values,
       restaurants: officialRestaurants,
       voteTime,
-      hours: hoursAsObject,
+      hours: hoursHash,
     });
 
     setRestaurants(undefined);
@@ -89,8 +91,8 @@ const Create = () => {
   };
 
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    setHours({ ...hours, [name]: checked });
+    const { value, checked } = e.target;
+    setHours({ ...hours, [value]: checked });
   };
 
   if (restaurants) {
@@ -288,7 +290,7 @@ const Create = () => {
                               label='7-8 AM'
                             />
                             <FormControlLabel
-                              value='male'
+                              value='8-9 AM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -299,7 +301,7 @@ const Create = () => {
                               label='8-9 AM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='9-10 AM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -310,7 +312,7 @@ const Create = () => {
                               label='9-10 AM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='10-11 AM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -318,10 +320,21 @@ const Create = () => {
                                   }}
                                 />
                               }
-                              label='11-12 AM'
+                              label='10-11 AM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='11-12 AM'
+                              control={
+                                <Checkbox
+                                  onChange={(e) => {
+                                    handleHours(e);
+                                  }}
+                                />
+                              }
+                              label='12-1 PM'
+                            />
+                            <FormControlLabel
+                              value='1-2 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -332,7 +345,7 @@ const Create = () => {
                               label='1-2 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='2-3 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -343,7 +356,7 @@ const Create = () => {
                               label='2-3 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='3-4 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -354,7 +367,7 @@ const Create = () => {
                               label='3-4 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='4-5 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -365,7 +378,7 @@ const Create = () => {
                               label='4-5 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='5-6 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -376,7 +389,7 @@ const Create = () => {
                               label='5-6 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='6-7 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -387,7 +400,7 @@ const Create = () => {
                               label='6-7 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='7-8 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -398,7 +411,7 @@ const Create = () => {
                               label='7-8 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='8-9 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -409,7 +422,7 @@ const Create = () => {
                               label='8-9 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='9-10 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -420,7 +433,7 @@ const Create = () => {
                               label='9-10 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='10-11 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -431,7 +444,7 @@ const Create = () => {
                               label='10-11 PM'
                             />
                             <FormControlLabel
-                              value='other'
+                              value='11-12 PM'
                               control={
                                 <Checkbox
                                   onChange={(e) => {
@@ -475,8 +488,6 @@ const Create = () => {
                       sx={{
                         height: '50px',
                         fontSize: '1rem',
-                        color: 'white',
-                        backgroundImage: globalStyles.gradientBg,
                       }}
                     >
                       Create Party

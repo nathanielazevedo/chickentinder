@@ -1,6 +1,7 @@
 import { Box } from '@mui/material';
 import TwoStack from '../../components/TwoStack';
-import CheckIcon from '@mui/icons-material/Check';
+// import CheckIcon from '@mui/icons-material/Check';
+import { network } from '../../assets';
 
 const Decisions = () => {
   return (
@@ -13,14 +14,14 @@ const Decisions = () => {
             quickly and easily decide where to eat with your friends. No more
             arguing over text.'
         />
-
-        <CheckIcon
+        <img src={network} width='200px' />
+        {/* <CheckIcon
           sx={{
             fontSize: '300px',
             color: '#3a3838',
             display: { xs: 'none', lg: 'flex' },
           }}
-        />
+        /> */}
       </Box>
     </Box>
   );

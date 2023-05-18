@@ -1,8 +1,9 @@
-import { Box, Button, Card, Link, Typography } from '@mui/material';
+import { Box, Card, Link, Typography } from '@mui/material';
 import { chick } from '../../assets';
 import Checkbox from '@mui/material/Checkbox';
 import Navbar from '../../components/Navbar';
 import { Restaurant } from '../../models/Restaurant';
+import Button from '../../components/Button';
 
 type RestaurantsPreviewProps = {
   restaurants: Restaurant[];
@@ -67,6 +68,7 @@ const RestaurantsPreview = ({
             <Box
               sx={{
                 marginTop: '25px',
+                marginBottom: '25px',
               }}
             >
               {restaurants.map((restaurant: Restaurant) => (
@@ -87,33 +89,27 @@ const RestaurantsPreview = ({
                   <Box>
                     <Typography>{restaurant.name}</Typography>
                     <Typography>{restaurant.description}</Typography>
-                    <Link href={''}>View on Yelp</Link>
+                    <Link href={restaurant.url} target='_blank'>
+                      View on Yelp
+                    </Link>
                   </Box>
                 </Card>
               ))}
             </Box>
-            <Button
-              variant='contained'
-              onClick={moveAhead}
+
+            <Box
               sx={{
-                width: '100%',
-                height: '50px',
-                marginTop: '15px',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
               }}
             >
-              <Typography variant='h5'>Make my party!</Typography>
-            </Button>
-            <Button
-              variant='contained'
-              onClick={() => setRestaurants(undefined)}
-              sx={{
-                width: '100%',
-                height: '50px',
-                marginTop: '15px',
-              }}
-            >
-              <Typography variant='h6'>Go Back</Typography>
-            </Button>
+              <Button text='Create the Party!' onClick={moveAhead} />
+              <Button
+                text='Go Back'
+                onClick={() => setRestaurants(undefined)}
+              />
+            </Box>
           </Box>
         </Box>
       </Box>

@@ -7,19 +7,43 @@ import API from '../../api';
 import { chick } from '../../assets';
 import { Party } from '../../models/Party';
 
+const localUrl = 'http://localhost:5173/chickentinder/';
+const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
+const baseUrl = process.env.NODE_ENV === 'development' ? localUrl : prodUrl;
+
 const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [party, setParty] = useState({} as Party);
+  const partyInLocal = localStorage.getItem('parties');
 
   useEffect(() => {
     const getParty = async () => {
       if (!id) return;
       const res = await API.getParty(id);
+      if (!partyInLocal) {
+        localStorage.setItem(
+          'parties',
+          JSON.stringify([{ _id: id, voted: false, name: res.name }])
+        );
+      }
+      if (partyInLocal) {
+        const partys = JSON.parse(partyInLocal);
+        const party = partys.find((party: Party) => party._id === id);
+        if (!party) {
+          localStorage.setItem(
+            'parties',
+            JSON.stringify([
+              ...partys,
+              { _id: id, voted: false, name: res.name },
+            ])
+          );
+        }
+      }
       setParty(res);
     };
     getParty();
-  }, [id]);
+  }, [id, partyInLocal]);
 
   const toMiles = (km: number) => {
     const miles = km / 1609.34;
@@ -38,6 +62,15 @@ const Entry = () => {
           height: 'calc(100vh - 80px)',
         }}
       >
+        <Box
+          sx={{
+            height: '500px',
+            width: '500px',
+            position: 'absolute',
+            bottom: '0',
+            right: '0',
+          }}
+        ></Box>
         <PasswordDialog open={open} setOpen={setOpen} />
         <Box
           sx={{
@@ -48,7 +81,7 @@ const Entry = () => {
             padding: '40px',
             borderRadius: '20px',
             width: { xs: '100%', sm: '500px' },
-            gap: '100px',
+            gap: '50px',
           }}
         >
           <Box
@@ -68,7 +101,7 @@ const Entry = () => {
                 marginBottom: '20px',
               }}
             >
-              Welcome to {party.name}
+              Party Name: {party.name}
             </Typography>
             <Typography
               variant='h5'
@@ -100,6 +133,20 @@ const Entry = () => {
                 Your party will also be voting on a time to meet.
               </Typography>
             )}
+            <Typography
+              variant='h5'
+              sx={{
+                fontWeight: 'bold',
+                alignSelf: 'flex-start',
+                marginTop: '20px',
+                wordBreak: 'break-word',
+              }}
+            >
+              This is your partys link:
+              <Typography color='darkblue'>
+                {baseUrl + 'party/' + party._id}
+              </Typography>
+            </Typography>
           </Box>
 
           <Box
@@ -133,7 +180,7 @@ const Entry = () => {
               }}
             >
               <Button
-                variant='contained'
+                variant='outlined'
                 fullWidth
                 disabled={party.winner ? true : false}
                 sx={{
@@ -152,7 +199,7 @@ const Entry = () => {
               }}
             >
               <Button
-                variant='contained'
+                variant='outlined'
                 fullWidth
                 sx={{
                   height: '50px',
@@ -162,7 +209,7 @@ const Entry = () => {
               </Button>
             </Link>
             <Button
-              variant='contained'
+              variant='outlined'
               fullWidth
               onClick={() => setOpen(true)}
               sx={{

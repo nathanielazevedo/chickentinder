@@ -5,10 +5,23 @@ import Container from '@mui/material/Container';
 import { Link, useNavigate } from 'react-router-dom';
 import { logo_white } from '../assets';
 
-const NavBar = ({ showButton = true }: { showButton?: boolean }) => {
+const NavBar = ({
+  showButton = true,
+  myPartys,
+}: {
+  showButton?: boolean;
+  myPartys?: boolean;
+}) => {
   const navigate = useNavigate();
   return (
-    <AppBar position='static' elevation={0}>
+    <AppBar
+      position='static'
+      elevation={0}
+      sx={{
+        maxWidth: '100vw',
+        overflowX: 'hidden',
+      }}
+    >
       <Container sx={{ width: { xs: '100%', lg: '1200px' } }}>
         <Toolbar
           disableGutters
@@ -40,7 +53,7 @@ const NavBar = ({ showButton = true }: { showButton?: boolean }) => {
               CHICKEN TINDER
             </Typography>
           </Link>
-          {showButton && (
+          {showButton && !myPartys && (
             <Typography
               fontSize='15px'
               color='white'
@@ -52,6 +65,20 @@ const NavBar = ({ showButton = true }: { showButton?: boolean }) => {
               }}
             >
               Go Back
+            </Typography>
+          )}
+          {myPartys && (
+            <Typography
+              fontSize='15px'
+              color='white'
+              sx={{
+                cursor: 'pointer',
+              }}
+              onClick={() => {
+                navigate('my-parties');
+              }}
+            >
+              My Parties
             </Typography>
           )}
         </Toolbar>

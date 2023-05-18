@@ -1,6 +1,6 @@
 import { bg } from '../../assets';
 import { Box } from '@mui/material';
-import { logo_trans } from '../../assets';
+import { logo_c_trans } from '../../assets';
 import TwoStack from '../../components/TwoStack';
 
 const Hero = () => {
@@ -17,7 +17,7 @@ const Hero = () => {
               favorite restaurants without worrying about peer pressure."
         />
         <Box display={{ xs: 'none', lg: 'flex', paddingLeft: '100px' }}>
-          <img src={logo_trans} width='350px' />
+          <img src={logo_c_trans} width='350px' />
         </Box>
       </Box>
     </Box>

@@ -1,11 +1,11 @@
 import { Box, Link, Typography } from '@mui/material';
 import Navbar from '../../components/Navbar';
 import { Party } from '../../models/Party';
+import Button from '../../components/Button';
 
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
 const baseUrl = process.env.NODE_ENV === 'development' ? localUrl : prodUrl;
-
 export interface NewPartyDialog {
   party: Party;
 }
@@ -31,7 +31,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           }}
         >
           <Typography
-            variant='h3'
+            variant='h2'
             sx={{
               fontWeight: 'bold',
             }}
@@ -62,10 +62,14 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
               <Typography
                 sx={{
                   wordBreak: 'break-all',
+                  marginBottom: '20px',
                 }}
               >
                 {baseUrl + 'party/' + party._id}
               </Typography>
+            </Link>
+            <Link href={baseUrl + 'party/' + party._id} target='_blank'>
+              <Button text={'Start Swiping'} />
             </Link>
           </Box>
         </Box>

@@ -1,4 +1,4 @@
-import { logo_dark } from '../../assets';
+import { logo_outline } from '../../assets';
 import { constants } from '../../constants';
 import { Box } from '@mui/material';
 import TwoStack from '../../components/TwoStack';
@@ -21,7 +21,7 @@ const HowItWorks = () => {
             "
         />
         <Box display={{ xs: 'none', lg: 'flex' }}>
-          <img src={logo_dark} width='300px' />
+          <img src={logo_outline} width='300px' />
         </Box>
       </Box>
       <Box

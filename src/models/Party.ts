@@ -15,8 +15,8 @@ export type Party = {
   restaurants: Restaurant[];
   voteTime: boolean;
   hours: {
-    [time: string]: boolean;
-  }[];
+    [time: string]: number;
+  };
   location: string;
   max_distance: number;
   number_of_restaurants: number;

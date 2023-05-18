@@ -1,10 +1,10 @@
 import { Button as MuiButton, Typography } from '@mui/material';
 import { globalStyles } from '../styles';
 
-const Button = ({ text }: { text: string }) => {
+const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   return (
     <MuiButton
-      variant='contained'
+      onClick={onClick && onClick}
       sx={{
         width: '100%',
         height: '50px',

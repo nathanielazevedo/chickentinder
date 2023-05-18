@@ -5,7 +5,7 @@ import ResultsPage from './apps/main/ResultsPage';
 import Swipe from './apps/main/Swipe';
 import Intro from './apps/marketing/Intro';
 import { createBrowserRouter } from 'react-router-dom';
-import NavBar from './components/Navbar';
+import MyParties from './apps/myParties/MyParties';
 
 export const router = createBrowserRouter(
   [
@@ -13,7 +13,6 @@ export const router = createBrowserRouter(
       path: '/',
       element: (
         <>
-          <NavBar showButton={false} />
           <Intro />
         </>
       ),
@@ -37,6 +36,10 @@ export const router = createBrowserRouter(
     {
       path: '/party/:id',
       element: <Entry />,
+    },
+    {
+      path: '/my-parties',
+      element: <MyParties />,
     },
   ],
   {

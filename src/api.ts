@@ -77,13 +77,17 @@ const fetchRestaurants = async (formData: any): Promise<any> => {
     });
 };
 
-const vote = async (id: string, likes: any): Promise<any> => {
+const vote = async (
+  id: string,
+  rLikes: string[],
+  tLikes: { [key: string]: number } | null
+): Promise<any> => {
   return fetch(baseUrl + 'party/' + id + '/vote', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ votes: likes }),
+    body: JSON.stringify({ rLikes, tLikes }),
   })
     .then((res) => {
       if (res.status !== 200) throw new Error('Error voting');
