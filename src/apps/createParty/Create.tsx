@@ -2,13 +2,15 @@ import API from '../../api';
 import { Formik } from 'formik';
 import { useState } from 'react';
 import { chick } from '../../assets';
+import CreateLoad from './CreateLoad';
+import { Party } from '../../models/Party';
 import { globalStyles } from '../../styles';
-import { object, string, number } from 'yup';
-import Navbar from '../../components/Navbar';
+import Navbar from '../../components/NavBar';
 import NewPartyScreen from './NewPartyScreen';
 import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import RestaurantsPreview from './RestaurantsPreview';
+import { Restaurant } from '../../models/Restaurant';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import {
   Box,
@@ -20,65 +22,28 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-
-const partySchema = object({
-  name: string().required('Required'),
-  location: string().required('Required'),
-  max_distance: number()
-    .required('Required')
-    .positive()
-    .integer('Must be an integer'),
-  maxVoters: number().required('Required').positive().integer(),
-  password: string().required('Required'),
-  number_of_restaurants: number().required('Required').positive().integer(),
-});
+import {
+  hoursInitial,
+  valueInitial,
+  partySchema,
+  toMeters,
+  toMiles,
+  hoursType,
+  valueType,
+} from './CreateHelpers';
 
 const Create = () => {
-  const [party, setParty] = useState<any>(undefined);
   const [loading, setLoading] = useState(false);
-  const [generalError, setGeneralError] = useState('');
   const [voteTime, setVoteTime] = useState(false);
-  const [restaurants, setRestaurants] = useState<any>(undefined);
-  const [values, setValues] = useState({
-    name: '',
-    location: '',
-    max_distance: 15000,
-    maxVoters: '',
-    password: '',
-    number_of_restaurants: '',
-  });
+  const [hours, setHours] = useState(hoursInitial);
+  const [values, setValues] = useState(valueInitial);
+  const [generalError, setGeneralError] = useState('');
+  const [party, setParty] = useState<Party | undefined>(undefined);
+  const [restaurants, setRestaurants] = useState<Restaurant[] | undefined>(
+    undefined
+  );
 
-  const [hours, setHours] = useState({
-    '7-8 AM': false,
-    '8-9 AM': false,
-    '9-10 AM': false,
-    '10-11 AM': false,
-    '11-12 PM': false,
-    '12-1 PM': false,
-    '1-2 PM': false,
-    '2-3 PM': false,
-    '3-4 PM': false,
-    '4-5 PM': false,
-    '5-6 PM': false,
-    '6-7 PM': false,
-    '7-8 PM': false,
-    '8-9 PM': false,
-    '9-10 PM': false,
-    '10-11 PM': false,
-    '11-12 AM': false,
-  });
-
-  const toMeters = (miles: number) => {
-    const meters = miles * 1609.34;
-    return Math.floor(meters);
-  };
-
-  const toMiles = (km: number) => {
-    const miles = km / 1609.34;
-    return Math.floor(miles);
-  };
-
-  const createParty = async (values: any) => {
+  const createParty = async (values: valueType) => {
     setValues(values);
     setLoading(true);
     try {
@@ -88,7 +53,7 @@ const Create = () => {
         setLoading(false);
         return;
       } else {
-        const restaurantsWithChecks = restaurants.map((r: any) => {
+        const restaurantsWithChecks = restaurants.map((r: Restaurant) => {
           return { ...r, checked: true };
         });
         setRestaurants(restaurantsWithChecks);
@@ -100,11 +65,14 @@ const Create = () => {
   };
 
   const moveAhead = async () => {
+    if (!restaurants) return;
     const officialRestaurants = restaurants.filter(
-      (r: any) => r.checked === true
+      (r: Restaurant) => r.checked === true
     );
 
-    const officialHours = Object.keys(hours).filter((h) => hours[h] === true);
+    const officialHours = Object.keys(hours).filter(
+      (h) => hours[h as keyof hoursType] === true
+    );
     const hoursAsObject = officialHours.map((h) => {
       return { [h]: 0 };
     });
@@ -120,99 +88,23 @@ const Create = () => {
     setParty(party);
   };
 
-  const handleHours = (e: any) => {
+  const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setHours({ ...hours, [name]: checked });
   };
 
   if (restaurants) {
     return (
-      <>
-        <Navbar showButton={false} />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-            sx={{
-              padding: '40px 0',
-              borderRadius: '20px',
-              width: { xs: '98%', sm: '500px' },
-            }}
-          >
-            <RestaurantsPreview
-              restaurants={restaurants}
-              moveAhead={moveAhead}
-              setRestaurants={setRestaurants}
-            />
-          </Box>
-        </Box>
-      </>
+      <RestaurantsPreview
+        restaurants={restaurants}
+        moveAhead={moveAhead}
+        setRestaurants={setRestaurants}
+      />
     );
   }
 
-  if (loading) {
-    return (
-      <>
-        <Navbar showButton={false} />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: { xs: 'flex-start', sm: 'center' },
-            height: 'calc(100vh - 70px)',
-          }}
-        >
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              marginTop: { xs: '100px', sm: 0 },
-            }}
-          >
-            <img src={chick} width='250px' />
-            <Typography variant='h5'>
-              I'm looking for the best restaurants for you...
-            </Typography>
-          </Box>
-        </Box>
-      </>
-    );
-  }
-
-  if (party) {
-    return (
-      <>
-        <Navbar showButton={false} />
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: 'calc(100vh - 70px)',
-          }}
-        >
-          <Box
-            sx={{
-              padding: '40px',
-              borderRadius: '20px',
-              width: { xs: '100%', sm: '500px' },
-            }}
-          >
-            <NewPartyScreen party={party} />
-          </Box>
-        </Box>
-      </>
-    );
-  }
+  if (loading) return <CreateLoad />;
+  if (party) return <NewPartyScreen party={party} />;
 
   return (
     <>
@@ -230,7 +122,6 @@ const Create = () => {
           handleChange,
           handleSubmit,
           setFieldValue,
-          resetForm,
         }) => (
           <form onSubmit={handleSubmit}>
             <Box
@@ -394,7 +285,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -405,7 +296,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -416,7 +307,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -427,7 +318,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -438,7 +329,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -449,7 +340,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -460,7 +351,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -471,7 +362,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -482,7 +373,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -493,7 +384,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -504,7 +395,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -515,7 +406,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -526,7 +417,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -537,7 +428,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }
@@ -548,7 +439,7 @@ const Create = () => {
                               control={
                                 <Checkbox
                                   onChange={(e) => {
-                                    handleHours(e.target);
+                                    handleHours(e);
                                   }}
                                 />
                               }

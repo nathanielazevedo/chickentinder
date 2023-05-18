@@ -1,45 +1,26 @@
-import { Box, Typography } from '@mui/material';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { Link } from 'react-router-dom';
-import { globalStyles } from '../../styles';
-import Button from '../../components/Button';
+import { Box } from '@mui/material';
+import TwoStack from '../../components/TwoStack';
+import CheckIcon from '@mui/icons-material/Check';
 
 const Decisions = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
-        <Box
-          sx={{
-            maxWidth: '550px',
-            alignSelf: { xs: 'flex-start', lg: 'center' },
-          }}
-        >
-          <Typography
-            variant='h3'
-            color={'white'}
-            mb={0.5}
-            sx={{ fontWeight: 'bold' }}
-          >
-            Make Decisions Faster
-          </Typography>
-          <Typography
-            color='white'
-            sx={{
-              marginBottom: '20px',
-            }}
-          >
-            Making decisions has never been easier. With Chicken Tinder, you can
+        <TwoStack
+          variant='dark'
+          title='Make Decisions Faster'
+          body='Making decisions has never been easier. With Chicken Tinder, you can
             quickly and easily decide where to eat with your friends. No more
-            arguing over text.
-          </Typography>
-          <Link to='create'>
-            <Button text='Create a Party' />
-          </Link>
-        </Box>
+            arguing over text.'
+        />
 
-        <Box>
-          <CheckCircleOutlineIcon sx={{ fontSize: '300px', color: 'white' }} />
-        </Box>
+        <CheckIcon
+          sx={{
+            fontSize: '300px',
+            color: '#3a3838',
+            display: { xs: 'none', lg: 'flex' },
+          }}
+        />
       </Box>
     </Box>
   );
@@ -57,18 +38,11 @@ const styles = {
   },
   innerContainer: {
     display: 'flex',
-    flexDirection: { xs: 'column-reverse', lg: 'row' },
+    flexDirection: { xs: 'row', lg: 'row' },
     maxWidth: { xs: '90%', lg: '1200px' },
     width: { xs: '90%', lg: '1200px' },
     gap: { xs: '100px' },
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  button: {
-    width: '100%',
-    height: '50px',
-    fontSize: '1rem',
-    marginTop: '20px',
-    backgroundImage: globalStyles.gradientBg,
   },
 };

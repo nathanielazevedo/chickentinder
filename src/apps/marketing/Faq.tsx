@@ -17,9 +17,9 @@ export default function Faq() {
   return (
     <Box
       sx={{
-        padding: { xs: '100px 20px', lg: '70px 150px' },
-        borderRadius: '10px',
+        padding: { xs: '80px 20px', lg: '70px 150px' },
         backgroundColor: 'white',
+        border: '12px solid black',
       }}
     >
       <Typography

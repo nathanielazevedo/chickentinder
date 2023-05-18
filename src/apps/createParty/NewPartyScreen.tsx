@@ -1,54 +1,74 @@
 import { Box, Link, Typography } from '@mui/material';
-// import baseUrl from "../api.js";
+import Navbar from '../../components/NavBar';
+import { Party } from '../../models/Party';
+
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
-
 const baseUrl = process.env.NODE_ENV === 'development' ? localUrl : prodUrl;
 
 export interface NewPartyDialog {
-  party: any;
+  party: Party;
 }
 
 const NewPartyDialog = ({ party }: NewPartyDialog) => {
   return (
     <>
-      <Typography
-        variant='h3'
-        sx={{
-          fontWeight: 'bold',
-        }}
-      >
-        Let the swiping begin!
-      </Typography>
-      <Typography>
-        Your party has been created! You can now start swiping.
-      </Typography>
+      <Navbar showButton={false} />
       <Box
         sx={{
-          marginTop: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: 'calc(100vh - 70px)',
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            gap: '10px',
-            marginBottom: '10px',
+            padding: '40px',
+            borderRadius: '20px',
+            width: { xs: '100%', sm: '500px' },
           }}
         >
-          <Typography>Send this link to your friends!</Typography>
-          <Typography color='error' fontWeight='bold'>
-            Don't lose it!
-          </Typography>
-        </Box>
-        <Link href={baseUrl + 'party/' + party._id} target='_blank'>
           <Typography
+            variant='h3'
             sx={{
-              wordBreak: 'break-all',
+              fontWeight: 'bold',
             }}
           >
-            {baseUrl + 'party/' + party._id}
+            Let the swiping begin!
           </Typography>
-        </Link>
+          <Typography>
+            Your party has been created! You can now start swiping.
+          </Typography>
+          <Box
+            sx={{
+              marginTop: '20px',
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                gap: '10px',
+                marginBottom: '10px',
+              }}
+            >
+              <Typography>Send this link to your friends!</Typography>
+              <Typography color='error' fontWeight='bold'>
+                Don't lose it!
+              </Typography>
+            </Box>
+            <Link href={baseUrl + 'party/' + party._id} target='_blank'>
+              <Typography
+                sx={{
+                  wordBreak: 'break-all',
+                }}
+              >
+                {baseUrl + 'party/' + party._id}
+              </Typography>
+            </Link>
+          </Box>
+        </Box>
       </Box>
     </>
   );
