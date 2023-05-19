@@ -24,7 +24,7 @@ const Intro = () => {
 
   return (
     <>
-      <NavBar myPartys={showButton} />
+      <NavBar myPartys={showButton} showButton={showButton} />
       <Hero />
       <AppStore />
       <HowItWorks />

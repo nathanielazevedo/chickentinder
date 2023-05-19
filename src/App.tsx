@@ -8,11 +8,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useMemo } from 'react';
 
 const App = () => {
-  const mode = localStorage.getItem('mode');
-  if (!mode) {
-    localStorage.setItem('mode', 'light');
-  }
-  const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  const theme = useMemo(() => createTheme(themeSettings('light')), ['light']);
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
