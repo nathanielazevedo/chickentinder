@@ -2,9 +2,8 @@ import { bg } from '../../assets';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
 import NavBar from '../../components/Navbar';
-import { useNavigate } from 'react-router-dom';
 import { Restaurant } from '../../models/Restaurant';
-import { Box, Typography, Button, Card, Rating } from '@mui/material';
+import { Box, Typography, Card, Rating } from '@mui/material';
 
 type Props = {
   id: string;
@@ -13,8 +12,7 @@ type Props = {
   tLikes: { [key: string]: boolean };
 };
 
-const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
-  const navigate = useNavigate();
+const VoteResults = ({ rlikes, party, tLikes }: Props) => {
   const [restaurants, setRestaurants] = useState<Restaurant[] | undefined>(
     undefined
   );
