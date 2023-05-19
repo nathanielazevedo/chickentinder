@@ -35,9 +35,14 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
-          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          height: { xs: '100%', sm: '100%' },
+          minHeight: {
+            xs: 'calc(100vh - 56px)',
+            sm: 'calc(100vh - 64px)',
+          },
           backgroundImage: `url(${bg})`,
           backgroundPosition: 'center',
+          paddingBottom: { xs: '50px', sm: '50px' },
         }}
       >
         <Box
@@ -191,6 +196,7 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
                     display: 'flex',
                     padding: '20px',
                     border: '0.1px solid white',
+                    marginBottom: '10px',
                   }}
                 >
                   <Box

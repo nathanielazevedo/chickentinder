@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import VoteTime from './VoteTime';
 import VoteRestaurant from './VoteRestaurant';
 import VoteResults from './VoteResults';
-import VoteLoading from './VoteLoading';
 import CreateLoad from '../createParty/CreateLoad';
 
 const Swipe = () => {
