@@ -1,6 +1,5 @@
 import { Box } from '@mui/material';
 import TwoStack from '../../components/TwoStack';
-// import CheckIcon from '@mui/icons-material/Check';
 import { network } from '../../assets';
 
 const Decisions = () => {
@@ -10,8 +9,7 @@ const Decisions = () => {
         <TwoStack
           variant='dark'
           title='Make Decisions Faster'
-          body='Making decisions has never been easier. With Chicken Tinder, you can
-            quickly and easily decide where to eat with your friends. No more
+          body='Making dinner decisions has never been easier. With Chicken Tinder, you can quickly and easily decide where to eat with your friends. No more
             arguing over text.'
         />
         <Box

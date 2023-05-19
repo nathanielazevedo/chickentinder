@@ -1,13 +1,13 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import PasswordDialog from './PasswordDialog';
 import Navbar from '../../components/Navbar';
 import API from '../../api';
-import { bg } from '../../assets';
 import { Party } from '../../models/Party';
-import { globalStyles } from '../../styles';
 import CreateLoad from '../createParty/CreateLoad';
+import Container from '../../components/Container';
+import MainButton from '../../components/MainButton';
 
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
@@ -60,176 +60,116 @@ const Entry = () => {
   return (
     <>
       <Navbar showButton={false} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
-          backgroundImage: `url(${bg})`,
-          backgroundPosition: 'center',
-        }}
-      >
-        <PasswordDialog open={open} setOpen={setOpen} />
+      <PasswordDialog open={open} setOpen={setOpen} />
+      <Container>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            justifyContent: 'center',
-            padding: '40px',
-            borderRadius: '20px',
-            width: { xs: '90%', sm: '500px' },
-            gap: '50px',
+            justifyContent: 'flex-start',
+            width: '100%',
+          }}
+        >
+          <Typography
+            variant='h3'
+            sx={{
+              fontWeight: 'bold',
+              alignSelf: 'flex-start',
+              marginBottom: '20px',
+            }}
+          >
+            {party.name}
+          </Typography>
+          <Typography
+            variant='h5'
+            sx={{
+              fontWeight: 'bold',
+              alignSelf: 'flex-start',
+            }}
+          >
+            You're dining within {toMiles(party.max_distance)} miles from{' '}
+            {party.location}
+          </Typography>
+          <Typography
+            variant='h5'
+            sx={{
+              fontWeight: 'bold',
+              alignSelf: 'flex-start',
+            }}
+          >
+            There are {party.maxVoters} people in your party
+          </Typography>
+          {party.voteTime && (
+            <Typography
+              variant='h5'
+              sx={{
+                fontWeight: 'bold',
+                alignSelf: 'flex-start',
+              }}
+            >
+              Your party will also be voting on a time to meet.
+            </Typography>
+          )}
+          <Typography
+            variant='h5'
+            sx={{
+              fontWeight: 'bold',
+              alignSelf: 'flex-start',
+              marginTop: '20px',
+              wordBreak: 'break-word',
+            }}
+          >
+            This is your partys link:
+            <Typography color='darkblue'>
+              {baseUrl + 'party/' + party._id}
+            </Typography>
+          </Typography>
+        </Box>
 
-            backgroundColor: '#ffffff',
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '20px',
+            width: '100%',
           }}
         >
           <Box
             sx={{
               display: 'flex',
-              flexDirection: 'column',
               alignItems: 'center',
-              justifyContent: 'flex-start',
+            }}
+          >
+            <Typography variant='h4' fontWeight='bold'>
+              What would you like to do?
+            </Typography>
+          </Box>
+          <Link
+            to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
+            style={{
               width: '100%',
             }}
           >
-            <Typography
-              variant='h3'
-              sx={{
-                fontWeight: 'bold',
-                alignSelf: 'flex-start',
-                marginBottom: '20px',
-              }}
-            >
-              {party.name}
-            </Typography>
-            <Typography
-              variant='h5'
-              sx={{
-                fontWeight: 'bold',
-                alignSelf: 'flex-start',
-              }}
-            >
-              You're dining within {toMiles(party.max_distance)} miles from{' '}
-              {party.location}
-            </Typography>
-            <Typography
-              variant='h5'
-              sx={{
-                fontWeight: 'bold',
-                alignSelf: 'flex-start',
-              }}
-            >
-              There are {party.maxVoters} people in your party
-            </Typography>
-            {party.voteTime && (
-              <Typography
-                variant='h5'
-                sx={{
-                  fontWeight: 'bold',
-                  alignSelf: 'flex-start',
-                }}
-              >
-                Your party will also be voting on a time to meet.
-              </Typography>
-            )}
-            <Typography
-              variant='h5'
-              sx={{
-                fontWeight: 'bold',
-                alignSelf: 'flex-start',
-                marginTop: '20px',
-                wordBreak: 'break-word',
-              }}
-            >
-              This is your partys link:
-              <Typography color='darkblue'>
-                {baseUrl + 'party/' + party._id}
-              </Typography>
-            </Typography>
-          </Box>
-
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
+            <MainButton
+              text={voted ? 'View My Votes' : 'Vote'}
+              onClick={() => console.log('hello')}
+            />
+          </Link>
+          <Link
+            to={`/party/${id}/results`}
+            style={{
               width: '100%',
             }}
           >
-            <Box
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-              }}
-            >
-              <Typography
-                variant='h4'
-                sx={{
-                  fontWeight: 'bold',
-                }}
-              >
-                What would you like to do?
-              </Typography>
-            </Box>
-            <Link
-              to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
-              style={{
-                width: '100%',
-              }}
-            >
-              <Button
-                variant='contained'
-                fullWidth
-                sx={{
-                  height: '40px',
-                  color: 'black',
-                  backgroundImage: globalStyles.gradientBg,
-                  border: '1px solid black',
-                }}
-              >
-                <Typography variant='h6'>
-                  {voted ? 'View My Votes' : 'Vote'}
-                </Typography>
-              </Button>
-            </Link>
-            <Link
-              to={`/party/${id}/results`}
-              style={{
-                width: '100%',
-              }}
-            >
-              <Button
-                variant='contained'
-                fullWidth
-                sx={{
-                  height: '40px',
-                  color: 'black',
-                  backgroundImage: globalStyles.gradientBg,
-                  border: '1px solid black',
-                }}
-              >
-                <Typography variant='h6'>View Results</Typography>
-              </Button>
-            </Link>
-            <Button
-              variant='contained'
-              fullWidth
-              onClick={() => setOpen(true)}
-              sx={{
-                height: '40px',
-                color: 'black',
-                backgroundImage: globalStyles.gradientBg,
-                border: '1px solid black',
-              }}
-            >
-              <Typography variant='h6'>Manage Party</Typography>
-            </Button>
-          </Box>
+            <MainButton
+              text='View Results'
+              onClick={() => console.log('hello')}
+            />
+          </Link>
+          <MainButton text='Manage Party' onClick={() => setOpen(true)} />
         </Box>
-      </Box>
+      </Container>
     </>
   );
 };

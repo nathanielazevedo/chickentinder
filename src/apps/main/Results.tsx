@@ -236,7 +236,7 @@ const Results = () => {
               <Box sx={{ width: '100%' }}>
                 <LinearProgressWithLabel
                   value={Math.round(
-                    (100 / Object.keys(party.hours).length) * party.hours[time]
+                    (100 / party.maxVoters) * party.hours[time]
                   )}
                   realValue={party.hours[time]}
                 />

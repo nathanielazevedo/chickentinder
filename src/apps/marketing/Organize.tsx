@@ -10,9 +10,8 @@ const SectionThree = () => {
         <TwoStack
           variant='body'
           title='Where are we eating?'
-          body="Stop trying to organize your friends over text. Use our app to
-            quickly and easily decide where to eat. Blame Chicken Tinder if you
-            don't like the restaurant."
+          body='Stop trying to organize your friends over text. Let Chicken Tinder
+          help you quickly and easily decide where to eat.'
         />
       </Box>
     </Box>

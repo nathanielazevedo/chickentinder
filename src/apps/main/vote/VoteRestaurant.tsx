@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { bg } from '../../assets';
-import NavBar from '../../components/Navbar';
-import { Restaurant } from '../../models/Restaurant';
+import { bg } from '../../../assets';
+import NavBar from '../../../components/Navbar';
+import { Restaurant } from '../../../models/Restaurant';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import { Box, Card, Rating, Tooltip, Typography } from '@mui/material';

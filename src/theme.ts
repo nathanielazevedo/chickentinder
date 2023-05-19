@@ -1,6 +1,4 @@
 // color design tokens export
-// font-family: 'Coming Soon', cursive;
-// font-family: 'Poppins', sans-serif;
 export const colorTokens = {
   grey: {
     0: '#FFFFFF',

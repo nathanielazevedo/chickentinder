@@ -12,7 +12,7 @@ const GetStarted = () => {
         <TwoStack
           variant='body'
           title='Get Started Now'
-          body="Chicken Tinder is easy to use and doesn't require an account. Just
+          body="Chicken Tinder is totally free and doesn't require an account. Just
             generate a new link and share it with your friends."
         />
       </Box>

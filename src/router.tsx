@@ -2,7 +2,7 @@ import Create from './apps/createParty/Create';
 import Entry from './apps/main/Entry';
 import Manage from './apps/main/Manage';
 import ResultsPage from './apps/main/ResultsPage';
-import Swipe from './apps/main/Swipe';
+import Swipe from './apps/main/vote/Swipe';
 import Intro from './apps/marketing/Intro';
 import { createBrowserRouter } from 'react-router-dom';
 import MyParties from './apps/myParties/MyParties';

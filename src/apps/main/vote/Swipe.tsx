@@ -1,12 +1,12 @@
-import API from '../../api';
-import { Party } from '../../models/Party';
+import API from '../../../api';
+import { Party } from '../../../models/Party';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import VoteTime from './VoteTime';
 import VoteRestaurant from './VoteRestaurant';
-import VoteResults from './VoteResults';
-import CreateLoad from '../createParty/CreateLoad';
+import VoteResults from '../VoteResults';
+import CreateLoad from '../../createParty/CreateLoad';
 
 const Swipe = () => {
   const navigate = useNavigate();
