@@ -18,6 +18,8 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
     undefined
   );
 
+  console.log('results page');
+
   useEffect(() => {
     const findLikedRestaurants = () => {
       const likedRestaurants = party.restaurants.filter((restaurant) =>
@@ -43,11 +45,12 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             gap: '20px',
             padding: '20px',
             borderRadius: '20px',
             overflowX: 'hidden',
+            width: { xs: '50%', lg: '600px' },
           }}
         >
           <Typography variant='h4' color='scondary'>

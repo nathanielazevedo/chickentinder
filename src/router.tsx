@@ -6,6 +6,7 @@ import Swipe from './apps/main/Swipe';
 import Intro from './apps/marketing/Intro';
 import { createBrowserRouter } from 'react-router-dom';
 import MyParties from './apps/myParties/MyParties';
+import MyVotes from './apps/main/MyVotes';
 
 export const router = createBrowserRouter(
   [
@@ -24,6 +25,10 @@ export const router = createBrowserRouter(
     {
       path: '/party/:id/vote',
       element: <Swipe />,
+    },
+    {
+      path: '/party/:id/myVotes',
+      element: <MyVotes />,
     },
     {
       path: '/party/:id/results',

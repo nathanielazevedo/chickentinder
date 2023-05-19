@@ -39,9 +39,13 @@ export const partySchema = object({
     .required('Required')
     .positive()
     .integer('Must be an integer'),
-  maxVoters: number().required('Required').positive().integer(),
+  maxVoters: number().required('Required').positive().integer().min(2),
   password: string().required('Required'),
-  number_of_restaurants: number().required('Required').positive().integer(),
+  number_of_restaurants: number()
+    .required('Required')
+    .positive()
+    .integer()
+    .min(2),
 });
 
 export const toMeters = (miles: number) => {

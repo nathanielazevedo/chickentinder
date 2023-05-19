@@ -1,6 +1,6 @@
-import { chick } from '../../assets';
+import { bg } from '../../assets';
 import Navbar from '../../components/Navbar';
-import { Box, Typography } from '@mui/material';
+import { Box, CircularProgress } from '@mui/material';
 
 const CreateLoad = () => {
   return (
@@ -12,7 +12,13 @@ const CreateLoad = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: { xs: 'flex-start', sm: 'center' },
-          height: 'calc(100vh - 70px)',
+          height: { xs: '100%', sm: '100%' },
+          minHeight: {
+            xs: 'calc(100vh - 56px)',
+            sm: 'calc(100vh - 64px)',
+          },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
         <Box
@@ -24,10 +30,12 @@ const CreateLoad = () => {
             marginTop: { xs: '100px', sm: 0 },
           }}
         >
-          <img src={chick} width='250px' />
-          <Typography variant='h5'>
-            I'm looking for the best restaurants for you...
-          </Typography>
+          <CircularProgress
+            size={100}
+            sx={{
+              color: 'white',
+            }}
+          />
         </Box>
       </Box>
     </>

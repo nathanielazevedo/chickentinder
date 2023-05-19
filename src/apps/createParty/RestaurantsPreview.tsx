@@ -1,9 +1,8 @@
-import { Box, Card, Link, Typography } from '@mui/material';
-import { chick } from '../../assets';
+import { Box, Card, Link, Typography, Button } from '@mui/material';
+import { bg, chick } from '../../assets';
 import Checkbox from '@mui/material/Checkbox';
 import Navbar from '../../components/Navbar';
 import { Restaurant } from '../../models/Restaurant';
-import Button from '../../components/Button';
 
 type RestaurantsPreviewProps = {
   restaurants: Restaurant[];
@@ -29,6 +28,11 @@ const RestaurantsPreview = ({
     setRestaurants(newRestaurants);
   };
 
+  const getCheckedRestaurants = () => {
+    const checked = restaurants.filter((restaurant) => restaurant.checked);
+    return checked.length;
+  };
+
   return (
     <>
       <Navbar showButton={false} />
@@ -38,13 +42,22 @@ const RestaurantsPreview = ({
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          height: { xs: '100%', sm: '100%' },
+          minHeight: {
+            xs: 'calc(100vh - 56px)',
+            sm: 'calc(100vh - 64px)',
+          },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
+          paddingBottom: { xs: '50px', sm: '50px' },
         }}
       >
         <Box
           sx={{
-            padding: '40px 0',
+            padding: '40px',
             borderRadius: '20px',
             width: { xs: '98%', sm: '500px' },
+            backgroundColor: 'white',
           }}
         >
           <Box>
@@ -104,11 +117,29 @@ const RestaurantsPreview = ({
                 gap: '10px',
               }}
             >
-              <Button text='Create the Party!' onClick={moveAhead} />
               <Button
-                text='Go Back'
+                variant='outlined'
+                disabled={getCheckedRestaurants() < 2}
+                onClick={moveAhead}
+                sx={{
+                  height: '50px',
+                }}
+              >
+                <Typography variant='body1'>
+                  {getCheckedRestaurants() < 2
+                    ? 'Must select at least 2'
+                    : 'Create the Party!'}
+                </Typography>
+              </Button>
+              <Button
+                variant='outlined'
                 onClick={() => setRestaurants(undefined)}
-              />
+                sx={{
+                  height: '50px',
+                }}
+              >
+                <Typography variant='body1'>Go Back</Typography>
+              </Button>
             </Box>
           </Box>
         </Box>

@@ -9,6 +9,7 @@ const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
         width: '100%',
         height: '50px',
         backgroundImage: globalStyles.gradientBg,
+        border: '1px solid black',
       }}
     >
       <Typography variant='h5' fontWeight='bold'>

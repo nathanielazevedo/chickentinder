@@ -1,8 +1,11 @@
-import { Box } from '@mui/material';
+import { Box, Button, Card, Typography } from '@mui/material';
 import Results from './Results';
 import Navbar from '../../components/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { bg } from '../../assets';
 
 const ResultsPage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <Navbar />
@@ -12,23 +15,39 @@ const ResultsPage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 'calc(100vh - 80px)',
+          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
-        <Box
+        <Card
           sx={{
-            padding: { xs: '40px 5px', sm: '40px' },
+            padding: { xs: '40px 15px', sm: '40px' },
             borderRadius: '20px',
-            width: { xs: '100%', sm: '600px' },
+            width: { xs: '90%', sm: '600px' },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'flex-start',
             justifyContent: 'flex-start',
             gap: '20px',
+            backgroundColor: '#ffffff',
           }}
         >
+          <Typography variant='h3'>Party Results</Typography>
           <Results />
-        </Box>
+          <Button
+            variant='outlined'
+            sx={{
+              width: '100%',
+              height: '50px',
+            }}
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <Typography variant='h5'>Back to party</Typography>
+          </Button>
+        </Card>
       </Box>
     </>
   );

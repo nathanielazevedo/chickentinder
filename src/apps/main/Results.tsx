@@ -9,7 +9,7 @@ import LinearProgress, {
 } from '@mui/material/LinearProgress';
 
 function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number }
+  props: LinearProgressProps & { value: number; realValue: number }
 ) {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -20,7 +20,7 @@ function LinearProgressWithLabel(
         <Typography
           variant='body2'
           color='text.secondary'
-        >{`${props.value}`}</Typography>
+        >{`${props.realValue}`}</Typography>
       </Box>
     </Box>
   );
@@ -171,17 +171,6 @@ const Results = () => {
         alignItems: 'center',
       }}
     >
-      <Typography
-        variant='h3'
-        sx={{
-          fontWeight: 'bold',
-          color: 'black',
-
-          marginBottom: '20px',
-        }}
-      >
-        Voting Results
-      </Typography>
       {party &&
         party.restaurants.map((restaurant) => {
           return (
@@ -191,12 +180,15 @@ const Results = () => {
                 flexDirection: 'column',
                 alignItems: 'flex-start',
                 justifyContent: 'center',
-                width: '90%',
+                width: '100%',
               }}
             >
               <Typography sx={{ color: 'black' }}>{restaurant.name}</Typography>
               <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel value={restaurant.votes} />
+                <LinearProgressWithLabel
+                  value={Math.round((100 / party.maxVoters) * restaurant.votes)}
+                  realValue={restaurant.votes}
+                />
               </Box>
             </Box>
           );

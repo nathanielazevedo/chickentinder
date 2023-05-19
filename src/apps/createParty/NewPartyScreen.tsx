@@ -1,7 +1,8 @@
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Button, Link, Typography } from '@mui/material';
 import Navbar from '../../components/Navbar';
 import { Party } from '../../models/Party';
-import Button from '../../components/Button';
+import { bg } from '../../assets';
+import { globalStyles } from '../../styles';
 
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
@@ -20,7 +21,14 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 'calc(100vh - 70px)',
+          height: { xs: '100%', sm: '100%' },
+          minHeight: {
+            xs: 'calc(100vh - 56px)',
+            sm: 'calc(100vh - 64px)',
+          },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
+          paddingBottom: { xs: '50px', sm: '50px' },
         }}
       >
         <Box
@@ -28,6 +36,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
             padding: '40px',
             borderRadius: '20px',
             width: { xs: '100%', sm: '500px' },
+            backgroundColor: 'white',
           }}
         >
           <Typography
@@ -69,7 +78,18 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
               </Typography>
             </Link>
             <Link href={baseUrl + 'party/' + party._id} target='_blank'>
-              <Button text={'Start Swiping'} />
+              <Button
+                fullWidth
+                variant='outlined'
+                sx={{
+                  height: '50px',
+                  color: 'black',
+                  border: '2px solid black',
+                  backgroundImage: globalStyles.gradientBg,
+                }}
+              >
+                <Typography>Go to party</Typography>
+              </Button>
             </Link>
           </Box>
         </Box>

@@ -4,8 +4,10 @@ import { Link, useParams } from 'react-router-dom';
 import PasswordDialog from './PasswordDialog';
 import Navbar from '../../components/Navbar';
 import API from '../../api';
-import { chick } from '../../assets';
+import { bg } from '../../assets';
 import { Party } from '../../models/Party';
+import { globalStyles } from '../../styles';
+import CreateLoad from '../createParty/CreateLoad';
 
 const localUrl = 'http://localhost:5173/chickentinder/';
 const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
@@ -14,21 +16,22 @@ const baseUrl = process.env.NODE_ENV === 'development' ? localUrl : prodUrl;
 const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [party, setParty] = useState({} as Party);
-  const partyInLocal = localStorage.getItem('parties');
+  const [party, setParty] = useState<Party | undefined>(undefined);
+  const [voted, setVoted] = useState(false);
+  const partiesInLocal = localStorage.getItem('parties');
 
   useEffect(() => {
     const getParty = async () => {
       if (!id) return;
       const res = await API.getParty(id);
-      if (!partyInLocal) {
+      if (!partiesInLocal) {
         localStorage.setItem(
           'parties',
           JSON.stringify([{ _id: id, voted: false, name: res.name }])
         );
       }
-      if (partyInLocal) {
-        const partys = JSON.parse(partyInLocal);
+      if (partiesInLocal) {
+        const partys = JSON.parse(partiesInLocal);
         const party = partys.find((party: Party) => party._id === id);
         if (!party) {
           localStorage.setItem(
@@ -38,17 +41,21 @@ const Entry = () => {
               { _id: id, voted: false, name: res.name },
             ])
           );
+        } else {
+          setVoted(party.voted);
         }
       }
       setParty(res);
     };
     getParty();
-  }, [id, partyInLocal]);
+  }, [id, partiesInLocal]);
 
   const toMiles = (km: number) => {
     const miles = km / 1609.34;
     return Math.floor(miles);
   };
+
+  if (!party) return <CreateLoad />;
 
   return (
     <>
@@ -59,18 +66,11 @@ const Entry = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 'calc(100vh - 80px)',
+          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
-        <Box
-          sx={{
-            height: '500px',
-            width: '500px',
-            position: 'absolute',
-            bottom: '0',
-            right: '0',
-          }}
-        ></Box>
         <PasswordDialog open={open} setOpen={setOpen} />
         <Box
           sx={{
@@ -80,8 +80,10 @@ const Entry = () => {
             justifyContent: 'center',
             padding: '40px',
             borderRadius: '20px',
-            width: { xs: '100%', sm: '500px' },
+            width: { xs: '90%', sm: '500px' },
             gap: '50px',
+
+            backgroundColor: '#ffffff',
           }}
         >
           <Box
@@ -101,7 +103,7 @@ const Entry = () => {
                 marginBottom: '20px',
               }}
             >
-              Party Name: {party.name}
+              {party.name}
             </Typography>
             <Typography
               variant='h5'
@@ -163,7 +165,6 @@ const Entry = () => {
                 alignItems: 'center',
               }}
             >
-              <img src={chick} alt='chick' width='70px' />
               <Typography
                 variant='h4'
                 sx={{
@@ -174,21 +175,23 @@ const Entry = () => {
               </Typography>
             </Box>
             <Link
-              to={party.winner ? `/party/${id}/` : `/party/${id}/vote`}
+              to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
               style={{
                 width: '100%',
               }}
             >
               <Button
-                variant='outlined'
+                variant='contained'
                 fullWidth
-                disabled={party.winner ? true : false}
                 sx={{
-                  height: '50px',
+                  height: '40px',
+                  color: 'black',
+                  backgroundImage: globalStyles.gradientBg,
+                  border: '1px solid black',
                 }}
               >
-                <Typography>
-                  {party.winner ? 'Winner Chosen' : 'Vote'}
+                <Typography variant='h6'>
+                  {voted ? 'View My Votes' : 'Vote'}
                 </Typography>
               </Button>
             </Link>
@@ -199,24 +202,30 @@ const Entry = () => {
               }}
             >
               <Button
-                variant='outlined'
+                variant='contained'
                 fullWidth
                 sx={{
-                  height: '50px',
+                  height: '40px',
+                  color: 'black',
+                  backgroundImage: globalStyles.gradientBg,
+                  border: '1px solid black',
                 }}
               >
-                <Typography>View Results</Typography>
+                <Typography variant='h6'>View Results</Typography>
               </Button>
             </Link>
             <Button
-              variant='outlined'
+              variant='contained'
               fullWidth
               onClick={() => setOpen(true)}
               sx={{
-                height: '50px',
+                height: '40px',
+                color: 'black',
+                backgroundImage: globalStyles.gradientBg,
+                border: '1px solid black',
               }}
             >
-              <Typography>Manage Party</Typography>
+              <Typography variant='h6'>Manage Party</Typography>
             </Button>
           </Box>
         </Box>

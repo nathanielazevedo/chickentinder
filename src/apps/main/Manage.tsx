@@ -1,14 +1,16 @@
 import { Box, Button, Card, Rating, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Results from './Results';
 import NavBar from '../../components/Navbar';
 import API from '../../api';
 import { Restaurant } from '../../models/Restaurant';
 import { Party } from '../../models/Party';
+import { bg } from '../../assets';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [party, setParty] = useState<Party | undefined>(undefined);
   const [result, setResult] = useState<Restaurant | undefined>(undefined);
@@ -180,7 +182,9 @@ const Manage = () => {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          height: 'calc(100vh - 80px)',
+          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
         {party && (
@@ -188,42 +192,67 @@ const Manage = () => {
             sx={{
               padding: '40px',
               borderRadius: '20px',
-              width: { xs: '100%', sm: '500px' },
+              width: { xs: '90%', sm: '500px' },
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'flex-start',
               justifyContent: 'flex-start',
               gap: '20px',
+              backgroundColor: '#ffffff',
             }}
           >
-            <Typography
-              variant='h3'
+            <Box
               sx={{
-                fontWeight: 'bold',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                width: '100%',
               }}
             >
-              {party.name}
-            </Typography>
-            <Typography
-              variant='h5'
-              sx={{
-                fontWeight: 'bold',
-              }}
-            >
-              {party.voters} / {party.maxVoters} voters have voted
-            </Typography>
+              <Typography
+                variant='h3'
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
+                {party.name}
+              </Typography>
+              <Typography
+                variant='h5'
+                sx={{
+                  fontWeight: 'bold',
+                }}
+              >
+                {party.voters} / {party.maxVoters} voters have voted
+              </Typography>
+            </Box>
             <Results />
             <Button
               fullWidth
-              variant='contained'
+              variant='outlined'
               sx={{
                 heigth: '50px',
                 fontSize: '1rem',
                 fontWeight: 'bold',
               }}
+              color='error'
               onClick={endParty}
             >
               End voting
+            </Button>
+            <Button
+              fullWidth
+              variant='outlined'
+              sx={{
+                heigth: '50px',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+              }}
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              Go Back
             </Button>
           </Box>
         )}

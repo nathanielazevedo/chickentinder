@@ -1,7 +1,7 @@
 import API from '../../api';
 import { Formik } from 'formik';
 import { useState } from 'react';
-import { chick } from '../../assets';
+import { bg } from '../../assets';
 import CreateLoad from './CreateLoad';
 import { Party } from '../../models/Party';
 // import { globalStyles } from '../../styles';
@@ -32,12 +32,14 @@ import {
   hoursType,
   valueType,
 } from './CreateHelpers';
+import { globalStyles } from '../../styles';
 
 const Create = () => {
   const [loading, setLoading] = useState(false);
   const [voteTime, setVoteTime] = useState(false);
   const [hours, setHours] = useState(hoursInitial);
   const [values, setValues] = useState(valueInitial);
+  const [timeError, setTimeError] = useState(false);
   const [generalError, setGeneralError] = useState('');
   const [party, setParty] = useState<Party | undefined>(undefined);
   const [restaurants, setRestaurants] = useState<Restaurant[] | undefined>(
@@ -45,12 +47,25 @@ const Create = () => {
   );
 
   const createParty = async (values: valueType) => {
+    if (voteTime) {
+      const officialHours = Object.keys(hours).filter(
+        (h) => hours[h as keyof hoursType] === true
+      );
+      if (officialHours.length < 2) {
+        setTimeError(true);
+        return;
+      }
+    }
     setValues(values);
     setLoading(true);
     try {
       const restaurants = await API.fetchRestaurants(values);
       if (restaurants?.error?.message) {
         setGeneralError(restaurants.error.message);
+        setLoading(false);
+        return;
+      } else if (restaurants.length === 0) {
+        setGeneralError('No restaurants found. Please try again.');
         setLoading(false);
         return;
       } else {
@@ -90,7 +105,12 @@ const Create = () => {
     setParty(party);
   };
 
+  const isChecked = (value: string) => {
+    return hours[value as keyof hoursType];
+  };
+
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTimeError(false);
     const { value, checked } = e.target;
     setHours({ ...hours, [value]: checked });
   };
@@ -133,14 +153,23 @@ const Create = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 paddingTop: { xs: 0, sm: '70px' },
+                height: { xs: '100%', sm: '100%' },
+                minHeight: {
+                  xs: 'calc(100vh - 56px)',
+                  sm: 'calc(100vh - 64px)',
+                },
+                backgroundImage: `url(${bg})`,
+                backgroundPosition: 'center',
+                paddingBottom: { xs: '50px', sm: '50px' },
               }}
             >
               <Box
                 sx={{
-                  padding: '40px',
-                  borderRadius: { xs: 0, sm: '20px' },
-                  width: { xs: '100%', sm: '500px' },
+                  padding: { xs: '40px 30px', sm: '40px' },
+                  borderRadius: { xs: '20px', sm: '20px' },
+                  width: { xs: '90%', sm: '500px' },
                   height: { xs: '100%', sm: 'auto' },
+                  backgroundColor: '#ffffff',
                 }}
               >
                 <Box
@@ -151,7 +180,6 @@ const Create = () => {
                     gap: '5px',
                   }}
                 >
-                  <img src={chick} width='50px' />
                   <Typography
                     variant='h3'
                     sx={{
@@ -262,198 +290,225 @@ const Create = () => {
                       <Switch
                         inputProps={{ 'aria-label': 'Switch demo' }}
                         onChange={(e) => {
+                          setTimeError(false);
                           setVoteTime(e.target.checked);
                         }}
                       />
-                      <Typography>Vote on the best time to meet?</Typography>
+                      <Box>
+                        <Typography>Vote on the best time to meet?</Typography>
+                        {timeError && voteTime && (
+                          <Typography color='error'>
+                            You must choose at least 2 times
+                          </Typography>
+                        )}
+                      </Box>
                     </Box>
                     {voteTime && (
                       <>
                         <FormControl>
                           <FormLabel id='demo-radio-buttons-group-label'>
-                            Choose the ranges of times you want to be voted on
+                            Choose the time ranges you want to be voted on
                           </FormLabel>
                           <RadioGroup
                             aria-labelledby='demo-radio-buttons-group-label'
                             defaultValue='female'
                             name='radio-buttons-group'
                           >
-                            <FormControlLabel
-                              value='7-8 AM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='7-8 AM'
-                            />
-                            <FormControlLabel
-                              value='8-9 AM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='8-9 AM'
-                            />
-                            <FormControlLabel
-                              value='9-10 AM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='9-10 AM'
-                            />
-                            <FormControlLabel
-                              value='10-11 AM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='10-11 AM'
-                            />
-                            <FormControlLabel
-                              value='11-12 AM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='12-1 PM'
-                            />
-                            <FormControlLabel
-                              value='1-2 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='1-2 PM'
-                            />
-                            <FormControlLabel
-                              value='2-3 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='2-3 PM'
-                            />
-                            <FormControlLabel
-                              value='3-4 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='3-4 PM'
-                            />
-                            <FormControlLabel
-                              value='4-5 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='4-5 PM'
-                            />
-                            <FormControlLabel
-                              value='5-6 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='5-6 PM'
-                            />
-                            <FormControlLabel
-                              value='6-7 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='6-7 PM'
-                            />
-                            <FormControlLabel
-                              value='7-8 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='7-8 PM'
-                            />
-                            <FormControlLabel
-                              value='8-9 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='8-9 PM'
-                            />
-                            <FormControlLabel
-                              value='9-10 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='9-10 PM'
-                            />
-                            <FormControlLabel
-                              value='10-11 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='10-11 PM'
-                            />
-                            <FormControlLabel
-                              value='11-12 PM'
-                              control={
-                                <Checkbox
-                                  onChange={(e) => {
-                                    handleHours(e);
-                                  }}
-                                />
-                              }
-                              label='11-12 PM'
-                            />
+                            <Box>
+                              <FormControlLabel
+                                value='7-8 AM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('7-8 AM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='7-8 AM'
+                              />
+                              <FormControlLabel
+                                value='8-9 AM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('8-9 AM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='8-9 AM'
+                              />
+                              <FormControlLabel
+                                value='9-10 AM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('9-10 AM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='9-10 AM'
+                              />
+                              <FormControlLabel
+                                value='10-11 AM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('10-11 AM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='10-11 AM'
+                              />
+                              <FormControlLabel
+                                value='11-12 AM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('11-12 AM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='12-1 PM'
+                              />
+                              <FormControlLabel
+                                value='1-2 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('1-2 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='1-2 PM'
+                              />
+                              <FormControlLabel
+                                value='2-3 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('2-3 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='2-3 PM'
+                              />
+                              <FormControlLabel
+                                value='3-4 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('3-4 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='3-4 PM'
+                              />
+
+                              <FormControlLabel
+                                value='4-5 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('4-5 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='4-5 PM'
+                              />
+                              <FormControlLabel
+                                value='5-6 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('5-6 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='5-6 PM'
+                              />
+                              <FormControlLabel
+                                value='6-7 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('6-7 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='6-7 PM'
+                              />
+                              <FormControlLabel
+                                value='7-8 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('7-8 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='7-8 PM'
+                              />
+                              <FormControlLabel
+                                value='8-9 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('8-9 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='8-9 PM'
+                              />
+                              <FormControlLabel
+                                value='9-10 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('9-10 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='9-10 PM'
+                              />
+                              <FormControlLabel
+                                value='10-11 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('10-11 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='10-11 PM'
+                              />
+                              <FormControlLabel
+                                value='11-12 PM'
+                                control={
+                                  <Checkbox
+                                    checked={isChecked('11-12 PM')}
+                                    onChange={(e) => {
+                                      handleHours(e);
+                                    }}
+                                  />
+                                }
+                                label='11-12 PM'
+                              />
+                            </Box>
                           </RadioGroup>
                         </FormControl>
                       </>
@@ -487,10 +542,12 @@ const Create = () => {
                       fullWidth
                       sx={{
                         height: '50px',
-                        fontSize: '1rem',
+                        color: 'black',
+                        backgroundImage: globalStyles.gradientBg,
+                        border: '1px solid black',
                       }}
                     >
-                      Create Party
+                      <Typography>Create Party</Typography>
                     </Button>
                   </FormControl>
                   {generalError && (

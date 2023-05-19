@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { chick } from '../../assets';
+import { bg } from '../../assets';
 import NavBar from '../../components/Navbar';
 import { Restaurant } from '../../models/Restaurant';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
@@ -53,6 +53,7 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
             alignItems: 'center',
             justifyContent: 'space-between',
             width: { xs: '350px', md: '500px' },
+            marginBottom: '10px',
           }}
         >
           <Box
@@ -61,17 +62,19 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
               alignItems: 'center',
             }}
           >
-            <img
-              src={chick}
-              alt='chicken'
-              width='70px'
-              style={{
-                marginBottom: '10px',
+            <Typography
+              variant='h4'
+              sx={{
+                color: '#ffffff',
               }}
-            />
-            <Typography variant='h4'>Like the ones you like </Typography>
+            ></Typography>
           </Box>
-          <Typography variant='h4'>
+          <Typography
+            variant='h4'
+            sx={{
+              color: '#ffffff',
+            }}
+          >
             {index + 1} of {length}
           </Typography>
         </Box>
@@ -271,10 +274,17 @@ const styles = {
     justifyContent: { xs: 'flex-start', sm: 'center', md: 'center' },
     paddingTop: { xs: '40px', md: '0px' },
     alignItems: 'center',
-    height: '93vh',
     width: '100vw',
     maxWidth: '100vw',
     overflowX: 'hidden',
+    height: { xs: '100%', sm: '100%' },
+    minHeight: {
+      xs: 'calc(100vh - 56px)',
+      sm: 'calc(100vh - 64px)',
+    },
+    backgroundImage: `url(${bg})`,
+    backgroundPosition: 'center',
+    paddingBottom: { xs: '50px', sm: '50px' },
   },
   restaurantContainer: {
     display: 'flex',
