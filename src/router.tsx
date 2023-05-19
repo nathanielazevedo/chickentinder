@@ -9,50 +9,45 @@ import MyParties from './apps/myParties/MyParties';
 import MyVotes from './apps/main/MyVotes';
 import FourOFour from './components/FourOFour';
 
-export const router = createBrowserRouter(
-  [
-    {
-      path: '/',
-      element: (
-        <>
-          <Intro />
-        </>
-      ),
-    },
-    {
-      path: '/create',
-      element: <Create />,
-    },
-    {
-      path: '/party/:id/vote',
-      element: <Swipe />,
-    },
-    {
-      path: '/party/:id/myVotes',
-      element: <MyVotes />,
-    },
-    {
-      path: '/party/:id/results',
-      element: <ResultsPage />,
-    },
-    {
-      path: '/party/:id/manage',
-      element: <Manage />,
-    },
-    {
-      path: '/party/:id',
-      element: <Entry />,
-    },
-    {
-      path: '/my-parties',
-      element: <MyParties />,
-    },
-    {
-      path: '*',
-      element: <FourOFour />,
-    },
-  ],
+export const router = createBrowserRouter([
   {
-    basename: '/chickentinder',
-  }
-);
+    path: '/',
+    element: (
+      <>
+        <Intro />
+      </>
+    ),
+  },
+  {
+    path: '/create',
+    element: <Create />,
+  },
+  {
+    path: '/party/:id/vote',
+    element: <Swipe />,
+  },
+  {
+    path: '/party/:id/myVotes',
+    element: <MyVotes />,
+  },
+  {
+    path: '/party/:id/results',
+    element: <ResultsPage />,
+  },
+  {
+    path: '/party/:id/manage',
+    element: <Manage />,
+  },
+  {
+    path: '/party/:id',
+    element: <Entry />,
+  },
+  {
+    path: '/my-parties',
+    element: <MyParties />,
+  },
+  {
+    path: '*',
+    element: <FourOFour />,
+  },
+]);
