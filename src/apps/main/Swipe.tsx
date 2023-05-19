@@ -7,6 +7,7 @@ import VoteTime from './VoteTime';
 import VoteRestaurant from './VoteRestaurant';
 import VoteResults from './VoteResults';
 import VoteLoading from './VoteLoading';
+import CreateLoad from '../createParty/CreateLoad';
 
 const Swipe = () => {
   const navigate = useNavigate();
@@ -89,7 +90,7 @@ const Swipe = () => {
     }
   };
 
-  if (!party || !id) return <VoteLoading />;
+  if (!party || !id) return <CreateLoad />;
 
   if (votingStage === 'complete') {
     return (
@@ -105,7 +106,7 @@ const Swipe = () => {
     return <VoteTime hours={party.hours} fTV={fTV} />;
   }
 
-  return <VoteLoading />;
+  return <CreateLoad />;
 };
 
 export default Swipe;
