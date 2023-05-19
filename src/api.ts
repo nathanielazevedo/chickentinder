@@ -1,7 +1,10 @@
 import { CreateParty } from './models/Party';
-import { getBaseUrl } from './utils/general';
 
-const baseUrl = getBaseUrl();
+const localUrl = 'http://localhost:6001/';
+const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
+
+export const baseUrl =
+  process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
 
 const getParty = async (id: string): Promise<any> => {
   return fetch(baseUrl + 'party/' + id, {
