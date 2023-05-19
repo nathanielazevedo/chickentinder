@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { Party } from '../../models/Party';
 import API from '../../api';
 import VoteResults from './VoteResults';
+import CreateLoad from '../createParty/CreateLoad';
 
 const MyVotes = () => {
   const { id } = useParams();
@@ -12,8 +13,6 @@ const MyVotes = () => {
   const [tLikes, setTLikes] = useState<{ [key: string]: boolean }>();
 
   const navigate = useNavigate();
-
-  console.log('here');
 
   useEffect(() => {
     const getParty = async () => {
@@ -27,7 +26,6 @@ const MyVotes = () => {
         if (!party) {
           navigate('/party/' + id);
         } else {
-          console.log('hey!', party);
           setRLikes(party.voteRestaurants);
           if (party.voteTime) {
             setTLikes(party.voteTime);
@@ -41,7 +39,7 @@ const MyVotes = () => {
     getParty();
   }, [id, navigate, partiesInLocal]);
 
-  if (!rLikes || !tLikes || !id) return <></>;
+  if (!rLikes || !tLikes || !id) return <CreateLoad />;
 
   return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} id={id} />;
 };

@@ -3,6 +3,7 @@ import Results from './Results';
 import Navbar from '../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { bg } from '../../assets';
+import { globalStyles } from '../../styles';
 
 const ResultsPage = () => {
   const navigate = useNavigate();
@@ -36,10 +37,13 @@ const ResultsPage = () => {
           <Typography variant='h3'>Party Results</Typography>
           <Results />
           <Button
-            variant='outlined'
+            variant='contained'
+            fullWidth
             sx={{
-              width: '100%',
-              height: '50px',
+              height: '40px',
+              color: 'black',
+              backgroundImage: globalStyles.gradientBg,
+              border: '1px solid black',
             }}
             onClick={() => {
               navigate(-1);

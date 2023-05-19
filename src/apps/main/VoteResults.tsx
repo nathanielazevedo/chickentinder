@@ -1,14 +1,15 @@
-import { Box, Typography, Button, Card, Rating } from '@mui/material';
-import NavBar from '../../components/Navbar';
-import { useNavigate } from 'react-router-dom';
+import { bg } from '../../assets';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
+import NavBar from '../../components/Navbar';
+import { useNavigate } from 'react-router-dom';
 import { Restaurant } from '../../models/Restaurant';
+import { Box, Typography, Button, Card, Rating } from '@mui/material';
 
 type Props = {
-  rlikes: string[];
   id: string;
   party: Party;
+  rlikes: string[];
   tLikes: { [key: string]: boolean };
 };
 
@@ -17,8 +18,6 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
   const [restaurants, setRestaurants] = useState<Restaurant[] | undefined>(
     undefined
   );
-
-  console.log('results page');
 
   useEffect(() => {
     const findLikedRestaurants = () => {
@@ -35,10 +34,12 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
       <NavBar />
       <Box
         sx={{
-          ...styles.container,
-          gap: '10px',
+          display: 'flex',
           flexDirection: 'column',
-          marginTop: '50px',
+          alignItems: 'center',
+          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
         <Box
@@ -51,12 +52,13 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
             borderRadius: '20px',
             overflowX: 'hidden',
             width: { xs: '50%', lg: '600px' },
+            marginTop: '50px',
           }}
         >
-          <Typography variant='h4' color='scondary'>
+          <Typography variant='h4' color='white'>
             You liked these restaurants!
           </Typography>
-          <Button
+          {/* <Button
             variant='contained'
             sx={{
               width: '100%',
@@ -66,7 +68,7 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
             onClick={() => navigate(`/party/${id}`)}
           >
             Go to Main
-          </Button>
+          </Button> */}
         </Box>
         {rlikes.length != 0 && restaurants && (
           <Box
@@ -179,7 +181,7 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
         )}
         {tLikes && (
           <Box>
-            <Typography variant='h4' color='scondary' mb='20px' mt='20px'>
+            <Typography variant='h4' color='white' mb='20px' mt='20px'>
               You liked these times!
             </Typography>
             {Object.keys(tLikes).map((time) => {
@@ -219,17 +221,6 @@ const VoteResults = ({ rlikes, id, party, tLikes }: Props) => {
 export default VoteResults;
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: { xs: 'flex-start', md: 'center' },
-    paddingTop: { xs: '40px', md: '0px' },
-    alignItems: 'center',
-    width: '100vw',
-    maxWidth: '98vw',
-    overflowX: 'hidden',
-    marginBottom: '50px',
-  },
   restaurantContainer: {
     display: 'flex',
     justifyContent: 'center',

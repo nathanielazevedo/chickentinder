@@ -7,6 +7,7 @@ import Intro from './apps/marketing/Intro';
 import { createBrowserRouter } from 'react-router-dom';
 import MyParties from './apps/myParties/MyParties';
 import MyVotes from './apps/main/MyVotes';
+import FourOFour from './components/FourOFour';
 
 export const router = createBrowserRouter(
   [
@@ -45,6 +46,10 @@ export const router = createBrowserRouter(
     {
       path: '/my-parties',
       element: <MyParties />,
+    },
+    {
+      path: '*',
+      element: <FourOFour />,
     },
   ],
   {

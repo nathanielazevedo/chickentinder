@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 import Navbar from '../../components/Navbar';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Card, Typography } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { bg } from '../../assets';
 
 const MyParties = () => {
   const [myParties, setMyParties] = useState([]);
@@ -13,17 +14,22 @@ const MyParties = () => {
 
   return (
     <>
-      <Navbar />
+      <Navbar showButton={false} />
       <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
+          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
+          backgroundImage: `url(${bg})`,
+          backgroundPosition: 'center',
         }}
       >
-        <Box
+        <Card
           sx={{
             marginTop: '50px',
+            backgroundColor: '#ffffff',
+            padding: { xs: '40px 15px', sm: '40px' },
           }}
         >
           <Typography
@@ -56,7 +62,7 @@ const MyParties = () => {
               </Link>
             );
           })}
-        </Box>
+        </Card>
       </Box>
     </>
   );

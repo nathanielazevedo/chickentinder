@@ -7,6 +7,7 @@ import API from '../../api';
 import { Restaurant } from '../../models/Restaurant';
 import { Party } from '../../models/Party';
 import { bg } from '../../assets';
+import { globalStyles } from '../../styles';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
@@ -229,7 +230,7 @@ const Manage = () => {
             <Results />
             <Button
               fullWidth
-              variant='outlined'
+              variant='contained'
               sx={{
                 heigth: '50px',
                 fontSize: '1rem',
@@ -241,12 +242,13 @@ const Manage = () => {
               End voting
             </Button>
             <Button
+              variant='contained'
               fullWidth
-              variant='outlined'
               sx={{
-                heigth: '50px',
-                fontSize: '1rem',
-                fontWeight: 'bold',
+                height: '40px',
+                color: 'black',
+                backgroundImage: globalStyles.gradientBg,
+                border: '1px solid black',
               }}
               onClick={() => {
                 navigate(-1);

@@ -171,6 +171,19 @@ const Results = () => {
         alignItems: 'center',
       }}
     >
+      {party && party.restaurants && (
+        <Typography
+          variant='h5'
+          sx={{
+            color: 'black',
+            marginTop: '0px',
+            alignSelf: 'flex-start',
+            marginBottom: '10px',
+          }}
+        >
+          Restaurants
+        </Typography>
+      )}
       {party &&
         party.restaurants.map((restaurant) => {
           return (
@@ -188,6 +201,44 @@ const Results = () => {
                 <LinearProgressWithLabel
                   value={Math.round((100 / party.maxVoters) * restaurant.votes)}
                   realValue={restaurant.votes}
+                />
+              </Box>
+            </Box>
+          );
+        })}
+      {party && party.voteTime && (
+        <Typography
+          variant='h5'
+          sx={{
+            color: 'black',
+            marginTop: '20px',
+            alignSelf: 'flex-start',
+            marginBottom: '10px',
+          }}
+        >
+          Times
+        </Typography>
+      )}
+      {party &&
+        party.voteTime &&
+        Object.keys(party.hours).map((time) => {
+          return (
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                justifyContent: 'center',
+                width: '100%',
+              }}
+            >
+              <Typography sx={{ color: 'black' }}>{time}</Typography>
+              <Box sx={{ width: '100%' }}>
+                <LinearProgressWithLabel
+                  value={Math.round(
+                    (100 / Object.keys(party.hours).length) * party.hours[time]
+                  )}
+                  realValue={party.hours[time]}
                 />
               </Box>
             </Box>
