@@ -8,46 +8,52 @@ import { createBrowserRouter } from 'react-router-dom';
 import MyParties from './apps/myParties/MyParties';
 import MyVotes from './apps/main/MyVotes';
 import FourOFour from './components/FourOFour';
+import Error from './components/Error';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: (
-      <>
-        <Intro />
-      </>
-    ),
+    element: <Intro />,
+    errorElement: <Error />,
   },
   {
     path: '/create',
     element: <Create />,
+    errorElement: <Error />,
   },
   {
     path: '/party/:id/vote',
     element: <Swipe />,
+    errorElement: <Error />,
   },
   {
     path: '/party/:id/myVotes',
     element: <MyVotes />,
+    errorElement: <Error />,
   },
   {
     path: '/party/:id/results',
     element: <ResultsPage />,
+    errorElement: <Error />,
   },
   {
     path: '/party/:id/manage',
     element: <Manage />,
+    errorElement: <Error />,
   },
   {
     path: '/party/:id',
     element: <Entry />,
+    errorElement: <Error />,
   },
   {
     path: '/my-parties',
     element: <MyParties />,
+    errorElement: <Error />,
   },
   {
     path: '*',
     element: <FourOFour />,
+    errorElement: <Error />,
   },
 ]);

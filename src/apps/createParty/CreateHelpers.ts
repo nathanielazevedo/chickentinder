@@ -24,14 +24,15 @@ export const valueInitial = {
   name: '',
   location: '',
   max_distance: 15000,
-  maxVoters: '',
+  maxVoters: 5,
   password: '',
-  number_of_restaurants: '',
+  number_of_restaurants: 5,
 };
 
 export type valueType = typeof valueInitial;
 
 import { object, string, number } from 'yup';
+import { Restaurant } from '../../models/Restaurant';
 export const partySchema = object({
   name: string().required('Required'),
   location: string().required('Required'),
@@ -56,4 +57,20 @@ export const toMeters = (miles: number) => {
 export const toMiles = (km: number) => {
   const miles = km / 1609.34;
   return Math.floor(miles);
+};
+
+export const getLikedHours = (hours: hoursType) => {
+  return Object.keys(hours).filter((h) => hours[h as keyof hoursType] === true);
+};
+
+export const hashLikedHours = (hours: string[]) => {
+  return hours.reduce((acc, h) => {
+    return { ...acc, [h]: 0 };
+  }, {});
+};
+
+export const addChecks = (restaurants: Restaurant[]) => {
+  return restaurants.map((r: Restaurant) => {
+    return { ...r, checked: true };
+  });
 };

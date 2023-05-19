@@ -1,14 +1,14 @@
-import Navbar from './Navbar';
-import Container from './Container';
-import MainButton from './MainButton';
+import NavBar from '../../components/Navbar';
 import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
+import Container from '../../components/Container';
+import MainButton from '../../components/MainButton';
 
-const FourOFour = () => {
+const PartyDeleted = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar showButton={false} />
+      <NavBar showButton={false} />
       <Container>
         <Box
           sx={{
@@ -24,14 +24,14 @@ const FourOFour = () => {
               fontSize: '3rem',
             }}
           >
-            404
+            Sorry!
           </Typography>
-          <Typography variant='h5'>You're lost!</Typography>
+          <Typography variant='h5'>This party has been removed.</Typography>
         </Box>
-        <MainButton text='Go Home' onClick={() => navigate('/')} />
+        <MainButton text='Go Home' onClick={() => navigate('/my-parties')} />
       </Container>
     </>
   );
 };
 
-export default FourOFour;
+export default PartyDeleted;

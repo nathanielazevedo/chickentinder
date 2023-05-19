@@ -33,7 +33,7 @@ export const constants = {
   ],
   marketingCards: [
     {
-      title: 'Create Party',
+      title: 'Create',
       description:
         "Choose a location and max distance. We'll generate a link for you to share with your friends.",
       icon: chick,

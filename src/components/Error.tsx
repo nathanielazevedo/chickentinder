@@ -1,8 +1,8 @@
 import Navbar from './Navbar';
 import Container from './Container';
 import MainButton from './MainButton';
-import { useNavigate } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const FourOFour = () => {
   const navigate = useNavigate();
@@ -24,9 +24,11 @@ const FourOFour = () => {
               fontSize: '3rem',
             }}
           >
-            404
+            Yikes
           </Typography>
-          <Typography variant='h5'>You're lost!</Typography>
+          <Typography variant='h5'>
+            Chicken Tinder had a problem. We apologize.
+          </Typography>
         </Box>
         <MainButton text='Go Home' onClick={() => navigate('/')} />
       </Container>

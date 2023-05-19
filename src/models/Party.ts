@@ -22,3 +22,17 @@ export type Party = {
   number_of_restaurants: number;
   _v: number;
 };
+
+export type CreateParty = {
+  name: string;
+  password: string;
+  maxVoters: number;
+  restaurants: Restaurant[];
+  voteTime: boolean;
+  hours: {
+    [time: string]: number;
+  };
+  location: string;
+  max_distance: number;
+  number_of_restaurants: number;
+};

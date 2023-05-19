@@ -3,15 +3,17 @@ import { Button, Typography } from '@mui/material';
 
 type Props = {
   text: string;
-  onClick: () => void;
+  onClick?: () => void;
+  disabled?: boolean;
 };
 
-const MainButton = ({ text, onClick }: Props) => {
+const MainButton = ({ text, onClick, disabled = false }: Props) => {
   return (
     <Button
       fullWidth
       onClick={onClick}
       variant='contained'
+      disabled={disabled}
       sx={{
         height: '40px',
         color: 'black',

@@ -17,15 +17,16 @@ const Container = ({ children }: any) => {
         },
         backgroundImage: `url(${bg})`,
         backgroundPosition: 'center',
-        paddingBottom: { xs: '50px', sm: '50px' },
+        paddingBottom: { xs: '0px', sm: '50px' },
       }}
     >
       <Card
         sx={{
-          padding: '40px',
-          borderRadius: '20px',
-          width: { xs: '100%', sm: '500px' },
           backgroundColor: 'white',
+          width: { xs: '100%', sm: '500px' },
+          padding: { xs: '40px 20px', sm: '40px' },
+          borderRadius: { xs: '0px', sm: '20px' },
+          minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
         }}
       >
         {children}

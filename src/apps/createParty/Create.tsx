@@ -9,8 +9,10 @@ import { Restaurant } from '../../models/Restaurant';
 import {
   hoursInitial,
   valueInitial,
-  hoursType,
   valueType,
+  getLikedHours,
+  hashLikedHours,
+  addChecks,
 } from './CreateHelpers';
 
 const Create = () => {
@@ -25,53 +27,46 @@ const Create = () => {
     undefined
   );
 
-  const createParty = async (values: valueType) => {
+  const fetchRestaurants = async (values: valueType) => {
+    // Check if voteTime is true and if there are at least 2 hours selected
     if (voteTime) {
-      const officialHours = Object.keys(hours).filter(
-        (h) => hours[h as keyof hoursType] === true
-      );
-      if (officialHours.length < 2) {
-        setTimeError(true);
-        return;
-      }
+      const likedHours = getLikedHours(hours);
+      if (likedHours.length < 2) return setTimeError(true);
     }
+    // Set values in case of return to create screen
     setValues(values);
     setLoading(true);
     try {
       const restaurants = await API.fetchRestaurants(values);
       if (restaurants?.error?.message) {
+        // Case of fetch error
         setGeneralError(restaurants.error.message);
         setLoading(false);
         return;
       } else if (restaurants.length === 0) {
+        // Case of no restaurants found
         setGeneralError('No restaurants found. Please try again.');
         setLoading(false);
         return;
       } else {
-        const restaurantsWithChecks = restaurants.map((r: Restaurant) => {
-          return { ...r, checked: true };
-        });
-        setRestaurants(restaurantsWithChecks);
+        // Case of everything good
+        setRestaurants(addChecks(restaurants));
         setLoading(false);
       }
     } catch {
+      // Error: user will remain on create screen
       setLoading(false);
     }
   };
 
-  const moveAhead = async () => {
+  const createParty = async () => {
     if (!restaurants) return;
     const officialRestaurants = restaurants.filter(
       (r: Restaurant) => r.checked === true
     );
 
-    const officialHours = Object.keys(hours).filter(
-      (h) => hours[h as keyof hoursType] === true
-    );
-
-    const hoursHash = officialHours.reduce((acc, h) => {
-      return { ...acc, [h]: 0 };
-    }, {});
+    const likedHoursArray = getLikedHours(hours);
+    const hoursHash = hashLikedHours(likedHoursArray);
 
     const party = await API.createParty({
       ...values,
@@ -79,28 +74,31 @@ const Create = () => {
       voteTime,
       hours: hoursHash,
     });
-
     setRestaurants(undefined);
     setParty(party);
   };
 
   if (loading) return <CreateLoad />;
+
+  // New Party Confirmation Screen
   if (party) return <NewPartyScreen party={party} />;
 
+  // Preview Restaurants Screen
   if (restaurants) {
     return (
       <RestaurantsPreview
         restaurants={restaurants}
-        moveAhead={moveAhead}
+        createParty={createParty}
         setRestaurants={setRestaurants}
       />
     );
   }
 
+  // Create Form Screen
   return (
     <CreateForm
       values={values}
-      createParty={createParty}
+      fetchRestaurants={fetchRestaurants}
       voteTime={voteTime}
       setVoteTime={setVoteTime}
       hours={hours}

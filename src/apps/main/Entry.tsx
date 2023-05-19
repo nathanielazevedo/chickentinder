@@ -1,59 +1,57 @@
-import { Box, Typography } from '@mui/material';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import PasswordDialog from './PasswordDialog';
-import Navbar from '../../components/Navbar';
 import API from '../../api';
+import PartyDeleted from './PartyDeleted';
 import { Party } from '../../models/Party';
+import { useEffect, useState } from 'react';
+import Navbar from '../../components/Navbar';
+import PasswordDialog from './PasswordDialog';
+import { Box, Typography } from '@mui/material';
 import CreateLoad from '../createParty/CreateLoad';
+import { Link, useParams } from 'react-router-dom';
 import Container from '../../components/Container';
 import MainButton from '../../components/MainButton';
-
-const localUrl = 'http://localhost:5173/chickentinder/';
-const prodUrl = 'https://nathanielazevedo.github.io/chickentinder/';
-const baseUrl = process.env.NODE_ENV === 'development' ? localUrl : prodUrl;
+import { getBaseUrl, toMiles } from '../../utils/general';
+import {
+  addPartyToLocal,
+  getPartyFromLocal,
+  haveLocalParties,
+  removePartyFromLocal,
+  setFirstParty,
+} from '../../utils/localStorage';
 
 const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
-  const [party, setParty] = useState<Party | undefined>(undefined);
   const [voted, setVoted] = useState(false);
-  const partiesInLocal = localStorage.getItem('parties');
+  const [showDelete, setShowDelete] = useState(false);
+  const [party, setParty] = useState<Party | undefined>(undefined);
 
   useEffect(() => {
     const getParty = async () => {
-      if (!id) return;
-      const res = await API.getParty(id);
-      if (!partiesInLocal) {
-        localStorage.setItem(
-          'parties',
-          JSON.stringify([{ _id: id, voted: false, name: res.name }])
-        );
-      }
-      if (partiesInLocal) {
-        const partys = JSON.parse(partiesInLocal);
-        const party = partys.find((party: Party) => party._id === id);
-        if (!party) {
-          localStorage.setItem(
-            'parties',
-            JSON.stringify([
-              ...partys,
-              { _id: id, voted: false, name: res.name },
-            ])
-          );
+      try {
+        if (!id) return;
+        const res = await API.getParty(id);
+        const partiesInLocal = haveLocalParties();
+        if (!partiesInLocal) {
+          setFirstParty({ _id: id, voted: false, name: res.name });
         } else {
-          setVoted(party.voted);
+          const party = getPartyFromLocal(id);
+          if (!party) {
+            addPartyToLocal({ _id: id, voted: false, name: res.name });
+          } else {
+            setVoted(party.voted);
+          }
         }
+        setParty(res);
+      } catch {
+        id && removePartyFromLocal(id);
+        setShowDelete(true);
       }
-      setParty(res);
     };
-    getParty();
-  }, [id, partiesInLocal]);
 
-  const toMiles = (km: number) => {
-    const miles = km / 1609.34;
-    return Math.floor(miles);
-  };
+    getParty();
+  }, [id]);
+
+  if (showDelete) return <PartyDeleted />;
 
   if (!party) return <CreateLoad />;
 
@@ -66,63 +64,43 @@ const Entry = () => {
           sx={{
             display: 'flex',
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-start',
             justifyContent: 'flex-start',
             width: '100%',
           }}
         >
-          <Typography
-            variant='h3'
-            sx={{
-              fontWeight: 'bold',
-              alignSelf: 'flex-start',
-              marginBottom: '20px',
-            }}
-          >
+          <Typography variant='h3' mb='20px'>
             {party.name}
           </Typography>
-          <Typography
-            variant='h5'
-            sx={{
-              fontWeight: 'bold',
-              alignSelf: 'flex-start',
-            }}
-          >
+          <Typography variant='h6'>
             You're dining within {toMiles(party.max_distance)} miles from{' '}
-            {party.location}
+            {party.location}.
           </Typography>
-          <Typography
-            variant='h5'
-            sx={{
-              fontWeight: 'bold',
-              alignSelf: 'flex-start',
-            }}
-          >
-            There are {party.maxVoters} people in your party
+          <Typography variant='h6'>
+            There are {party.maxVoters} people in your party.
           </Typography>
           {party.voteTime && (
             <Typography
-              variant='h5'
+              variant='h6'
               sx={{
                 fontWeight: 'bold',
                 alignSelf: 'flex-start',
               }}
             >
-              Your party will also be voting on a time to meet.
+              Your party is also voting on a time to meet.
             </Typography>
           )}
-          <Typography
-            variant='h5'
-            sx={{
-              fontWeight: 'bold',
-              alignSelf: 'flex-start',
-              marginTop: '20px',
-              wordBreak: 'break-word',
-            }}
-          >
+          <Typography variant='h6' mt='20px'>
             This is your partys link:
-            <Typography color='darkblue'>
-              {baseUrl + 'party/' + party._id}
+            <Typography
+              color='darkblue'
+              variant='h6'
+              sx={{
+                fontSize: '12px',
+                wordBreak: 'break-word',
+              }}
+            >
+              {getBaseUrl() + 'party/' + party._id}
             </Typography>
           </Typography>
         </Box>
@@ -133,6 +111,7 @@ const Entry = () => {
             flexDirection: 'column',
             gap: '20px',
             width: '100%',
+            marginTop: '50px',
           }}
         >
           <Box
@@ -147,21 +126,14 @@ const Entry = () => {
           </Box>
           <Link
             to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
-            style={{
-              width: '100%',
-            }}
+            style={{ width: '100%' }}
           >
             <MainButton
               text={voted ? 'View My Votes' : 'Vote'}
               onClick={() => console.log('hello')}
             />
           </Link>
-          <Link
-            to={`/party/${id}/results`}
-            style={{
-              width: '100%',
-            }}
-          >
+          <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
             <MainButton
               text='View Results'
               onClick={() => console.log('hello')}

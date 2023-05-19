@@ -1,8 +1,7 @@
-const localUrl = 'http://localhost:6001/';
-const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
+import { CreateParty } from './models/Party';
+import { getBaseUrl } from './utils/general';
 
-export const baseUrl =
-  process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
+const baseUrl = getBaseUrl();
 
 const getParty = async (id: string): Promise<any> => {
   return fetch(baseUrl + 'party/' + id, {
@@ -14,16 +13,15 @@ const getParty = async (id: string): Promise<any> => {
     .then(async (res) => {
       if (res.status !== 200) throw new Error('Error getting party');
       return res.json().then((data) => {
-        console.log('here', data);
         return data;
       });
     })
     .catch((err) => {
-      console.log(err);
+      throw new Error(err);
     });
 };
 
-const createParty = async (formData: any): Promise<any> => {
+const createParty = async (formData: CreateParty): Promise<any> => {
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
