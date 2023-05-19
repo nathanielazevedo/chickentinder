@@ -14,14 +14,13 @@ const Decisions = () => {
             quickly and easily decide where to eat with your friends. No more
             arguing over text.'
         />
-        <img src={network} width='200px' />
-        {/* <CheckIcon
+        <Box
           sx={{
-            fontSize: '300px',
-            color: '#3a3838',
             display: { xs: 'none', lg: 'flex' },
           }}
-        /> */}
+        >
+          <img src={network} width='200px' />
+        </Box>
       </Box>
     </Box>
   );
