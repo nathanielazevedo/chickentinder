@@ -2,8 +2,9 @@ import { Party } from '../../models/Party';
 import Navbar from '../../components/Navbar';
 import { getBaseUrl } from '../../utils/general';
 import Container from '../../components/Container';
-import { Box, Link, Typography } from '@mui/material';
 import MainButton from '../../components/MainButton';
+import { Box, Link, Typography } from '@mui/material';
+
 export interface NewPartyDialog {
   party: Party;
 }

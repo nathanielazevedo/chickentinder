@@ -57,7 +57,7 @@ const styles = {
   innerContainer: {
     display: 'flex',
     alignItems: 'center',
-    width: { xs: '100%', sm: '90%', md: '1100px' },
+    width: { xs: '100%', sm: '90%', lg: '1100px' },
     margin: { xs: '0 15px', sm: '0 40px', lg: '0' },
     justifyContent: { xs: 'center', lg: 'space-between' },
   },

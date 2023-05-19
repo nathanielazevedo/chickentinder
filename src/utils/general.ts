@@ -1,5 +1,5 @@
 const localUrl = 'http://localhost:5173/';
-const prodUrl = 'thechickentinder.com/';
+const prodUrl = 'https://www.thechickentinder.com/';
 
 export const getBaseUrl = () => {
   return process.env.NODE_ENV === 'development' ? localUrl : prodUrl;

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { Party } from '../../models/Party';
 import { useParams } from 'react-router-dom';
 import { Restaurant } from '../../models/Restaurant';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 import { Box, Card, Rating, Typography } from '@mui/material';
 import LinearProgress, {
   LinearProgressProps,
@@ -59,16 +60,20 @@ const Results = () => {
   if (result) {
     return (
       <>
-        <Typography
-          variant='h4'
-          sx={{
-            fontWeight: 'bold',
-            color: 'black',
-            alignSelf: 'flex-start',
-          }}
+        <Box
+          display='flex'
+          justifyContent='space-between'
+          width='100%'
+          alignItems='center'
         >
-          And the winner is...
-        </Typography>
+          <Typography variant='h4'>And the winner is...</Typography>
+          <CelebrationIcon
+            sx={{
+              fontSize: '50px',
+              color: 'darkpink',
+            }}
+          />
+        </Box>
         <Card
           elevation={3}
           key={result.id}
