@@ -6,6 +6,9 @@ import { RouterProvider } from 'react-router-dom';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useMemo } from 'react';
+import { inject } from '@vercel/analytics';
+
+inject();
 
 const App = () => {
   const theme = useMemo(() => createTheme(themeSettings('light')), ['light']);
