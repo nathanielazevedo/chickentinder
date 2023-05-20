@@ -11,7 +11,7 @@ import { inject } from '@vercel/analytics';
 inject();
 
 const App = () => {
-  const theme = useMemo(() => createTheme(themeSettings('light')), ['light']);
+  const theme = useMemo(() => createTheme(themeSettings('dark')), []);
   return (
     <ThemeProvider theme={theme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>

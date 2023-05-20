@@ -9,14 +9,9 @@ const Decisions = () => {
         <TwoStack
           variant='dark'
           title='Make Decisions Faster'
-          body='Making dinner decisions has never been easier. With Chicken Tinder, you can quickly and easily decide where to eat with your friends. No more
-            arguing over text.'
+          body='Making dinner decisions has never been easier. With Chicken Tinder, you can quickly and easily decide where to eat with your friends. No more arguing over text.'
         />
-        <Box
-          sx={{
-            display: { xs: 'none', lg: 'flex' },
-          }}
-        >
+        <Box display={{ xs: 'none', lg: 'flex' }}>
           <img src={network} width='200px' />
         </Box>
       </Box>

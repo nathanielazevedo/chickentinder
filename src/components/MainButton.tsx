@@ -1,5 +1,4 @@
-import { globalStyles } from '../styles';
-import { Button, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 
 type Props = {
   text: string;
@@ -12,16 +11,13 @@ const MainButton = ({ text, onClick, disabled = false }: Props) => {
     <Button
       fullWidth
       onClick={onClick}
-      variant='contained'
+      variant='outlined'
       disabled={disabled}
       sx={{
-        height: '40px',
-        color: 'black',
-        border: '1px solid black',
-        backgroundImage: globalStyles.gradientBg,
+        height: '100%',
       }}
     >
-      <Typography variant='h6'>{text}</Typography>
+      {text}
     </Button>
   );
 };

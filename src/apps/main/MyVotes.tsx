@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Party } from '../../models/Party';
 import API from '../../api';
 import VoteResults from './VoteResults';
+import { Party } from '../../models/Party';
+import { useEffect, useState } from 'react';
 import CreateLoad from '../createParty/CreateLoad';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const MyVotes = () => {
   const { id } = useParams();

@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import { bg } from '../../../assets';
-import NavBar from '../../../components/Navbar';
-import { Restaurant } from '../../../models/Restaurant';
+import BackIcon from '../../../components/BackIcon';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import { Restaurant } from '../../../models/Restaurant';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import { Box, Card, Rating, Tooltip, Typography } from '@mui/material';
+import { Box, Rating, Tooltip, Typography } from '@mui/material';
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
 
 type Swipe = {
@@ -45,41 +44,22 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
 
   return (
     <>
-      <NavBar showButton={false} />
+      <BackIcon />
       <Box sx={styles.container}>
         <Box
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             width: { xs: '350px', md: '500px' },
             marginBottom: '10px',
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            <Typography
-              variant='h4'
-              sx={{
-                color: '#ffffff',
-              }}
-            ></Typography>
-          </Box>
-          <Typography
-            variant='h4'
-            sx={{
-              color: '#ffffff',
-            }}
-          >
+          <Typography variant='h5'>
             {index + 1} of {length}
           </Typography>
         </Box>
-        <Card
-          elevation={3}
+        <Box
           key={restaurant.id}
           className={getSwipe(restaurant?.id)}
           sx={{
@@ -87,7 +67,6 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
             position: 'relative',
             display: 'flex',
             padding: '20px',
-            border: '0.1px solid white',
           }}
         >
           <img
@@ -168,7 +147,7 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
               })}
             </Box>
           </Box>
-        </Card>
+        </Box>
 
         <Box
           sx={{
@@ -182,14 +161,8 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
           <Tooltip title='Dislike'>
             <ThumbDownIcon
               sx={{
-                fontSize: '80px',
+                fontSize: '50px',
                 cursor: 'pointer',
-                border: '3px solid red',
-                borderRadius: '50%',
-                padding: '10px',
-                ':hover': {
-                  backgroundColor: 'lightcoral',
-                },
               }}
               color='error'
               onClick={() => {
@@ -203,18 +176,12 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
               }}
             />
           </Tooltip>
-          {index !== 0 && (
+          {index !== 0 ? (
             <Tooltip title='Go Back'>
               <SettingsBackupRestoreIcon
                 sx={{
-                  fontSize: '80px',
+                  fontSize: '50px',
                   cursor: 'pointer',
-                  border: '3px solid #ed6d03',
-                  borderRadius: '50%',
-                  padding: '10px',
-                  ':hover': {
-                    backgroundColor: 'orange',
-                  },
                 }}
                 color='warning'
                 onClick={() => {
@@ -233,18 +200,14 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
                 }}
               />
             </Tooltip>
+          ) : (
+            <Box width='50px' />
           )}
           <Tooltip title='Like'>
             <ThumbUpIcon
               sx={{
-                fontSize: '80px',
+                fontSize: '50px',
                 cursor: 'pointer',
-                border: '3px solid green',
-                borderRadius: '50%',
-                padding: '10px',
-                ':hover': {
-                  backgroundColor: 'lightgreen',
-                },
               }}
               color='success'
               onClick={() => {
@@ -276,15 +239,13 @@ const styles = {
     alignItems: 'center',
     width: '100vw',
     maxWidth: '100vw',
-    overflowX: 'hidden',
     height: { xs: '100%', sm: '100%' },
+    marginTop: '20px',
+    backgroundColor: 'black',
     minHeight: {
       xs: 'calc(100vh - 56px)',
       sm: 'calc(100vh - 64px)',
     },
-    backgroundImage: `url(${bg})`,
-    backgroundPosition: 'center',
-    paddingBottom: { xs: '50px', sm: '50px' },
   },
   restaurantContainer: {
     display: 'flex',
@@ -292,7 +253,7 @@ const styles = {
     flexDirection: 'column',
     alignItems: 'flex-start',
     height: '400px',
-    width: { xs: '350px', md: '500px' },
+    width: { xs: '370px', md: '500px' },
     borderRadius: '10px',
     backgroundColor: 'black',
   },

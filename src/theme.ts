@@ -55,6 +55,9 @@ export const themeSettings = (mode: any) => {
               default: colorTokens.grey[900],
               alt: colorTokens.grey[800],
             },
+            secondary: {
+              main: colorTokens.grey[300],
+            },
           }
         : {
             // palette values for light mode
@@ -99,7 +102,6 @@ export const themeSettings = (mode: any) => {
       h5: {
         fontFamily: ['Poppins', 'sans-serif'].join(','),
         fontSize: 16,
-        // fontWeight: 300,
       },
       h6: {
         fontFamily: ['Poppins', 'sans-serif'].join(','),

@@ -6,7 +6,7 @@ import HowItWorks from './HowItWorks';
 import Decisions from './Decisions';
 
 import Organize from './Organize';
-import NavBar from '../../components/Navbar';
+import NavBar from './Navbar';
 import { useEffect, useState } from 'react';
 
 const Intro = () => {

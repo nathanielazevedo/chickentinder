@@ -1,20 +1,14 @@
 import { Button as MuiButton, Typography } from '@mui/material';
-import { globalStyles } from '../styles';
 
 const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   return (
     <MuiButton
+      fullWidth
+      variant='contained'
+      sx={{ height: '50px' }}
       onClick={onClick && onClick}
-      sx={{
-        width: '100%',
-        height: '50px',
-        backgroundImage: globalStyles.gradientBg,
-        border: '1px solid black',
-      }}
     >
-      <Typography variant='h5' fontWeight='bold'>
-        {text}
-      </Typography>
+      <Typography variant='h5'>{text}</Typography>
     </MuiButton>
   );
 };

@@ -1,5 +1,5 @@
 import { Box, Card, Tooltip, Typography } from '@mui/material';
-import NavBar from '../../../components/Navbar';
+import NavBar from '../../marketing/Navbar';
 import { useState } from 'react';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';

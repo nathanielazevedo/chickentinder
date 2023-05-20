@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import Navbar from '../../components/Navbar';
 import { Box, Typography } from '@mui/material';
+import BackIcon from '../../components/BackIcon';
 import CreateLoad from '../createParty/CreateLoad';
 import Container from '../../components/Container';
 import { Link, useNavigate } from 'react-router-dom';
@@ -21,14 +21,14 @@ const MyParties = () => {
 
   return (
     <>
-      <Navbar showButton={false} />
+      <BackIcon />
       <Container>
-        <Typography variant='h3' mb='30px'>
+        <Typography variant='h4' mb='25px'>
           Parties you've viewed
         </Typography>
         <Box display='flex' flexDirection='column' gap='10px'>
           {myParties.map((party: LocalParty) => (
-            <Link to={`/party/` + party._id}>
+            <Link to={`/party/` + party._id} style={{ height: '50px' }}>
               <MainButton text={party.name} />
             </Link>
           ))}

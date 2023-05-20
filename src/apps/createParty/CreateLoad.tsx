@@ -1,5 +1,5 @@
 import { bg } from '../../assets';
-import Navbar from '../../components/Navbar';
+import Navbar from '../marketing/Navbar';
 import { Box, CircularProgress } from '@mui/material';
 
 const CreateLoad = () => {

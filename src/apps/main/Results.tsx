@@ -5,27 +5,7 @@ import { useParams } from 'react-router-dom';
 import { Restaurant } from '../../models/Restaurant';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import { Box, Card, Rating, Typography } from '@mui/material';
-import LinearProgress, {
-  LinearProgressProps,
-} from '@mui/material/LinearProgress';
-
-function LinearProgressWithLabel(
-  props: LinearProgressProps & { value: number; realValue: number }
-) {
-  return (
-    <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Box sx={{ width: '100%', mr: 1 }}>
-        <LinearProgress variant='determinate' {...props} color='error' />
-      </Box>
-      <Box sx={{ minWidth: 35 }}>
-        <Typography
-          variant='body2'
-          color='text.secondary'
-        >{`${props.realValue}`}</Typography>
-      </Box>
-    </Box>
-  );
-}
+import LinearProgess from '../../components/LinearProgess';
 
 const Results = () => {
   const { id } = useParams<{ id: string }>();
@@ -57,6 +37,7 @@ const Results = () => {
     getParty();
   }, [id]);
 
+  // If winner chosen
   if (result) {
     return (
       <>
@@ -178,10 +159,8 @@ const Results = () => {
     >
       {party && party.restaurants && (
         <Typography
-          variant='h5'
+          variant='h4'
           sx={{
-            color: 'black',
-            marginTop: '0px',
             alignSelf: 'flex-start',
             marginBottom: '10px',
           }}
@@ -201,9 +180,9 @@ const Results = () => {
                 width: '100%',
               }}
             >
-              <Typography sx={{ color: 'black' }}>{restaurant.name}</Typography>
+              <Typography color='secondary.main'>{restaurant.name}</Typography>
               <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel
+                <LinearProgess
                   value={Math.round((100 / party.maxVoters) * restaurant.votes)}
                   realValue={restaurant.votes}
                 />
@@ -213,9 +192,8 @@ const Results = () => {
         })}
       {party && party.voteTime && (
         <Typography
-          variant='h5'
+          variant='h4'
           sx={{
-            color: 'black',
             marginTop: '20px',
             alignSelf: 'flex-start',
             marginBottom: '10px',
@@ -237,9 +215,9 @@ const Results = () => {
                 width: '100%',
               }}
             >
-              <Typography sx={{ color: 'black' }}>{time}</Typography>
+              <Typography>{time}</Typography>
               <Box sx={{ width: '100%' }}>
-                <LinearProgressWithLabel
+                <LinearProgess
                   value={Math.round(
                     (100 / party.maxVoters) * party.hours[time]
                   )}

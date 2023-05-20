@@ -3,7 +3,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { Link, useNavigate } from 'react-router-dom';
-import { logo_white } from '../assets';
+import { logo_white } from '../../assets';
+import { Box } from '@mui/material';
 
 const NavBar = ({
   showButton = true,
@@ -20,6 +21,8 @@ const NavBar = ({
       sx={{
         maxWidth: '100vw',
         overflowX: 'hidden',
+        maxHeight: '56ox !important',
+        backgroundColor: 'rgb(0,0,0, 0.7)',
       }}
     >
       <Container sx={{ width: { xs: '100%', lg: '1200px' } }}>
@@ -38,15 +41,15 @@ const NavBar = ({
               gap: '10px',
             }}
           >
-            <img src={logo_white} alt='' style={{ height: '40px' }} />
+            <Box width='25px'>
+              <img src={logo_white} alt='' style={{ width: '100%' }} />
+            </Box>
             <Typography
               variant='h6'
-              noWrap
               sx={{
-                mr: 2,
                 fontWeight: 400,
-                fontSize: { xs: '10px', sm: '16px' },
-                letterSpacing: '.3rem',
+                fontSize: '10px',
+                letterSpacing: '.2rem',
                 cursor: 'pointer',
               }}
             >

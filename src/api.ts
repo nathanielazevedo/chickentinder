@@ -1,12 +1,17 @@
 import { CreateParty } from './models/Party';
+import { party } from './mockData/mockP';
+import { restaurants } from './mockData/mockR';
 
 const localUrl = 'http://localhost:6001/';
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
+const mock = true;
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
 
 const getParty = async (id: string): Promise<any> => {
+  if (mock) return party;
+
   return fetch(baseUrl + 'party/' + id, {
     method: 'GET',
     headers: {
@@ -25,6 +30,7 @@ const getParty = async (id: string): Promise<any> => {
 };
 
 const createParty = async (formData: CreateParty): Promise<any> => {
+  if (mock) return party;
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -50,6 +56,7 @@ const createParty = async (formData: CreateParty): Promise<any> => {
 };
 
 const fetchRestaurants = async (formData: any): Promise<any> => {
+  if (mock) return restaurants;
   return fetch(baseUrl + 'restaurants', {
     method: 'POST',
     headers: {
@@ -102,6 +109,7 @@ const vote = async (
 };
 
 const validatePassword = async (id: string, password: string): Promise<any> => {
+  if (mock) return true;
   return fetch(baseUrl + 'party/' + id + '/password', {
     method: 'POST',
     headers: {

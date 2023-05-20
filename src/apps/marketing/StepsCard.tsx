@@ -1,5 +1,4 @@
 import { Box, Typography, Card } from '@mui/material';
-import { globalStyles } from '../../styles';
 
 const StepsCard = ({ card, i }: any) => {
   return (
@@ -26,7 +25,6 @@ const StepsCard = ({ card, i }: any) => {
           alignItems: 'center',
           zIndex: 1,
           color: 'white',
-          backgroundImage: globalStyles.gradientBg,
         }}
       >
         <Typography variant='h4'>{Number(i) + 1}</Typography>

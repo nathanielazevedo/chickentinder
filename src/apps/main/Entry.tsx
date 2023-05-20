@@ -2,7 +2,6 @@ import API from '../../api';
 import PartyDeleted from './PartyDeleted';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
-import Navbar from '../../components/Navbar';
 import PasswordDialog from './PasswordDialog';
 import { Box, Typography } from '@mui/material';
 import CreateLoad from '../createParty/CreateLoad';
@@ -17,6 +16,7 @@ import {
   removePartyFromLocal,
   setFirstParty,
 } from '../../utils/localStorage';
+import BackIcon from '../../components/BackIcon';
 
 const Entry = () => {
   const { id } = useParams();
@@ -57,7 +57,7 @@ const Entry = () => {
 
   return (
     <>
-      <Navbar showButton={false} />
+      <BackIcon />
       <PasswordDialog open={open} setOpen={setOpen} />
       <Container>
         <Box
@@ -72,16 +72,17 @@ const Entry = () => {
           <Typography variant='h3' mb='20px'>
             {party.name}
           </Typography>
-          <Typography variant='h6'>
+          <Typography variant='h6' color='secondary'>
             You're dining within {toMiles(party.max_distance)} miles from{' '}
             {party.location}.
           </Typography>
-          <Typography variant='h6'>
+          <Typography variant='h6' color='secondary'>
             There are {party.maxVoters} people in your party.
           </Typography>
           {party.voteTime && (
             <Typography
               variant='h6'
+              color='secondary'
               sx={{
                 fontWeight: 'bold',
                 alignSelf: 'flex-start',
@@ -90,14 +91,14 @@ const Entry = () => {
               Your party is also voting on a time to meet.
             </Typography>
           )}
-          <Typography variant='h6' mt='20px'>
+          <Typography variant='h6' mt='20px' color='secondary'>
             This is your partys link:
             <Typography
-              color='darkblue'
               variant='h6'
               sx={{
                 fontSize: '12px',
                 wordBreak: 'break-word',
+                color: 'primary.main',
               }}
             >
               {getBaseUrl() + 'party/' + party._id}
@@ -111,7 +112,7 @@ const Entry = () => {
             flexDirection: 'column',
             gap: '20px',
             width: '100%',
-            marginTop: '50px',
+            marginTop: '30px',
           }}
         >
           <Box
@@ -124,22 +125,35 @@ const Entry = () => {
               What would you like to do?
             </Typography>
           </Box>
-          <Link
-            to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
-            style={{ width: '100%' }}
+          <Box
+            sx={{
+              display: 'flex',
+              gap: '20px',
+            }}
           >
-            <MainButton
-              text={voted ? 'View My Votes' : 'Vote'}
-              onClick={() => console.log('hello')}
-            />
-          </Link>
-          <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
-            <MainButton
-              text='View Results'
-              onClick={() => console.log('hello')}
-            />
-          </Link>
-          <MainButton text='Manage Party' onClick={() => setOpen(true)} />
+            <Link
+              to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
+              style={{ width: '100%', height: '100px' }}
+            >
+              <MainButton
+                text={voted ? 'View My Votes' : 'Vote'}
+                onClick={() => console.log('hello')}
+              />
+            </Link>
+            <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
+              <MainButton
+                text='View Results'
+                onClick={() => console.log('hello')}
+              />
+            </Link>
+          </Box>
+          <Box
+            sx={{
+              height: '100px',
+            }}
+          >
+            <MainButton text='Manage Party' onClick={() => setOpen(true)} />
+          </Box>
         </Box>
       </Container>
     </>

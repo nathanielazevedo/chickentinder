@@ -1,4 +1,4 @@
-import Navbar from './Navbar';
+import Navbar from '../apps/marketing/Navbar';
 import Container from './Container';
 import MainButton from './MainButton';
 import { useNavigate } from 'react-router-dom';

@@ -1,5 +1,4 @@
-import { Box, Card } from '@mui/material';
-import { bg } from '../assets';
+import { Box } from '@mui/material';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const Container = ({ children }: any) => {
@@ -7,30 +6,27 @@ const Container = ({ children }: any) => {
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        height: { xs: '100%', sm: '100%' },
         minHeight: {
           xs: 'calc(100vh - 56px)',
           sm: 'calc(100vh - 64px)',
         },
-        backgroundImage: `url(${bg})`,
-        backgroundPosition: 'center',
-        paddingBottom: { xs: '0px', sm: '50px' },
+        backgroundColor: 'rgb(0,0,0)',
       }}
     >
-      <Card
+      <Box
         sx={{
-          backgroundColor: 'white',
           width: { xs: '100%', sm: '500px' },
-          padding: { xs: '40px 20px', sm: '40px' },
+          padding: { xs: '80px 20px', sm: '40px' },
           borderRadius: { xs: '0px', sm: '20px' },
           minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
+          maxHeight: { xs: '50%', sm: 'auto' },
+          overflow: { xs: 'hidden', sm: 'auto' },
         }}
       >
         {children}
-      </Card>
+      </Box>
     </Box>
   );
 };

@@ -29,6 +29,7 @@ const styles = {
     alignItems: 'center',
     padding: '70px 0',
     border: '12px solid black',
+    backgroundColor: 'white',
   },
   innerContainer: {
     display: 'flex',

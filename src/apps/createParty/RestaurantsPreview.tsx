@@ -1,5 +1,5 @@
-import Navbar from '../../components/Navbar';
 import Checkbox from '@mui/material/Checkbox';
+import BackIcon from '../../components/BackIcon';
 import Container from '../../components/Container';
 import { Restaurant } from '../../models/Restaurant';
 import MainButton from '../../components/MainButton';
@@ -36,7 +36,7 @@ const RestaurantsPreview = ({
 
   return (
     <>
-      <Navbar showButton={false} />
+      <BackIcon />
       <Container>
         <Typography variant='h5'>These are the restaurants I found.</Typography>
         <Typography variant='body1'>
@@ -77,10 +77,6 @@ const RestaurantsPreview = ({
                 ? 'Must select at least 2'
                 : 'Create the Party!'
             }
-          />
-          <MainButton
-            onClick={() => setRestaurants(undefined)}
-            text='Go Back'
           />
         </Box>
       </Container>

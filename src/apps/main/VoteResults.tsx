@@ -1,9 +1,9 @@
-import { bg } from '../../assets';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
-import NavBar from '../../components/Navbar';
+import BackIcon from '../../components/BackIcon';
+import Container from '../../components/Container';
 import { Restaurant } from '../../models/Restaurant';
-import { Box, Typography, Card, Rating } from '@mui/material';
+import { Box, Typography, Card } from '@mui/material';
 
 type Props = {
   id: string;
@@ -29,83 +29,25 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
 
   return (
     <>
-      <NavBar />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          height: { xs: '100%', sm: '100%' },
-          minHeight: {
-            xs: 'calc(100vh - 56px)',
-            sm: 'calc(100vh - 64px)',
-          },
-          backgroundImage: `url(${bg})`,
-          backgroundPosition: 'center',
-          paddingBottom: { xs: '50px', sm: '50px' },
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-start',
-            gap: '20px',
-            padding: '20px',
-            borderRadius: '20px',
-            overflowX: 'hidden',
-            width: { xs: '50%', lg: '600px' },
-            marginTop: '50px',
-          }}
-        >
-          <Typography variant='h4' color='white'>
-            You liked these restaurants!
-          </Typography>
-          {/* <Button
-            variant='contained'
-            sx={{
-              width: '100%',
-              height: '50px',
-              fontSize: '1rem',
-            }}
-            onClick={() => navigate(`/party/${id}`)}
-          >
-            Go to Main
-          </Button> */}
-        </Box>
+      <BackIcon />
+      <Container>
+        <Typography variant='h4' color='white' mb='20px'>
+          You liked these restaurants!
+        </Typography>
         {rlikes.length != 0 && restaurants && (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '20px',
-            }}
-          >
+          <Box display='flex' flexDirection='column' gap='10px'>
             {restaurants.map((restaurant) => {
               if (!rlikes.includes(restaurant.id)) return null;
               return (
-                <Card
-                  elevation={3}
+                <Box
                   key={restaurant.id}
                   sx={{
-                    ...styles.restaurantContainer,
                     position: 'relative',
-                    padding: '20px',
-                    minHeight: '300px',
+                    padding: '10px',
+                    border: '0.1px solid white',
+                    borderRadius: '10px',
                   }}
                 >
-                  <img
-                    src={restaurant.image_url}
-                    alt={restaurant.name}
-                    style={{
-                      maxWidth: '100%',
-                      maxHeight: '100%',
-                      position: 'absolute',
-                      filter: 'brightness(40%)',
-                      borderRadius: '10px',
-                      right: 0,
-                    }}
-                  />
                   <Box
                     sx={{
                       zIndex: 1,
@@ -117,67 +59,15 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
                     }}
                   >
                     <Box>
-                      <Typography variant='h5' color='white'>
-                        {restaurant.name}
-                      </Typography>
-                      <Typography variant='h6' color='white'>
-                        {restaurant.location?.address1},{' '}
-                        {restaurant.location?.city}
-                      </Typography>
-                      {restaurant.price && (
-                        <Typography variant='h6' color='white'>
-                          Price: {restaurant.price}
-                        </Typography>
-                      )}
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          flexDirection: 'row',
-                          alignItems: 'center',
-                        }}
-                      >
-                        <Rating
-                          name='simple-controlled'
-                          value={restaurant.rating}
-                          disabled
-                        />
-                        <Typography variant='h6' color='white'>
-                          - {restaurant.review_count} reviews
-                        </Typography>
-                      </Box>
-
-                      <Typography variant='h6' color='white'>
-                        {restaurant.display_phone}
-                      </Typography>
+                      <Typography variant='h5'>{restaurant.name}</Typography>
                       <a href={restaurant.url} target='_blank'>
                         <Typography sx={styles.link} variant='h6'>
                           View on Yelp
                         </Typography>
                       </a>
                     </Box>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        gap: '10px',
-                        justifySelf: 'flex-end',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      {restaurant.categories.map((category) => {
-                        return (
-                          <Typography
-                            key={category.alias}
-                            variant='h6'
-                            color='white'
-                          >
-                            #{category.title}
-                          </Typography>
-                        );
-                      })}
-                    </Box>
                   </Box>
-                </Card>
+                </Box>
               );
             })}
           </Box>
@@ -192,7 +82,6 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
                 <Card
                   elevation={3}
                   sx={{
-                    ...styles.restaurantContainer,
                     display: 'flex',
                     padding: '20px',
                     border: '0.1px solid white',
@@ -217,7 +106,7 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
             })}
           </Box>
         )}
-      </Box>
+      </Container>
     </>
   );
 };
@@ -225,16 +114,6 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
 export default VoteResults;
 
 const styles = {
-  restaurantContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    height: '100px',
-    width: { xs: '350px', md: '500px' },
-    borderRadius: '10px',
-    backgroundColor: 'black',
-  },
   link: {
     textDecoration: 'underline',
     color: 'lightblue',

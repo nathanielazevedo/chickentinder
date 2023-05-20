@@ -1,6 +1,4 @@
 import { Formik } from 'formik';
-import Navbar from '../../components/Navbar';
-import { globalStyles } from '../../styles';
 import Container from '../../components/Container';
 import {
   partySchema,
@@ -23,6 +21,7 @@ import {
   Checkbox,
   Button,
 } from '@mui/material';
+import BackIcon from '../../components/BackIcon';
 
 type Props = {
   values: valueType;
@@ -57,7 +56,7 @@ const CreateForm = ({
   };
   return (
     <>
-      <Navbar showButton={false} />
+      <BackIcon />
       <Formik
         initialValues={values}
         onSubmit={fetchRestaurants}
@@ -228,13 +227,10 @@ const CreateForm = ({
                 />
                 <Button
                   type='submit'
-                  variant='contained'
+                  variant='outlined'
                   fullWidth
                   sx={{
                     height: '50px',
-                    color: 'black',
-                    backgroundImage: globalStyles.gradientBg,
-                    border: '1px solid black',
                   }}
                 >
                   <Typography>Create Party</Typography>

@@ -1,18 +1,16 @@
 import Results from './Results';
 import API from '../../api';
-import { bg } from '../../assets';
 import ResultsPage from './ResultsPage';
 import { Party } from '../../models/Party';
-import { globalStyles } from '../../styles';
 import { useEffect, useState } from 'react';
-import NavBar from '../../components/Navbar';
 import { Restaurant } from '../../models/Restaurant';
 import { Box, Button, Typography } from '@mui/material';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import Container from '../../components/Container';
+import BackIcon from '../../components/BackIcon';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
-  const navigate = useNavigate();
   const [party, setParty] = useState<Party | undefined>(undefined);
   const [result, setResult] = useState<Restaurant | undefined>(undefined);
 
@@ -45,33 +43,12 @@ const Manage = () => {
 
   return (
     <>
-      <NavBar />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: { xs: 'calc(100vh - 56px)', sm: 'calc(100vh - 64px)' },
-          backgroundImage: `url(${bg})`,
-          backgroundPosition: 'center',
-        }}
-      >
+      <BackIcon />
+      <Container>
         {party && (
-          <Box
-            sx={{
-              padding: '40px',
-              borderRadius: '20px',
-              width: { xs: '90%', sm: '500px' },
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              justifyContent: 'flex-start',
-              gap: '20px',
-              backgroundColor: '#ffffff',
-            }}
-          >
+          <>
             <Box
+              mb='30px'
               sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -79,55 +56,28 @@ const Manage = () => {
                 width: '100%',
               }}
             >
-              <Typography
-                variant='h3'
-                sx={{
-                  fontWeight: 'bold',
-                }}
-              >
-                {party.name}
-              </Typography>
-              <Typography
-                variant='h5'
-                sx={{
-                  fontWeight: 'bold',
-                }}
-              >
+              <Typography variant='h3'>{party.name}</Typography>
+              <Typography variant='h6'>
                 {party.voters} / {party.maxVoters} voters have voted
               </Typography>
             </Box>
             <Results />
             <Button
-              fullWidth
-              variant='contained'
+              variant='outlined'
               sx={{
-                heigth: '50px',
-                fontSize: '1rem',
-                fontWeight: 'bold',
+                fontSize: '12px',
+                position: 'absolute',
+                top: '20px',
+                right: '10px',
               }}
               color='error'
               onClick={endParty}
             >
               End voting
             </Button>
-            <Button
-              variant='contained'
-              fullWidth
-              sx={{
-                height: '40px',
-                color: 'black',
-                backgroundImage: globalStyles.gradientBg,
-                border: '1px solid black',
-              }}
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              Go Back
-            </Button>
-          </Box>
+          </>
         )}
-      </Box>
+      </Container>
     </>
   );
 };
