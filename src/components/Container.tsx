@@ -1,17 +1,14 @@
+import BackIcon from './BackIcon';
 import { Box } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Container = ({ children }: any) => {
+const Container = () => {
   return (
     <Box
       sx={{
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        minHeight: {
-          xs: 'calc(100vh - 56px)',
-          sm: 'calc(100vh - 64px)',
-        },
         backgroundColor: 'rgb(0,0,0)',
       }}
     >
@@ -21,11 +18,12 @@ const Container = ({ children }: any) => {
           padding: { xs: '80px 20px', sm: '40px' },
           borderRadius: { xs: '0px', sm: '20px' },
           minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
-          maxHeight: { xs: '50%', sm: 'auto' },
+          maxHeight: { xs: '100%', sm: 'auto' },
           overflow: { xs: 'hidden', sm: 'auto' },
         }}
       >
-        {children}
+        <BackIcon />
+        <Outlet />
       </Box>
     </Box>
   );

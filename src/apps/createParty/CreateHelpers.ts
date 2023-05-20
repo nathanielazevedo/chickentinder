@@ -18,13 +18,15 @@ export const hoursInitial = {
   '11-12 AM': false,
 };
 
+export const noRMessage = 'No restaurants found. Please try again.';
+
 export type hoursType = typeof hoursInitial;
 
 export const valueInitial = {
   name: '',
   location: '',
   max_distance: 15000,
-  maxVoters: 5,
+  max_voters: 5,
   password: '',
   number_of_restaurants: 5,
 };
@@ -40,7 +42,7 @@ export const partySchema = object({
     .required('Required')
     .positive()
     .integer('Must be an integer'),
-  maxVoters: number().required('Required').positive().integer().min(2),
+  max_voters: number().required('Required').positive().integer().min(2),
   password: string().required('Required'),
   number_of_restaurants: number()
     .required('Required')
@@ -60,17 +62,26 @@ export const toMiles = (km: number) => {
 };
 
 export const getLikedHours = (hours: hoursType) => {
-  return Object.keys(hours).filter((h) => hours[h as keyof hoursType] === true);
+  const likedHours = Object.keys(hours).filter(
+    (h) => hours[h as keyof hoursType] === true
+  );
+  return likedHours.reduce((acc, h) => {
+    acc.push({ id: h });
+    return acc;
+  }, [] as { id: string }[]);
 };
 
-export const hashLikedHours = (hours: string[]) => {
-  return hours.reduce((acc, h) => {
-    return { ...acc, [h]: 0 };
-  }, {});
+export const getLikedLength = (hours: hoursType) => {
+  return Object.keys(hours).filter((h) => hours[h as keyof hoursType] === true)
+    .length;
 };
 
 export const addChecks = (restaurants: Restaurant[]) => {
   return restaurants.map((r: Restaurant) => {
     return { ...r, checked: true };
   });
+};
+
+export const getCheckedRestaurants = (restaurants: Restaurant[]) => {
+  return restaurants.filter((r) => r.checked === true);
 };

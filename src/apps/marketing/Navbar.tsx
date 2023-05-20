@@ -78,7 +78,7 @@ const NavBar = ({
                 cursor: 'pointer',
               }}
               onClick={() => {
-                navigate('my-parties');
+                navigate('/party/my-parties');
               }}
             >
               My Parties

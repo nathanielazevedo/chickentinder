@@ -1,3 +1,5 @@
+import { PaletteMode } from '@mui/material';
+
 // color design tokens export
 export const colorTokens = {
   grey: {
@@ -24,60 +26,35 @@ export const colorTokens = {
     500: '#00D5FA',
     600: '#000000',
     700: '#000000',
-    // 600: '#fa6171',
-    // 700: '#fd8d4d',
     800: '#00353F',
     900: '#001519',
   },
 };
 
 // mui theme settings
-export const themeSettings = (mode: any) => {
+export const themeSettings = () => {
   return {
     palette: {
-      mode: mode,
-      ...(mode === 'dark'
-        ? {
-            // palette values for dark mode
-            primary: {
-              dark: colorTokens.primary[200],
-              main: colorTokens.primary[500],
-              light: colorTokens.primary[800],
-            },
-            neutral: {
-              dark: colorTokens.grey[100],
-              main: colorTokens.grey[200],
-              mediumMain: colorTokens.grey[300],
-              medium: colorTokens.grey[400],
-              light: colorTokens.grey[700],
-            },
-            background: {
-              default: colorTokens.grey[900],
-              alt: colorTokens.grey[800],
-            },
-            secondary: {
-              main: colorTokens.grey[300],
-            },
-          }
-        : {
-            // palette values for light mode
-            primary: {
-              dark: colorTokens.primary[700],
-              main: colorTokens.primary[600],
-              light: colorTokens.primary[50],
-            },
-            neutral: {
-              dark: colorTokens.grey[700],
-              main: colorTokens.grey[500],
-              mediumMain: colorTokens.grey[400],
-              medium: colorTokens.grey[300],
-              light: colorTokens.grey[50],
-            },
-            background: {
-              default: colorTokens.grey[10],
-              alt: colorTokens.grey[0],
-            },
-          }),
+      mode: 'dark' as PaletteMode,
+      primary: {
+        dark: colorTokens.primary[200],
+        main: colorTokens.primary[500],
+        light: colorTokens.primary[800],
+      },
+      neutral: {
+        dark: colorTokens.grey[100],
+        main: colorTokens.grey[200],
+        mediumMain: colorTokens.grey[300],
+        medium: colorTokens.grey[400],
+        light: colorTokens.grey[700],
+      },
+      background: {
+        default: colorTokens.grey[900],
+        alt: colorTokens.grey[800],
+      },
+      secondary: {
+        main: colorTokens.grey[300],
+      },
     },
     typography: {
       fontFamily: ['Poppins', 'sans-serif'].join(','),

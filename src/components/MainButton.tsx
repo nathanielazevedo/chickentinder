@@ -13,9 +13,7 @@ const MainButton = ({ text, onClick, disabled = false }: Props) => {
       onClick={onClick}
       variant='outlined'
       disabled={disabled}
-      sx={{
-        height: '100%',
-      }}
+      sx={{ height: '100%' }}
     >
       {text}
     </Button>

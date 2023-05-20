@@ -1,6 +1,6 @@
-import { Box, Typography } from '@mui/material';
 import Button from './Button';
 import { Link } from 'react-router-dom';
+import { Box, Typography } from '@mui/material';
 
 const TwoStack = ({
   title,
@@ -20,7 +20,7 @@ const TwoStack = ({
         <Typography mb={3} variant='h5' color='white'>
           {body}
         </Typography>
-        <Link to='/create'>
+        <Link to='/party/create'>
           <Button text='Create a Party' />
         </Link>
       </Box>
@@ -39,7 +39,7 @@ const TwoStack = ({
         <Typography color={variant == 'dark' ? 'white' : 'black'} mb={2}>
           {body}
         </Typography>
-        <Link to='/create'>
+        <Link to='/party/create'>
           <Button text='Create a Party' />
         </Link>
       </Box>

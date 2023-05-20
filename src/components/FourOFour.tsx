@@ -1,4 +1,3 @@
-import Navbar from '../apps/marketing/Navbar';
 import Container from './Container';
 import MainButton from './MainButton';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +7,6 @@ const FourOFour = () => {
   const navigate = useNavigate();
   return (
     <>
-      <Navbar showButton={false} />
       <Container>
         <Box
           sx={{
@@ -19,13 +17,7 @@ const FourOFour = () => {
             marginBottom: '20px',
           }}
         >
-          <Typography
-            sx={{
-              fontSize: '3rem',
-            }}
-          >
-            404
-          </Typography>
+          <Typography variant='h1'>404</Typography>
           <Typography variant='h5'>You're lost!</Typography>
         </Box>
         <MainButton text='Go Home' onClick={() => navigate('/')} />

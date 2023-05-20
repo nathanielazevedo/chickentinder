@@ -1,13 +1,10 @@
-import Results from './Results';
 import API from '../../api';
-import ResultsPage from './ResultsPage';
+import Results from './Results';
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
-import { Restaurant } from '../../models/Restaurant';
-import { Box, Button, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import Container from '../../components/Container';
-import BackIcon from '../../components/BackIcon';
+import { Button, Typography } from '@mui/material';
+import { Restaurant } from '../../models/Restaurant';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
@@ -38,46 +35,33 @@ const Manage = () => {
   };
 
   if (result) {
-    return <ResultsPage />;
+    return <Results />;
   }
 
   return (
     <>
-      <BackIcon />
-      <Container>
-        {party && (
-          <>
-            <Box
-              mb='30px'
-              sx={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-                width: '100%',
-              }}
-            >
-              <Typography variant='h3'>{party.name}</Typography>
-              <Typography variant='h6'>
-                {party.voters} / {party.maxVoters} voters have voted
-              </Typography>
-            </Box>
-            <Results />
-            <Button
-              variant='outlined'
-              sx={{
-                fontSize: '12px',
-                position: 'absolute',
-                top: '20px',
-                right: '10px',
-              }}
-              color='error'
-              onClick={endParty}
-            >
-              End voting
-            </Button>
-          </>
-        )}
-      </Container>
+      {party && (
+        <>
+          <Typography variant='h3'>{party.name}</Typography>
+          <Typography variant='h6' mb='15px' color='secondary'>
+            {party.voters} / {party.maxVoters} voters have voted
+          </Typography>
+          <Results />
+          <Button
+            variant='outlined'
+            sx={{
+              fontSize: '12px',
+              position: 'absolute',
+              top: '20px',
+              right: '10px',
+            }}
+            color='error'
+            onClick={endParty}
+          >
+            End voting
+          </Button>
+        </>
+      )}
     </>
   );
 };

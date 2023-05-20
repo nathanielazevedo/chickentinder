@@ -13,7 +13,7 @@ const BackIcon = () => {
         minHeight: '50px',
         position: 'absolute',
         top: '10px',
-        left: 'px',
+        left: '0px',
       }}
     >
       <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />

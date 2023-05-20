@@ -1,8 +1,8 @@
 import { Party } from '../../models/Party';
 import { getBaseUrl } from '../../utils/general';
-import Container from '../../components/Container';
 import MainButton from '../../components/MainButton';
-import { Box, Link, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 export interface NewPartyDialog {
   party: Party;
@@ -10,7 +10,7 @@ export interface NewPartyDialog {
 
 const NewPartyDialog = ({ party }: NewPartyDialog) => {
   return (
-    <Container>
+    <>
       <Typography variant='h3'>Let the swiping begin!</Typography>
       <Box mt='10px'>
         <Typography color='secondary.main'>
@@ -23,7 +23,6 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           sx={{
             display: 'flex',
             gap: '10px',
-            marginBottom: '10px',
           }}
         >
           <Typography color='secondary.main'>
@@ -33,7 +32,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
             Don't lose it!
           </Typography>
         </Box>
-        <Link href={getBaseUrl() + 'party/' + party._id} target='_blank'>
+        <Link to={'party/' + party._id}>
           <Typography
             sx={{
               wordBreak: 'break-all',
@@ -43,11 +42,19 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
             {getBaseUrl() + 'party/' + party._id}
           </Typography>
         </Link>
-        <Link href={getBaseUrl() + 'party/' + party._id} target='_blank'>
+        <Link
+          to={'party/' + party._id}
+          style={{
+            position: 'absolute',
+            top: '20px',
+            right: '10px',
+            textDecoration: 'none',
+          }}
+        >
           <MainButton text='Go to party' />
         </Link>
       </Box>
-    </Container>
+    </>
   );
 };
 

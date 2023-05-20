@@ -149,14 +149,7 @@ const Results = () => {
   }
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
+    <Box display='flex' flexDirection='column' alignItems='center'>
       {party && party.restaurants && (
         <Typography
           variant='h4'
@@ -180,7 +173,7 @@ const Results = () => {
                 width: '100%',
               }}
             >
-              <Typography color='secondary.main'>{restaurant.name}</Typography>
+              <Typography color='secondary'>{restaurant.name}</Typography>
               <Box sx={{ width: '100%' }}>
                 <LinearProgess
                   value={Math.round((100 / party.maxVoters) * restaurant.votes)}
@@ -215,7 +208,7 @@ const Results = () => {
                 width: '100%',
               }}
             >
-              <Typography>{time}</Typography>
+              <Typography color='secondary'>{time}</Typography>
               <Box sx={{ width: '100%' }}>
                 <LinearProgess
                   value={Math.round(
@@ -234,20 +227,6 @@ const Results = () => {
 export default Results;
 
 const styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: { xs: 'flex-start', md: 'center' },
-    paddingTop: { xs: '40px', md: '0px' },
-    alignItems: 'center',
-    maxHeight: '93vh',
-    height: '93vh',
-    width: '100vw',
-    maxWidth: '100vw',
-    overflow: 'hidden',
-
-    // backgroundImage: `url(${food})`,
-  },
   restaurantContainer: {
     display: 'flex',
     justifyContent: 'center',

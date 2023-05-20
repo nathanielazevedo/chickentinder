@@ -1,23 +1,18 @@
 import './App.css';
-import { themeSettings } from './theme';
 import { router } from './router';
-import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
-import { RouterProvider } from 'react-router-dom';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { useMemo } from 'react';
+import { themeSettings } from './theme';
 import { inject } from '@vercel/analytics';
+import { RouterProvider } from 'react-router-dom';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
 inject();
 
 const App = () => {
-  const theme = useMemo(() => createTheme(themeSettings('dark')), []);
+  const theme = createTheme(themeSettings());
   return (
     <ThemeProvider theme={theme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <CssBaseline />
-        <RouterProvider router={router} />
-      </LocalizationProvider>
+      <CssBaseline />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
 };
