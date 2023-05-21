@@ -57,19 +57,19 @@ const Entry = () => {
         <Typography variant='h3' mb='10px'>
           {party.name}
         </Typography>
-        <Typography variant='h6' color='secondary'>
+        <Typography color='secondary'>
           You're dining within {toMiles(party.max_distance)} miles from{' '}
           {party.location}.
         </Typography>
-        <Typography variant='h6' color='secondary'>
+        <Typography color='secondary'>
           There are {party.max_voters} people in your party.
         </Typography>
         {party.vote_on_time && (
-          <Typography variant='h6' color='secondary' alignSelf='flex-start'>
+          <Typography color='secondary' alignSelf='flex-start'>
             Your party is also voting on a time to meet.
           </Typography>
         )}
-        <Typography variant='h6' mt='20px' color='secondary'>
+        <Typography mt='20px' color='secondary'>
           This is your partys link:
           <Typography
             fontSize='12px'

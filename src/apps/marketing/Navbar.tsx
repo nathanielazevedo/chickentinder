@@ -1,18 +1,12 @@
+import { Box } from '@mui/material';
+import { logo_white } from '../../assets';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 import { Link, useNavigate } from 'react-router-dom';
-import { logo_white } from '../../assets';
-import { Box } from '@mui/material';
 
-const NavBar = ({
-  showButton = true,
-  myPartys,
-}: {
-  showButton?: boolean;
-  myPartys?: boolean;
-}) => {
+const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
   const navigate = useNavigate();
   return (
     <AppBar
@@ -21,8 +15,7 @@ const NavBar = ({
       sx={{
         maxWidth: '100vw',
         overflowX: 'hidden',
-        maxHeight: '56ox !important',
-        backgroundColor: 'rgb(0,0,0, 0.7)',
+        backgroundColor: 'rgb(0,0,0)',
       }}
     >
       <Container sx={{ width: { xs: '100%', lg: '1200px' } }}>
@@ -45,10 +38,8 @@ const NavBar = ({
               <img src={logo_white} alt='' style={{ width: '100%' }} />
             </Box>
             <Typography
-              variant='h6'
               sx={{
-                fontWeight: 400,
-                fontSize: '10px',
+                fontSize: '12px',
                 letterSpacing: '.2rem',
                 cursor: 'pointer',
               }}
@@ -56,30 +47,11 @@ const NavBar = ({
               CHICKEN TINDER
             </Typography>
           </Link>
-          {showButton && !myPartys && (
-            <Typography
-              fontSize='15px'
-              color='white'
-              sx={{
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                navigate(-1);
-              }}
-            >
-              Go Back
-            </Typography>
-          )}
           {myPartys && (
             <Typography
               fontSize='15px'
-              color='white'
-              sx={{
-                cursor: 'pointer',
-              }}
-              onClick={() => {
-                navigate('/party/my-parties');
-              }}
+              sx={{ cursor: 'pointer' }}
+              onClick={() => navigate('/party/my-parties')}
             >
               My Parties
             </Typography>

@@ -25,9 +25,7 @@ export default function FormDialog({ open, setOpen }: Props) {
     if (response) {
       setOpen(false);
       navigate('/party/' + id + '/manage');
-    } else {
-      setError(true);
-    }
+    } else setError(true);
   };
 
   return (

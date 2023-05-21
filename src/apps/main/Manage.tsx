@@ -41,7 +41,7 @@ const Manage = () => {
       {party && (
         <>
           <Typography variant='h3'>{party.name}</Typography>
-          <Typography variant='h6' mb='15px' color='secondary'>
+          <Typography mb='15px' color='secondary'>
             {party.voters_so_far} / {party.max_voters} voters have voted
           </Typography>
           <Results />

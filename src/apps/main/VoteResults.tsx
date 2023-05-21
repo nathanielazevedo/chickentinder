@@ -1,8 +1,7 @@
 import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
-import BackIcon from '../../components/BackIcon';
-import { Restaurant } from '../../models/Restaurant';
 import { Box, Typography } from '@mui/material';
+import { Restaurant } from '../../models/Restaurant';
 
 type Props = {
   party: Party;
@@ -25,8 +24,7 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
 
   return (
     <>
-      <BackIcon />
-      <Typography variant='h4' color='white' mb='20px'>
+      <Typography variant='h4' mb='20px'>
         Liked restaurants
       </Typography>
       {rlikes.length != 0 && restaurants && (
@@ -37,10 +35,10 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
               <Box
                 key={restaurant.id}
                 sx={{
-                  position: 'relative',
                   padding: '10px',
-                  border: '0.1px solid white',
                   borderRadius: '10px',
+                  position: 'relative',
+                  border: '0.1px solid white',
                 }}
               >
                 <Box
@@ -49,18 +47,14 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
                     height: '100%',
                     display: 'flex',
                     flexDirection: 'column',
-                    justifyContent: 'space-between',
                     alignItems: 'flex-start',
+                    justifyContent: 'space-between',
                   }}
                 >
                   <Box>
-                    <Typography variant='h6' color='secondary'>
-                      {restaurant.name}
-                    </Typography>
+                    <Typography color='secondary'>{restaurant.name}</Typography>
                     <a href={restaurant.url} target='_blank'>
-                      <Typography sx={styles.link} variant='h6'>
-                        View on Yelp
-                      </Typography>
+                      <Typography sx={styles.link}>View on Yelp</Typography>
                     </a>
                   </Box>
                 </Box>
@@ -71,26 +65,20 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
       )}
       {tLikes && (
         <Box>
-          <Typography variant='h4' color='white' mb='20px' mt='20px'>
+          <Typography variant='h4' mb='20px' mt='20px'>
             Liked times
           </Typography>
-          {tLikes.map((time) => {
-            return (
-              <Box
-                key={time}
-                sx={{
-                  padding: '10px',
-                  borderRadius: '10px',
-                  marginBottom: '10px',
-                  border: '0.1px solid white',
-                }}
-              >
-                <Typography variant='h6' color='secondary'>
-                  {time}
-                </Typography>
-              </Box>
-            );
-          })}
+          {tLikes.map((time) => (
+            <Box
+              key={time}
+              p='10px'
+              mb='10px'
+              borderRadius='10px'
+              border='0.1px solid white'
+            >
+              <Typography color='secondary'>{time}</Typography>
+            </Box>
+          ))}
         </Box>
       )}
     </>

@@ -7,7 +7,6 @@ const Footer = () => {
       sx={{
         height: '40vh',
         display: 'flex',
-        flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         maxWidth: '100vw',
@@ -17,41 +16,25 @@ const Footer = () => {
       <Box
         sx={{
           display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
+          justifyContent: 'space-between',
           width: { xs: '90%', sm: '100%' },
+          maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
         }}
       >
         <Box>
-          <Typography
-            variant='h4'
-            color='white'
-            sx={{
-              fontWeight: 400,
-
-              letterSpacing: '.3rem',
-            }}
-          >
+          <Typography variant='h4' letterSpacing='.3rem'>
             Chicken Tinder
           </Typography>
-          <Typography
-            color='white'
-            sx={{
-              fontStyle: 'italic',
-            }}
-          >
-            Copyright @2023
-          </Typography>
-          <Typography color='white'>All Rights Reserved</Typography>
+          <Typography fontStyle='italic'>Copyright @2023</Typography>
+          <Typography>All Rights Reserved</Typography>
         </Box>
         <Box
           sx={{
             width: { xs: '100px', sm: '200px' },
           }}
         >
-          <img src={logo_c_trans} alt='' style={{ width: '100%' }} />
+          <img src={logo_c_trans} alt='logo' style={{ width: '100%' }} />
         </Box>
       </Box>
     </Box>

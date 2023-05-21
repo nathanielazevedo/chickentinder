@@ -7,12 +7,13 @@ import { Restaurant } from '../../models/Restaurant';
 import { Box, Rating, Typography } from '@mui/material';
 import LinearProgess from '../../components/LinearProgess';
 import CelebrationIcon from '@mui/icons-material/Celebration';
+import Loading from '../../components/Loading';
 
 const Results = () => {
   const { id } = useParams<{ id: string }>();
   const [party, setParty] = useState<Party>();
-  const [rWinner, setRWinner] = useState<Restaurant>();
   const [tWinner, setTWinner] = useState<string>();
+  const [rWinner, setRWinner] = useState<Restaurant>();
 
   useEffect(() => {
     const getParty = async () => {
@@ -31,6 +32,8 @@ const Results = () => {
     getParty();
   }, [id]);
 
+  if (!party) return <Loading />;
+
   // If winner chosen
   // This should be a component
   if (rWinner) {
@@ -43,22 +46,9 @@ const Results = () => {
           alignItems='center'
         >
           <Typography variant='h4'>And the winner is...</Typography>
-          <CelebrationIcon
-            sx={{
-              fontSize: '50px',
-              color: 'darkpink',
-            }}
-          />
+          <CelebrationIcon sx={{ fontSize: '50px', color: 'darkpink' }} />
         </Box>
-        <Box
-          key={rWinner.id}
-          sx={{
-            ...styles.restaurantContainer,
-            position: 'relative',
-            padding: '20px',
-            minHeight: '300px',
-          }}
-        >
+        <Box key={rWinner.id} sx={styles.restaurantContainer}>
           <img
             src={rWinner.image_url}
             alt={rWinner.name}
@@ -82,70 +72,39 @@ const Results = () => {
             }}
           >
             <Box>
-              <Typography variant='h5' color='white'>
-                {rWinner.name}
-              </Typography>
-              <Typography variant='h6' color='white'>
+              <Typography variant='h5'>{rWinner.name}</Typography>
+              <Typography>
                 {rWinner.location?.address1}, {rWinner.location?.city}
               </Typography>
-              {rWinner.price && (
-                <Typography variant='h6' color='white'>
-                  Price: {rWinner.price}
-                </Typography>
-              )}
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'row',
-                  alignItems: 'center',
-                }}
-              >
-                <Rating
-                  name='simple-controlled'
-                  value={rWinner.rating}
-                  disabled
-                />
-                <Typography variant='h6' color='white'>
-                  - {rWinner.review_count} reviews
-                </Typography>
+              {rWinner.price && <Typography>Price: {rWinner.price}</Typography>}
+              <Box display='flex' alignItems='center'>
+                <Rating value={rWinner.rating} disabled />
+                <Typography>- {rWinner.review_count} reviews</Typography>
               </Box>
 
-              <Typography variant='h6' color='white'>
-                {rWinner.display_phone}
-              </Typography>
+              <Typography>{rWinner.display_phone}</Typography>
               <a href={rWinner.url} target='_blank'>
-                <Typography sx={styles.link} variant='h6' color='white'>
-                  View on Yelp
-                </Typography>
+                <Typography sx={styles.link}>View on Yelp</Typography>
               </a>
             </Box>
             <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                gap: '10px',
-                justifySelf: 'flex-end',
-                flexWrap: 'wrap',
-              }}
+              gap='10px'
+              display='flex'
+              flexWrap='wrap'
+              justifySelf='flex-end'
             >
-              {rWinner.categories.map((category) => {
-                return (
-                  <Typography key={category.alias} variant='h6' color='white'>
-                    #{category.title}
-                  </Typography>
-                );
-              })}
+              {rWinner.categories.map((category) => (
+                <Typography key={category.alias}>#{category.title}</Typography>
+              ))}
             </Box>
           </Box>
         </Box>
         {tWinner && (
           <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-              marginTop: '20px',
-            }}
+            mt='20px'
+            display='flex'
+            alignItems='center'
+            flexDirection='column'
           >
             <Typography variant='h4'>And the time is...</Typography>
             <Typography variant='h5'>{tWinner}</Typography>
@@ -158,75 +117,38 @@ const Results = () => {
   return (
     <Box display='flex' flexDirection='column' alignItems='center'>
       {party && (
-        <Typography
-          variant='h4'
-          sx={{
-            alignSelf: 'flex-start',
-            marginBottom: '10px',
-          }}
-        >
+        <Typography variant='h4' alignSelf='flex-start' mb='10px'>
           Restaurants
         </Typography>
       )}
-      {party &&
-        party.restaurants.map((restaurant) => {
-          return (
-            <Box
-              key={restaurant.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                width: '100%',
-              }}
-            >
-              <Typography color='secondary'>{restaurant.name}</Typography>
-              <Box sx={{ width: '100%' }}>
-                <LinearProgess
-                  value={Math.round(
-                    (100 / party.max_voters) * restaurant.votes
-                  )}
-                  realValue={restaurant.votes}
-                />
-              </Box>
+      {party.restaurants.map((restaurant) => {
+        return (
+          <Box key={restaurant.id} sx={styles.rC}>
+            <Typography color='secondary'>{restaurant.name}</Typography>
+            <Box sx={{ width: '100%' }}>
+              <LinearProgess
+                value={Math.round((100 / party.max_voters) * restaurant.votes)}
+                realValue={restaurant.votes}
+              />
             </Box>
-          );
-        })}
-      {party && party.vote_on_time && (
-        <Typography
-          variant='h4'
-          sx={{
-            marginTop: '20px',
-            alignSelf: 'flex-start',
-            marginBottom: '10px',
-          }}
-        >
+          </Box>
+        );
+      })}
+      {party.vote_on_time && (
+        <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
           Times
         </Typography>
       )}
-      {party &&
-        party.vote_on_time &&
+      {party.vote_on_time &&
         party.times_to_vote_on.map((time) => {
-          if (!time.votes) {
-            time.votes = 0;
-          }
+          if (!time.votes) time.votes = 0;
           return (
-            <Box
-              key={time.id}
-              sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'flex-start',
-                justifyContent: 'center',
-                width: '100%',
-              }}
-            >
+            <Box key={time.id} sx={styles.rC}>
               <Typography color='secondary'>{time.id}</Typography>
               <Box sx={{ width: '100%' }}>
                 <LinearProgess
-                  value={Math.round((100 / party.max_voters) * time.votes)}
                   realValue={time.votes}
+                  value={Math.round((100 / party.max_voters) * time.votes)}
                 />
               </Box>
             </Box>
@@ -248,6 +170,16 @@ const styles = {
     width: { xs: '100%', md: '500px' },
     borderRadius: '10px',
     backgroundColor: 'black',
+    position: 'relative',
+    padding: '20px',
+    minHeight: '300px',
+  },
+  rC: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    width: '100%',
   },
   link: {
     textDecoration: 'underline',

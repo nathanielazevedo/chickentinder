@@ -12,10 +12,10 @@ const TwoStack = ({ title, body, variant }: Props) => {
   if (variant === 'hero') {
     return (
       <Box>
-        <Typography variant='h1' fontWeight='bold' mb={1.5} color='white'>
+        <Typography variant='h1' mb={1.5}>
           {title}
         </Typography>
-        <Typography mb={3} variant='h5' color='white'>
+        <Typography mb={3} variant='h5'>
           {body}
         </Typography>
         <Link to='/party/create'>
