@@ -1,7 +1,6 @@
 import { CreateParty, Party } from './models/Party';
 import { party } from './mockData/mockP';
 import { restaurants } from './mockData/mockR';
-import { Restaurant } from './models/Restaurant';
 
 const localUrl = 'http://localhost:6001/';
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
