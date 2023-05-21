@@ -5,9 +5,10 @@ import {
   Typography,
 } from '@mui/material';
 
-function LinearProgess(
-  props: LinearProgressProps & { value: number; realValue: number }
-) {
+const LinearProgess = ({
+  realValue,
+  ...props
+}: LinearProgressProps & { value: number; realValue?: number }) => {
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Box sx={{ width: '100%', mr: 1 }}>
@@ -17,10 +18,10 @@ function LinearProgess(
         <Typography
           variant='body2'
           color='text.secondary'
-        >{`${props.realValue}`}</Typography>
+        >{`${realValue}`}</Typography>
       </Box>
     </Box>
   );
-}
+};
 
 export default LinearProgess;

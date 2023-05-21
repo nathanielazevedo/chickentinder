@@ -11,7 +11,7 @@ import Create from './apps/createParty/Create';
 import MyParties from './apps/myParties/MyParties';
 import { createBrowserRouter } from 'react-router-dom';
 
-export const router = createBrowserRouter([
+export const routes = [
   {
     path: '/',
     element: <Intro />,
@@ -20,10 +20,16 @@ export const router = createBrowserRouter([
   {
     path: '/party',
     element: <Container />,
+    errorElement: <Error />,
     children: [
       {
         path: 'create',
         element: <Create />,
+        errorElement: <Error />,
+      },
+      {
+        path: ':id',
+        element: <Entry />,
         errorElement: <Error />,
       },
       {
@@ -47,11 +53,6 @@ export const router = createBrowserRouter([
         errorElement: <Error />,
       },
       {
-        path: ':id',
-        element: <Entry />,
-        errorElement: <Error />,
-      },
-      {
         path: 'my-parties',
         element: <MyParties />,
         errorElement: <Error />,
@@ -63,4 +64,6 @@ export const router = createBrowserRouter([
     element: <FourOFour />,
     errorElement: <Error />,
   },
-]);
+];
+
+export const router = createBrowserRouter(routes);

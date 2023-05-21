@@ -1,59 +1,32 @@
 import { useState } from 'react';
-import ThumbUpIcon from '@mui/icons-material/ThumbUp';
+import VoteIcons from './VoteIcons';
+import { Swipe, getSwipe } from './SwipeUtils';
 import { Restaurant } from '../../../models/Restaurant';
 import { Box, Rating, Typography } from '@mui/material';
-import ThumbDownIcon from '@mui/icons-material/ThumbDown';
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore';
-
-type Swipe = {
-  id: string;
-  direction: string;
-};
 
 type Props = {
   restaurants: Restaurant[];
   fRV: (likes: string[]) => void;
 };
 
-const left = 'cssanimation sequence fadeOutLeft';
-const right = 'cssanimation sequence fadeOutRight';
-
 const VoteRestaurant = ({ restaurants, fRV }: Props) => {
-  const [swipe, setSwipe] = useState<Swipe | undefined>(undefined);
-  const [buttonsActive, setButtonsActive] = useState<boolean>(true);
+  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' });
   const [likes, setLikes] = useState<string[]>([]);
   const [index, setIndex] = useState<number>(0);
+  const restaurant = restaurants[index];
   const length = restaurants.length;
-
-  const getSwipe = (id: string) => {
-    if (swipe?.id === id) {
-      if (swipe.direction === 'left') return left;
-      else return right;
-    } else return '';
-  };
 
   if (index === length) {
     fRV(likes);
     return <></>;
   }
 
-  const restaurant = restaurants[index];
-
   return (
     <Box display='flex' alignItems='center' flexDirection='column'>
       <Typography variant='h5' alignSelf='flex-end' mb='5px'>
         {index + 1} of {length}
       </Typography>
-      <Box
-        key={restaurant.id}
-        className={getSwipe(restaurant?.id)}
-        sx={{
-          ...styles.restaurantContainer,
-          position: 'relative',
-          display: 'flex',
-          padding: '20px',
-        }}
-      >
+      <Box className={getSwipe(restaurant?.id, swipe)} sx={styles.c}>
         <img
           src={restaurant.image_url}
           alt={restaurant.name}
@@ -66,141 +39,39 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
             right: 0,
           }}
         />
-        <Box
-          sx={{
-            zIndex: 1,
-            height: '100%',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'space-between',
-            alignItems: 'flex-start',
-          }}
-        >
+        <Box sx={styles.rContent}>
           <Box>
-            <Typography variant='h5' color='white'>
-              {restaurant.name}
-            </Typography>
-            <Typography variant='h6' color='white'>
+            <Typography variant='h5'>{restaurant.name}</Typography>
+            <Typography>
               {restaurant.location?.address1}, {restaurant.location?.city}
             </Typography>
             {restaurant.price && (
-              <Typography variant='h6' color='white'>
-                Price: {restaurant.price}
-              </Typography>
+              <Typography>Price: {restaurant.price}</Typography>
             )}
-            <Box
-              sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}
-            >
-              <Rating
-                name='simple-controlled'
-                value={restaurant.rating}
-                disabled
-              />
-              <Typography variant='h6' color='white'>
-                - {restaurant.review_count} reviews
-              </Typography>
+            <Box display='flex'>
+              <Rating value={restaurant.rating} disabled />
+              <Typography>/ {restaurant.review_count} reviews</Typography>
             </Box>
-
-            <Typography variant='h6' color='white'>
-              {restaurant.display_phone}
-            </Typography>
+            <Typography>{restaurant.display_phone}</Typography>
             <a href={restaurant.url} target='_blank'>
-              <Typography sx={styles.link} variant='h6' color='white'>
-                View on Yelp
-              </Typography>
+              <Typography sx={styles.link}>View on Yelp</Typography>
             </a>
           </Box>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              gap: '10px',
-              justifySelf: 'flex-end',
-              flexWrap: 'wrap',
-            }}
-          >
-            {restaurant.categories.map((category, index) => {
-              return (
-                <Typography variant='h6' color='white' key={index}>
-                  #{category.title}
-                </Typography>
-              );
-            })}
+          <Box display='flex' gap='10px' justifySelf='flex-end' flexWrap='wrap'>
+            {restaurant.categories.map((category, index) => (
+              <Typography key={index}>#{category.title}</Typography>
+            ))}
           </Box>
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          width: '30%',
-          marginTop: '40px',
-          gap: '40px',
-        }}
-      >
-        <ThumbDownIcon
-          sx={{
-            fontSize: '50px',
-            cursor: 'pointer',
-          }}
-          color='error'
-          onClick={() => {
-            if (!buttonsActive) return;
-            setButtonsActive(false);
-            setSwipe({ id: restaurant.id, direction: 'left' });
-            setTimeout(() => {
-              setIndex((prevState) => prevState + 1);
-              setButtonsActive(true);
-            }, 1000);
-          }}
-        />
-        {index !== 0 ? (
-          <SettingsBackupRestoreIcon
-            sx={{
-              fontSize: '50px',
-              cursor: 'pointer',
-            }}
-            color='warning'
-            onClick={() => {
-              if (!buttonsActive) return;
-              setButtonsActive(false);
-              setSwipe({ id: '123', direction: 'left' });
-              setLikes((prevState) => {
-                // remove this restaurant it it was liked
-                const newLikes = prevState.filter((id) => {
-                  return id != restaurants[index - 1].id;
-                });
-                return [...newLikes];
-              });
-              setIndex((prevState) => prevState - 1);
-              setButtonsActive(true);
-            }}
-          />
-        ) : (
-          <Box width='50px' />
-        )}
-        <ThumbUpIcon
-          sx={{
-            fontSize: '50px',
-            cursor: 'pointer',
-          }}
-          color='success'
-          onClick={() => {
-            if (!buttonsActive) return;
-            setButtonsActive(false);
-            setLikes((prevState) => [...prevState, restaurant.id]);
-            setSwipe({ id: restaurant.id, direction: 'right' });
-            setTimeout(() => {
-              setIndex((prevState) => prevState + 1);
-              setButtonsActive(true);
-            }, 1000);
-          }}
-        />
-      </Box>
+      <VoteIcons
+        index={index}
+        item={restaurant}
+        items={restaurants}
+        setSwipe={setSwipe}
+        setIndex={setIndex}
+        setLikes={setLikes}
+      />
     </Box>
   );
 };
@@ -208,14 +79,24 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
 export default VoteRestaurant;
 
 const styles = {
-  restaurantContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
+  c: {
+    padding: '20px',
     height: '400px',
-    width: { xs: '370px', md: '500px' },
+    display: 'flex',
+    position: 'relative',
+    flexDirection: 'column',
+    justifyContent: 'center',
     backgroundColor: 'black',
+    alignItems: 'flex-start',
+    width: { xs: '370px', md: '500px' },
+  },
+  rContent: {
+    zIndex: 1,
+    display: 'flex',
+    height: '100%',
+    flexDirection: 'column',
+    alignItems: 'fle-start',
+    justifyContent: 'space-between',
   },
   link: {
     textDecoration: 'underline',

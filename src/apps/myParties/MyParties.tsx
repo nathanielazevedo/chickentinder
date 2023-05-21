@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
 import Loading from '../../components/Loading';
+import { Box, Typography } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import MainButton from '../../components/MainButton';
 import { LocalParty, getPartiesFromLocal } from '../../utils/localStorage';
@@ -24,7 +24,11 @@ const MyParties = () => {
       </Typography>
       <Box display='flex' flexDirection='column' gap='10px'>
         {myParties.map((party: LocalParty) => (
-          <Link to={`/party/` + party._id} style={{ height: '50px' }}>
+          <Link
+            key={party._id}
+            to={`/party/` + party._id}
+            style={{ height: '50px' }}
+          >
             <MainButton text={party.name} />
           </Link>
         ))}

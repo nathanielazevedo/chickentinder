@@ -32,58 +32,56 @@ export const colorTokens = {
 };
 
 // mui theme settings
-export const themeSettings = () => {
-  return {
-    palette: {
-      mode: 'dark' as PaletteMode,
-      primary: {
-        dark: colorTokens.primary[200],
-        main: colorTokens.primary[500],
-        light: colorTokens.primary[800],
-      },
-      neutral: {
-        dark: colorTokens.grey[100],
-        main: colorTokens.grey[200],
-        mediumMain: colorTokens.grey[300],
-        medium: colorTokens.grey[400],
-        light: colorTokens.grey[700],
-      },
-      background: {
-        default: colorTokens.grey[900],
-        alt: colorTokens.grey[800],
-      },
-      secondary: {
-        main: colorTokens.grey[300],
-      },
+export const theme = {
+  palette: {
+    mode: 'dark' as PaletteMode,
+    primary: {
+      dark: colorTokens.primary[200],
+      main: colorTokens.primary[500],
+      light: colorTokens.primary[800],
     },
-    typography: {
+    neutral: {
+      dark: colorTokens.grey[100],
+      main: colorTokens.grey[200],
+      mediumMain: colorTokens.grey[300],
+      medium: colorTokens.grey[400],
+      light: colorTokens.grey[700],
+    },
+    background: {
+      default: colorTokens.grey[900],
+      alt: colorTokens.grey[800],
+    },
+    secondary: {
+      main: colorTokens.grey[300],
+    },
+  },
+  typography: {
+    fontFamily: ['Poppins', 'sans-serif'].join(','),
+    fontSize: 12,
+    h1: {
       fontFamily: ['Poppins', 'sans-serif'].join(','),
-      fontSize: 12,
-      h1: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 40,
-        fontWeight: 'lighter',
-      },
-      h2: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 32,
-      },
-      h3: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 24,
-      },
-      h4: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 20,
-      },
-      h5: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 16,
-      },
-      h6: {
-        fontFamily: ['Poppins', 'sans-serif'].join(','),
-        fontSize: 14,
-      },
+      fontSize: 40,
+      fontWeight: 'lighter',
     },
-  };
+    h2: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: 32,
+    },
+    h3: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: 24,
+    },
+    h4: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: 20,
+    },
+    h5: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: 16,
+    },
+    h6: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: 14,
+    },
+  },
 };

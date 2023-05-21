@@ -4,39 +4,37 @@ import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Button, Typography } from '@mui/material';
-import { Restaurant } from '../../models/Restaurant';
 
 const Manage = () => {
   const { id } = useParams<{ id: string }>();
-  const [party, setParty] = useState<Party | undefined>(undefined);
-  const [result, setResult] = useState<Restaurant | undefined>(undefined);
+  const [party, setParty] = useState<Party>();
+  const [winner, setWinner] = useState(false);
 
   useEffect(() => {
-    try {
+    const getParty = async () => {
       if (!id) return;
-      API.getParty(id).then((res) => {
-        if (res.winner) setResult(res.winner);
-        setParty(res);
-      });
-    } catch (err) {
-      console.log(err);
-    }
+      try {
+        const party = await API.getParty(id);
+        if (party.r_winner) setWinner(true);
+        setParty(party);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getParty();
   }, [id]);
 
   const endParty = async () => {
     try {
       if (!id || !party) return;
-      const res = await API.endParty(id);
-      const result = party.restaurants.find((r) => r.id === res);
-      setResult(result);
+      await API.endParty(id);
+      setWinner(true);
     } catch (err) {
       console.log(err);
     }
   };
 
-  if (result) {
-    return <Results />;
-  }
+  if (winner) return <Results />;
 
   return (
     <>
@@ -44,7 +42,7 @@ const Manage = () => {
         <>
           <Typography variant='h3'>{party.name}</Typography>
           <Typography variant='h6' mb='15px' color='secondary'>
-            {party.voters} / {party.maxVoters} voters have voted
+            {party.voters_so_far} / {party.max_voters} voters have voted
           </Typography>
           <Results />
           <Button

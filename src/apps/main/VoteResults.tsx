@@ -2,16 +2,15 @@ import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
 import BackIcon from '../../components/BackIcon';
 import { Restaurant } from '../../models/Restaurant';
-import { Box, Typography, Card } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 type Props = {
-  id: string;
   party: Party;
   rlikes: string[];
-  tLikes: { [key: string]: boolean };
+  tLikes: string[];
 };
 
-const VoteResults = ({ rlikes, party, tLikes }: Props) => {
+const VoteResults = ({ party, rlikes, tLikes }: Props) => {
   const [restaurants, setRestaurants] = useState<Restaurant[]>();
 
   useEffect(() => {
@@ -75,31 +74,21 @@ const VoteResults = ({ rlikes, party, tLikes }: Props) => {
           <Typography variant='h4' color='white' mb='20px' mt='20px'>
             Liked times
           </Typography>
-          {Object.keys(tLikes).map((time) => {
+          {tLikes.map((time) => {
             return (
-              <Card
-                elevation={3}
+              <Box
+                key={time}
                 sx={{
-                  display: 'flex',
-                  padding: '20px',
-                  border: '0.1px solid white',
+                  padding: '10px',
+                  borderRadius: '10px',
                   marginBottom: '10px',
+                  border: '0.1px solid white',
                 }}
               >
-                <Box
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                  }}
-                >
-                  <Typography variant='h1' color='white'>
-                    {time}
-                  </Typography>
-                </Box>
-              </Card>
+                <Typography variant='h6' color='secondary'>
+                  {time}
+                </Typography>
+              </Box>
             );
           })}
         </Box>

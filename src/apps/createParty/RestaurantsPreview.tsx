@@ -54,7 +54,6 @@ const RestaurantsPreview = ({
             />
             <Box>
               <Typography>{restaurant.name}</Typography>
-              <Typography>{restaurant.description}</Typography>
               <Link href={restaurant.url} target='_blank'>
                 View on Yelp
               </Link>

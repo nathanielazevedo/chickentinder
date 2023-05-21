@@ -36,7 +36,7 @@ const HowItWorks = () => {
         }}
       >
         {constants.marketingCards.map((card, i) => {
-          return <StepsCard i={i} card={card} />;
+          return <StepsCard key={i} i={i} card={card} />;
         })}
       </Box>
     </Box>

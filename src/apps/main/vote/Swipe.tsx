@@ -1,21 +1,25 @@
 import API from '../../../api';
-import { Party } from '../../../models/Party';
+import VoteTime from './VoteTime';
+import VoteResults from '../VoteResults';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import VoteTime from './VoteTime';
 import VoteRestaurant from './VoteRestaurant';
-import VoteResults from '../VoteResults';
-import CreateLoad from '../../../components/Loading';
+import { Party } from '../../../models/Party';
+import { useNavigate } from 'react-router-dom';
+import Loading from '../../../components/Loading';
+import {
+  addPartyToLocal,
+  getPartyFromLocal,
+  updatePartyInLocal,
+} from '../../../utils/localStorage';
 
 const Swipe = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
-
-  const [party, setParty] = useState<Party | undefined>(undefined);
-  const [votingStage, setVotingStage] = useState('loading');
   const [rLikes, setRLikes] = useState<string[]>([]);
-  const [tLikes, setTLikes] = useState<{ [key: string]: boolean }>({});
+  const [tLikes, setTLikes] = useState<string[]>([]);
+  const [votingStage, setVotingStage] = useState('loading');
+  const [party, setParty] = useState<Party | undefined>(undefined);
 
   // Get Party
   useEffect(() => {
@@ -35,7 +39,7 @@ const Swipe = () => {
 
   // Finish Restaurant Vote
   const fRV = async (rLikes: string[]) => {
-    if (party?.voteTime) {
+    if (party?.vote_on_time) {
       setRLikes(rLikes);
       setVotingStage('times');
       return;
@@ -43,18 +47,14 @@ const Swipe = () => {
     try {
       if (!id) return;
       await API.vote(id, rLikes, null);
-      const localParty = localStorage.getItem('parties');
-      if (localParty) {
-        const parsedParty = JSON.parse(localParty);
-        const updatedParty = parsedParty.find(
-          (party: Party) => party._id === id
-        );
-        if (updatedParty) {
-          updatedParty.voteRestaurants = rLikes;
-          updatedParty.voted = true;
-        }
-        localStorage.setItem('parties', JSON.stringify(parsedParty));
-      }
+
+      const party = getPartyFromLocal(id);
+      if (party) {
+        party.voteRestaurants = rLikes;
+        party.voted = true;
+        updatePartyInLocal(party);
+      } else addPartyToLocal(party);
+
       setVotingStage('complete');
     } catch {
       console.log('error');
@@ -62,50 +62,40 @@ const Swipe = () => {
   };
 
   // Finish Time Vote
-  const fTV = async (
-    tLikes: { [key: string]: number },
-    likes: { [key: string]: boolean }
-  ) => {
+  const fTV = async (likes: string[]) => {
     try {
       if (!id) return;
-      await API.vote(id, rLikes, tLikes);
+      await API.vote(id, rLikes, likes);
       setTLikes(likes);
-      const localParty = localStorage.getItem('parties');
-      if (localParty) {
-        const parsedParty = JSON.parse(localParty);
-        const updatedParty = parsedParty.find(
-          (party: Party) => party._id === id
-        );
-        if (updatedParty) {
-          updatedParty.voteTime = likes;
-          updatedParty.voteRestaurants = rLikes;
-          updatedParty.voted = true;
-        }
-        localStorage.setItem('parties', JSON.stringify(parsedParty));
-      }
+
+      const party = getPartyFromLocal(id);
+      if (party) {
+        party.voteTime = likes;
+        party.voteRestaurants = rLikes;
+        party.voted = true;
+        updatePartyInLocal(party);
+      } else addPartyToLocal(party);
+
       setVotingStage('complete');
     } catch {
       console.log('error');
     }
   };
 
-  if (!party || !id) return <CreateLoad />;
+  if (!party || !id) return <Loading />;
 
-  if (votingStage === 'complete') {
-    return (
-      <VoteResults rlikes={rLikes} id={id} party={party} tLikes={tLikes} />
-    );
+  switch (votingStage) {
+    case 'loading':
+      return <Loading />;
+    case 'restaurants':
+      return <VoteRestaurant restaurants={party?.restaurants} fRV={fRV} />;
+    case 'times':
+      return <VoteTime times_to_vote_on={party.times_to_vote_on} fTV={fTV} />;
+    case 'complete':
+      return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} />;
+    default:
+      return <Loading />;
   }
-
-  if (votingStage === 'restaurants') {
-    return <VoteRestaurant restaurants={party?.restaurants} fRV={fRV} />;
-  }
-
-  if (votingStage === 'times') {
-    return <VoteTime hours={party.hours} fTV={fTV} />;
-  }
-
-  return <CreateLoad />;
 };
 
 export default Swipe;

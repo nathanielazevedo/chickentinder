@@ -1,15 +1,16 @@
-import { CreateParty } from './models/Party';
+import { CreateParty, Party } from './models/Party';
 import { party } from './mockData/mockP';
 import { restaurants } from './mockData/mockR';
+import { Restaurant } from './models/Restaurant';
 
 const localUrl = 'http://localhost:6001/';
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
-const mock = false;
+const mock = true;
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
 
-const getParty = async (id: string): Promise<any> => {
+const getParty = async (id: string): Promise<Party> => {
   if (mock) return party;
 
   return fetch(baseUrl + 'party/' + id, {
@@ -29,7 +30,7 @@ const getParty = async (id: string): Promise<any> => {
     });
 };
 
-const createParty = async (formData: CreateParty): Promise<any> => {
+const createParty = async (formData: CreateParty): Promise<Party> => {
   if (mock) return party;
   return fetch(baseUrl, {
     method: 'POST',
@@ -41,12 +42,12 @@ const createParty = async (formData: CreateParty): Promise<any> => {
   })
     .then(async (res) => {
       if (res.status === 200) {
-        return res.json().then((data) => {
-          return data;
+        return res.json().then((party) => {
+          return party;
         });
       } else {
-        return res.json().then((data) => {
-          return { error: data };
+        return res.json().then((party) => {
+          return { error: party };
         });
       }
     })
@@ -55,7 +56,14 @@ const createParty = async (formData: CreateParty): Promise<any> => {
     });
 };
 
-const fetchRestaurants = async (formData: any): Promise<any> => {
+type rP = {
+  location: string;
+  max_distance: number;
+  number_of_restaurants: number;
+};
+
+//TODO: add error handling
+const fetchRestaurants = async (formData: rP): Promise<any> => {
   if (mock) return restaurants;
   return fetch(baseUrl + 'restaurants', {
     method: 'POST',
@@ -88,8 +96,8 @@ const fetchRestaurants = async (formData: any): Promise<any> => {
 const vote = async (
   id: string,
   rLikes: string[],
-  tLikes: { [key: string]: number } | null
-): Promise<any> => {
+  tLikes: string[] | null
+): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/vote', {
     method: 'POST',
     headers: {
@@ -97,10 +105,10 @@ const vote = async (
     },
     body: JSON.stringify({ rLikes, tLikes }),
   })
-    .then((res) => {
+    .then(async (res) => {
       if (res.status !== 200) throw new Error('Error voting');
-      return res.json().then((data) => {
-        return data;
+      return res.json().then((party) => {
+        return party;
       });
     })
     .catch((err) => {
@@ -108,7 +116,10 @@ const vote = async (
     });
 };
 
-const validatePassword = async (id: string, password: string): Promise<any> => {
+const validatePassword = async (
+  id: string,
+  password: string
+): Promise<boolean> => {
   if (mock) return true;
   return fetch(baseUrl + 'party/' + id + '/password', {
     method: 'POST',
@@ -125,7 +136,7 @@ const validatePassword = async (id: string, password: string): Promise<any> => {
   });
 };
 
-const endParty = async (id: string): Promise<any> => {
+const endParty = async (id: string): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/end', {
     method: 'POST',
     headers: {
@@ -133,8 +144,8 @@ const endParty = async (id: string): Promise<any> => {
     },
   }).then((res) => {
     if (res.status === 200) {
-      return res.json().then((data) => {
-        return data.winner;
+      return res.json().then((party) => {
+        return party.r_winner;
       });
     } else {
       return false;

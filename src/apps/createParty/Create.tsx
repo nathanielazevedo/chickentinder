@@ -6,6 +6,7 @@ import NewPartyScreen from './NewPartyScreen';
 import CreateLoad from '../../components/Loading';
 import { Restaurant } from '../../models/Restaurant';
 import RestaurantsPreview from './RestaurantsPreview';
+import { addPartyToLocal } from '../../utils/localStorage';
 import {
   hoursInitial,
   valueInitial,
@@ -20,12 +21,12 @@ import {
 const Create = () => {
   const [loading, setLoading] = useState(false);
   const [hours, setHours] = useState(hoursInitial);
-  const [values, setValues] = useState(valueInitial);
   const [timeError, setTimeError] = useState(false);
+  const [values, setValues] = useState(valueInitial);
   const [voteOnTime, setVoteOnTime] = useState(false);
   const [generalError, setGeneralError] = useState('');
-  const [party, setParty] = useState<Party | undefined>(undefined);
   const [restaurants, setRestaurants] = useState<Restaurant[]>();
+  const [party, setParty] = useState<Party | undefined>(undefined);
 
   const fetchRestaurants = async (values: valueType) => {
     if (voteOnTime && getLikedLength(hours) < 2) return setTimeError(true);
@@ -38,8 +39,7 @@ const Create = () => {
       else if (!restaurants.length) setGeneralError(noRMessage);
       else setRestaurants(addChecks(restaurants));
       setLoading(false);
-    } catch (error) {
-      console.log(error);
+    } catch {
       setLoading(false);
     }
   };
@@ -52,12 +52,13 @@ const Create = () => {
       vote_on_time: voteOnTime,
       times_to_vote_on: getLikedHours(hours),
     });
+    const { _id, name } = party;
+    addPartyToLocal({ _id, name, voted: false });
     setRestaurants(undefined);
     setParty(party);
   };
 
   if (loading) return <CreateLoad />;
-
   if (party) return <NewPartyScreen party={party} />;
 
   if (restaurants) {

@@ -32,7 +32,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
             Don't lose it!
           </Typography>
         </Box>
-        <Link to={'party/' + party._id}>
+        <Link to={'/party/' + party._id}>
           <Typography
             sx={{
               wordBreak: 'break-all',
@@ -43,7 +43,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
           </Typography>
         </Link>
         <Link
-          to={'party/' + party._id}
+          to={'/party/' + party._id}
           style={{
             position: 'absolute',
             top: '20px',

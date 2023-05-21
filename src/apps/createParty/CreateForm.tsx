@@ -23,35 +23,37 @@ import {
 
 type Props = {
   values: valueType;
-  fetchRestaurants: (values: valueType) => void;
-  setHours: (hours: hoursType) => void;
   hours: hoursType;
   voteTime: boolean;
-  setTimeError: (error: boolean) => void;
   timeError: boolean;
-  setVoteTime: (voteTime: boolean) => void;
   generalError: string;
+  setHours: (hours: hoursType) => void;
+  setTimeError: (error: boolean) => void;
+  setVoteTime: (voteTime: boolean) => void;
+  fetchRestaurants: (values: valueType) => void;
 };
 
 const CreateForm = ({
-  values,
-  fetchRestaurants,
   hours,
+  values,
   voteTime,
-  setTimeError,
+  setHours,
   timeError,
   setVoteTime,
   generalError,
-  setHours,
+  setTimeError,
+  fetchRestaurants,
 }: Props) => {
   const isChecked = (value: string) => {
     return hours[value as keyof hoursType];
   };
+
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     setTimeError(false);
     setHours({ ...hours, [value]: checked });
   };
+
   return (
     <Formik
       initialValues={values}
@@ -79,51 +81,47 @@ const CreateForm = ({
             }}
           >
             <TextField
-              label='Party Name'
-              fullWidth
-              onBlur={handleBlur}
-              onChange={handleChange}
-              value={values.name}
               name='name'
-              error={Boolean(touched.name) && Boolean(errors.name)}
+              label='Party Name'
+              onBlur={handleBlur}
+              value={values.name}
+              onChange={handleChange}
               helperText={touched.name && errors.name}
+              error={Boolean(touched.name) && Boolean(errors.name)}
             />
             <TextField
+              name='location'
               label='City Name or Zip Code'
-              fullWidth
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.location}
-              name='location'
               error={Boolean(touched.location) && Boolean(errors.location)}
               helperText={touched.location && errors.location}
             />
             <Box width='100%'>
-              <Typography id='slider' gutterBottom>
+              <Typography gutterBottom>
                 Max Distance From Location (miles)
               </Typography>
               <Slider
-                value={toMiles(values.max_distance)}
-                aria-label='slider'
-                valueLabelDisplay='auto'
                 min={1}
                 step={1}
                 max={24}
-                onChange={(_e, value) => {
-                  const inKm = toMeters(value as number);
-                  setFieldValue('max_distance', inKm);
-                }}
+                aria-label='slider'
+                valueLabelDisplay='auto'
+                value={toMiles(values.max_distance)}
+                onChange={(_e, value) =>
+                  setFieldValue('max_distance', toMeters(value as number))
+                }
               />
             </Box>
             <TextField
               label='Number of Voters'
-              fullWidth
               autoComplete='off'
               type='number'
               onBlur={handleBlur}
               onChange={handleChange}
               value={values.max_voters}
-              name='maxVoters'
+              name='max_voters'
               error={Boolean(touched.max_voters) && Boolean(errors.max_voters)}
               helperText={
                 errors.max_voters && touched.max_voters
@@ -133,7 +131,6 @@ const CreateForm = ({
             />
             <TextField
               label='How many restaurants to vote on?'
-              fullWidth
               autoComplete='off'
               type='number'
               onBlur={handleBlur}
@@ -187,9 +184,7 @@ const CreateForm = ({
                         control={
                           <Checkbox
                             checked={isChecked(hour)}
-                            onChange={(e) => {
-                              handleHours(e);
-                            }}
+                            onChange={(e) => handleHours(e)}
                           />
                         }
                       />
@@ -213,14 +208,7 @@ const CreateForm = ({
                   : 'You can use this later to manage the party.'
               }
             />
-            <Button
-              type='submit'
-              variant='outlined'
-              fullWidth
-              sx={{
-                height: '50px',
-              }}
-            >
+            <Button type='submit' variant='outlined' sx={{ height: '50px' }}>
               <Typography>Create Party</Typography>
             </Button>
           </FormControl>

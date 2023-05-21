@@ -9,22 +9,23 @@ export type Party = {
   max_voters: number;
   times_to_vote_on: {
     id: string;
+    votes?: number;
   }[];
   vote_on_time: boolean;
   password: string;
   restaurants: Restaurant[];
   r_votes: {
-    [id: string]: string;
-  } | null;
+    [id: string]: number;
+  };
   t_votes: {
-    [id: string]: string;
-  } | null;
+    [id: string]: number;
+  };
   r_winner: Restaurant | null;
   t_winner: string | null;
   createdAt: string;
   updatedAt: string;
-  voters: number;
-  _v: number;
+  voters_so_far: number;
+  __v: number;
 };
 
 export type CreateParty = {

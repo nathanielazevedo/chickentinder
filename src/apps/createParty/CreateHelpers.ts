@@ -1,3 +1,10 @@
+import { object, string, number } from 'yup';
+import { Restaurant } from '../../models/Restaurant';
+
+export const noRMessage = 'No restaurants found. Please try again.';
+export type hoursType = typeof hoursInitial;
+export type valueType = typeof valueInitial;
+
 export const hoursInitial = {
   '7-8 AM': false,
   '8-9 AM': false,
@@ -18,10 +25,6 @@ export const hoursInitial = {
   '11-12 AM': false,
 };
 
-export const noRMessage = 'No restaurants found. Please try again.';
-
-export type hoursType = typeof hoursInitial;
-
 export const valueInitial = {
   name: '',
   location: '',
@@ -31,10 +34,6 @@ export const valueInitial = {
   number_of_restaurants: 5,
 };
 
-export type valueType = typeof valueInitial;
-
-import { object, string, number } from 'yup';
-import { Restaurant } from '../../models/Restaurant';
 export const partySchema = object({
   name: string().required('Required'),
   location: string().required('Required'),

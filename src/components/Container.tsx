@@ -17,9 +17,9 @@ const Container = () => {
           width: { xs: '100%', sm: '500px' },
           padding: { xs: '80px 20px', sm: '40px' },
           borderRadius: { xs: '0px', sm: '20px' },
-          minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
+          overflow: { xs: 'hidden', sm: 'hidden' },
           maxHeight: { xs: '100%', sm: 'auto' },
-          overflow: { xs: 'hidden', sm: 'auto' },
+          minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
         }}
       >
         <BackIcon />

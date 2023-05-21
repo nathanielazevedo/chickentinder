@@ -1,35 +1,29 @@
 import API from '../../api';
-import React, { useEffect } from 'react';
 import { Party } from '../../models/Party';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { addVotesTo } from '../../utils/general';
 import { Restaurant } from '../../models/Restaurant';
-import CelebrationIcon from '@mui/icons-material/Celebration';
-import { Box, Card, Rating, Typography } from '@mui/material';
+import { Box, Rating, Typography } from '@mui/material';
 import LinearProgess from '../../components/LinearProgess';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 const Results = () => {
   const { id } = useParams<{ id: string }>();
-  const [party, setParty] = React.useState<Party | undefined>(undefined);
-  const [result, setResult] = React.useState<Restaurant | undefined>(undefined);
+  const [party, setParty] = useState<Party>();
+  const [rWinner, setRWinner] = useState<Restaurant>();
+  const [tWinner, setTWinner] = useState<string>();
 
   useEffect(() => {
     const getParty = async () => {
       try {
         if (!id) return;
-        const data = await API.getParty(id);
-        if (data.winner) setResult(data.winner);
-
-        data.restaurants.forEach((restaurant: Restaurant) => {
-          if (data.votes[restaurant.id]) {
-            restaurant.votes = data.votes[restaurant.id];
-          } else {
-            restaurant.votes = 0;
-          }
-        });
-        data.restaurants.sort((a: Restaurant, b: Restaurant) => {
-          return b.votes - a.votes;
-        });
-        setParty(data);
+        const party = await API.getParty(id);
+        if (party.r_winner) setRWinner(party.r_winner);
+        if (party.t_winner) setTWinner(party.t_winner);
+        addVotesTo(party.restaurants, party.r_votes);
+        addVotesTo(party.times_to_vote_on, party.t_votes);
+        setParty(party);
       } catch {
         console.log('error');
       }
@@ -38,7 +32,8 @@ const Results = () => {
   }, [id]);
 
   // If winner chosen
-  if (result) {
+  // This should be a component
+  if (rWinner) {
     return (
       <>
         <Box
@@ -55,9 +50,8 @@ const Results = () => {
             }}
           />
         </Box>
-        <Card
-          elevation={3}
-          key={result.id}
+        <Box
+          key={rWinner.id}
           sx={{
             ...styles.restaurantContainer,
             position: 'relative',
@@ -66,8 +60,8 @@ const Results = () => {
           }}
         >
           <img
-            src={result.image_url}
-            alt={result.name}
+            src={rWinner.image_url}
+            alt={rWinner.name}
             style={{
               maxWidth: '100%',
               maxHeight: '100%',
@@ -89,14 +83,14 @@ const Results = () => {
           >
             <Box>
               <Typography variant='h5' color='white'>
-                {result.name}
+                {rWinner.name}
               </Typography>
               <Typography variant='h6' color='white'>
-                {result.location?.address1}, {result.location?.city}
+                {rWinner.location?.address1}, {rWinner.location?.city}
               </Typography>
-              {result.price && (
+              {rWinner.price && (
                 <Typography variant='h6' color='white'>
-                  Price: {result.price}
+                  Price: {rWinner.price}
                 </Typography>
               )}
               <Box
@@ -108,18 +102,18 @@ const Results = () => {
               >
                 <Rating
                   name='simple-controlled'
-                  value={result.rating}
+                  value={rWinner.rating}
                   disabled
                 />
                 <Typography variant='h6' color='white'>
-                  - {result.review_count} reviews
+                  - {rWinner.review_count} reviews
                 </Typography>
               </Box>
 
               <Typography variant='h6' color='white'>
-                {result.display_phone}
+                {rWinner.display_phone}
               </Typography>
-              <a href={result.url} target='_blank'>
+              <a href={rWinner.url} target='_blank'>
                 <Typography sx={styles.link} variant='h6' color='white'>
                   View on Yelp
                 </Typography>
@@ -134,7 +128,7 @@ const Results = () => {
                 flexWrap: 'wrap',
               }}
             >
-              {result.categories.map((category) => {
+              {rWinner.categories.map((category) => {
                 return (
                   <Typography key={category.alias} variant='h6' color='white'>
                     #{category.title}
@@ -143,14 +137,27 @@ const Results = () => {
               })}
             </Box>
           </Box>
-        </Card>
+        </Box>
+        {tWinner && (
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              marginTop: '20px',
+            }}
+          >
+            <Typography variant='h4'>And the time is...</Typography>
+            <Typography variant='h5'>{tWinner}</Typography>
+          </Box>
+        )}
       </>
     );
   }
 
   return (
     <Box display='flex' flexDirection='column' alignItems='center'>
-      {party && party.restaurants && (
+      {party && (
         <Typography
           variant='h4'
           sx={{
@@ -165,6 +172,7 @@ const Results = () => {
         party.restaurants.map((restaurant) => {
           return (
             <Box
+              key={restaurant.id}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -176,14 +184,16 @@ const Results = () => {
               <Typography color='secondary'>{restaurant.name}</Typography>
               <Box sx={{ width: '100%' }}>
                 <LinearProgess
-                  value={Math.round((100 / party.maxVoters) * restaurant.votes)}
+                  value={Math.round(
+                    (100 / party.max_voters) * restaurant.votes
+                  )}
                   realValue={restaurant.votes}
                 />
               </Box>
             </Box>
           );
         })}
-      {party && party.voteTime && (
+      {party && party.vote_on_time && (
         <Typography
           variant='h4'
           sx={{
@@ -196,10 +206,14 @@ const Results = () => {
         </Typography>
       )}
       {party &&
-        party.voteTime &&
-        Object.keys(party.hours).map((time) => {
+        party.vote_on_time &&
+        party.times_to_vote_on.map((time) => {
+          if (!time.votes) {
+            time.votes = 0;
+          }
           return (
             <Box
+              key={time.id}
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
@@ -208,13 +222,11 @@ const Results = () => {
                 width: '100%',
               }}
             >
-              <Typography color='secondary'>{time}</Typography>
+              <Typography color='secondary'>{time.id}</Typography>
               <Box sx={{ width: '100%' }}>
                 <LinearProgess
-                  value={Math.round(
-                    (100 / party.maxVoters) * party.hours[time]
-                  )}
-                  realValue={party.hours[time]}
+                  value={Math.round((100 / party.max_voters) * time.votes)}
+                  realValue={time.votes}
                 />
               </Box>
             </Box>

@@ -2,15 +2,13 @@ import Button from './Button';
 import { Link } from 'react-router-dom';
 import { Box, Typography } from '@mui/material';
 
-const TwoStack = ({
-  title,
-  body,
-  variant,
-}: {
+type Props = {
   title: string;
   body: string;
   variant: string;
-}) => {
+};
+
+const TwoStack = ({ title, body, variant }: Props) => {
   if (variant === 'hero') {
     return (
       <Box>

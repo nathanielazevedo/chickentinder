@@ -27,6 +27,18 @@ export const addPartyToLocal = (party: LocalParty) => {
   }
 };
 
+export const updatePartyInLocal = (party: LocalParty) => {
+  const parties = getPartiesFromLocal();
+  if (parties) {
+    localStorage.setItem(
+      'parties',
+      JSON.stringify(
+        parties.map((p: LocalParty) => (p._id === party._id ? party : p))
+      )
+    );
+  }
+};
+
 export const setFirstParty = (party: LocalParty) => {
   localStorage.setItem('parties', JSON.stringify([party]));
 };

@@ -4,7 +4,7 @@ import { Party } from '../../models/Party';
 import { useEffect, useState } from 'react';
 import PasswordDialog from './PasswordDialog';
 import { Box, Typography } from '@mui/material';
-import CreateLoad from '../../components/Loading';
+import Loading from '../../components/Loading';
 import { Link, useParams } from 'react-router-dom';
 import MainButton from '../../components/MainButton';
 import { getBaseUrl, toMiles } from '../../utils/general';
@@ -20,16 +20,16 @@ const Entry = () => {
   const { id } = useParams();
   const [open, setOpen] = useState(false);
   const [voted, setVoted] = useState(false);
+  const [party, setParty] = useState<Party>();
   const [showDelete, setShowDelete] = useState(false);
-  const [party, setParty] = useState<Party | undefined>(undefined);
 
   useEffect(() => {
     const getParty = async () => {
       try {
         if (!id) return;
         const res = await API.getParty(id);
-        const partiesInLocal = haveLocalParties();
         const newParty = { _id: id, voted: false, name: res.name };
+        const partiesInLocal = haveLocalParties();
         if (!partiesInLocal) setFirstParty(newParty);
         else {
           const party = getPartyFromLocal(id);
@@ -48,20 +48,12 @@ const Entry = () => {
 
   if (showDelete) return <PartyDeleted />;
 
-  if (!party) return <CreateLoad />;
+  if (!party) return <Loading />;
 
   return (
     <>
       <PasswordDialog open={open} setOpen={setOpen} />
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          width: '100%',
-        }}
-      >
+      <Box mb='30px'>
         <Typography variant='h3' mb='10px'>
           {party.name}
         </Typography>
@@ -70,81 +62,40 @@ const Entry = () => {
           {party.location}.
         </Typography>
         <Typography variant='h6' color='secondary'>
-          There are {party.maxVoters} people in your party.
+          There are {party.max_voters} people in your party.
         </Typography>
-        {party.voteTime && (
-          <Typography
-            variant='h6'
-            color='secondary'
-            sx={{
-              fontWeight: 'bold',
-              alignSelf: 'flex-start',
-            }}
-          >
+        {party.vote_on_time && (
+          <Typography variant='h6' color='secondary' alignSelf='flex-start'>
             Your party is also voting on a time to meet.
           </Typography>
         )}
         <Typography variant='h6' mt='20px' color='secondary'>
           This is your partys link:
           <Typography
-            variant='h6'
-            sx={{
-              fontSize: '12px',
-              wordBreak: 'break-word',
-              color: 'primary.main',
-            }}
+            fontSize='12px'
+            color='primary.main'
+            sx={{ wordBreak: 'break-word' }}
           >
             {getBaseUrl() + 'party/' + party._id}
           </Typography>
         </Typography>
       </Box>
-
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '20px',
-          width: '100%',
-          marginTop: '30px',
-        }}
-      >
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-          }}
-        >
-          <Typography variant='h4' fontWeight='bold'>
-            What would you like to do?
-          </Typography>
-        </Box>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: '20px',
-          }}
-        >
+      <Box display='flex' flexDirection='column' gap='20px' width='100%'>
+        <Typography variant='h4' fontWeight='bold'>
+          What would you like to do?
+        </Typography>
+        <Box display='flex' gap='20px'>
           <Link
             to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
             style={{ width: '100%', height: '100px' }}
           >
-            <MainButton
-              text={voted ? 'View My Votes' : 'Vote'}
-              onClick={() => console.log('hello')}
-            />
+            <MainButton text={voted ? 'View My Votes' : 'Vote'} />
           </Link>
           <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
-            <MainButton
-              text='View Results'
-              onClick={() => console.log('hello')}
-            />
+            <MainButton text='View Results' />
           </Link>
         </Box>
-        <Box
-          sx={{
-            height: '100px',
-          }}
-        >
+        <Box sx={{ height: '100px' }}>
           <MainButton text='Manage Party' onClick={() => setOpen(true)} />
         </Box>
       </Box>
