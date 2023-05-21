@@ -13,7 +13,7 @@ const MyVotes = () => {
   const { id } = useParams()
   const [party, setParty] = useState({} as Party)
   const [rLikes, setRLikes] = useState([] as string[])
-  const [tLikes, setTLikes] = useState<{ [key: string]: boolean }>()
+  const [tLikes, setTLikes] = useState<string[]>()
 
   const navigate = useNavigate()
 
@@ -28,8 +28,8 @@ const MyVotes = () => {
         if (!party) navigate('/party/' + id)
         else {
           setRLikes(party.voteRestaurants)
-          if (party.vote_on_time) setTLikes(party.t_likes)
-          else setTLikes({})
+          if (party.voteTime) setTLikes(party.voteTime)
+          else setTLikes([])
         }
       }
       setParty(party)
@@ -39,9 +39,7 @@ const MyVotes = () => {
 
   if (!rLikes || !tLikes || !id) return <CreateLoad />
 
-  return (
-    <VoteResults party={party} rlikes={rLikes} tLikes={Object.keys(tLikes)} />
-  )
+  return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} />
 }
 
 export default MyVotes
