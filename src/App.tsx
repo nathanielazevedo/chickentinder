@@ -5,7 +5,7 @@ import { inject } from '@vercel/analytics';
 import { RouterProvider } from 'react-router-dom';
 import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 
-// inject();
+inject();
 
 const App = () => (
   <ThemeProvider theme={createTheme(theme)}>

@@ -28,7 +28,7 @@ const MyVotes = () => {
         if (!party) navigate('/party/' + id);
         else {
           setRLikes(party.voteRestaurants);
-          if (party.voteTime) setTLikes(party.voteTime);
+          if (party.vote_on_time) setTLikes(party.t_likes);
           else setTLikes({});
         }
       }
@@ -39,7 +39,9 @@ const MyVotes = () => {
 
   if (!rLikes || !tLikes || !id) return <CreateLoad />;
 
-  return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} id={id} />;
+  return (
+    <VoteResults party={party} rlikes={rLikes} tLikes={Object.keys(tLikes)} />
+  );
 };
 
 export default MyVotes;
