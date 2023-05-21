@@ -1,10 +1,10 @@
-import { CreateParty, Party } from './models/Party';
 import { party } from './mockData/mockP';
 import { restaurants } from './mockData/mockR';
+import { CreateParty, Party } from './models/Party';
 
 const localUrl = 'http://localhost:6001/';
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
-const mock = true;
+const mock = false;
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
