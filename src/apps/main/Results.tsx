@@ -1,13 +1,13 @@
 import API from '../../api';
 import { Party } from '../../models/Party';
+import RCard from '../../components/RCard';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Loading from '../../components/Loading';
+import { Box, Typography } from '@mui/material';
 import { addVotesTo } from '../../utils/general';
 import { Restaurant } from '../../models/Restaurant';
-import { Box, Rating, Typography } from '@mui/material';
 import LinearProgess from '../../components/LinearProgess';
-import CelebrationIcon from '@mui/icons-material/Celebration';
-import Loading from '../../components/Loading';
 
 const Results = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,82 +34,18 @@ const Results = () => {
 
   if (!party) return <Loading />;
 
-  // If winner chosen
-  // This should be a component
   if (rWinner) {
     return (
       <>
-        <Box
-          display='flex'
-          justifyContent='space-between'
-          width='100%'
-          alignItems='center'
-        >
-          <Typography variant='h4'>And the winner is...</Typography>
-          <CelebrationIcon sx={{ fontSize: '50px', color: 'darkpink' }} />
-        </Box>
-        <Box key={rWinner.id} sx={styles.restaurantContainer}>
-          <img
-            src={rWinner.image_url}
-            alt={rWinner.name}
-            style={{
-              maxWidth: '100%',
-              maxHeight: '100%',
-              position: 'absolute',
-              filter: 'brightness(40%)',
-              borderRadius: '10px',
-              right: 0,
-            }}
-          />
-          <Box
-            sx={{
-              zIndex: 1,
-              height: '100%',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-            }}
-          >
-            <Box>
-              <Typography variant='h5'>{rWinner.name}</Typography>
-              <Typography>
-                {rWinner.location?.address1}, {rWinner.location?.city}
-              </Typography>
-              {rWinner.price && <Typography>Price: {rWinner.price}</Typography>}
-              <Box display='flex' alignItems='center'>
-                <Rating value={rWinner.rating} disabled />
-                <Typography>- {rWinner.review_count} reviews</Typography>
-              </Box>
-
-              <Typography>{rWinner.display_phone}</Typography>
-              <a href={rWinner.url} target='_blank'>
-                <Typography sx={styles.link}>View on Yelp</Typography>
-              </a>
-            </Box>
-            <Box
-              gap='10px'
-              display='flex'
-              flexWrap='wrap'
-              justifySelf='flex-end'
-            >
-              {rWinner.categories.map((category) => (
-                <Typography key={category.alias}>#{category.title}</Typography>
-              ))}
-            </Box>
-          </Box>
-        </Box>
+        <Typography variant='h4' color='secondary'>
+          Winner
+        </Typography>
         {tWinner && (
-          <Box
-            mt='20px'
-            display='flex'
-            alignItems='center'
-            flexDirection='column'
-          >
-            <Typography variant='h4'>And the time is...</Typography>
-            <Typography variant='h5'>{tWinner}</Typography>
-          </Box>
+          <Typography color='secondary'>
+            {rWinner.name} at {tWinner}
+          </Typography>
         )}
+        <RCard restaurant={rWinner} swipe={{ id: '', direction: '' }} />
       </>
     );
   }
@@ -125,10 +61,10 @@ const Results = () => {
         return (
           <Box key={restaurant.id} sx={styles.rC}>
             <Typography color='secondary'>{restaurant.name}</Typography>
-            <Box sx={{ width: '100%' }}>
+            <Box width='100%'>
               <LinearProgess
-                value={Math.round((100 / party.max_voters) * restaurant.votes)}
                 realValue={restaurant.votes}
+                value={Math.round((100 / party.max_voters) * restaurant.votes)}
               />
             </Box>
           </Box>
@@ -180,9 +116,5 @@ const styles = {
     alignItems: 'flex-start',
     justifyContent: 'center',
     width: '100%',
-  },
-  link: {
-    textDecoration: 'underline',
-    color: 'lightblue',
   },
 };

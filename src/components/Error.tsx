@@ -8,12 +8,12 @@ const FourOFour = () => {
     <>
       <Box
         sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginBottom: '30px',
           width: '100%',
+          display: 'flex',
+          alignItems: 'center',
+          marginBottom: '30px',
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}
       >
         <Typography variant='h1'>Yikes</Typography>

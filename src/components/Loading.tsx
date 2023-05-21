@@ -8,7 +8,7 @@ const Loading = () => {
       alignItems='center'
       justifyContent='center'
     >
-      <CircularProgress size={100} />;
+      <CircularProgress size={100} />
     </Box>
   );
 };

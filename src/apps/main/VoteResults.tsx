@@ -70,9 +70,9 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
           </Typography>
           {tLikes.map((time) => (
             <Box
-              key={time}
               p='10px'
               mb='10px'
+              key={time}
               borderRadius='10px'
               border='0.1px solid white'
             >

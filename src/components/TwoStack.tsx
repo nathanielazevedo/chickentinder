@@ -27,9 +27,9 @@ const TwoStack = ({ title, body, variant }: Props) => {
     return (
       <Box sx={{ width: { xs: '90%', md: '50%' } }}>
         <Typography
+          mb={1}
           variant='h3'
           fontWeight='bold'
-          mb={1}
           color={variant == 'dark' ? 'white' : 'black'}
         >
           {title}

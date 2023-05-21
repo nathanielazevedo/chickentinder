@@ -33,16 +33,15 @@ export default function FormDialog({ open, setOpen }: Props) {
       <DialogTitle>Enter the password to manage this party</DialogTitle>
       <DialogContent>
         <TextField
-          autoFocus
-          margin='dense'
-          id='Password'
-          label='Password'
           fullWidth
-          variant='standard'
-          onChange={(e) => setPassword(e.target.value)}
+          autoFocus
           error={error}
-          helperText={error ? 'Incorrect password' : ''}
+          margin='dense'
+          label='Password'
           value={password}
+          variant='standard'
+          helperText={error && 'Incorrect password'}
+          onChange={(e) => setPassword(e.target.value)}
         />
       </DialogContent>
       <DialogActions>

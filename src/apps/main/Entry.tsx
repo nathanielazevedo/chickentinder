@@ -47,7 +47,6 @@ const Entry = () => {
   }, [id]);
 
   if (showDelete) return <PartyDeleted />;
-
   if (!party) return <Loading />;
 
   return (
@@ -72,7 +71,7 @@ const Entry = () => {
         <Typography mt='20px' color='secondary'>
           This is your partys link:
           <Typography
-            fontSize='12px'
+            fontSize='11px'
             color='primary.main'
             sx={{ wordBreak: 'break-word' }}
           >
@@ -81,13 +80,11 @@ const Entry = () => {
         </Typography>
       </Box>
       <Box display='flex' flexDirection='column' gap='20px' width='100%'>
-        <Typography variant='h4' fontWeight='bold'>
-          What would you like to do?
-        </Typography>
+        <Typography variant='h4'>What would you like to do?</Typography>
         <Box display='flex' gap='20px'>
           <Link
             to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
-            style={{ width: '100%', height: '100px' }}
+            style={{ width: '450px', height: '100px' }}
           >
             <MainButton text={voted ? 'View My Votes' : 'Vote'} />
           </Link>
@@ -95,7 +92,7 @@ const Entry = () => {
             <MainButton text='View Results' />
           </Link>
         </Box>
-        <Box sx={{ height: '100px' }}>
+        <Box sx={{ height: '70px' }}>
           <MainButton text='Manage Party' onClick={() => setOpen(true)} />
         </Box>
       </Box>

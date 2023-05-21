@@ -20,7 +20,7 @@ const MyVotes = () => {
   useEffect(() => {
     const getParty = async () => {
       if (!id) return navigate('/');
-      const res = await API.getParty(id);
+      const party = await API.getParty(id);
       const partiesInLocal = getPartiesFromLocal();
       if (!partiesInLocal) navigate('/party/' + id);
       if (partiesInLocal) {
@@ -32,7 +32,7 @@ const MyVotes = () => {
           else setTLikes({});
         }
       }
-      setParty(res);
+      setParty(party);
     };
     getParty();
   }, [id, navigate]);

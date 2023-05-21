@@ -50,7 +50,7 @@ const VoteIcons = (props: Props) => {
           }}
         />
       ) : (
-        <Box width='50px' />
+        <Box minWidth='50px'></Box>
       )}
       <ThumbUpIcon
         color='success'

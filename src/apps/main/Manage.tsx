@@ -46,15 +46,15 @@ const Manage = () => {
           </Typography>
           <Results />
           <Button
+            color='error'
             variant='outlined'
+            onClick={endParty}
             sx={{
               fontSize: '12px',
               position: 'absolute',
               top: '20px',
               right: '10px',
             }}
-            color='error'
-            onClick={endParty}
           >
             End voting
           </Button>

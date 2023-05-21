@@ -5,20 +5,18 @@ import { Outlet } from 'react-router-dom';
 const Container = () => {
   return (
     <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'rgb(0,0,0)',
-      }}
+      display='flex'
+      alignItems='center'
+      justifyContent='center'
+      sx={{ backgroundColor: 'rgb(0,0,0)' }}
     >
       <Box
         sx={{
+          overflow: 'hidden',
           width: { xs: '100%', sm: '500px' },
-          padding: { xs: '80px 20px', sm: '40px' },
-          borderRadius: { xs: '0px', sm: '20px' },
-          overflow: { xs: 'hidden', sm: 'hidden' },
           maxHeight: { xs: '100%', sm: 'auto' },
+          borderRadius: { xs: '0px', sm: '20px' },
+          padding: { xs: '80px 10px', sm: '40px' },
           minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
         }}
       >
