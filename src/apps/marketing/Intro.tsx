@@ -1,30 +1,27 @@
 import Faq from './Faq';
 import Hero from './Hero';
 import Footer from './Footer';
+import NavBar from './Navbar';
+import Organize from './Organize';
+import Decisions from './Decisions';
 import AppStore from './GetStarted';
 import HowItWorks from './HowItWorks';
-import Decisions from './Decisions';
-
-import Organize from './Organize';
-import NavBar from './Navbar';
 import { useEffect, useState } from 'react';
+import {
+  getPartiesFromLocal,
+  haveLocalParties,
+} from '../../utils/localStorage';
 
 const Intro = () => {
   const [myParties, setMyParties] = useState([]);
 
   useEffect(() => {
-    const partyInLocal = localStorage.getItem('parties');
-    if (partyInLocal) {
-      const partys = JSON.parse(partyInLocal);
-      setMyParties(partys);
-    }
+    if (haveLocalParties()) setMyParties(getPartiesFromLocal());
   }, []);
-
-  const showButton = myParties.length > 0;
 
   return (
     <>
-      <NavBar myPartys={showButton} showButton={showButton} />
+      <NavBar myPartys={myParties.length > 0} />
       <Hero />
       <AppStore />
       <HowItWorks />
