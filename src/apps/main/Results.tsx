@@ -81,7 +81,7 @@ const Results = () => {
           return (
             <Box key={time.id} sx={styles.rC}>
               <Typography color='secondary'>{time.id}</Typography>
-              <Box sx={{ width: '100%' }}>
+              <Box width='100%'>
                 <LinearProgess
                   realValue={time.votes}
                   value={Math.round((100 / party.max_voters) * time.votes)}

@@ -1,9 +1,9 @@
-import { object, string, number } from 'yup';
-import { Restaurant } from '../../models/Restaurant';
+import { object, string, number } from 'yup'
+import { Restaurant } from '../../models/Restaurant'
 
-export const noRMessage = 'No restaurants found. Please try again.';
-export type hoursType = typeof hoursInitial;
-export type valueType = typeof valueInitial;
+export const noRMessage = 'No restaurants found. Please try again.'
+export type hoursType = typeof hoursInitial
+export type valueType = typeof valueInitial
 
 export const hoursInitial = {
   '7-8 AM': false,
@@ -23,7 +23,7 @@ export const hoursInitial = {
   '9-10 PM': false,
   '10-11 PM': false,
   '11-12 AM': false,
-};
+}
 
 export const valueInitial = {
   name: '',
@@ -32,7 +32,7 @@ export const valueInitial = {
   max_voters: 5,
   password: '',
   number_of_restaurants: 5,
-};
+}
 
 export const partySchema = object({
   name: string().required('Required'),
@@ -48,39 +48,39 @@ export const partySchema = object({
     .positive()
     .integer()
     .min(2),
-});
+})
 
 export const toMeters = (miles: number) => {
-  const meters = miles * 1609.34;
-  return Math.floor(meters);
-};
+  const meters = miles * 1609.34
+  return Math.floor(meters)
+}
 
 export const toMiles = (km: number) => {
-  const miles = km / 1609.34;
-  return Math.floor(miles);
-};
+  const miles = km / 1609.34
+  return Math.floor(miles)
+}
 
 export const getLikedHours = (hours: hoursType) => {
   const likedHours = Object.keys(hours).filter(
     (h) => hours[h as keyof hoursType] === true
-  );
+  )
   return likedHours.reduce((acc, h) => {
-    acc.push({ id: h });
-    return acc;
-  }, [] as { id: string }[]);
-};
+    acc.push({ id: h })
+    return acc
+  }, [] as { id: string }[])
+}
 
 export const getLikedLength = (hours: hoursType) => {
   return Object.keys(hours).filter((h) => hours[h as keyof hoursType] === true)
-    .length;
-};
+    .length
+}
 
 export const addChecks = (restaurants: Restaurant[]) => {
   return restaurants.map((r: Restaurant) => {
-    return { ...r, checked: true };
-  });
-};
+    return { ...r, checked: true }
+  })
+}
 
 export const getCheckedRestaurants = (restaurants: Restaurant[]) => {
-  return restaurants.filter((r) => r.checked === true);
-};
+  return restaurants.filter((r) => r.checked === true)
+}

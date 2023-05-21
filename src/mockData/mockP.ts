@@ -1,5 +1,5 @@
-import { Party } from '../models/Party';
-import { Restaurant } from '../models/Restaurant';
+import { Party } from '../models/Party'
+import { Restaurant } from '../models/Restaurant'
 
 export const party = {
   _id: '64693219ee9df1579ec2426f',
@@ -259,4 +259,4 @@ export const party = {
   createdAt: '2023-05-20T20:48:25.261Z',
   updatedAt: '2023-05-20T20:48:25.261Z',
   __v: 0,
-} as Party;
+} as Party

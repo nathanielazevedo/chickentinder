@@ -1,53 +1,53 @@
-import API from '../../api';
-import PartyDeleted from './PartyDeleted';
-import { Party } from '../../models/Party';
-import { useEffect, useState } from 'react';
-import PasswordDialog from './PasswordDialog';
-import { Box, Typography } from '@mui/material';
-import Loading from '../../components/Loading';
-import { Link, useParams } from 'react-router-dom';
-import MainButton from '../../components/MainButton';
-import { getBaseUrl, toMiles } from '../../utils/general';
+import API from '../../api'
+import PartyDeleted from './PartyDeleted'
+import { Party } from '../../models/Party'
+import { useEffect, useState } from 'react'
+import PasswordDialog from './PasswordDialog'
+import { Box, Typography } from '@mui/material'
+import Loading from '../../components/Loading'
+import { Link, useParams } from 'react-router-dom'
+import MainButton from '../../components/MainButton'
+import { getBaseUrl, toMiles } from '../../utils/general'
 import {
   addPartyToLocal,
   getPartyFromLocal,
   haveLocalParties,
   removePartyFromLocal,
   setFirstParty,
-} from '../../utils/localStorage';
+} from '../../utils/localStorage'
 
 const Entry = () => {
-  const { id } = useParams();
-  const [open, setOpen] = useState(false);
-  const [voted, setVoted] = useState(false);
-  const [party, setParty] = useState<Party>();
-  const [showDelete, setShowDelete] = useState(false);
+  const { id } = useParams()
+  const [open, setOpen] = useState(false)
+  const [voted, setVoted] = useState(false)
+  const [party, setParty] = useState<Party>()
+  const [showDelete, setShowDelete] = useState(false)
 
   useEffect(() => {
     const getParty = async () => {
       try {
-        if (!id) return;
-        const res = await API.getParty(id);
-        const newParty = { _id: id, voted: false, name: res.name };
-        const partiesInLocal = haveLocalParties();
-        if (!partiesInLocal) setFirstParty(newParty);
+        if (!id) return
+        const res = await API.getParty(id)
+        const newParty = { _id: id, voted: false, name: res.name }
+        const partiesInLocal = haveLocalParties()
+        if (!partiesInLocal) setFirstParty(newParty)
         else {
-          const party = getPartyFromLocal(id);
-          if (!party) addPartyToLocal(newParty);
-          else setVoted(party.voted);
+          const party = getPartyFromLocal(id)
+          if (!party) addPartyToLocal(newParty)
+          else setVoted(party.voted)
         }
-        setParty(res);
+        setParty(res)
       } catch {
-        id && removePartyFromLocal(id);
-        setShowDelete(true);
+        id && removePartyFromLocal(id)
+        setShowDelete(true)
       }
-    };
+    }
 
-    getParty();
-  }, [id]);
+    getParty()
+  }, [id])
 
-  if (showDelete) return <PartyDeleted />;
-  if (!party) return <Loading />;
+  if (showDelete) return <PartyDeleted />
+  if (!party) return <Loading />
 
   return (
     <>
@@ -97,7 +97,7 @@ const Entry = () => {
         </Box>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default Entry;
+export default Entry

@@ -1,4 +1,4 @@
-import { Box, Typography, Card } from '@mui/material';
+import { Box, Typography, Card } from '@mui/material'
 
 const StepsCard = ({ card, i }: any) => {
   return (
@@ -62,7 +62,7 @@ const StepsCard = ({ card, i }: any) => {
         </Box>
       </Card>
     </Box>
-  );
-};
+  )
+}
 
-export default StepsCard;
+export default StepsCard

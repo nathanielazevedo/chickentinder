@@ -1,7 +1,7 @@
-import { bg } from '../../assets';
-import { Box } from '@mui/material';
-import { logo_c_trans } from '../../assets';
-import TwoStack from '../../components/TwoStack';
+import { bg } from '../../assets'
+import { Box } from '@mui/material'
+import { logo_c_trans } from '../../assets'
+import TwoStack from '../../components/TwoStack'
 
 const Hero = () => {
   return (
@@ -21,10 +21,10 @@ const Hero = () => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Hero;
+export default Hero
 
 const styles = {
   outerContainer: {
@@ -42,4 +42,4 @@ const styles = {
     margin: { xs: '0 15px', sm: '0 40px', lg: '0' },
     justifyContent: { xs: 'center', lg: 'space-between' },
   },
-};
+}

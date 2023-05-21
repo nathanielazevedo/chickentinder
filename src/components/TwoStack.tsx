@@ -1,12 +1,12 @@
-import Button from './Button';
-import { Link } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
+import Button from './Button'
+import { Link } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
 
 type Props = {
-  title: string;
-  body: string;
-  variant: string;
-};
+  title: string
+  body: string
+  variant: string
+}
 
 const TwoStack = ({ title, body, variant }: Props) => {
   if (variant === 'hero') {
@@ -22,7 +22,7 @@ const TwoStack = ({ title, body, variant }: Props) => {
           <Button text='Create a Party' />
         </Link>
       </Box>
-    );
+    )
   } else {
     return (
       <Box sx={{ width: { xs: '90%', md: '50%' } }}>
@@ -41,8 +41,8 @@ const TwoStack = ({ title, body, variant }: Props) => {
           <Button text='Create a Party' />
         </Link>
       </Box>
-    );
+    )
   }
-};
+}
 
-export default TwoStack;
+export default TwoStack

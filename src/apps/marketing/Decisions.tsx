@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import TwoStack from '../../components/TwoStack';
-import { network } from '../../assets';
+import { Box } from '@mui/material'
+import TwoStack from '../../components/TwoStack'
+import { network } from '../../assets'
 
 const Decisions = () => {
   return (
@@ -16,10 +16,10 @@ const Decisions = () => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Decisions;
+export default Decisions
 
 const styles = {
   container: {
@@ -38,4 +38,4 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+}

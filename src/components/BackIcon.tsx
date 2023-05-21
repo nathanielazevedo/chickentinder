@@ -1,57 +1,57 @@
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { Button } from '@mui/material';
+import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
+import { Button } from '@mui/material'
 import {
   useNavigate,
   useLocation,
   matchRoutes,
   useParams,
-} from 'react-router-dom';
-import { routes } from '../router';
+} from 'react-router-dom'
+import { routes } from '../router'
 
 const BackIcon = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const location = useLocation();
-  let currPath = undefined;
-  const route = matchRoutes(routes, location);
+  const { id } = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+  let currPath = undefined
+  const route = matchRoutes(routes, location)
   if (route && route.length > 0)
-    currPath = route.find((m) => m.pathname === location.pathname)?.route.path;
+    currPath = route.find((m) => m.pathname === location.pathname)?.route.path
 
-  let to = '';
+  let to = ''
   switch (currPath) {
     case 'create':
-      to = '/';
-      break;
+      to = '/'
+      break
     case ':id':
-      to = '/party/my-parties';
-      break;
+      to = '/party/my-parties'
+      break
     case ':id/vote':
-      to = `/party/${id}`;
-      break;
+      to = `/party/${id}`
+      break
     case ':id/myVotes':
-      to = `/party/${id}`;
-      break;
+      to = `/party/${id}`
+      break
     case ':id/results':
-      to = `/party/${id}`;
-      break;
+      to = `/party/${id}`
+      break
     case ':id/manage':
-      to = `/party/${id}`;
-      break;
+      to = `/party/${id}`
+      break
     case 'my-parties':
-      to = `/`;
-      break;
+      to = `/`
+      break
     default:
-      to = `/`;
+      to = `/`
   }
 
   return (
     <Button onClick={() => navigate(to)} sx={styles.c}>
       <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
     </Button>
-  );
-};
+  )
+}
 
-export default BackIcon;
+export default BackIcon
 
 const styles = {
   c: {
@@ -62,4 +62,4 @@ const styles = {
     top: '10px',
     left: '0px',
   },
-};
+}

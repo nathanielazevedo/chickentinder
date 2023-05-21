@@ -1,4 +1,4 @@
-import { PaletteMode } from '@mui/material';
+import { PaletteMode } from '@mui/material'
 
 // color design tokens export
 export const colorTokens = {
@@ -29,7 +29,7 @@ export const colorTokens = {
     800: '#00353F',
     900: '#001519',
   },
-};
+}
 
 // mui theme settings
 export const theme = {
@@ -84,4 +84,4 @@ export const theme = {
       fontSize: 14,
     },
   },
-};
+}

@@ -1,11 +1,11 @@
-import { Party } from '../../models/Party';
-import { getBaseUrl } from '../../utils/general';
-import MainButton from '../../components/MainButton';
-import { Box, Typography } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Party } from '../../models/Party'
+import { getBaseUrl } from '../../utils/general'
+import MainButton from '../../components/MainButton'
+import { Box, Typography } from '@mui/material'
+import { Link } from 'react-router-dom'
 
 export interface NewPartyDialog {
-  party: Party;
+  party: Party
 }
 
 const NewPartyDialog = ({ party }: NewPartyDialog) => {
@@ -55,7 +55,7 @@ const NewPartyDialog = ({ party }: NewPartyDialog) => {
         </Link>
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default NewPartyDialog;
+export default NewPartyDialog

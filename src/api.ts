@@ -1,16 +1,16 @@
-import { party } from './mockData/mockP';
-import { restaurants } from './mockData/mockR';
-import { CreateParty, Party } from './models/Party';
+import { party } from './mockData/mockP'
+import { restaurants } from './mockData/mockR'
+import { CreateParty, Party } from './models/Party'
 
-const localUrl = 'http://localhost:6001/';
-const prodUrl = 'https://shy-red-boa-suit.cyclic.app/';
-const mock = false;
+const localUrl = 'http://localhost:6001/'
+const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
+const mock = false
 
 export const baseUrl =
-  process.env.NODE_ENV === 'production' ? prodUrl : localUrl;
+  process.env.NODE_ENV === 'production' ? prodUrl : localUrl
 
 const getParty = async (id: string): Promise<Party> => {
-  if (mock) return party;
+  if (mock) return party
 
   return fetch(baseUrl + 'party/' + id, {
     method: 'GET',
@@ -19,18 +19,18 @@ const getParty = async (id: string): Promise<Party> => {
     },
   })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error('Error getting party');
+      if (res.status !== 200) throw new Error('Error getting party')
       return res.json().then((data) => {
-        return data;
-      });
+        return data
+      })
     })
     .catch((err) => {
-      throw new Error(err);
-    });
-};
+      throw new Error(err)
+    })
+}
 
 const createParty = async (formData: CreateParty): Promise<Party> => {
-  if (mock) return party;
+  if (mock) return party
   return fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -42,28 +42,28 @@ const createParty = async (formData: CreateParty): Promise<Party> => {
     .then(async (res) => {
       if (res.status === 200) {
         return res.json().then((party) => {
-          return party;
-        });
+          return party
+        })
       } else {
         return res.json().then((party) => {
-          return { error: party };
-        });
+          return { error: party }
+        })
       }
     })
     .catch((err) => {
-      console.log(err);
-    });
-};
+      console.log(err)
+    })
+}
 
 type rP = {
-  location: string;
-  max_distance: number;
-  number_of_restaurants: number;
-};
+  location: string
+  max_distance: number
+  number_of_restaurants: number
+}
 
 //TODO: add error handling
 const fetchRestaurants = async (formData: rP): Promise<any> => {
-  if (mock) return restaurants;
+  if (mock) return restaurants
   return fetch(baseUrl + 'restaurants', {
     method: 'POST',
     headers: {
@@ -79,18 +79,18 @@ const fetchRestaurants = async (formData: rP): Promise<any> => {
     .then(async (res) => {
       if (res.status === 200) {
         return res.json().then((data) => {
-          return data;
-        });
+          return data
+        })
       } else {
         return res.json().then((data) => {
-          return { error: data };
-        });
+          return { error: data }
+        })
       }
     })
     .catch((err) => {
-      console.log(err);
-    });
-};
+      console.log(err)
+    })
+}
 
 const vote = async (
   id: string,
@@ -105,21 +105,21 @@ const vote = async (
     body: JSON.stringify({ rLikes, tLikes }),
   })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error('Error voting');
+      if (res.status !== 200) throw new Error('Error voting')
       return res.json().then((party) => {
-        return party;
-      });
+        return party
+      })
     })
     .catch((err) => {
-      console.log(err);
-    });
-};
+      console.log(err)
+    })
+}
 
 const validatePassword = async (
   id: string,
   password: string
 ): Promise<boolean> => {
-  if (mock) return true;
+  if (mock) return true
   return fetch(baseUrl + 'party/' + id + '/password', {
     method: 'POST',
     headers: {
@@ -128,12 +128,12 @@ const validatePassword = async (
     body: JSON.stringify({ password: password }),
   }).then((res) => {
     if (res.status === 200) {
-      return true;
+      return true
     } else {
-      return false;
+      return false
     }
-  });
-};
+  })
+}
 
 const endParty = async (id: string): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/end', {
@@ -144,13 +144,13 @@ const endParty = async (id: string): Promise<Party> => {
   }).then((res) => {
     if (res.status === 200) {
       return res.json().then((party) => {
-        return party.r_winner;
-      });
+        return party.r_winner
+      })
     } else {
-      return false;
+      return false
     }
-  });
-};
+  })
+}
 
 export default {
   getParty,
@@ -159,4 +159,4 @@ export default {
   createParty,
   endParty,
   fetchRestaurants,
-};
+}

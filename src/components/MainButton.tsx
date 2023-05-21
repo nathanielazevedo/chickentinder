@@ -1,10 +1,10 @@
-import { Button } from '@mui/material';
+import { Button } from '@mui/material'
 
 type Props = {
-  text: string;
-  onClick?: () => void;
-  disabled?: boolean;
-};
+  text: string
+  onClick?: () => void
+  disabled?: boolean
+}
 
 const MainButton = ({ text, onClick, disabled = false }: Props) => {
   return (
@@ -17,7 +17,7 @@ const MainButton = ({ text, onClick, disabled = false }: Props) => {
     >
       {text}
     </Button>
-  );
-};
+  )
+}
 
-export default MainButton;
+export default MainButton

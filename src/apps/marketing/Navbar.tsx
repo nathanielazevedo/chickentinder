@@ -1,13 +1,13 @@
-import { Box } from '@mui/material';
-import { logo_white } from '../../assets';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Typography from '@mui/material/Typography';
-import { Link, useNavigate } from 'react-router-dom';
+import { Box } from '@mui/material'
+import { logo_white } from '../../assets'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
+import Container from '@mui/material/Container'
+import Typography from '@mui/material/Typography'
+import { Link, useNavigate } from 'react-router-dom'
 
 const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <AppBar
       position='static'
@@ -59,6 +59,6 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
         </Toolbar>
       </Container>
     </AppBar>
-  );
-};
-export default NavBar;
+  )
+}
+export default NavBar

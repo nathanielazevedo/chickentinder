@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material';
-import { logo_c_trans } from '../../assets';
+import { Box, Typography } from '@mui/material'
+import { logo_c_trans } from '../../assets'
 
 const Footer = () => {
   return (
@@ -38,7 +38,7 @@ const Footer = () => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Footer;
+export default Footer

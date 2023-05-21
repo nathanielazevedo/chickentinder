@@ -1,4 +1,4 @@
-import { chick, chicken, drum } from './assets';
+import { chick, chicken, drum } from './assets'
 
 export const constants = {
   marketingCards: [
@@ -21,4 +21,4 @@ export const constants = {
       icon: drum,
     },
   ],
-};
+}

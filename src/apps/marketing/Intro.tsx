@@ -1,23 +1,20 @@
-import Faq from './Faq';
-import Hero from './Hero';
-import Footer from './Footer';
-import NavBar from './Navbar';
-import Organize from './Organize';
-import Decisions from './Decisions';
-import AppStore from './GetStarted';
-import HowItWorks from './HowItWorks';
-import { useEffect, useState } from 'react';
-import {
-  getPartiesFromLocal,
-  haveLocalParties,
-} from '../../utils/localStorage';
+import Faq from './Faq'
+import Hero from './Hero'
+import Footer from './Footer'
+import NavBar from './Navbar'
+import Organize from './Organize'
+import Decisions from './Decisions'
+import AppStore from './GetStarted'
+import HowItWorks from './HowItWorks'
+import { useEffect, useState } from 'react'
+import { getPartiesFromLocal, haveLocalParties } from '../../utils/localStorage'
 
 const Intro = () => {
-  const [myParties, setMyParties] = useState([]);
+  const [myParties, setMyParties] = useState([])
 
   useEffect(() => {
-    if (haveLocalParties()) setMyParties(getPartiesFromLocal());
-  }, []);
+    if (haveLocalParties()) setMyParties(getPartiesFromLocal())
+  }, [])
 
   return (
     <>
@@ -30,7 +27,7 @@ const Intro = () => {
       <Faq />
       <Footer />
     </>
-  );
-};
+  )
+}
 
-export default Intro;
+export default Intro

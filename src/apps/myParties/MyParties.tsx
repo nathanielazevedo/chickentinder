@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
-import Loading from '../../components/Loading';
-import { Box, Typography } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
-import MainButton from '../../components/MainButton';
-import { LocalParty, getPartiesFromLocal } from '../../utils/localStorage';
+import { useEffect, useState } from 'react'
+import Loading from '../../components/Loading'
+import { Box, Typography } from '@mui/material'
+import { Link, useNavigate } from 'react-router-dom'
+import MainButton from '../../components/MainButton'
+import { LocalParty, getPartiesFromLocal } from '../../utils/localStorage'
 
 const MyParties = () => {
-  const navigate = useNavigate();
-  const [myParties, setMyParties] = useState<LocalParty[]>();
+  const navigate = useNavigate()
+  const [myParties, setMyParties] = useState<LocalParty[]>()
 
   useEffect(() => {
-    const parties = getPartiesFromLocal();
-    if (!parties) navigate('/');
-    else setMyParties(parties);
-  }, [navigate]);
+    const parties = getPartiesFromLocal()
+    if (!parties) navigate('/')
+    else setMyParties(parties)
+  }, [navigate])
 
-  if (!myParties) return <Loading />;
+  if (!myParties) return <Loading />
 
   return (
     <>
@@ -34,7 +34,7 @@ const MyParties = () => {
         ))}
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default MyParties;
+export default MyParties

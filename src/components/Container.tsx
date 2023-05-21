@@ -1,6 +1,6 @@
-import BackIcon from './BackIcon';
-import { Box } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import BackIcon from './BackIcon'
+import { Box } from '@mui/material'
+import { Outlet } from 'react-router-dom'
 
 const Container = () => {
   return (
@@ -24,7 +24,7 @@ const Container = () => {
         <Outlet />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default Container;
+export default Container

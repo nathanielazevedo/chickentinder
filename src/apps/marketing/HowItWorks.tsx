@@ -1,8 +1,8 @@
-import { logo_outline } from '../../assets';
-import { constants } from '../../constants';
-import { Box } from '@mui/material';
-import TwoStack from '../../components/TwoStack';
-import StepsCard from './StepsCard';
+import { logo_outline } from '../../assets'
+import { constants } from '../../constants'
+import { Box } from '@mui/material'
+import TwoStack from '../../components/TwoStack'
+import StepsCard from './StepsCard'
 
 const HowItWorks = () => {
   return (
@@ -36,14 +36,14 @@ const HowItWorks = () => {
         }}
       >
         {constants.marketingCards.map((card, i) => {
-          return <StepsCard key={i} i={i} card={card} />;
+          return <StepsCard key={i} i={i} card={card} />
         })}
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default HowItWorks;
+export default HowItWorks
 
 const styles = {
   outerContainer: {
@@ -61,4 +61,4 @@ const styles = {
     margin: { xs: '0 15px', sm: '0 40px', lg: '0' },
     justifyContent: { xs: 'center', lg: 'space-between' },
   },
-};
+}

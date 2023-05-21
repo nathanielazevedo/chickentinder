@@ -1,4 +1,4 @@
-import { Button as MuiButton, Typography } from '@mui/material';
+import { Button as MuiButton, Typography } from '@mui/material'
 
 const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   return (
@@ -10,7 +10,7 @@ const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
     >
       <Typography variant='h5'>{text}</Typography>
     </MuiButton>
-  );
-};
+  )
+}
 
-export default Button;
+export default Button

@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import TwoStack from '../../components/TwoStack';
-import { play } from '../../assets';
+import { Box } from '@mui/material'
+import TwoStack from '../../components/TwoStack'
+import { play } from '../../assets'
 
 const GetStarted = () => {
   return (
@@ -17,10 +17,10 @@ const GetStarted = () => {
         />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default GetStarted;
+export default GetStarted
 
 const styles = {
   outerContainer: {
@@ -37,4 +37,4 @@ const styles = {
     alignItems: 'center',
     width: { xs: '100%', sm: '90%', md: '90%', lg: '1100px' },
   },
-};
+}

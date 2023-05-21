@@ -1,4 +1,4 @@
-import { Formik } from 'formik';
+import { Formik } from 'formik'
 import {
   partySchema,
   toMiles,
@@ -6,7 +6,7 @@ import {
   valueType,
   hoursType,
   hoursInitial,
-} from './CreateHelpers';
+} from './CreateHelpers'
 import {
   Box,
   Typography,
@@ -19,19 +19,19 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
-} from '@mui/material';
+} from '@mui/material'
 
 type Props = {
-  values: valueType;
-  hours: hoursType;
-  voteTime: boolean;
-  timeError: boolean;
-  generalError: string;
-  setHours: (hours: hoursType) => void;
-  setTimeError: (error: boolean) => void;
-  setVoteTime: (voteTime: boolean) => void;
-  fetchRestaurants: (values: valueType) => void;
-};
+  values: valueType
+  hours: hoursType
+  voteTime: boolean
+  timeError: boolean
+  generalError: string
+  setHours: (hours: hoursType) => void
+  setTimeError: (error: boolean) => void
+  setVoteTime: (voteTime: boolean) => void
+  fetchRestaurants: (values: valueType) => void
+}
 
 const CreateForm = ({
   hours,
@@ -45,14 +45,14 @@ const CreateForm = ({
   fetchRestaurants,
 }: Props) => {
   const isChecked = (value: string) => {
-    return hours[value as keyof hoursType];
-  };
+    return hours[value as keyof hoursType]
+  }
 
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = e.target;
-    setTimeError(false);
-    setHours({ ...hours, [value]: checked });
-  };
+    const { value, checked } = e.target
+    setTimeError(false)
+    setHours({ ...hours, [value]: checked })
+  }
 
   return (
     <Formik
@@ -150,8 +150,8 @@ const CreateForm = ({
             <Box display='flex' alignSelf='flex-start' alignItems='center'>
               <Switch
                 onChange={(e) => {
-                  setTimeError(false);
-                  setVoteTime(e.target.checked);
+                  setTimeError(false)
+                  setVoteTime(e.target.checked)
                 }}
               />
               <Box>
@@ -220,7 +220,7 @@ const CreateForm = ({
         </form>
       )}
     </Formik>
-  );
-};
+  )
+}
 
-export default CreateForm;
+export default CreateForm

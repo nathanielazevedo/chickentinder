@@ -1,11 +1,11 @@
-import { Restaurant } from '../models/Restaurant';
-import { Box, Typography, Rating } from '@mui/material';
-import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils';
+import { Restaurant } from '../models/Restaurant'
+import { Box, Typography, Rating } from '@mui/material'
+import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils'
 
 type Props = {
-  restaurant: Restaurant;
-  swipe: Swipe;
-};
+  restaurant: Restaurant
+  swipe: Swipe
+}
 
 const RCard = ({ restaurant, swipe }: Props) => {
   return (
@@ -47,10 +47,10 @@ const RCard = ({ restaurant, swipe }: Props) => {
         </Box>
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default RCard;
+export default RCard
 
 const styles = {
   c: {
@@ -76,4 +76,4 @@ const styles = {
     textDecoration: 'underline',
     color: 'primary.main',
   },
-};
+}

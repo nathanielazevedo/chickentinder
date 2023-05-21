@@ -1,40 +1,40 @@
-import API from '../../api';
-import Results from './Results';
-import { Party } from '../../models/Party';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Button, Typography } from '@mui/material';
+import API from '../../api'
+import Results from './Results'
+import { Party } from '../../models/Party'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { Button, Typography } from '@mui/material'
 
 const Manage = () => {
-  const { id } = useParams<{ id: string }>();
-  const [party, setParty] = useState<Party>();
-  const [winner, setWinner] = useState(false);
+  const { id } = useParams<{ id: string }>()
+  const [party, setParty] = useState<Party>()
+  const [winner, setWinner] = useState(false)
 
   useEffect(() => {
     const getParty = async () => {
-      if (!id) return;
+      if (!id) return
       try {
-        const party = await API.getParty(id);
-        if (party.r_winner) setWinner(true);
-        setParty(party);
+        const party = await API.getParty(id)
+        if (party.r_winner) setWinner(true)
+        setParty(party)
       } catch (err) {
-        console.log(err);
+        console.log(err)
       }
-    };
-    getParty();
-  }, [id]);
+    }
+    getParty()
+  }, [id])
 
   const endParty = async () => {
     try {
-      if (!id || !party) return;
-      await API.endParty(id);
-      setWinner(true);
+      if (!id || !party) return
+      await API.endParty(id)
+      setWinner(true)
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
-  if (winner) return <Results />;
+  if (winner) return <Results />
 
   return (
     <>
@@ -61,7 +61,7 @@ const Manage = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Manage;
+export default Manage

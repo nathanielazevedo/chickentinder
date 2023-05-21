@@ -1,4 +1,4 @@
-import { Restaurant } from '../models/Restaurant';
+import { Restaurant } from '../models/Restaurant'
 
 export const restaurants = [
   {
@@ -219,4 +219,4 @@ export const restaurants = [
     checked: true,
     votes: 0,
   },
-] as Restaurant[];
+] as Restaurant[]

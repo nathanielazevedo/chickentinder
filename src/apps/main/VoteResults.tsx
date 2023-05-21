@@ -1,26 +1,26 @@
-import { Party } from '../../models/Party';
-import { useEffect, useState } from 'react';
-import { Box, Typography } from '@mui/material';
-import { Restaurant } from '../../models/Restaurant';
+import { Party } from '../../models/Party'
+import { useEffect, useState } from 'react'
+import { Box, Typography } from '@mui/material'
+import { Restaurant } from '../../models/Restaurant'
 
 type Props = {
-  party: Party;
-  rlikes: string[];
-  tLikes: string[];
-};
+  party: Party
+  rlikes: string[]
+  tLikes: string[]
+}
 
 const VoteResults = ({ party, rlikes, tLikes }: Props) => {
-  const [restaurants, setRestaurants] = useState<Restaurant[]>();
+  const [restaurants, setRestaurants] = useState<Restaurant[]>()
 
   useEffect(() => {
     const findLikedRestaurants = () => {
       const likedRestaurants = party.restaurants.filter((restaurant) =>
         rlikes.includes(restaurant.id)
-      );
-      setRestaurants(likedRestaurants);
-    };
-    findLikedRestaurants();
-  }, [party.restaurants, rlikes]);
+      )
+      setRestaurants(likedRestaurants)
+    }
+    findLikedRestaurants()
+  }, [party.restaurants, rlikes])
 
   return (
     <>
@@ -30,7 +30,7 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
       {rlikes.length != 0 && restaurants && (
         <Box display='flex' flexDirection='column' gap='10px'>
           {restaurants.map((restaurant) => {
-            if (!rlikes.includes(restaurant.id)) return null;
+            if (!rlikes.includes(restaurant.id)) return null
             return (
               <Box
                 key={restaurant.id}
@@ -59,7 +59,7 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
                   </Box>
                 </Box>
               </Box>
-            );
+            )
           })}
         </Box>
       )}
@@ -82,14 +82,14 @@ const VoteResults = ({ party, rlikes, tLikes }: Props) => {
         </Box>
       )}
     </>
-  );
-};
+  )
+}
 
-export default VoteResults;
+export default VoteResults
 
 const styles = {
   link: {
     textDecoration: 'underline',
     color: 'primary.main',
   },
-};
+}

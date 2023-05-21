@@ -1,13 +1,13 @@
-import Checkbox from '@mui/material/Checkbox';
-import { Restaurant } from '../../models/Restaurant';
-import MainButton from '../../components/MainButton';
-import { Box, Card, Link, Typography } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox'
+import { Restaurant } from '../../models/Restaurant'
+import MainButton from '../../components/MainButton'
+import { Box, Card, Link, Typography } from '@mui/material'
 
 type RestaurantsPreviewProps = {
-  restaurants: Restaurant[];
-  createParty: () => void;
-  setRestaurants: (restaurants: Restaurant[] | undefined) => void;
-};
+  restaurants: Restaurant[]
+  createParty: () => void
+  setRestaurants: (restaurants: Restaurant[] | undefined) => void
+}
 
 const RestaurantsPreview = ({
   restaurants,
@@ -20,17 +20,17 @@ const RestaurantsPreview = ({
         return {
           ...restaurant,
           checked: !restaurant.checked,
-        };
+        }
       }
-      return restaurant;
-    });
-    setRestaurants(newRestaurants);
-  };
+      return restaurant
+    })
+    setRestaurants(newRestaurants)
+  }
 
   const getCheckedRestaurants = () => {
-    const checked = restaurants.filter((restaurant) => restaurant.checked);
-    return checked.length;
-  };
+    const checked = restaurants.filter((restaurant) => restaurant.checked)
+    return checked.length
+  }
 
   return (
     <>
@@ -79,7 +79,7 @@ const RestaurantsPreview = ({
         />
       </Box>
     </>
-  );
-};
+  )
+}
 
-export default RestaurantsPreview;
+export default RestaurantsPreview

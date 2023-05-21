@@ -1,25 +1,25 @@
-import { useState } from 'react';
-import { Box, Card, Typography } from '@mui/material';
-import VoteIcons from './VoteIcons';
-import { Swipe, getSwipe } from './SwipeUtils';
+import { useState } from 'react'
+import { Box, Card, Typography } from '@mui/material'
+import VoteIcons from './VoteIcons'
+import { Swipe, getSwipe } from './SwipeUtils'
 
 type Props = {
-  times_to_vote_on: { id: string }[];
-  fTV: (likes: string[]) => void;
-};
+  times_to_vote_on: { id: string }[]
+  fTV: (likes: string[]) => void
+}
 
 const VoteTime = ({ times_to_vote_on, fTV }: Props) => {
-  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' });
-  const [likes, setLikes] = useState<string[]>([]);
-  const [index, setIndex] = useState<number>(0);
-  const length = times_to_vote_on.length;
+  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
+  const [likes, setLikes] = useState<string[]>([])
+  const [index, setIndex] = useState<number>(0)
+  const length = times_to_vote_on.length
 
   if (index === length) {
-    fTV(likes);
-    return <></>;
+    fTV(likes)
+    return <></>
   }
 
-  const time = times_to_vote_on[index];
+  const time = times_to_vote_on[index]
 
   return (
     <Box display='flex' alignItems='center' flexDirection='column'>
@@ -40,10 +40,10 @@ const VoteTime = ({ times_to_vote_on, fTV }: Props) => {
         setLikes={setLikes}
       />
     </Box>
-  );
-};
+  )
+}
 
-export default VoteTime;
+export default VoteTime
 
 const styles = {
   c: {
@@ -63,4 +63,4 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
   },
-};
+}

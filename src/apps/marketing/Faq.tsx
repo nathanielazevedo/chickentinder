@@ -1,18 +1,18 @@
-import * as React from 'react';
-import { Box } from '@mui/material';
-import Accordion from '@mui/material/Accordion';
-import Typography from '@mui/material/Typography';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
+import * as React from 'react'
+import { Box } from '@mui/material'
+import Accordion from '@mui/material/Accordion'
+import Typography from '@mui/material/Typography'
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import AccordionDetails from '@mui/material/AccordionDetails'
+import AccordionSummary from '@mui/material/AccordionSummary'
 
 export default function Faq() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = React.useState<string | false>(false)
 
   const handleChange =
     (panel: string) => (_event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+      setExpanded(isExpanded ? panel : false)
+    }
 
   return (
     <Box
@@ -108,5 +108,5 @@ export default function Faq() {
         </Accordion>
       </div>
     </Box>
-  );
+  )
 }

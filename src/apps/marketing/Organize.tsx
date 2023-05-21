@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import iphone from '../../assets/iphone.png';
-import TwoStack from '../../components/TwoStack';
+import { Box } from '@mui/material'
+import iphone from '../../assets/iphone.png'
+import TwoStack from '../../components/TwoStack'
 
 const SectionThree = () => {
   return (
@@ -15,10 +15,10 @@ const SectionThree = () => {
         />
       </Box>
     </Box>
-  );
-};
+  )
+}
 
-export default SectionThree;
+export default SectionThree
 
 const styles = {
   container: {
@@ -38,4 +38,4 @@ const styles = {
     justifyContent: { xs: 'center', md: 'space-evenly' },
     alignItems: 'center',
   },
-};
+}

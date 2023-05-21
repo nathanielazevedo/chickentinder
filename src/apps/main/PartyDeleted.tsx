@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
-import { Box, Typography } from '@mui/material';
-import MainButton from '../../components/MainButton';
+import { useNavigate } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
+import MainButton from '../../components/MainButton'
 
 const PartyDeleted = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   return (
     <>
       <Box
@@ -18,7 +18,7 @@ const PartyDeleted = () => {
       </Box>
       <MainButton text='Go Home' onClick={() => navigate('/my-parties')} />
     </>
-  );
-};
+  )
+}
 
-export default PartyDeleted;
+export default PartyDeleted
