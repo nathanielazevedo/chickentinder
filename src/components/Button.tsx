@@ -4,7 +4,7 @@ const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   return (
     <MuiButton
       fullWidth
-      variant='contained'
+      variant='outlined'
       sx={{ height: '50px' }}
       onClick={onClick && onClick}
     >

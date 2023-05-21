@@ -1,6 +1,8 @@
 import { Restaurant } from '../models/Restaurant'
 import { Box, Typography, Rating } from '@mui/material'
 import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils'
+import { getStarsImage } from '../utils/general'
+import { yelp_logo } from '../assets/yelp'
 
 type Props = {
   restaurant: Restaurant
@@ -31,10 +33,12 @@ const RCard = ({ restaurant, swipe }: Props) => {
           {restaurant.price && (
             <Typography>Price: {restaurant.price}</Typography>
           )}
-          <Box display='flex' minHeight='30px' mt='5px'>
-            <Rating value={restaurant.rating} disabled />
-            <Typography>- {restaurant.review_count} reviews</Typography>
+          <Box m='5px 0' gap='10px' display='flex'>
+            <img src={getStarsImage(restaurant.rating)} width='100px' />
+            <img alt='yelp logo' width='50px' src={yelp_logo} />
           </Box>
+          <Typography>Based on {restaurant.review_count} Reviews</Typography>
+
           <Typography>{restaurant.display_phone}</Typography>
           <a href={restaurant.url} target='_blank'>
             <Typography sx={styles.link}>View on Yelp</Typography>

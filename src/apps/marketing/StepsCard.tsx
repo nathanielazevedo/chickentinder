@@ -1,6 +1,15 @@
-import { Box, Typography, Card } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
-const StepsCard = ({ card, i }: any) => {
+type Props = {
+  card: {
+    title: string
+    description: string
+    icon: string
+  }
+  i: number
+}
+
+const StepsCard = ({ card, i }: Props) => {
   return (
     <Box
       key={i}
@@ -9,17 +18,19 @@ const StepsCard = ({ card, i }: any) => {
         flexDirection: 'column',
         position: 'relative',
         width: { xs: '100%', lg: '800px' },
+        backgroundColor: 'black',
       }}
     >
-      <div
+      <Box
         style={{
           position: 'absolute',
-          top: '-5px',
+          top: '0px',
           left: '-20px',
           width: '50px',
           height: '50px',
           borderRadius: '50%',
-          backgroundColor: 'green',
+          backgroundColor: 'black',
+          border: '1px solid #0e6b7d',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
@@ -27,17 +38,22 @@ const StepsCard = ({ card, i }: any) => {
           color: 'white',
         }}
       >
-        <Typography variant='h4'>{Number(i) + 1}</Typography>
-      </div>
-      <Card
+        <Typography variant='h4' color='primary'>
+          {Number(i) + 1}
+        </Typography>
+      </Box>
+      <Box
         sx={{
           padding: '30px',
           display: 'flex',
           flexDirection: 'column',
+          justifyContent: 'center',
           position: 'relative',
-          minHeight: '290px',
-          maxHeight: '290px',
+          minHeight: '190px',
+          maxHeight: '190px',
           marginTop: '20px',
+          backgroundColor: 'black',
+          border: '1px solid #0e6b7d',
         }}
       >
         <Typography
@@ -49,8 +65,8 @@ const StepsCard = ({ card, i }: any) => {
         >
           {card.title}
         </Typography>
-        <Typography>{card.description}</Typography>
-        <Box
+        <Typography color='secondary'>{card.description}</Typography>
+        {/* <Box
           sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -59,8 +75,8 @@ const StepsCard = ({ card, i }: any) => {
           }}
         >
           <img src={card.icon} width='80px' />
-        </Box>
-      </Card>
+        </Box> */}
+      </Box>
     </Box>
   )
 }

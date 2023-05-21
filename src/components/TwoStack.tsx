@@ -6,16 +6,17 @@ type Props = {
   title: string
   body: string
   variant: string
+  noButton?: boolean
 }
 
-const TwoStack = ({ title, body, variant }: Props) => {
+const TwoStack = ({ title, body, variant, noButton }: Props) => {
   if (variant === 'hero') {
     return (
       <Box>
-        <Typography variant='h1' mb={1.5}>
+        <Typography variant='h2' mb={1.5}>
           {title}
         </Typography>
-        <Typography mb={3} variant='h5'>
+        <Typography mb={3} variant='h6' color='secondary'>
           {body}
         </Typography>
         <Link to='/party/create'>
@@ -25,21 +26,23 @@ const TwoStack = ({ title, body, variant }: Props) => {
     )
   } else {
     return (
-      <Box sx={{ width: { xs: '90%', md: '50%' } }}>
+      <Box>
         <Typography
           mb={1}
           variant='h3'
           fontWeight='bold'
-          color={variant == 'dark' ? 'white' : 'black'}
+          color={variant == 'dark' ? 'white' : 'white'}
         >
           {title}
         </Typography>
-        <Typography color={variant == 'dark' ? 'white' : 'black'} mb={2}>
+        <Typography color='secondary' mb={2}>
           {body}
         </Typography>
-        <Link to='/party/create'>
-          <Button text='Create a Party' />
-        </Link>
+        {!noButton && (
+          <Link to='/party/create'>
+            <Button text='Create a Party' />
+          </Link>
+        )}
       </Box>
     )
   }

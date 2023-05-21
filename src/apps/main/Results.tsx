@@ -1,38 +1,38 @@
-import API from '../../api';
-import { Party } from '../../models/Party';
-import RCard from '../../components/RCard';
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import Loading from '../../components/Loading';
-import { Box, Typography } from '@mui/material';
-import { addVotesTo } from '../../utils/general';
-import { Restaurant } from '../../models/Restaurant';
-import LinearProgess from '../../components/LinearProgess';
+import API from '../../api'
+import { Party } from '../../models/Party'
+import RCard from '../../components/RCard'
+import { useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import Loading from '../../components/Loading'
+import { Box, Typography } from '@mui/material'
+import { addVotesTo } from '../../utils/general'
+import { Restaurant } from '../../models/Restaurant'
+import LinearProgess from '../../components/LinearProgess'
 
 const Results = () => {
-  const { id } = useParams<{ id: string }>();
-  const [party, setParty] = useState<Party>();
-  const [tWinner, setTWinner] = useState<string>();
-  const [rWinner, setRWinner] = useState<Restaurant>();
+  const { id } = useParams<{ id: string }>()
+  const [party, setParty] = useState<Party>()
+  const [tWinner, setTWinner] = useState<string>()
+  const [rWinner, setRWinner] = useState<Restaurant>()
 
   useEffect(() => {
     const getParty = async () => {
       try {
-        if (!id) return;
-        const party = await API.getParty(id);
-        if (party.r_winner) setRWinner(party.r_winner);
-        if (party.t_winner) setTWinner(party.t_winner);
-        addVotesTo(party.restaurants, party.r_votes);
-        addVotesTo(party.times_to_vote_on, party.t_votes);
-        setParty(party);
+        if (!id) return
+        const party = await API.getParty(id)
+        if (party.r_winner) setRWinner(party.r_winner)
+        if (party.t_winner) setTWinner(party.t_winner)
+        addVotesTo(party.restaurants, party.r_votes)
+        addVotesTo(party.times_to_vote_on, party.t_votes)
+        setParty(party)
       } catch {
-        console.log('error');
+        console.log('error')
       }
-    };
-    getParty();
-  }, [id]);
+    }
+    getParty()
+  }, [id])
 
-  if (!party) return <Loading />;
+  if (!party) return <Loading />
 
   if (rWinner) {
     return (
@@ -47,7 +47,7 @@ const Results = () => {
         )}
         <RCard restaurant={rWinner} swipe={{ id: '', direction: '' }} />
       </>
-    );
+    )
   }
 
   return (
@@ -68,7 +68,7 @@ const Results = () => {
               />
             </Box>
           </Box>
-        );
+        )
       })}
       {party.vote_on_time && (
         <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
@@ -77,7 +77,7 @@ const Results = () => {
       )}
       {party.vote_on_time &&
         party.times_to_vote_on.map((time) => {
-          if (!time.votes) time.votes = 0;
+          if (!time.votes) time.votes = 0
           return (
             <Box key={time.id} sx={styles.rC}>
               <Typography color='secondary'>{time.id}</Typography>
@@ -88,13 +88,13 @@ const Results = () => {
                 />
               </Box>
             </Box>
-          );
+          )
         })}
     </Box>
-  );
-};
+  )
+}
 
-export default Results;
+export default Results
 
 const styles = {
   restaurantContainer: {
@@ -117,4 +117,4 @@ const styles = {
     justifyContent: 'center',
     width: '100%',
   },
-};
+}

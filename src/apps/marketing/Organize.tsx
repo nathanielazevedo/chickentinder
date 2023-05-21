@@ -1,41 +1,50 @@
-import { Box } from '@mui/material'
-import iphone from '../../assets/iphone.png'
+import { logo_p_trans } from '../../assets'
+import { Box, Divider } from '@mui/material'
 import TwoStack from '../../components/TwoStack'
 
-const SectionThree = () => {
-  return (
+const SectionThree = () => (
+  <>
+    <Divider />
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
-        <img src={iphone} width='200px' />
         <TwoStack
+          noButton={true}
           variant='body'
-          title='Where are we eating?'
-          body='Stop trying to organize your friends over text. Let Chicken Tinder
-          help you quickly and easily decide where to eat.'
+          title='Download Chicken Tinder'
+          body='An app without an app store. Save Chicken Tinder to your home screen and use it like an app.'
         />
+        <Box
+          sx={{
+            border: '1px solid grey',
+            borderRadius: '10px',
+            padding: '10px',
+          }}
+        >
+          <img src={logo_p_trans} width='150px' />
+        </Box>
       </Box>
     </Box>
-  )
-}
+    <Divider />
+  </>
+)
 
 export default SectionThree
 
 const styles = {
   container: {
-    height: { xs: '100%', lg: '50vh' },
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
+    backgroundColor: 'black',
     padding: { xs: '70px 0', lg: '0' },
-    backgroundColor: 'white',
-    border: '12px solid black',
+    height: { xs: '100%', lg: '50vh' },
   },
   innerContainer: {
     display: 'flex',
-    flexDirection: { xs: 'column-reverse', lg: 'row' },
-    width: { xs: '100%', sm: '80%', md: '1100px' },
-    gap: { xs: '50px' },
-    justifyContent: { xs: 'center', md: 'space-evenly' },
+    gap: { xs: '40px' },
     alignItems: 'center',
+    flexDirection: { xs: 'column', lg: 'row' },
+    width: { xs: '95%', sm: '90%', md: '1100px' },
+    justifyContent: { xs: 'center', md: 'space-between' },
   },
 }

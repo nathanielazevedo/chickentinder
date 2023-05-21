@@ -4,11 +4,11 @@ const Loading = () => {
   return (
     <Box
       display='flex'
-      height='100vh'
+      height='50vh'
       alignItems='center'
       justifyContent='center'
     >
-      <CircularProgress size={100} />
+      <CircularProgress size={55} />
     </Box>
   )
 }

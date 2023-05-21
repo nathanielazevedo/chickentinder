@@ -2,12 +2,14 @@ import API from '../../api'
 import PartyDeleted from './PartyDeleted'
 import { Party } from '../../models/Party'
 import { useEffect, useState } from 'react'
+import NewPartyDialog from './NewPartyDialog'
 import PasswordDialog from './PasswordDialog'
-import { Box, Typography } from '@mui/material'
+import playSound from '../../utils/playSound'
 import Loading from '../../components/Loading'
-import { Link, useParams } from 'react-router-dom'
+import { Box, Typography } from '@mui/material'
 import MainButton from '../../components/MainButton'
 import { getBaseUrl, toMiles } from '../../utils/general'
+import { Link, useParams, useSearchParams } from 'react-router-dom'
 import {
   addPartyToLocal,
   getPartyFromLocal,
@@ -19,9 +21,11 @@ import {
 const Entry = () => {
   const { id } = useParams()
   const [open, setOpen] = useState(false)
+  const [searchParams] = useSearchParams()
   const [voted, setVoted] = useState(false)
   const [party, setParty] = useState<Party>()
   const [showDelete, setShowDelete] = useState(false)
+  const [showNewDialog, setShowNewDialog] = useState(false)
 
   useEffect(() => {
     const getParty = async () => {
@@ -36,6 +40,10 @@ const Entry = () => {
           if (!party) addPartyToLocal(newParty)
           else setVoted(party.voted)
         }
+        if (searchParams.get('new')) {
+          playSound('win')
+          setShowNewDialog(true)
+        }
         setParty(res)
       } catch {
         id && removePartyFromLocal(id)
@@ -44,7 +52,7 @@ const Entry = () => {
     }
 
     getParty()
-  }, [id])
+  }, [id, searchParams])
 
   if (showDelete) return <PartyDeleted />
   if (!party) return <Loading />
@@ -52,6 +60,7 @@ const Entry = () => {
   return (
     <>
       <PasswordDialog open={open} setOpen={setOpen} />
+      <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
       <Box mb='30px'>
         <Typography variant='h3' mb='10px'>
           {party.name}
@@ -78,6 +87,11 @@ const Entry = () => {
             {getBaseUrl() + 'party/' + party._id}
           </Typography>
         </Typography>
+        {party.r_winner && (
+          <Typography mt='20px' color='error'>
+            This party is closed. The winner is {party?.r_winner?.name}.
+          </Typography>
+        )}
       </Box>
       <Box display='flex' flexDirection='column' gap='20px' width='100%'>
         <Typography variant='h4'>What would you like to do?</Typography>
@@ -89,7 +103,9 @@ const Entry = () => {
             <MainButton text={voted ? 'View My Votes' : 'Vote'} />
           </Link>
           <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
-            <MainButton text='View Results' />
+            <MainButton
+              text={party.r_winner ? 'View Winner' : 'View All Votes'}
+            />
           </Link>
         </Box>
         <Box sx={{ height: '70px' }}>

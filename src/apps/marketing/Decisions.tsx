@@ -6,12 +6,14 @@ const Decisions = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
-        <TwoStack
-          variant='dark'
-          title='Make Decisions Faster'
-          body='Making dinner decisions has never been easier. With Chicken Tinder, you can quickly and easily decide where to eat with your friends. No more arguing over text.'
-        />
-        <Box display={{ xs: 'none', lg: 'flex' }}>
+        <Box width={{ xs: '90%', md: '60%' }}>
+          <TwoStack
+            variant='dark'
+            title='Make Decisions Faster'
+            body='Making dinner decisions has never been easier. With Chicken Tinder, you can quickly and easily decide where to eat with your friends. No more arguing over text.'
+          />
+        </Box>
+        <Box>
           <img src={network} width='200px' />
         </Box>
       </Box>
@@ -31,11 +33,10 @@ const styles = {
   },
   innerContainer: {
     display: 'flex',
-    flexDirection: { xs: 'row', lg: 'row' },
-    maxWidth: { xs: '90%', lg: '1200px' },
-    width: { xs: '90%', lg: '1200px' },
-    gap: { xs: '100px' },
-    justifyContent: 'center',
+    flexDirection: { xs: 'column', lg: 'row' },
+    width: { xs: '100%', sm: '90%', lg: '1100px' },
+    gap: { xs: '50px' },
+    justifyContent: { xs: 'center', sm: 'space-between' },
     alignItems: 'center',
   },
 }

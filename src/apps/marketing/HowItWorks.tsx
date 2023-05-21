@@ -8,10 +8,12 @@ const HowItWorks = () => {
   return (
     <Box sx={styles.outerContainer}>
       <Box sx={styles.innerContainer}>
-        <TwoStack
-          variant='dark'
-          title='How It Works'
-          body="
+        <Box width={{ sx: '90%', md: '60%' }}>
+          <TwoStack
+            noButton={true}
+            variant='dark'
+            title='How It Works'
+            body="
               Choose a location and a max distance from that location. We'll
               fetch all the restaurants in that area and generate a unique link
               which you can send to your friends. Swipe right on the restaurants
@@ -19,7 +21,8 @@ const HowItWorks = () => {
               or the party creator ends the voting, you will be shown the
               winner.
             "
-        />
+          />
+        </Box>
         <Box display={{ xs: 'none', lg: 'flex' }}>
           <img src={logo_outline} width='300px' />
         </Box>
@@ -30,7 +33,7 @@ const HowItWorks = () => {
           alignItems: 'center',
           height: { lg: '320px' },
           gap: '50px',
-          marginTop: '100px',
+          marginTop: '50px',
           width: { xs: '80%', sm: '70%', md: '50%', lg: '1100px' },
           flexDirection: { xs: 'column', lg: 'row' },
         }}
@@ -57,8 +60,8 @@ const styles = {
   innerContainer: {
     display: 'flex',
     alignItems: 'center',
-    width: { xs: '100%', sm: '90%', lg: '1100px' },
+    width: { xs: '95%', sm: '90%', lg: '1100px' },
     margin: { xs: '0 15px', sm: '0 40px', lg: '0' },
-    justifyContent: { xs: 'center', lg: 'space-between' },
+    justifyContent: { xs: 'center', sm: 'space-between' },
   },
 }

@@ -1,8 +1,7 @@
 import API from '../../api'
 import { useState } from 'react'
 import CreateForm from './CreateForm'
-import { Party } from '../../models/Party'
-import NewPartyScreen from './NewPartyScreen'
+import { useNavigate } from 'react-router-dom'
 import CreateLoad from '../../components/Loading'
 import { Restaurant } from '../../models/Restaurant'
 import RestaurantsPreview from './RestaurantsPreview'
@@ -19,6 +18,7 @@ import {
 } from './CreateHelpers'
 
 const Create = () => {
+  const navigate = useNavigate()
   const [loading, setLoading] = useState(false)
   const [hours, setHours] = useState(hoursInitial)
   const [timeError, setTimeError] = useState(false)
@@ -26,7 +26,6 @@ const Create = () => {
   const [voteOnTime, setVoteOnTime] = useState(false)
   const [generalError, setGeneralError] = useState('')
   const [restaurants, setRestaurants] = useState<Restaurant[]>()
-  const [party, setParty] = useState<Party | undefined>(undefined)
 
   const fetchRestaurants = async (values: valueType) => {
     if (voteOnTime && getLikedLength(hours) < 2) return setTimeError(true)
@@ -54,12 +53,10 @@ const Create = () => {
     })
     const { _id, name } = party
     addPartyToLocal({ _id, name, voted: false })
-    setRestaurants(undefined)
-    setParty(party)
+    navigate(`/party/${_id}?new=true`)
   }
 
   if (loading) return <CreateLoad />
-  if (party) return <NewPartyScreen party={party} />
 
   if (restaurants) {
     return (

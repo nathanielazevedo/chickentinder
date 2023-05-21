@@ -1,4 +1,6 @@
+import { useEffect } from 'react'
 import Checkbox from '@mui/material/Checkbox'
+import playSound from '../../utils/playSound'
 import { Restaurant } from '../../models/Restaurant'
 import MainButton from '../../components/MainButton'
 import { Box, Card, Link, Typography } from '@mui/material'
@@ -31,6 +33,10 @@ const RestaurantsPreview = ({
     const checked = restaurants.filter((restaurant) => restaurant.checked)
     return checked.length
   }
+
+  useEffect(() => {
+    playSound('win')
+  }, [])
 
   return (
     <>

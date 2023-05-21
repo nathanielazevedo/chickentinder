@@ -1,3 +1,5 @@
+import { routes } from '../router'
+import playSound from '../utils/playSound'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 import { Button } from '@mui/material'
 import {
@@ -6,7 +8,6 @@ import {
   matchRoutes,
   useParams,
 } from 'react-router-dom'
-import { routes } from '../router'
 
 const BackIcon = () => {
   const { id } = useParams()
@@ -45,7 +46,13 @@ const BackIcon = () => {
   }
 
   return (
-    <Button onClick={() => navigate(to)} sx={styles.c}>
+    <Button
+      onClick={() => {
+        playSound('good')
+        navigate(to)
+      }}
+      sx={styles.c}
+    >
       <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
     </Button>
   )

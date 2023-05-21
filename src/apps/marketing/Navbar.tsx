@@ -1,5 +1,3 @@
-import { Box } from '@mui/material'
-import { logo_white } from '../../assets'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
@@ -34,12 +32,10 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
               gap: '10px',
             }}
           >
-            <Box width='25px'>
-              <img src={logo_white} alt='' style={{ width: '100%' }} />
-            </Box>
             <Typography
+              color='primary'
               sx={{
-                fontSize: '12px',
+                fontSize: { xs: '12px', sm: '16px', lg: '20px' },
                 letterSpacing: '.2rem',
                 cursor: 'pointer',
               }}
@@ -49,7 +45,8 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
           </Link>
           {myPartys && (
             <Typography
-              fontSize='15px'
+              fontSize={{ xs: '12px', sm: '16px', lg: '20px' }}
+              fontWeight={100}
               sx={{ cursor: 'pointer' }}
               onClick={() => navigate('/party/my-parties')}
             >

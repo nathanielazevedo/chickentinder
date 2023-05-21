@@ -1,22 +1,27 @@
-import { Box } from '@mui/material'
+import { Box, Divider } from '@mui/material'
+import { yelp_logo } from '../../assets/yelp'
 import TwoStack from '../../components/TwoStack'
-import { play } from '../../assets'
 
 const GetStarted = () => {
   return (
-    <Box sx={styles.outerContainer}>
-      <Box sx={styles.innerContainer}>
-        <Box display={{ xs: 'none', lg: 'flex' }}>
-          <img src={play} width='250px' />
+    <>
+      <Divider />
+      <Box sx={styles.outerContainer}>
+        <Box sx={styles.innerContainer}>
+          <TwoStack
+            variant='body'
+            title='Powered by Yelp'
+            noButton={true}
+            body="Chicken Tinder is powered by Yelp's API. Tell us where you are
+            and a max distance you're willing to drive and we'll find a number of restaurants around you. Then the swiping can begin. It's that simple!"
+          />
+          <Box>
+            <img src={yelp_logo} width='150px' />
+          </Box>
         </Box>
-        <TwoStack
-          variant='body'
-          title='Get Started Now'
-          body="Chicken Tinder is totally free and doesn't require an account. Just
-            generate a new link and share it with your friends."
-        />
       </Box>
-    </Box>
+      <Divider />
+    </>
   )
 }
 
@@ -25,16 +30,17 @@ export default GetStarted
 const styles = {
   outerContainer: {
     display: 'flex',
-    justifyContent: 'center',
+    padding: '50px 0',
     alignItems: 'center',
-    padding: '70px 0',
-    border: '12px solid black',
-    backgroundColor: 'white',
+    justifyContent: 'center',
+    backgroundColor: 'black',
   },
   innerContainer: {
     display: 'flex',
-    justifyContent: { xs: 'center', md: 'space-evenly', lg: 'space-evenly' },
     alignItems: 'center',
-    width: { xs: '100%', sm: '90%', md: '90%', lg: '1100px' },
+    gap: { xs: '30px', sm: '75px' },
+    justifyContent: { xs: 'center', md: 'flex-start' },
+    flexDirection: { xs: 'column', md: 'row-reverse' },
+    width: { xs: '95%', sm: '85%', lg: '1100px' },
   },
 }

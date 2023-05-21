@@ -4,7 +4,7 @@ import { CreateParty, Party } from './models/Party'
 
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
-const mock = false
+const mock = process.env.NODE_ENV === 'production' ? false : true
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl
