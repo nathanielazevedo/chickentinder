@@ -11,12 +11,11 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
       position='static'
       elevation={0}
       sx={{
-        maxWidth: '100vw',
         overflowX: 'hidden',
         backgroundColor: 'rgb(0,0,0)',
       }}
     >
-      <Container sx={{ width: { xs: '100%', lg: '1200px' } }}>
+      <Container sx={{ width: { xs: '100%', sm: '90%', lg: '1170px' } }}>
         <Toolbar
           disableGutters
           sx={{
@@ -29,7 +28,6 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
             style={{
               display: 'flex',
               alignItems: 'center',
-              gap: '10px',
             }}
           >
             <Typography
@@ -37,6 +35,7 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
               sx={{
                 fontSize: { xs: '12px', sm: '16px', lg: '20px' },
                 letterSpacing: '.2rem',
+                fontWeight: 300,
                 cursor: 'pointer',
               }}
             >

@@ -1,7 +1,7 @@
 import Dialog from '@mui/material/Dialog'
+import { Typography } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
-import { Typography } from '@mui/material'
 
 type Props = {
   open: boolean

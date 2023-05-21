@@ -1,5 +1,5 @@
-import { Box, Typography } from '@mui/material'
 import { logo_p_trans } from '../../assets'
+import { Box, Typography } from '@mui/material'
 
 const Footer = () => {
   return (
@@ -23,7 +23,7 @@ const Footer = () => {
         }}
       >
         <Box>
-          <Typography variant='h4' letterSpacing='.3rem'>
+          <Typography variant='h4' letterSpacing='.3rem' fontWeight='300'>
             CHICKEN TINDER
           </Typography>
           <Typography>Copyright @2023</Typography>

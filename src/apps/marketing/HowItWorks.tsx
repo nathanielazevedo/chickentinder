@@ -1,8 +1,8 @@
+import StepsCard from './StepsCard'
+import { Box } from '@mui/material'
 import { logo_outline } from '../../assets'
 import { constants } from '../../constants'
-import { Box } from '@mui/material'
 import TwoStack from '../../components/TwoStack'
-import StepsCard from './StepsCard'
 
 const HowItWorks = () => {
   return (
@@ -51,11 +51,11 @@ export default HowItWorks
 const styles = {
   outerContainer: {
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
-    padding: { xs: '100px 0', lg: '100px' },
     backgroundColor: 'black',
+    padding: { xs: '100px 0', lg: '100px' },
   },
   innerContainer: {
     display: 'flex',

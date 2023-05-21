@@ -35,6 +35,11 @@ export default function Faq() {
             <Accordion
               expanded={expanded === 'panel1'}
               onChange={handleChange('panel1')}
+              sx={{
+                backgroundColor: '#000000 !important',
+                border: '1px solid #0e6b7d',
+                backgroundImage: 'none',
+              }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -52,6 +57,11 @@ export default function Faq() {
             <Accordion
               expanded={expanded === 'panel2'}
               onChange={handleChange('panel2')}
+              sx={{
+                backgroundColor: 'black',
+                border: '1px solid #0e6b7d',
+                backgroundImage: 'none',
+              }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -69,6 +79,11 @@ export default function Faq() {
             <Accordion
               expanded={expanded === 'panel3'}
               onChange={handleChange('panel3')}
+              sx={{
+                backgroundColor: 'black',
+                border: '1px solid #0e6b7d',
+                backgroundImage: 'none',
+              }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}
@@ -90,6 +105,11 @@ export default function Faq() {
             <Accordion
               expanded={expanded === 'panel4'}
               onChange={handleChange('panel4')}
+              sx={{
+                backgroundColor: 'black',
+                border: '1px solid #0e6b7d',
+                backgroundImage: 'none',
+              }}
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon />}

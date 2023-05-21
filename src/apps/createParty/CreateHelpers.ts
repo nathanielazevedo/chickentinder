@@ -28,10 +28,10 @@ export const hoursInitial = {
 export const valueInitial = {
   name: '',
   location: '',
-  max_distance: 15000,
-  max_voters: '',
   password: '',
-  number_of_restaurants: '',
+  max_voters: 5,
+  max_distance: 15000,
+  number_of_restaurants: 5,
 }
 
 export const partySchema = object({

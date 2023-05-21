@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
 import VoteIcons from './VoteIcons'
 import { Swipe } from './SwipeUtils'
+import { useEffect, useState } from 'react'
 import RCard from '../../../components/RCard'
 import { Box, Typography } from '@mui/material'
 import { Restaurant } from '../../../models/Restaurant'

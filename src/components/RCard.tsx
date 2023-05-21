@@ -1,5 +1,5 @@
 import { Restaurant } from '../models/Restaurant'
-import { Box, Typography, Rating } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils'
 import { getStarsImage } from '../utils/general'
 import { yelp_logo } from '../assets/yelp'

@@ -1,6 +1,6 @@
 import { Box } from '@mui/material'
-import TwoStack from '../../components/TwoStack'
 import { network } from '../../assets'
+import TwoStack from '../../components/TwoStack'
 
 const Decisions = () => {
   return (
@@ -27,16 +27,16 @@ const styles = {
   container: {
     display: 'flex',
     alignItems: 'center',
+    backgroundColor: 'black',
     justifyContent: 'center',
     padding: { xs: '70px 0', lg: '100px 0' },
-    backgroundColor: 'black',
   },
   innerContainer: {
     display: 'flex',
+    gap: { xs: '50px' },
+    alignItems: 'center',
     flexDirection: { xs: 'column', lg: 'row' },
     width: { xs: '100%', sm: '90%', lg: '1100px' },
-    gap: { xs: '50px' },
     justifyContent: { xs: 'center', sm: 'space-between' },
-    alignItems: 'center',
   },
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Box, Card, Typography } from '@mui/material'
 import VoteIcons from './VoteIcons'
 import { Swipe, getSwipe } from './SwipeUtils'
+import { Box, Card, Typography } from '@mui/material'
 
 type Props = {
   times_to_vote_on: { id: string }[]

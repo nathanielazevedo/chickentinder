@@ -1,7 +1,7 @@
 import { routes } from '../router'
+import { Button } from '@mui/material'
 import playSound from '../utils/playSound'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
-import { Button } from '@mui/material'
 import {
   useNavigate,
   useLocation,
