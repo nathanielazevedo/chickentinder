@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import VoteIcons from './VoteIcons'
 import { Swipe } from './SwipeUtils'
 import RCard from '../../../components/RCard'
@@ -16,6 +16,13 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
   const [index, setIndex] = useState<number>(0)
   const restaurant = restaurants[index]
   const length = restaurants.length
+
+  useEffect(() => {
+    restaurants.forEach((restaurant) => {
+      const img = new Image()
+      img.src = restaurant.image_url
+    })
+  }, [restaurants])
 
   if (index === length) {
     fRV(likes)
