@@ -1,9 +1,9 @@
 import { useState } from 'react'
-import { Box } from '@mui/material'
 import { Swipe } from './SwipeUtils'
-import ThumbUpIcon from '@mui/icons-material/ThumbUp'
+import { Box, Button } from '@mui/material'
 import { Restaurant } from '../../../models/Restaurant'
-import ThumbDownIcon from '@mui/icons-material/ThumbDown'
+import ThumbUpIcon from '@mui/icons-material/ThumbUpOffAlt'
+import ThumbDownIcon from '@mui/icons-material/ThumbDownOffAlt'
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
 
 type Props = {
@@ -21,51 +21,57 @@ const VoteIcons = (props: Props) => {
 
   return (
     <Box sx={styles.container}>
-      <ThumbDownIcon
-        color='error'
-        sx={styles.icon}
-        onClick={() => {
-          if (!buttonsActive) return
-          setButtonsActive(false)
-          setSwipe({ id: item.id, direction: 'left' })
-          setTimeout(() => {
-            setIndex((prevState: number) => prevState + 1)
-            setButtonsActive(true)
-          }, 1000)
-        }}
-      />
-      {index !== 0 ? (
-        <SettingsBackupRestoreIcon
-          color='warning'
+      <Button sx={styles.button}>
+        <ThumbDownIcon
+          color='error'
           sx={styles.icon}
           onClick={() => {
             if (!buttonsActive) return
             setButtonsActive(false)
-            setSwipe({ id: '123', direction: 'left' })
-            setLikes((prevState) => [
-              ...prevState.filter((id) => id != items[index - 1].id),
-            ])
-            setIndex((prevState) => prevState - 1)
-            setButtonsActive(true)
+            setSwipe({ id: item.id, direction: 'left' })
+            setTimeout(() => {
+              setIndex((prevState: number) => prevState + 1)
+              setButtonsActive(true)
+            }, 1000)
           }}
         />
+      </Button>
+      {index !== 0 ? (
+        <Button sx={styles.button}>
+          <SettingsBackupRestoreIcon
+            color='warning'
+            sx={styles.icon}
+            onClick={() => {
+              if (!buttonsActive) return
+              setButtonsActive(false)
+              setSwipe({ id: '123', direction: 'left' })
+              setLikes((prevState) => [
+                ...prevState.filter((id) => id != items[index - 1].id),
+              ])
+              setIndex((prevState) => prevState - 1)
+              setButtonsActive(true)
+            }}
+          />
+        </Button>
       ) : (
-        <Box minWidth='50px'></Box>
+        <Box minWidth='65px'></Box>
       )}
-      <ThumbUpIcon
-        color='success'
-        sx={styles.icon}
-        onClick={() => {
-          if (!buttonsActive) return
-          setButtonsActive(false)
-          setLikes((prevState) => [...prevState, item.id])
-          setSwipe({ id: item.id, direction: 'right' })
-          setTimeout(() => {
-            setIndex((prevState) => prevState + 1)
-            setButtonsActive(true)
-          }, 1000)
-        }}
-      />
+      <Button sx={styles.button}>
+        <ThumbUpIcon
+          color='primary'
+          sx={styles.icon}
+          onClick={() => {
+            if (!buttonsActive) return
+            setButtonsActive(false)
+            setLikes((prevState) => [...prevState, item.id])
+            setSwipe({ id: item.id, direction: 'right' })
+            setTimeout(() => {
+              setIndex((prevState) => prevState + 1)
+              setButtonsActive(true)
+            }, 1000)
+          }}
+        />
+      </Button>
     </Box>
   )
 }
@@ -83,5 +89,10 @@ const styles = {
   icon: {
     fontSize: '50px',
     cursor: 'pointer',
+  },
+  button: {
+    '&:active': {
+      border: 'solid 1px #00D5FA',
+    },
   },
 }

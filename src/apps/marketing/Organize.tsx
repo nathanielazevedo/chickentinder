@@ -15,7 +15,7 @@ const SectionThree = () => (
         />
         <Box
           sx={{
-            border: '1px solid grey',
+            border: '1px solid #0e6b7d',
             borderRadius: '10px',
             padding: '10px',
           }}
