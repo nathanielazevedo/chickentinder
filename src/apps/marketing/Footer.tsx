@@ -40,6 +40,9 @@ const Footer = () => {
           <Link to='/'>
             <Typography>About</Typography>
           </Link>
+          <Link to='/party/contact'>
+            <Typography>Contact</Typography>
+          </Link>
           <Link to='/terms'>
             <Typography>Terms</Typography>
           </Link>

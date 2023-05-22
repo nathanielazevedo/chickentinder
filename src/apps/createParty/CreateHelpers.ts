@@ -65,6 +65,12 @@ export const restaurantSchema = object({
   location: string().required('Required'),
 })
 
+export const contactSchema = object({
+  name: string().required('Required'),
+  email: string().email().required('Required'),
+  message: string().required('Required'),
+})
+
 export const toMeters = (miles: number) => {
   const meters = miles * 1609.34
   return Math.floor(meters)

@@ -1,18 +1,19 @@
 import Entry from './apps/main/Entry'
+import Terms from './components/Terms'
 import Error from './components/Error'
 import Manage from './apps/main/Manage'
 import Results from './apps/main/Results'
 import MyVotes from './apps/main/MyVotes'
 import Intro from './apps/marketing/Intro'
+import Contact from './components/Contact'
 import Swipe from './apps/main/vote/Swipe'
 import Container from './components/Container'
 import FourOFour from './components/FourOFour'
 import Create from './apps/createParty/Create'
-import MyParties from './apps/myParties/MyParties'
-import { createBrowserRouter } from 'react-router-dom'
-import PrivacyPolicy from './components/PrivacyPolicy'
-import Terms from './components/Terms'
 import Disclaimer from './components/Disclaimer'
+import MyParties from './apps/myParties/MyParties'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import { createBrowserRouter } from 'react-router-dom'
 
 export const routes = [
   {
@@ -40,6 +41,7 @@ export const routes = [
     element: <Container />,
     errorElement: <Error />,
     children: [
+      { path: 'contact', element: <Contact />, errorElement: <Error /> },
       {
         path: 'create',
         element: <Create />,
