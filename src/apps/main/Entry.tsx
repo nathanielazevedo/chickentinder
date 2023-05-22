@@ -4,7 +4,6 @@ import { Party } from '../../models/Party'
 import { useEffect, useState } from 'react'
 import NewPartyDialog from './NewPartyDialog'
 import PasswordDialog from './PasswordDialog'
-import playSound from '../../utils/playSound'
 import Loading from '../../components/Loading'
 import { Box, Typography } from '@mui/material'
 import MainButton from '../../components/MainButton'
@@ -40,10 +39,7 @@ const Entry = () => {
           if (!party) addPartyToLocal(newParty)
           else setVoted(party.voted)
         }
-        if (searchParams.get('new')) {
-          playSound('win')
-          setShowNewDialog(true)
-        }
+        if (searchParams.get('new')) setShowNewDialog(true)
         setParty(res)
       } catch {
         id && removePartyFromLocal(id)

@@ -25,7 +25,7 @@ export default Hero
 
 const styles = {
   outerContainer: {
-    height: '75vh',
+    height: '73vh',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',

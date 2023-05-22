@@ -1,6 +1,7 @@
 import { back, good, bad, win } from '../assets'
 
 const playSound = (soundName: string) => {
+  new AudioContext()
   let sound
   switch (soundName) {
     case 'back':

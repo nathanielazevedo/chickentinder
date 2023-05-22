@@ -13,14 +13,31 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
       sx={{
         overflowX: 'hidden',
         backgroundColor: 'rgb(0,0,0)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
       }}
     >
-      <Container sx={{ width: { xs: '100%', sm: '90%', lg: '1170px' } }}>
+      <Container
+        sx={{
+          width: { xs: '90%', sm: '90%', lg: '1100px' },
+          maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
+          padding: '0 !important',
+          margin: '0 !important',
+          display: 'flex',
+          justifyContent: 'space-between',
+          '& MuiContainer-root': {
+            padding: '0 !important',
+            margin: '0 !important',
+          },
+        }}
+      >
         <Toolbar
           disableGutters
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
+            width: '100%',
           }}
         >
           <Link
@@ -45,7 +62,7 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
           {myPartys && (
             <Typography
               fontSize={{ xs: '12px', sm: '16px', lg: '20px' }}
-              fontWeight={100}
+              fontWeight={300}
               sx={{ cursor: 'pointer' }}
               onClick={() => navigate('/party/my-parties')}
             >

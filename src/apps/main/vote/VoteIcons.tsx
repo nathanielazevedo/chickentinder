@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Box } from '@mui/material'
 import { Swipe } from './SwipeUtils'
-import playSound from '../../../utils/playSound'
 import ThumbUpIcon from '@mui/icons-material/ThumbUp'
 import { Restaurant } from '../../../models/Restaurant'
 import ThumbDownIcon from '@mui/icons-material/ThumbDown'
@@ -28,7 +27,6 @@ const VoteIcons = (props: Props) => {
         onClick={() => {
           if (!buttonsActive) return
           setButtonsActive(false)
-          playSound('bad')
           setSwipe({ id: item.id, direction: 'left' })
           setTimeout(() => {
             setIndex((prevState: number) => prevState + 1)
@@ -43,7 +41,6 @@ const VoteIcons = (props: Props) => {
           onClick={() => {
             if (!buttonsActive) return
             setButtonsActive(false)
-            playSound('back')
             setSwipe({ id: '123', direction: 'left' })
             setLikes((prevState) => [
               ...prevState.filter((id) => id != items[index - 1].id),
@@ -61,7 +58,6 @@ const VoteIcons = (props: Props) => {
         onClick={() => {
           if (!buttonsActive) return
           setButtonsActive(false)
-          playSound('good')
           setLikes((prevState) => [...prevState, item.id])
           setSwipe({ id: item.id, direction: 'right' })
           setTimeout(() => {
