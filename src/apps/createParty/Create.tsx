@@ -3,9 +3,9 @@ import { useState } from 'react'
 import CreateForm from './CreateForm'
 import { useNavigate } from 'react-router-dom'
 import CreateLoad from '../../components/Loading'
-import { Restaurant } from '../../models/Restaurant'
 import RestaurantsPreview from './RestaurantsPreview'
 import { addPartyToLocal } from '../../utils/localStorage'
+import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
 import {
   hoursInitial,
   valueInitial,
@@ -25,7 +25,8 @@ const Create = () => {
   const [values, setValues] = useState(valueInitial)
   const [voteOnTime, setVoteOnTime] = useState(false)
   const [generalError, setGeneralError] = useState('')
-  const [restaurants, setRestaurants] = useState<Restaurant[]>()
+  const [restaurants, setRestaurants] =
+    useState<(Restaurant | CustomRestaurant)[]>()
 
   const fetchRestaurants = async (values: valueType) => {
     if (voteOnTime && getLikedLength(hours) < 2) return setTimeError(true)

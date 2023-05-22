@@ -1,4 +1,4 @@
-import { logo_p_trans } from '../../assets'
+import { Link } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 
 const Footer = () => {
@@ -26,15 +26,29 @@ const Footer = () => {
           <Typography variant='h4' letterSpacing='.3rem' fontWeight='300'>
             CHICKEN TINDER
           </Typography>
-          <Typography>Copyright @2023</Typography>
-          <Typography>All Rights Reserved</Typography>
+          <Typography fontWeight='300'>Copyright @2023</Typography>
+          <Typography fontWeight='300'>All Rights Reserved</Typography>
+          <Typography fontWeight='300'>
+            contactchickentinder@gmail.com
+          </Typography>
         </Box>
         <Box
           sx={{
             width: { xs: '100px', sm: '200px' },
           }}
         >
-          <img src={logo_p_trans} alt='logo' style={{ width: '100%' }} />
+          <Link to='/'>
+            <Typography>About</Typography>
+          </Link>
+          <Link to='/terms'>
+            <Typography>Terms</Typography>
+          </Link>
+          <Link to='/disclaimer'>
+            <Typography>Disclaimer</Typography>
+          </Link>
+          <Link to='/privacy-policy'>
+            <Typography>Privacy Policy</Typography>
+          </Link>
         </Box>
       </Box>
     </Box>

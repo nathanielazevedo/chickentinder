@@ -1,4 +1,4 @@
-import { Restaurant } from './Restaurant'
+import { CustomRestaurant, Restaurant } from './Restaurant'
 
 export type Party = {
   _id: string
@@ -26,6 +26,7 @@ export type Party = {
   updatedAt: string
   voters_so_far: number
   __v: number
+  type: string
 }
 
 export type CreateParty = {
@@ -39,5 +40,6 @@ export type CreateParty = {
   }[]
   vote_on_time: boolean
   password: string
-  restaurants: Restaurant[]
+  restaurants: (Restaurant | CustomRestaurant)[]
+  type: string
 }

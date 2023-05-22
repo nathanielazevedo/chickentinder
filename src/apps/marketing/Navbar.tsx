@@ -1,3 +1,4 @@
+import { Button } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
@@ -60,14 +61,24 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
             </Typography>
           </Link>
           {myPartys && (
-            <Typography
-              fontSize={{ xs: '12px', sm: '16px', lg: '20px' }}
-              fontWeight={300}
-              sx={{ cursor: 'pointer' }}
-              onClick={() => navigate('/party/my-parties')}
+            <Button
+              sx={{
+                border: 'none',
+                backgroundColor: 'rgb(0, 213, 250, 15%)',
+              }}
             >
-              My Parties
-            </Typography>
+              <Typography
+                onClick={() => navigate('/party/my-parties')}
+                fontSize={{
+                  xs: '12px',
+                  sm: '14px',
+                  lg: '14px',
+                  color: 'white',
+                }}
+              >
+                My Parties
+              </Typography>
+            </Button>
           )}
         </Toolbar>
       </Container>

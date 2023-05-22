@@ -33,3 +33,21 @@ export type Restaurant = {
   checked: boolean
   votes: number
 }
+
+export type CustomRestaurant = {
+  id: string
+  name: string
+  location: {
+    address1: string
+  }
+  checked: boolean
+  url: undefined
+}
+
+export type RestaurantCreate = {
+  id: string
+  name: string
+  location: string
+  checked: boolean
+  url: undefined
+}

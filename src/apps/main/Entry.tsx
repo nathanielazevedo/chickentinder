@@ -60,9 +60,9 @@ const Entry = () => {
       <Box
         mb='30px'
         sx={{
-          border: '1px solid rgb(14, 107, 125)',
-          borderRadius: '10px',
           padding: '20px',
+          borderRadius: '10px',
+          border: '1px solid rgb(14, 107, 125)',
           backgroundColor: 'rgb(14, 107, 125, 15%)',
         }}
       >
@@ -84,10 +84,10 @@ const Entry = () => {
           </>
         )}
         <Typography color='secondary'>
-          {party.voters_so_far}/{party.max_voters} people have voted.
+          {party.restaurants.length} {party.type} to vote on.
         </Typography>
         <Typography color='secondary'>
-          Voting on {party.restaurants.length} restaruants.
+          {party.voters_so_far}/{party.max_voters} people have voted.
         </Typography>
         <Typography mt='10px' variant='h5'>
           Party link:

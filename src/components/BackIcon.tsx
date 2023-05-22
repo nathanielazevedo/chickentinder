@@ -47,6 +47,9 @@ const BackIcon = ({ customRoute, customAction }: Props) => {
     case 'my-parties':
       to = `/`
       break
+    case 'privacy-policy':
+      to = `/`
+      break
     default:
       to = `/`
   }

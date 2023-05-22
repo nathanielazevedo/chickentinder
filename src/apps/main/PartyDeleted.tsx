@@ -16,7 +16,10 @@ const PartyDeleted = () => {
         <Typography variant='h3'>Sorry!</Typography>
         <Typography variant='h5'>This party has been removed.</Typography>
       </Box>
-      <MainButton text='Go Home' onClick={() => navigate('/my-parties')} />
+      <MainButton
+        text='Go Home'
+        onClick={() => navigate('/party/my-parties')}
+      />
     </>
   )
 }

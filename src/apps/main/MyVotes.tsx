@@ -83,7 +83,7 @@ const MyVotes = () => {
           ))}
         </Box>
       )}
-      {tLikes && (
+      {tLikes.length > 0 && (
         <Box>
           <Typography variant='h4' mb='20px' mt='20px'>
             Liked times

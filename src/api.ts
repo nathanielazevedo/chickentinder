@@ -4,7 +4,7 @@ import { CreateParty, Party } from './models/Party'
 
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
-const mock = process.env.NODE_ENV === 'production' ? false : true
+const mock = process.env.NODE_ENV === 'production' ? false : false
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl
@@ -57,6 +57,7 @@ const createParty = async (formData: CreateParty): Promise<Party> => {
 
 type rP = {
   location: string
+  type: string
   max_distance: number
   number_of_restaurants: number
 }
@@ -70,11 +71,7 @@ const fetchRestaurants = async (formData: rP): Promise<any> => {
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
     },
-    body: JSON.stringify({
-      location: formData.location,
-      max_distance: formData.max_distance,
-      number_of_restaurants: formData.number_of_restaurants,
-    }),
+    body: JSON.stringify(formData),
   })
     .then(async (res) => {
       if (res.status === 200) {

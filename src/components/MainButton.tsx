@@ -1,4 +1,4 @@
-import { Button } from '@mui/material'
+import { Button, Typography } from '@mui/material'
 
 type Props = {
   text: string
@@ -13,9 +13,17 @@ const MainButton = ({ text, onClick, disabled = false }: Props) => {
       onClick={onClick}
       variant='outlined'
       disabled={disabled}
-      sx={{ height: '100%' }}
+      sx={{
+        height: '100%',
+        border: 'none',
+        backgroundColor: 'rgb(0, 213, 250, 15%)',
+        '&:hover': {
+          backgroundColor: 'rgb(0, 213, 250, 25%)',
+          border: 'none',
+        },
+      }}
     >
-      {text}
+      <Typography>{text}</Typography>
     </Button>
   )
 }

@@ -10,11 +10,29 @@ import FourOFour from './components/FourOFour'
 import Create from './apps/createParty/Create'
 import MyParties from './apps/myParties/MyParties'
 import { createBrowserRouter } from 'react-router-dom'
+import PrivacyPolicy from './components/PrivacyPolicy'
+import Terms from './components/Terms'
+import Disclaimer from './components/Disclaimer'
 
 export const routes = [
   {
     path: '/',
     element: <Intro />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/privacy-policy',
+    element: <PrivacyPolicy />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/terms',
+    element: <Terms />,
+    errorElement: <Error />,
+  },
+  {
+    path: '/disclaimer',
+    element: <Disclaimer />,
     errorElement: <Error />,
   },
   {

@@ -61,11 +61,11 @@ export const theme = {
     h1: {
       fontFamily: ['Poppins', 'sans-serif'].join(','),
       fontSize: 40,
-      fontWeight: 'lighter',
     },
     h2: {
       fontFamily: ['Poppins', 'sans-serif'].join(','),
       fontSize: 32,
+      fontWeight: 400,
     },
     h3: {
       fontFamily: ['Poppins', 'sans-serif'].join(','),

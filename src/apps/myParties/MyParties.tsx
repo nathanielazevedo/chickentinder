@@ -19,7 +19,7 @@ const MyParties = () => {
 
   return (
     <>
-      <Typography variant='h4' mb='25px'>
+      <Typography variant='h4' mb='15px'>
         Your Parties
       </Typography>
       <Box display='flex' flexDirection='column' gap='10px'>

@@ -19,6 +19,7 @@ import {
   FormControlLabel,
   Checkbox,
   Button,
+  Radio,
 } from '@mui/material'
 import BackIcon from '../../components/BackIcon'
 
@@ -45,9 +46,7 @@ const CreateForm = ({
   setTimeError,
   fetchRestaurants,
 }: Props) => {
-  const isChecked = (value: string) => {
-    return hours[value as keyof hoursType]
-  }
+  const isChecked = (value: string) => hours[value as keyof hoursType]
 
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
@@ -132,7 +131,7 @@ const CreateForm = ({
               }
             />
             <TextField
-              label='How many restaurants to vote on?'
+              label='How many places to vote on?'
               autoComplete='off'
               type='number'
               onBlur={handleBlur}
@@ -146,16 +145,23 @@ const CreateForm = ({
               helperText={
                 errors.number_of_restaurants && touched.number_of_restaurants
                   ? errors.number_of_restaurants
-                  : 'This is the number of restaurants that will be voted on.'
+                  : 'This is the number of places that will be voted on.'
               }
             />
-            <Box display='flex' alignSelf='flex-start' alignItems='center'>
-              <Switch
-                onChange={(e) => {
-                  setTimeError(false)
-                  setVoteTime(e.target.checked)
-                }}
+            <RadioGroup
+              name='type'
+              value={values.type}
+              onChange={handleChange}
+              sx={{ display: 'flex', flexDirection: 'row' }}
+            >
+              <FormControlLabel
+                value='restaurants'
+                control={<Radio />}
+                label='Restaurants'
               />
+              <FormControlLabel value='bars' control={<Radio />} label='Bars' />
+            </RadioGroup>
+            <Box display='flex' alignSelf='flex-start' alignItems='center'>
               <Box>
                 <Typography>Vote on the best time to meet?</Typography>
                 {timeError && voteTime && (
@@ -164,6 +170,12 @@ const CreateForm = ({
                   </Typography>
                 )}
               </Box>
+              <Switch
+                onChange={(e) => {
+                  setTimeError(false)
+                  setVoteTime(e.target.checked)
+                }}
+              />
             </Box>
             {voteTime && (
               <FormControl>
@@ -210,7 +222,15 @@ const CreateForm = ({
                   : 'You can use this later to manage the party.'
               }
             />
-            <Button type='submit' variant='outlined' sx={{ height: '50px' }}>
+            <Button
+              type='submit'
+              variant='outlined'
+              sx={{
+                height: '50px',
+                border: 'none',
+                backgroundColor: 'rgb(0, 213, 250, 15%)',
+              }}
+            >
               <Typography>Create Party</Typography>
             </Button>
           </FormControl>
