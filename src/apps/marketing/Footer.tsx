@@ -16,7 +16,7 @@ const Footer = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
-          flexDirection: { xs: 'column-reverse', sm: 'row' },
+          flexDirection: { xs: 'column', sm: 'row' },
           justifyContent: 'space-between',
           width: { xs: '95%', sm: '100%' },
           maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
