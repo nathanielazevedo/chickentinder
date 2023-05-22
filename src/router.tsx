@@ -14,6 +14,7 @@ import Disclaimer from './components/Disclaimer'
 import MyParties from './apps/myParties/MyParties'
 import PrivacyPolicy from './components/PrivacyPolicy'
 import { createBrowserRouter } from 'react-router-dom'
+import About from './apps/marketing/About'
 
 export const routes = [
   {
@@ -41,6 +42,7 @@ export const routes = [
     element: <Container />,
     errorElement: <Error />,
     children: [
+      { path: 'about', element: <About />, errorElement: <Error /> },
       { path: 'contact', element: <Contact />, errorElement: <Error /> },
       {
         path: 'create',

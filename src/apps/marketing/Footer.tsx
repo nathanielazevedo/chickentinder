@@ -5,11 +5,10 @@ const Footer = () => {
   return (
     <Box
       sx={{
-        height: '40vh',
+        height: '35vh',
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        maxWidth: '100vw',
         backgroundColor: 'black',
       }}
     >
@@ -17,12 +16,18 @@ const Footer = () => {
         sx={{
           display: 'flex',
           alignItems: 'center',
+          flexDirection: { xs: 'column-reverse', sm: 'row' },
           justifyContent: 'space-between',
-          width: { xs: '90%', sm: '100%' },
+          width: { xs: '95%', sm: '100%' },
           maxWidth: { xs: '100%', sm: '90%', lg: '1100px' },
+          gap: '30px',
         }}
       >
-        <Box>
+        <Box
+          sx={{
+            alignSelf: 'flex-start',
+          }}
+        >
           <Typography variant='h4' letterSpacing='.3rem' fontWeight='300'>
             CHICKEN TINDER
           </Typography>
@@ -34,10 +39,13 @@ const Footer = () => {
         </Box>
         <Box
           sx={{
-            width: { xs: '100px', sm: '200px' },
+            width: { xs: '100%', sm: '200px' },
+            display: 'flex',
+            flexDirection: { xs: 'row', sm: 'column' },
+            justifyContent: 'space-between',
           }}
         >
-          <Link to='/'>
+          <Link to='/party/about'>
             <Typography>About</Typography>
           </Link>
           <Link to='/party/contact'>
