@@ -24,7 +24,7 @@ const HowItWorks = () => {
           />
         </Box>
         <Box display={{ xs: 'none', lg: 'flex' }}>
-          <img src={logo_outline} width='300px' />
+          <img src={logo_outline} width='300px' alt='logo' />
         </Box>
       </Box>
       <Box

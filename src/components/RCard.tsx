@@ -34,7 +34,11 @@ const RCard = ({ restaurant, swipe }: Props) => {
             <Typography>Price: {restaurant.price}</Typography>
           )}
           <Box m='5px 0' gap='10px' display='flex'>
-            <img src={getStarsImage(restaurant.rating)} width='100px' />
+            <img
+              alt='rating'
+              src={getStarsImage(restaurant.rating)}
+              width='100px'
+            />
             <img alt='yelp logo' width='50px' src={yelp_logo} />
           </Box>
           <Typography>Based on {restaurant.review_count} Reviews</Typography>

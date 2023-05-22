@@ -16,7 +16,7 @@ const Hero = () => {
               favorite restaurants without worrying about peer pressure."
           />
           <Box display={{ xs: 'none', lg: 'flex', paddingLeft: '100px' }}>
-            <img src={logo_p_trans} width='350px' />
+            <img src={logo_p_trans} width='350px' alt='logo' />
           </Box>
         </Box>
       </Box>

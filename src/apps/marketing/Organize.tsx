@@ -20,7 +20,7 @@ const SectionThree = () => (
             padding: '10px',
           }}
         >
-          <img src={logo_p_trans} width='150px' />
+          <img src={logo_p_trans} width='150px' alt='logo' />
         </Box>
       </Box>
     </Box>

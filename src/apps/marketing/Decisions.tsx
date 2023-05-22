@@ -14,7 +14,7 @@ const Decisions = () => {
           />
         </Box>
         <Box>
-          <img src={network} width='200px' />
+          <img src={network} width='200px' alt='network' />
         </Box>
       </Box>
     </Box>

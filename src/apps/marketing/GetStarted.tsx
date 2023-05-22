@@ -16,7 +16,7 @@ const GetStarted = () => {
             and a max distance you're willing to drive and we'll find a number of restaurants around you. Then the swiping can begin. It's that simple!"
           />
           <Box>
-            <img src={yelp_logo} width='150px' />
+            <img src={yelp_logo} width='150px' alt='yelp logo' />
           </Box>
         </Box>
       </Box>

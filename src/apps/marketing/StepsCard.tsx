@@ -66,16 +66,6 @@ const StepsCard = ({ card, i }: Props) => {
           {card.title}
         </Typography>
         <Typography color='secondary'>{card.description}</Typography>
-        {/* <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '150px',
-          }}
-        >
-          <img src={card.icon} width='80px' />
-        </Box> */}
       </Box>
     </Box>
   )
