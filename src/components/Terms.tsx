@@ -1,5 +1,5 @@
-import { Box } from '@mui/material'
 import BackIcon from './BackIcon'
+import { Box } from '@mui/material'
 
 const Terms = () => {
   return (
@@ -68,7 +68,7 @@ const Terms = () => {
               id='agreement'
               style={{ lineHeight: '1.5' }}
             >
-              <a name='_6aa3gkhykvst' />
+              <a />
             </div>
           </div>
           <div style={{ lineHeight: 1 }}>

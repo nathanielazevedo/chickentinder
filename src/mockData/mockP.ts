@@ -8,6 +8,7 @@ export const party = {
   max_distance: 15000,
   number_of_restaurants: 5,
   max_voters: 5,
+  type: 'restaurants',
   times_to_vote_on: [
     {
       id: '8-9 PM',
