@@ -8,7 +8,7 @@ const HowItWorks = () => {
   return (
     <Box sx={styles.outerContainer}>
       <Box sx={styles.innerContainer}>
-        <Box width={{ sx: '90%', md: '60%' }}>
+        <Box width={{ xs: '100%', md: '60%' }}>
           <TwoStack
             noButton={true}
             variant='dark'

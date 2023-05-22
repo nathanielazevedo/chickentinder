@@ -1,9 +1,10 @@
 import Checkbox from '@mui/material/Checkbox'
 import { Restaurant } from '../../models/Restaurant'
 import MainButton from '../../components/MainButton'
-import { Box, Card, Link, Typography } from '@mui/material'
+import { Box, Link, Typography } from '@mui/material'
+import BackIcon from '../../components/BackIcon'
 
-type RestaurantsPreviewProps = {
+type Props = {
   restaurants: Restaurant[]
   createParty: () => void
   setRestaurants: (restaurants: Restaurant[] | undefined) => void
@@ -13,15 +14,11 @@ const RestaurantsPreview = ({
   restaurants,
   createParty,
   setRestaurants,
-}: RestaurantsPreviewProps) => {
+}: Props) => {
   const handleCheck = (id: string) => {
     const newRestaurants = restaurants.map((restaurant) => {
-      if (restaurant.id === id) {
-        return {
-          ...restaurant,
-          checked: !restaurant.checked,
-        }
-      }
+      if (restaurant.id === id)
+        return { ...restaurant, checked: !restaurant.checked }
       return restaurant
     })
     setRestaurants(newRestaurants)
@@ -34,11 +31,23 @@ const RestaurantsPreview = ({
 
   return (
     <>
+      <BackIcon customAction={() => setRestaurants(undefined)} />
       <Typography variant='h5'>These are the restaurants I found.</Typography>
       <Typography variant='body1'>Uncheck the ones you don't like.</Typography>
+      <Box mt='15px'>
+        <MainButton
+          disabled={getCheckedRestaurants() < 2}
+          onClick={createParty}
+          text={
+            getCheckedRestaurants() < 2
+              ? 'Must select at least 2'
+              : 'Create the Party!'
+          }
+        />
+      </Box>
       <Box m='25px 0'>
         {restaurants.map((restaurant: Restaurant) => (
-          <Card
+          <Box
             key={restaurant.id}
             sx={{
               gap: '15px',
@@ -46,6 +55,8 @@ const RestaurantsPreview = ({
               padding: '10px',
               margin: '10px 0',
               alignItems: 'center',
+              borderRadius: '10px',
+              border: '0.1px solid white',
             }}
           >
             <Checkbox
@@ -58,25 +69,8 @@ const RestaurantsPreview = ({
                 View on Yelp
               </Link>
             </Box>
-          </Card>
+          </Box>
         ))}
-      </Box>
-      <Box
-        sx={{
-          position: 'absolute',
-          top: '20px',
-          right: '10px',
-        }}
-      >
-        <MainButton
-          disabled={getCheckedRestaurants() < 2}
-          onClick={createParty}
-          text={
-            getCheckedRestaurants() < 2
-              ? 'Must select at least 2'
-              : 'Create the Party!'
-          }
-        />
       </Box>
     </>
   )

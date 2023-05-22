@@ -2,11 +2,11 @@ import API from '../../api'
 import PartyDeleted from './PartyDeleted'
 import { Party } from '../../models/Party'
 import { useEffect, useState } from 'react'
-import NewPartyDialog from './NewPartyDialog'
-import PasswordDialog from './PasswordDialog'
 import Loading from '../../components/Loading'
 import { Box, Typography } from '@mui/material'
 import MainButton from '../../components/MainButton'
+import NewPartyDialog from './dialogs/NewPartyDialog'
+import PasswordDialog from './dialogs/PasswordDialog'
 import { getBaseUrl, toMiles } from '../../utils/general'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import {
@@ -19,11 +19,11 @@ import {
 
 const Entry = () => {
   const { id } = useParams()
-  const [open, setOpen] = useState(false)
   const [searchParams] = useSearchParams()
   const [voted, setVoted] = useState(false)
   const [party, setParty] = useState<Party>()
   const [showDelete, setShowDelete] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
   const [showNewDialog, setShowNewDialog] = useState(false)
 
   useEffect(() => {
@@ -55,26 +55,42 @@ const Entry = () => {
 
   return (
     <>
-      <PasswordDialog open={open} setOpen={setOpen} />
+      <PasswordDialog open={showPassword} setOpen={setShowPassword} />
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
-      <Box mb='30px'>
-        <Typography variant='h3' mb='10px'>
+      <Box
+        mb='30px'
+        sx={{
+          border: '1px solid rgb(14, 107, 125)',
+          borderRadius: '10px',
+          padding: '20px',
+          backgroundColor: 'rgb(14, 107, 125, 15%)',
+        }}
+      >
+        <Typography variant='h2' mb='10px'>
           {party.name}
         </Typography>
+        <Typography variant='h5'>Details:</Typography>
         <Typography color='secondary'>
-          You're dining within {toMiles(party.max_distance)} miles from{' '}
-          {party.location}.
-        </Typography>
-        <Typography color='secondary'>
-          There are {party.max_voters} people in your party.
+          Within {toMiles(party.max_distance)} miles from {party.location}.
         </Typography>
         {party.vote_on_time && (
-          <Typography color='secondary' alignSelf='flex-start'>
-            Your party is also voting on a time to meet.
-          </Typography>
+          <>
+            <Typography color='secondary' alignSelf='flex-start'>
+              Your party is voting on a time to meet.
+            </Typography>
+            <Typography color='secondary' alignSelf='flex-start'>
+              {party.times_to_vote_on.length} times to vote on.
+            </Typography>
+          </>
         )}
-        <Typography mt='20px' color='secondary'>
-          This is your partys link:
+        <Typography color='secondary'>
+          {party.voters_so_far}/{party.max_voters} people have voted.
+        </Typography>
+        <Typography color='secondary'>
+          Voting on {party.restaurants.length} restaruants.
+        </Typography>
+        <Typography mt='10px' variant='h5'>
+          Party link:
           <Typography
             fontSize='11px'
             color='primary.main'
@@ -90,22 +106,28 @@ const Entry = () => {
         )}
       </Box>
       <Box display='flex' flexDirection='column' gap='20px' width='100%'>
-        <Typography variant='h4'>What would you like to do?</Typography>
-        <Box display='flex' gap='20px'>
-          <Link
-            to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
-            style={{ width: '450px', height: '100px' }}
-          >
-            <MainButton text={voted ? 'View My Votes' : 'Vote'} />
-          </Link>
-          <Link to={`/party/${id}/results`} style={{ width: '100%' }}>
-            <MainButton
-              text={party.r_winner ? 'View Winner' : 'View All Votes'}
-            />
-          </Link>
-        </Box>
-        <Box sx={{ height: '70px' }}>
-          <MainButton text='Manage Party' onClick={() => setOpen(true)} />
+        <Typography variant='h4' color='secondary'>
+          What would you like to do?
+        </Typography>
+        <Link
+          to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
+          style={{ height: '50px' }}
+        >
+          <MainButton text={voted ? 'View My Votes' : 'Vote'} />
+        </Link>
+        <Link
+          to={`/party/${id}/results`}
+          style={{ width: '100%', height: '50px' }}
+        >
+          <MainButton
+            text={party.r_winner ? 'View Winner' : 'View All Votes'}
+          />
+        </Link>
+        <Box sx={{ height: '50px' }}>
+          <MainButton
+            text='Manage Party'
+            onClick={() => setShowPassword(true)}
+          />
         </Box>
       </Box>
     </>

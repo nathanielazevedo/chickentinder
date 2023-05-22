@@ -1,9 +1,8 @@
-import API from '../../api'
+import API from '../../../api'
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import TextField from '@mui/material/TextField'
-import DialogTitle from '@mui/material/DialogTitle'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContent from '@mui/material/DialogContent'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -29,8 +28,18 @@ export default function FormDialog({ open, setOpen }: Props) {
   }
 
   return (
-    <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Enter the password to manage this party</DialogTitle>
+    <Dialog
+      open={open}
+      onClose={() => setOpen(false)}
+      PaperProps={{
+        style: {
+          padding: '20px',
+          backgroundImage: 'none',
+          backgroundColor: 'black',
+          border: '1px solid #0e6b7d',
+        },
+      }}
+    >
       <DialogContent>
         <TextField
           fullWidth

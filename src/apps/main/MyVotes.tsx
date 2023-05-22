@@ -1,9 +1,10 @@
 import API from '../../api'
-import VoteResults from './VoteResults'
-import { Party } from '../../models/Party'
 import { useEffect, useState } from 'react'
+import { Typography, Box } from '@mui/material'
 import CreateLoad from '../../components/Loading'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Restaurant } from '../../models/Restaurant'
+import MyVoteConfirmation from './dialogs/MyVoteConfirmation'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import {
   getPartiesFromLocal,
   getPartyFromLocal,
@@ -11,11 +12,11 @@ import {
 
 const MyVotes = () => {
   const { id } = useParams()
-  const [party, setParty] = useState({} as Party)
-  const [rLikes, setRLikes] = useState([] as string[])
-  const [tLikes, setTLikes] = useState<string[]>()
-
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
+  const [showC, setShowC] = useState(false)
+  const [tLikes, setTLikes] = useState<string[]>()
+  const [restaurants, setRestaurants] = useState<Restaurant[]>()
 
   useEffect(() => {
     const getParty = async () => {
@@ -24,22 +25,91 @@ const MyVotes = () => {
       const partiesInLocal = getPartiesFromLocal()
       if (!partiesInLocal) navigate('/party/' + id)
       if (partiesInLocal) {
-        const party = getPartyFromLocal(id)
-        if (!party) navigate('/party/' + id)
+        const lParty = getPartyFromLocal(id)
+        if (!lParty) navigate('/party/' + id)
         else {
-          setRLikes(party.voteRestaurants)
-          if (party.voteTime) setTLikes(party.voteTime)
+          setRestaurants(
+            party.restaurants.filter((restaurant) =>
+              lParty.voteRestaurants.includes(restaurant.id)
+            )
+          )
+          if (lParty.voteTime) setTLikes(lParty.voteTime)
           else setTLikes([])
         }
       }
-      setParty(party)
+      if (searchParams.get('c')) setShowC(true)
     }
     getParty()
-  }, [id, navigate])
+  }, [id, navigate, searchParams])
 
-  if (!rLikes || !tLikes || !id) return <CreateLoad />
+  if (!restaurants || !tLikes || !id) return <CreateLoad />
 
-  return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} />
+  return (
+    <>
+      <MyVoteConfirmation open={showC} setOpen={setShowC} />
+      <Typography variant='h4' mb='20px'>
+        Liked restaurants
+      </Typography>
+      {restaurants.length != 0 && restaurants && (
+        <Box display='flex' flexDirection='column' gap='10px'>
+          {restaurants.map((restaurant) => (
+            <Box
+              key={restaurant.id}
+              sx={{
+                padding: '10px',
+                borderRadius: '10px',
+                position: 'relative',
+                border: '0.1px solid white',
+              }}
+            >
+              <Box
+                sx={{
+                  zIndex: 1,
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Box>
+                  <Typography color='secondary'>{restaurant.name}</Typography>
+                  <a href={restaurant.url} target='_blank'>
+                    <Typography sx={styles.link}>View on Yelp</Typography>
+                  </a>
+                </Box>
+              </Box>
+            </Box>
+          ))}
+        </Box>
+      )}
+      {tLikes && (
+        <Box>
+          <Typography variant='h4' mb='20px' mt='20px'>
+            Liked times
+          </Typography>
+          {tLikes.map((time) => (
+            <Box
+              p='10px'
+              mb='10px'
+              key={time}
+              borderRadius='10px'
+              border='0.1px solid white'
+            >
+              <Typography color='secondary'>{time}</Typography>
+            </Box>
+          ))}
+        </Box>
+      )}
+    </>
+  )
 }
 
 export default MyVotes
+
+const styles = {
+  link: {
+    textDecoration: 'underline',
+    color: 'primary.main',
+  },
+}

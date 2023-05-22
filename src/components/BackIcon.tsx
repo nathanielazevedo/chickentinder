@@ -8,25 +8,32 @@ import {
   useParams,
 } from 'react-router-dom'
 
-const BackIcon = () => {
+type Props = {
+  customRoute?: string
+  customAction?: () => void
+}
+
+const BackIcon = ({ customRoute, customAction }: Props) => {
+  let currPath = undefined
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  let currPath = undefined
   const route = matchRoutes(routes, location)
   if (route && route.length > 0)
     currPath = route.find((m) => m.pathname === location.pathname)?.route.path
 
-  let to = ''
+  let to = undefined as string | undefined
+  let display = true
   switch (currPath) {
     case 'create':
+      display = false
       to = '/'
       break
     case ':id':
       to = '/party/my-parties'
       break
     case ':id/vote':
-      to = `/party/${id}`
+      to = undefined
       break
     case ':id/myVotes':
       to = `/party/${id}`
@@ -44,8 +51,24 @@ const BackIcon = () => {
       to = `/`
   }
 
+  if (customRoute) to = customRoute
+  if (!to) return null
+
+  if (!display && customRoute)
+    return (
+      <Button onClick={() => navigate(customRoute)} sx={styles.c}>
+        <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
+      </Button>
+    )
+  if (!display && customAction) {
+    return (
+      <Button onClick={customAction} sx={styles.c}>
+        <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
+      </Button>
+    )
+  }
   return (
-    <Button onClick={() => navigate(to)} sx={styles.c}>
+    <Button onClick={() => navigate(to ?? `/party/${id}`)} sx={styles.c}>
       <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
     </Button>
   )

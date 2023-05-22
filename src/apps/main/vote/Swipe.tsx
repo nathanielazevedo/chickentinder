@@ -1,6 +1,5 @@
 import API from '../../../api'
 import VoteTime from './VoteTime'
-import VoteResults from '../VoteResults'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import VoteRestaurant from './VoteRestaurant'
@@ -18,10 +17,8 @@ const Swipe = () => {
   const { id } = useParams<{ id: string }>()
   const [party, setParty] = useState<Party>()
   const [rLikes, setRLikes] = useState<string[]>([])
-  const [tLikes, setTLikes] = useState<string[]>([])
   const [votingStage, setVotingStage] = useState('loading')
 
-  // Get Party
   useEffect(() => {
     const getParty = async () => {
       if (!id) return
@@ -37,7 +34,6 @@ const Swipe = () => {
     getParty()
   }, [id, navigate])
 
-  // Finish Restaurant Vote
   const fRV = async (rLikes: string[]) => {
     if (party?.vote_on_time) {
       setRLikes(rLikes)
@@ -55,18 +51,16 @@ const Swipe = () => {
         updatePartyInLocal(party)
       } else addPartyToLocal(party)
 
-      setVotingStage('complete')
+      navigate(`/party/${id}/myVotes?c=true`)
     } catch {
       console.log('error')
     }
   }
 
-  // Finish Time Vote
   const fTV = async (likes: string[]) => {
     try {
       if (!id) return
       await API.vote(id, rLikes, likes)
-      setTLikes(likes)
 
       const party = getPartyFromLocal(id)
       if (party) {
@@ -76,7 +70,7 @@ const Swipe = () => {
         updatePartyInLocal(party)
       } else addPartyToLocal(party)
 
-      setVotingStage('complete')
+      navigate(`/party/${id}/myVotes?c=true`)
     } catch {
       console.log('error')
     }
@@ -91,8 +85,6 @@ const Swipe = () => {
       return <VoteRestaurant restaurants={party?.restaurants} fRV={fRV} />
     case 'times':
       return <VoteTime times_to_vote_on={party.times_to_vote_on} fTV={fTV} />
-    case 'complete':
-      return <VoteResults party={party} rlikes={rLikes} tLikes={tLikes} />
     default:
       return <Loading />
   }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import VoteIcons from './VoteIcons'
 import { Swipe, getSwipe } from './SwipeUtils'
-import { Box, Card, Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 
 type Props = {
   times_to_vote_on: { id: string }[]
@@ -26,11 +26,11 @@ const VoteTime = ({ times_to_vote_on, fTV }: Props) => {
       <Typography variant='h5' alignSelf='flex-end' mb='5px'>
         {index + 1} of {length}
       </Typography>
-      <Card elevation={3} className={getSwipe(time.id, swipe)} sx={styles.c}>
+      <Box className={getSwipe(time.id, swipe)} sx={styles.c}>
         <Box sx={styles.iC}>
           <Typography variant='h1'>{time.id}</Typography>
         </Box>
-      </Card>
+      </Box>
       <VoteIcons
         index={index}
         item={time}
@@ -47,20 +47,20 @@ export default VoteTime
 
 const styles = {
   c: {
+    height: '350px',
     display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'center',
-    height: '200px',
-    width: { xs: '350px', md: '500px' },
     borderRadius: '10px',
+    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
     backgroundColor: 'black',
+    width: { xs: '350px', md: '500px' },
   },
   iC: {
     height: '100%',
     display: 'flex',
+    alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    alignItems: 'center',
   },
 }

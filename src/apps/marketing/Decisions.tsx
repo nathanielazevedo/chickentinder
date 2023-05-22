@@ -6,7 +6,7 @@ const Decisions = () => {
   return (
     <Box sx={styles.container}>
       <Box sx={styles.innerContainer}>
-        <Box width={{ xs: '90%', md: '60%' }}>
+        <Box width={{ xs: '90%', sm: '90%', lg: '700px' }}>
           <TwoStack
             variant='dark'
             title='Make Decisions Faster'
