@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
 import { useState } from 'react'
 import emailjs from '@emailjs/browser'
-import { contactSchema } from '../apps/createParty/CreateHelpers'
+import { contactSchema } from '../create/CreateHelpers'
 import { FormControl, TextField, Button, Typography } from '@mui/material'
 
 const Contact = () => {

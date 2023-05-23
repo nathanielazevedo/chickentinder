@@ -1,21 +1,13 @@
-import { useEffect, useState } from 'react'
-import Loading from '../../components/Loading'
+import { setRParty } from '../../state'
+import { Link } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
-import { Link, useNavigate } from 'react-router-dom'
+import { useAppDispatch } from '../../state/redux'
 import MainButton from '../../components/MainButton'
 import { LocalParty, getPartiesFromLocal } from '../../utils/localStorage'
 
 const MyParties = () => {
-  const navigate = useNavigate()
-  const [myParties, setMyParties] = useState<LocalParty[]>()
-
-  useEffect(() => {
-    const parties = getPartiesFromLocal()
-    if (!parties) navigate('/')
-    else setMyParties(parties)
-  }, [navigate])
-
-  if (!myParties) return <Loading />
+  const dispatch = useAppDispatch()
+  dispatch(setRParty(undefined))
 
   return (
     <>
@@ -23,7 +15,7 @@ const MyParties = () => {
         Your Parties
       </Typography>
       <Box display='flex' flexDirection='column' gap='10px'>
-        {myParties.map((party: LocalParty) => (
+        {getPartiesFromLocal().map((party: LocalParty) => (
           <Link
             key={party._id}
             to={`/party/` + party._id}

@@ -1,4 +1,4 @@
-import Button from './Button'
+import Button from '../apps/marketing/Button'
 import { Link } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 

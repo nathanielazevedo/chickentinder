@@ -1,51 +1,40 @@
-import API from '../../api'
-import { Party } from '../../models/Party'
+import { useEffect } from 'react'
+import { fetchParty } from '../../state'
 import RCard from '../../components/RCard'
-import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import { Box, Typography } from '@mui/material'
-import { addVotesTo } from '../../utils/general'
-import { Restaurant } from '../../models/Restaurant'
 import LinearProgess from '../../components/LinearProgess'
+import { useAppDispatch, useAppSelector } from '../../state/redux'
 
 const Results = () => {
+  const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>()
-  const [party, setParty] = useState<Party>()
-  const [tWinner, setTWinner] = useState<string>()
-  const [rWinner, setRWinner] = useState<Restaurant>()
+  const party = useAppSelector((state) => state.party)
 
   useEffect(() => {
-    const getParty = async () => {
-      try {
-        if (!id) return
-        const party = await API.getParty(id)
-        if (party.r_winner) setRWinner(party.r_winner)
-        if (party.t_winner) setTWinner(party.t_winner)
-        addVotesTo(party.restaurants, party.r_votes)
-        addVotesTo(party.times_to_vote_on, party.t_votes)
-        setParty(party)
-      } catch {
-        console.log('error')
-      }
+    try {
+      if (!id || party) return
+      dispatch(fetchParty(id))
+    } catch {
+      console.log('error')
     }
-    getParty()
-  }, [id])
+  }, [dispatch, id, party])
 
   if (!party) return <Loading />
 
-  if (rWinner) {
+  if (party.r_winner) {
     return (
       <>
         <Typography variant='h4' color='secondary'>
           Winner
         </Typography>
-        {tWinner && (
+        {party.t_winner && (
           <Typography color='secondary'>
-            {rWinner.name} at {tWinner}
+            {party.r_winner.name} at {party.t_winner}
           </Typography>
         )}
-        <RCard restaurant={rWinner} swipe={{ id: '', direction: '' }} />
+        <RCard restaurant={party.r_winner} swipe={{ id: '', direction: '' }} />
       </>
     )
   }

@@ -1,29 +1,28 @@
 import API from '../../api'
 import Results from './Results'
-import { Party } from '../../models/Party'
+import { fetchParty } from '../../state'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Typography } from '@mui/material'
+import { useAppDispatch, useAppSelector } from '../../state/redux'
+import Loading from '../../components/Loading'
 
 const Manage = () => {
+  const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>()
-  const [party, setParty] = useState<Party>()
   const [winner, setWinner] = useState(false)
+  const party = useAppSelector((state) => state.party)
 
   useEffect(() => {
-    const getParty = async () => {
-      if (!id) return
-      try {
-        const party = await API.getParty(id)
-        if (party.r_winner) setWinner(true)
-        setParty(party)
-      } catch (err) {
-        console.log(err)
-      }
+    try {
+      if (!id || party) return
+      dispatch(fetchParty(id))
+    } catch {
+      console.log('error')
     }
-    getParty()
-  }, [id])
+  }, [dispatch, id, party])
 
+  //todo move this into redux
   const endParty = async () => {
     try {
       if (!id || !party) return
@@ -35,7 +34,7 @@ const Manage = () => {
   }
 
   if (winner) return <Results />
-
+  if (!party) return <Loading />
   return (
     <>
       {party && (
@@ -45,19 +44,21 @@ const Manage = () => {
             {party.voters_so_far} / {party.max_voters} voters have voted
           </Typography>
           <Results />
-          <Button
-            color='error'
-            variant='outlined'
-            onClick={endParty}
-            sx={{
-              fontSize: '12px',
-              position: 'absolute',
-              top: '20px',
-              right: '10px',
-            }}
-          >
-            End voting
-          </Button>
+          {!party.r_winner && (
+            <Button
+              color='error'
+              variant='outlined'
+              onClick={endParty}
+              sx={{
+                fontSize: '12px',
+                position: 'absolute',
+                top: '20px',
+                right: '10px',
+              }}
+            >
+              End voting
+            </Button>
+          )}
         </>
       )}
     </>

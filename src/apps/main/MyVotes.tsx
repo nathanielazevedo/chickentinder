@@ -1,9 +1,10 @@
-import API from '../../api'
+import { fetchParty } from '../../state'
 import { useEffect, useState } from 'react'
 import { Typography, Box } from '@mui/material'
 import CreateLoad from '../../components/Loading'
 import { Restaurant } from '../../models/Restaurant'
 import MyVoteConfirmation from './dialogs/MyVoteConfirmation'
+import { useAppDispatch, useAppSelector } from '../../state/redux'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import {
   getPartiesFromLocal,
@@ -13,20 +14,22 @@ import {
 const MyVotes = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
   const [searchParams] = useSearchParams()
   const [showC, setShowC] = useState(false)
   const [tLikes, setTLikes] = useState<string[]>()
+  const party = useAppSelector((state) => state.party)
   const [restaurants, setRestaurants] = useState<Restaurant[]>()
 
   useEffect(() => {
     const getParty = async () => {
       if (!id) return navigate('/')
-      const party = await API.getParty(id)
+      if (!party) return dispatch(fetchParty(id))
       const partiesInLocal = getPartiesFromLocal()
       if (!partiesInLocal) navigate('/party/' + id)
-      if (partiesInLocal) {
+      else {
         const lParty = getPartyFromLocal(id)
-        if (!lParty) navigate('/party/' + id)
+        if (!lParty || !lParty.voted) navigate('/party/' + id)
         else {
           setRestaurants(
             party.restaurants.filter((restaurant) =>
@@ -37,10 +40,10 @@ const MyVotes = () => {
           else setTLikes([])
         }
       }
-      if (searchParams.get('c')) setShowC(true)
+      searchParams.get('c') && setShowC(true)
     }
     getParty()
-  }, [id, navigate, searchParams])
+  }, [dispatch, id, navigate, party, searchParams])
 
   if (!restaurants || !tLikes || !id) return <CreateLoad />
 

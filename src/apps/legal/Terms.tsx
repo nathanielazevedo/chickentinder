@@ -1,4 +1,4 @@
-import BackIcon from './BackIcon'
+import BackIcon from '../../components/BackIcon'
 import { Box } from '@mui/material'
 
 const Terms = () => {

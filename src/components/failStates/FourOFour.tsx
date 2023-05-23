@@ -1,4 +1,4 @@
-import MainButton from './MainButton'
+import MainButton from '../MainButton'
 import { useNavigate } from 'react-router-dom'
 import { Box, Typography } from '@mui/material'
 

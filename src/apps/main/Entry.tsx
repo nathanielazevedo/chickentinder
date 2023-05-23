@@ -1,6 +1,7 @@
 import API from '../../api'
+import { setRParty } from '../../state'
 import PartyDeleted from './PartyDeleted'
-import { Party } from '../../models/Party'
+import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
 import { Box, Typography } from '@mui/material'
@@ -16,13 +17,15 @@ import {
   removePartyFromLocal,
   setFirstParty,
 } from '../../utils/localStorage'
+import { useAppSelector } from '../../state/redux'
 
 const Entry = () => {
   const { id } = useParams()
+  const dispatch = useDispatch()
   const [searchParams] = useSearchParams()
   const [voted, setVoted] = useState(false)
-  const [party, setParty] = useState<Party>()
   const [showDelete, setShowDelete] = useState(false)
+  const party = useAppSelector((state) => state.party)
   const [showPassword, setShowPassword] = useState(false)
   const [showNewDialog, setShowNewDialog] = useState(false)
 
@@ -31,6 +34,7 @@ const Entry = () => {
       try {
         if (!id) return
         const res = await API.getParty(id)
+        dispatch(setRParty(res))
         const newParty = { _id: id, voted: false, name: res.name }
         const partiesInLocal = haveLocalParties()
         if (!partiesInLocal) setFirstParty(newParty)
@@ -40,7 +44,6 @@ const Entry = () => {
           else setVoted(party.voted)
         }
         if (searchParams.get('new')) setShowNewDialog(true)
-        setParty(res)
       } catch {
         id && removePartyFromLocal(id)
         setShowDelete(true)
@@ -48,7 +51,7 @@ const Entry = () => {
     }
 
     getParty()
-  }, [id, searchParams])
+  }, [dispatch, id, searchParams])
 
   if (showDelete) return <PartyDeleted />
   if (!party) return <Loading />
@@ -110,10 +113,21 @@ const Entry = () => {
           What would you like to do?
         </Typography>
         <Link
-          to={voted ? `/party/${id}/myVotes` : `/party/${id}/vote`}
+          to={
+            voted
+              ? `/party/${id}/myVotes`
+              : party.r_winner
+              ? `/party/${id}`
+              : `/party/${id}/vote`
+          }
           style={{ height: '50px' }}
         >
-          <MainButton text={voted ? 'View My Votes' : 'Vote'} />
+          <MainButton
+            disabled={(party.r_winner && !voted) ?? false}
+            text={
+              voted ? 'View My Votes' : party.r_winner ? 'Party Over' : 'Vote'
+            }
+          />
         </Link>
         <Link
           to={`/party/${id}/results`}

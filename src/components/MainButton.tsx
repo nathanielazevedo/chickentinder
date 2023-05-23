@@ -3,7 +3,7 @@ import { Button, Typography } from '@mui/material'
 type Props = {
   text: string
   onClick?: () => void
-  disabled?: boolean
+  disabled?: boolean | undefined
 }
 
 const MainButton = ({ text, onClick, disabled = false }: Props) => {
