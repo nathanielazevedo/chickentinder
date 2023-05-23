@@ -4,7 +4,6 @@ type Props = {
   card: {
     title: string
     description: string
-    icon: string
   }
   i: number
 }
