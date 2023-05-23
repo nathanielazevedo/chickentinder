@@ -5,24 +5,22 @@ import { CreateParty, Party } from './models/Party'
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
 const mock = process.env.NODE_ENV === 'production' ? false : false
+const headers = {
+  'Content-Type': 'application/json',
+  'Access-Control-Allow-Origin': '*',
+}
+
+const POST = { method: 'POST', headers }
 
 export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl
 
 const getParty = async (id: string): Promise<Party> => {
   if (mock) return party
-
-  return fetch(baseUrl + 'party/' + id, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  })
+  return fetch(baseUrl + 'party/' + id, { method: 'GET' })
     .then(async (res) => {
       if (res.status !== 200) throw new Error('Error getting party')
-      return res.json().then((data) => {
-        return data
-      })
+      return await res.json().then((data) => data)
     })
     .catch((err) => {
       throw new Error(err)
@@ -31,24 +29,11 @@ const getParty = async (id: string): Promise<Party> => {
 
 const createParty = async (formData: CreateParty): Promise<Party> => {
   if (mock) return party
-  return fetch(baseUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    body: JSON.stringify(formData),
-  })
+  const body = JSON.stringify(formData)
+  return fetch(baseUrl, { ...POST, body })
     .then(async (res) => {
-      if (res.status === 200) {
-        return res.json().then((party) => {
-          return party
-        })
-      } else {
-        return res.json().then((party) => {
-          return { error: party }
-        })
-      }
+      if (res.status === 200) return res.json().then((party) => party)
+      else return await res.json().then((party) => ({ error: party }))
     })
     .catch((err) => {
       console.log(err)
@@ -65,24 +50,11 @@ type rP = {
 //TODO: add error handling
 const fetchRestaurants = async (formData: rP): Promise<any> => {
   if (mock) return restaurants
-  return fetch(baseUrl + 'restaurants', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-    },
-    body: JSON.stringify(formData),
-  })
+  const body = JSON.stringify(formData)
+  return fetch(baseUrl + 'restaurants', { ...POST, body })
     .then(async (res) => {
-      if (res.status === 200) {
-        return res.json().then((data) => {
-          return data
-        })
-      } else {
-        return res.json().then((data) => {
-          return { error: data }
-        })
-      }
+      if (res.status === 200) return res.json().then((data) => data)
+      else return await res.json().then((data) => ({ error: data }))
     })
     .catch((err) => {
       console.log(err)
@@ -94,18 +66,11 @@ const vote = async (
   rLikes: string[],
   tLikes: string[] | null
 ): Promise<Party> => {
-  return fetch(baseUrl + 'party/' + id + '/vote', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ rLikes, tLikes }),
-  })
+  const body = JSON.stringify({ rLikes, tLikes })
+  return fetch(baseUrl + 'party/' + id + '/vote', { ...POST, body })
     .then(async (res) => {
       if (res.status !== 200) throw new Error('Error voting')
-      return res.json().then((party) => {
-        return party
-      })
+      return await res.json().then((party) => party)
     })
     .catch((err) => {
       console.log(err)
@@ -115,38 +80,28 @@ const vote = async (
 const validatePassword = async (
   id: string,
   password: string
-): Promise<boolean> => {
+): Promise<boolean | void> => {
   if (mock) return true
-  return fetch(baseUrl + 'party/' + id + '/password', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ password: password }),
-  }).then((res) => {
-    if (res.status === 200) {
-      return true
-    } else {
-      return false
-    }
-  })
+  const body = JSON.stringify({ password })
+  return fetch(baseUrl + 'party/' + id + '/password', { ...POST, body })
+    .then((res) => {
+      if (res.status === 200) return true
+      else return false
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 const endParty = async (id: string): Promise<Party> => {
-  return fetch(baseUrl + 'party/' + id + '/end', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  }).then((res) => {
-    if (res.status === 200) {
-      return res.json().then((party) => {
-        return party.r_winner
-      })
-    } else {
-      return false
-    }
-  })
+  return fetch(baseUrl + 'party/' + id + '/end', { ...POST })
+    .then((res) => {
+      if (res.status === 200) return res.json().then((party) => party.r_winner)
+      else return false
+    })
+    .catch((err) => {
+      console.log(err)
+    })
 }
 
 export default {
