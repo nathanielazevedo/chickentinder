@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { Party } from '../models/Party'
 import API from '../api'
@@ -11,7 +12,8 @@ export type PartySlice = typeof initialState
 // First, create the thunk
 export const fetchParty = createAsyncThunk(
   'party/fetchById',
-  async (id: string, thunkAPI) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (id: string, _thunkAPI: any) => {
     const response = await API.getParty(id)
     return response
   }
