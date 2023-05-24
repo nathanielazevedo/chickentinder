@@ -65,7 +65,6 @@ export const rNoChecks = [
     display_phone: '(760) 290-3520',
     distance: 1853.7821535245944,
     checked: true,
-    votes: 0,
   },
   {
     id: '3rqvZnEUbGIuCKHsBWLFLg',
@@ -110,7 +109,6 @@ export const rNoChecks = [
     phone: '+17606533230',
     display_phone: '(760) 653-3230',
     distance: 3235.8926326354317,
-    votes: 0,
   },
 ] as Restaurant[]
 
@@ -159,7 +157,6 @@ export const rChecks = [
     display_phone: '(760) 290-3520',
     distance: 1853.7821535245944,
     checked: true,
-    votes: 0,
   },
   {
     id: '3rqvZnEUbGIuCKHsBWLFLg',
@@ -205,6 +202,5 @@ export const rChecks = [
     display_phone: '(760) 653-3230',
     distance: 3235.8926326354317,
     checked: true,
-    votes: 0,
   },
 ] as Restaurant[]
