@@ -8,7 +8,7 @@ import { BrowserRouter } from 'react-router-dom'
 // Tests
 describe('Renders Navbar', async () => {
   it('Should render Navbar', async () => {
-    // Setup & Exepctations
+    // Setup & Expectations
     render(
       <BrowserRouter>
         <NavBar />

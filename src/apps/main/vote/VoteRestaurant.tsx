@@ -17,8 +17,6 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
   const restaurant = restaurants[index]
   const length = restaurants.length
 
-  console.log('VoteRestaurant', restaurants)
-
   useEffect(() => {
     restaurants.forEach((restaurant) => {
       const img = new Image()

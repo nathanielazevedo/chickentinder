@@ -7,7 +7,6 @@ import { Party } from '../../../models/Party'
 import { useNavigate } from 'react-router-dom'
 import Loading from '../../../components/Loading'
 import {
-  addPartyToLocal,
   getPartyFromLocal,
   updatePartyInLocal,
 } from '../../../utils/localStorage'
@@ -49,7 +48,7 @@ const Swipe = () => {
         party.voteRestaurants = rLikes
         party.voted = true
         updatePartyInLocal(party)
-      } else addPartyToLocal(party)
+      }
 
       navigate(`/party/${id}/myVotes?c=true`)
     } catch {
@@ -68,7 +67,7 @@ const Swipe = () => {
         party.voteRestaurants = rLikes
         party.voted = true
         updatePartyInLocal(party)
-      } else addPartyToLocal(party)
+      }
 
       navigate(`/party/${id}/myVotes?c=true`)
     } catch {

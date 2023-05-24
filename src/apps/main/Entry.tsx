@@ -17,7 +17,6 @@ import {
   getPartyFromLocal,
   haveLocalParties,
   removePartyFromLocal,
-  setFirstParty,
 } from '../../utils/localStorage'
 
 const Entry = () => {
@@ -27,6 +26,7 @@ const Entry = () => {
   const [voted, setVoted] = useState(false)
   const [showDelete, setShowDelete] = useState(false)
   const party = useAppSelector((state) => state.party)
+  console.log('party', party)
   const [showPassword, setShowPassword] = useState(false)
   const [showNewDialog, setShowNewDialog] = useState(false)
 
@@ -38,7 +38,7 @@ const Entry = () => {
         dispatch(setRParty(res))
         const newParty = { _id: id, voted: false, name: res.name }
         const partiesInLocal = haveLocalParties()
-        if (!partiesInLocal) setFirstParty(newParty)
+        if (!partiesInLocal) addPartyToLocal(newParty)
         else {
           const party = getPartyFromLocal(id)
           if (!party) addPartyToLocal(newParty)
@@ -48,6 +48,7 @@ const Entry = () => {
       } catch (error: unknown) {
         const err = error as Error
         if (err?.message) {
+          console.log('err', err.message)
           id && removePartyFromLocal(id)
           setShowDelete(true)
         }

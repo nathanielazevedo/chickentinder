@@ -21,7 +21,6 @@ import {
   Button,
   Radio,
 } from '@mui/material'
-import BackIcon from '../../components/BackIcon'
 
 type Props = {
   values: valueType
@@ -70,7 +69,6 @@ const CreateForm = ({
         setFieldValue,
       }) => (
         <form onSubmit={handleSubmit}>
-          <BackIcon customRoute='/' />
           <Typography mb='20px' variant='h3'>
             Let's Create a Party
           </Typography>

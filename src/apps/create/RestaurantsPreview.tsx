@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import CustomDialog from './CustomDialog'
 import Checkbox from '@mui/material/Checkbox'
-import BackIcon from '../../components/BackIcon'
 import MainButton from '../../components/MainButton'
 import { Box, Link, Typography } from '@mui/material'
 import {
@@ -56,7 +55,6 @@ const RestaurantsPreview = ({
 
   return (
     <>
-      <BackIcon customAction={() => setRestaurants(undefined)} />
       {customOpen && (
         <CustomDialog
           open={customOpen}

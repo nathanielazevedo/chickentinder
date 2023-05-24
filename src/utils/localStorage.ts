@@ -1,14 +1,22 @@
+export type PreLocalParty = {
+  _id: string
+  name: string
+  voted: boolean
+}
+
 export type LocalParty = {
   _id: string
   name: string
   voted: boolean
+  voteRestaurants: string[]
+  voteTime: string[]
 }
 
 export const haveLocalParties = () => {
   return localStorage.getItem('parties') !== null
 }
 
-export const getPartiesFromLocal = () => {
+export const getPartiesFromLocal = (): LocalParty[] | null => {
   const parties = localStorage.getItem('parties')
   return parties ? JSON.parse(parties) : null
 }
@@ -18,7 +26,12 @@ export const getPartyFromLocal = (id: string) => {
   return parties ? parties.find((party: LocalParty) => party._id === id) : null
 }
 
-export const addPartyToLocal = (party: LocalParty) => {
+export const addPartyToLocal = (preParty: PreLocalParty) => {
+  const party = {
+    ...preParty,
+    voteRestaurants: [],
+    voteTimes: [],
+  }
   const parties = getPartiesFromLocal()
   if (parties) {
     localStorage.setItem('parties', JSON.stringify([...parties, party]))
@@ -37,10 +50,6 @@ export const updatePartyInLocal = (party: LocalParty) => {
       )
     )
   }
-}
-
-export const setFirstParty = (party: LocalParty) => {
-  localStorage.setItem('parties', JSON.stringify([party]))
 }
 
 export const removePartyFromLocal = (id: string) => {

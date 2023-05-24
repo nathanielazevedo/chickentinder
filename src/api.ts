@@ -20,7 +20,7 @@ const getParty = async (id: string): Promise<Party> => {
   if (mock) return party
   return fetch(baseUrl + 'party/' + id, { method: 'GET' })
     .then(async (res) => {
-      if (res.status === 200) return await res.json().then((data) => data)
+      if (res.ok) return await res.json().then((data) => data)
       else if (res.status === 403) throw new Error('deleted')
       else throw new Error()
     })
@@ -34,7 +34,7 @@ const createParty = async (formData: CreateParty): Promise<Party> => {
   const body = JSON.stringify(formData)
   return fetch(baseUrl, { ...POST, body })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error()
+      if (!res.ok) throw new Error()
       return res.json().then((party) => party)
     })
     .catch(() => {
@@ -54,7 +54,7 @@ const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
   const body = JSON.stringify(formData)
   return fetch(baseUrl + 'restaurants', { ...POST, body })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error()
+      if (!res.status) throw new Error()
       return res.json().then((data) => data)
     })
     .catch(() => {
@@ -86,7 +86,7 @@ const validatePassword = async (
   const body = JSON.stringify({ password })
   return fetch(baseUrl + 'party/' + id + '/password', { ...POST, body })
     .then((res) => {
-      if (res.status === 200) return true
+      if (res.ok) return true
       else return false
     })
     .catch((err) => {
@@ -97,7 +97,7 @@ const validatePassword = async (
 const endParty = async (id: string): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/end', { ...POST })
     .then((res) => {
-      if (res.status === 200) return res.json().then((party) => party.r_winner)
+      if (res.ok) return res.json().then((party) => party.r_winner)
       else return false
     })
     .catch((err) => {
