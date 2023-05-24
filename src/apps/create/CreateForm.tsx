@@ -177,6 +177,7 @@ const CreateForm = ({
                   )}
                 </Box>
                 <Switch
+                  checked={voteTime}
                   onChange={(e) => {
                     setTimeError(false)
                     setVoteTime(e.target.checked)

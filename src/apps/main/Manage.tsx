@@ -1,6 +1,6 @@
 import API from '../../api'
 import Results from './Results'
-import { fetchParty } from '../../state'
+import { fetchParty, endParty as rEndParty } from '../../state'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Button, Typography } from '@mui/material'
@@ -26,6 +26,7 @@ const Manage = () => {
   const endParty = async () => {
     try {
       if (!id || !party) return
+      dispatch(rEndParty(id))
       await API.endParty(id)
       setWinner(true)
     } catch (err) {

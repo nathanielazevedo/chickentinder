@@ -97,7 +97,7 @@ const validatePassword = async (
 const endParty = async (id: string): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/end', { ...POST })
     .then((res) => {
-      if (res.ok) return res.json().then((party) => party.r_winner)
+      if (res.ok) return res.json().then((party) => party)
       else return false
     })
     .catch((err) => {

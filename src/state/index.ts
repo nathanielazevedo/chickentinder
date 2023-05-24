@@ -10,12 +10,19 @@ const initialState = {
 
 export type PartySlice = typeof initialState
 
-// First, create the thunk
 export const fetchParty = createAsyncThunk(
   'party/fetchById',
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async (id: string, _thunkAPI: any) => {
     const response = await API.getParty(id)
+    return response
+  }
+)
+export const endParty = createAsyncThunk(
+  'party/endById',
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async (id: string, _thunkAPI: any) => {
+    const response = await API.endParty(id)
     return response
   }
 )
@@ -37,6 +44,9 @@ export const partySlice = createSlice({
     })
     builder.addCase(fetchParty.rejected, (state) => {
       state.party = null
+    })
+    builder.addCase(endParty.fulfilled, (state, action) => {
+      state.party = action.payload
     })
   },
 })
