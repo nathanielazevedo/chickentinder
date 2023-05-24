@@ -1,6 +1,7 @@
 import { party } from './mockData/mockP'
 import { restaurants } from './mockData/mockR'
 import { CreateParty, Party } from './models/Party'
+import { Restaurant } from './models/Restaurant'
 
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
@@ -19,11 +20,12 @@ const getParty = async (id: string): Promise<Party> => {
   if (mock) return party
   return fetch(baseUrl + 'party/' + id, { method: 'GET' })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error('Error getting party')
-      return await res.json().then((data) => data)
+      if (res.status === 200) return await res.json().then((data) => data)
+      else if (res.status === 403) throw new Error('deleted')
+      else throw new Error()
     })
-    .catch((err) => {
-      throw new Error(err)
+    .catch(() => {
+      throw new Error()
     })
 }
 
@@ -32,11 +34,11 @@ const createParty = async (formData: CreateParty): Promise<Party> => {
   const body = JSON.stringify(formData)
   return fetch(baseUrl, { ...POST, body })
     .then(async (res) => {
-      if (res.status === 200) return res.json().then((party) => party)
-      else return await res.json().then((party) => ({ error: party }))
+      if (res.status !== 200) throw new Error()
+      return res.json().then((party) => party)
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
+      throw new Error()
     })
 }
 
@@ -47,17 +49,16 @@ type rP = {
   number_of_restaurants: number
 }
 
-//TODO: add error handling
-const fetchRestaurants = async (formData: rP): Promise<any> => {
+const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
   if (mock) return restaurants
   const body = JSON.stringify(formData)
   return fetch(baseUrl + 'restaurants', { ...POST, body })
     .then(async (res) => {
-      if (res.status === 200) return res.json().then((data) => data)
-      else return await res.json().then((data) => ({ error: data }))
+      if (res.status !== 200) throw new Error()
+      return res.json().then((data) => data)
     })
-    .catch((err) => {
-      console.log(err)
+    .catch(() => {
+      throw new Error()
     })
 }
 

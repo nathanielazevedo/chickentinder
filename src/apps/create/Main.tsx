@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import CreateLoad from '../../components/Loading'
 import RestaurantsPreview from './RestaurantsPreview'
 import { addPartyToLocal } from '../../utils/localStorage'
-import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
+import { CustomRestaurant as CR, Restaurant } from '../../models/Restaurant'
 import {
   hoursInitial,
   valueInitial,
@@ -14,7 +14,6 @@ import {
   addChecks,
   getCheckedRestaurants,
   getLikedLength,
-  noRMessage,
 } from './CreateHelpers'
 
 const Create = () => {
@@ -25,36 +24,37 @@ const Create = () => {
   const [values, setValues] = useState(valueInitial)
   const [voteOnTime, setVoteOnTime] = useState(false)
   const [generalError, setGeneralError] = useState('')
-  const [restaurants, setRestaurants] =
-    useState<(Restaurant | CustomRestaurant)[]>()
+  const [restaurants, setRestaurants] = useState<(Restaurant | CR)[]>()
 
   const fetchRestaurants = async (values: valueType) => {
     if (voteOnTime && getLikedLength(hours) < 2) return setTimeError(true)
     setValues(values)
     setLoading(true)
     try {
-      const restaurants = await API.fetchRestaurants(values)
-      const { error } = restaurants
-      if (error?.message) setGeneralError(error.message)
-      else if (!restaurants.length) setGeneralError(noRMessage)
-      else setRestaurants(addChecks(restaurants))
-      setLoading(false)
+      setRestaurants(addChecks(await API.fetchRestaurants(values)))
+      setGeneralError('')
     } catch {
-      setLoading(false)
+      setGeneralError('There was an error fetching restaurants.')
     }
+    setLoading(false)
   }
 
   const createParty = async () => {
     if (!restaurants) return
-    const party = await API.createParty({
-      ...values,
-      restaurants: getCheckedRestaurants(restaurants),
-      vote_on_time: voteOnTime,
-      times_to_vote_on: getLikedHours(hours),
-    })
-    const { _id, name } = party
-    addPartyToLocal({ _id, name, voted: false })
-    navigate(`/party/${_id}?new=true`)
+    try {
+      const party = await API.createParty({
+        ...values,
+        restaurants: getCheckedRestaurants(restaurants),
+        vote_on_time: voteOnTime,
+        times_to_vote_on: getLikedHours(hours),
+      })
+      const { _id, name } = party
+      addPartyToLocal({ _id, name, voted: false })
+      navigate(`/party/${_id}?new=true`)
+    } catch {
+      setGeneralError('There was an error creating the party.')
+      setLoading(false)
+    }
   }
 
   if (loading) return <CreateLoad />
@@ -64,6 +64,7 @@ const Create = () => {
       <RestaurantsPreview
         restaurants={restaurants}
         createParty={createParty}
+        generalError={generalError}
         setRestaurants={setRestaurants}
       />
     )
@@ -72,14 +73,14 @@ const Create = () => {
   return (
     <CreateForm
       values={values}
-      fetchRestaurants={fetchRestaurants}
-      voteTime={voteOnTime}
-      setVoteTime={setVoteOnTime}
       hours={hours}
       setHours={setHours}
       timeError={timeError}
+      voteTime={voteOnTime}
+      setVoteTime={setVoteOnTime}
       generalError={generalError}
       setTimeError={setTimeError}
+      fetchRestaurants={fetchRestaurants}
     />
   )
 }

@@ -69,6 +69,7 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
             >
               <Typography
                 onClick={() => navigate('/party/my-parties')}
+                fontWeight={300}
                 fontSize={{
                   xs: '12px',
                   sm: '14px',

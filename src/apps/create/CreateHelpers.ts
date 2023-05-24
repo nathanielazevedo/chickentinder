@@ -73,12 +73,12 @@ export const contactSchema = object({
 
 export const toMeters = (miles: number) => {
   const meters = miles * 1609.34
-  return Math.floor(meters)
+  return Math.round(meters)
 }
 
 export const toMiles = (km: number) => {
   const miles = km / 1609.34
-  return Math.floor(miles)
+  return Math.round(miles)
 }
 
 export const getLikedHours = (hours: hoursType) => {

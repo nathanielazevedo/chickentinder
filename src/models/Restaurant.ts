@@ -20,7 +20,7 @@ export type Restaurant = {
   location: {
     address1: string
     address2?: string | null
-    address3?: string
+    address3?: string | null
     city: string
     zip_code?: string
     country?: string
@@ -30,8 +30,7 @@ export type Restaurant = {
   phone: string
   display_phone: string
   distance: number
-  checked: boolean
-  votes: number
+  checked?: boolean
 }
 
 export type CustomRestaurant = {

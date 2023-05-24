@@ -4,7 +4,7 @@ import { Party } from '../models/Party'
 import API from '../api'
 
 const initialState = {
-  party: undefined as Party | undefined,
+  party: undefined as Party | undefined | null,
 }
 
 export type PartySlice = typeof initialState
@@ -30,6 +30,9 @@ export const partySlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchParty.fulfilled, (state, action) => {
       state.party = action.payload
+    })
+    builder.addCase(fetchParty.rejected, (state) => {
+      state.party = null
     })
   },
 })

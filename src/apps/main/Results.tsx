@@ -52,8 +52,10 @@ const Results = () => {
             <Typography color='secondary'>{restaurant.name}</Typography>
             <Box width='100%'>
               <LinearProgess
-                realValue={restaurant.votes}
-                value={Math.round((100 / party.max_voters) * restaurant.votes)}
+                realValue={party.r_votes[restaurant.id]}
+                value={Math.round(
+                  (100 / party.max_voters) * party.r_votes[restaurant.id]
+                )}
               />
             </Box>
           </Box>
@@ -66,14 +68,15 @@ const Results = () => {
       )}
       {party.vote_on_time &&
         party.times_to_vote_on.map((time) => {
-          if (!time.votes) time.votes = 0
           return (
             <Box key={time.id} sx={styles.rC}>
               <Typography color='secondary'>{time.id}</Typography>
               <Box width='100%'>
                 <LinearProgess
-                  realValue={time.votes}
-                  value={Math.round((100 / party.max_voters) * time.votes)}
+                  realValue={party.t_votes[time.id]}
+                  value={Math.round(
+                    (100 / party.max_voters) * party.t_votes[time.id]
+                  )}
                 />
               </Box>
             </Box>

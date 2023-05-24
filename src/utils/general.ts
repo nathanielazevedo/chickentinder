@@ -1,4 +1,3 @@
-import { Restaurant } from '../models/Restaurant'
 import {
   small_0,
   small_1,
@@ -11,42 +10,6 @@ import {
   small_4_half,
   small_5,
 } from '../assets/yelp'
-
-const localUrl = 'http://localhost:5173/'
-const prodUrl = 'https://www.thechickentinder.com/'
-
-export const getBaseUrl = () => {
-  return process.env.NODE_ENV === 'development' ? localUrl : prodUrl
-}
-
-export const toMiles = (km: number) => {
-  const miles = km / 1609.34
-  return Math.floor(miles)
-}
-
-type Vote = {
-  [time: string]: number
-}
-
-export const addVotesTo = (
-  items:
-    | Restaurant[]
-    | {
-        id: string
-        votes?: number | undefined
-      }[],
-  votes: Vote
-) => {
-  items.forEach((item) => {
-    if (votes[item.id]) item.votes = votes[item.id]
-    else item.votes = 0
-  })
-  items.sort((a, b) => {
-    if (!a.votes) a.votes = 0
-    if (!b.votes) b.votes = 0
-    return b.votes - a.votes
-  })
-}
 
 export const getStarsImage = (rating: number) => {
   switch (rating) {
@@ -73,4 +36,10 @@ export const getStarsImage = (rating: number) => {
     default:
       return small_0
   }
+}
+
+const localUrl = 'http://localhost:5173/'
+const prodUrl = 'https://www.thechickentinder.com/'
+export const getBaseUrl = () => {
+  return process.env.NODE_ENV === 'development' ? localUrl : prodUrl
 }

@@ -13,6 +13,7 @@ import {
 type Props = {
   restaurants: (Restaurant | CustomRestaurant)[]
   createParty: () => void
+  generalError: string
   setRestaurants: React.Dispatch<
     React.SetStateAction<(Restaurant | CustomRestaurant)[] | undefined>
   >
@@ -21,6 +22,7 @@ type Props = {
 const RestaurantsPreview = ({
   restaurants,
   createParty,
+  generalError,
   setRestaurants,
 }: Props) => {
   const [customOpen, setCustomOpen] = useState(false)
@@ -75,6 +77,11 @@ const RestaurantsPreview = ({
               : 'Create the Party!'
           }
         />
+        {generalError && (
+          <Typography color='error' mt='10px'>
+            {generalError}
+          </Typography>
+        )}
       </Box>
       <Box m='25px 0'>
         <Box

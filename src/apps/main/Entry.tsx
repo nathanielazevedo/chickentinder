@@ -5,10 +5,12 @@ import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
 import { Box, Typography } from '@mui/material'
+import { getBaseUrl } from '../../utils/general'
+import { toMiles } from '../create/CreateHelpers'
+import { useAppSelector } from '../../state/redux'
 import MainButton from '../../components/MainButton'
 import NewPartyDialog from './dialogs/NewPartyDialog'
 import PasswordDialog from './dialogs/PasswordDialog'
-import { getBaseUrl, toMiles } from '../../utils/general'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import {
   addPartyToLocal,
@@ -17,7 +19,6 @@ import {
   removePartyFromLocal,
   setFirstParty,
 } from '../../utils/localStorage'
-import { useAppSelector } from '../../state/redux'
 
 const Entry = () => {
   const { id } = useParams()
@@ -44,9 +45,12 @@ const Entry = () => {
           else setVoted(party.voted)
         }
         if (searchParams.get('new')) setShowNewDialog(true)
-      } catch {
-        id && removePartyFromLocal(id)
-        setShowDelete(true)
+      } catch (error: unknown) {
+        const err = error as Error
+        if (err?.message) {
+          id && removePartyFromLocal(id)
+          setShowDelete(true)
+        }
       }
     }
 
