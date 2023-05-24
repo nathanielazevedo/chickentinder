@@ -10,7 +10,8 @@ import { useEffect, useState } from 'react'
 import { getPartiesFromLocal, haveLocalParties } from '../../utils/localStorage'
 
 const Intro = () => {
-  const [myParties, setMyParties] = useState([])
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [myParties, setMyParties] = useState<any>([])
 
   useEffect(() => {
     if (haveLocalParties()) setMyParties(getPartiesFromLocal())
