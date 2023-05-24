@@ -91,7 +91,6 @@ export const restaurants = [
     display_phone: '(760) 653-3230',
     distance: 3235.8926326354317,
     checked: true,
-    votes: 0,
   },
   {
     id: 'PczpdcaqLR9EaGUcbqkS2w',
@@ -133,7 +132,6 @@ export const restaurants = [
     display_phone: '(442) 515-3147',
     distance: 1789.2162125697143,
     checked: true,
-    votes: 0,
   },
   {
     id: 'SCrEOKR5uKHXo0a4BUsPhA',
@@ -175,7 +173,6 @@ export const restaurants = [
     display_phone: '(760) 539-7890',
     distance: 2155.7905769225304,
     checked: true,
-    votes: 0,
   },
   {
     id: 'tqjS0NLuXpNQ0D_eeE_ghA',
@@ -217,6 +214,5 @@ export const restaurants = [
     display_phone: '(760) 539-7104',
     distance: 325.364797176378,
     checked: true,
-    votes: 0,
   },
 ] as Restaurant[]

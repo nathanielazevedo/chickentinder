@@ -197,7 +197,6 @@ export const party = {
       display_phone: '(760) 539-7890',
       distance: 2155.7905769225304,
       checked: true,
-      votes: 0,
     },
     {
       id: 'tqjS0NLuXpNQ0D_eeE_ghA',
