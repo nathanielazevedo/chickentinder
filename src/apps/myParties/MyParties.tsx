@@ -15,7 +15,7 @@ const MyParties = () => {
         Your Parties
       </Typography>
       <Box display='flex' flexDirection='column' gap='10px'>
-        {getPartiesFromLocal().map((party: LocalParty) => (
+        {getPartiesFromLocal()?.map((party: LocalParty) => (
           <Link
             key={party._id}
             to={`/party/` + party._id}
