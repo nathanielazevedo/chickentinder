@@ -7,6 +7,8 @@ import {
   matchRoutes,
   useParams,
 } from 'react-router-dom'
+import { useAppDispatch } from '../state/redux'
+import { setSwipeDirection } from '../state'
 
 type Props = {
   customRoute?: string
@@ -18,6 +20,7 @@ const BackIcon = ({ customRoute, customAction }: Props) => {
   const { id } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
+  const dispatch = useAppDispatch()
   const route = matchRoutes(routes, location)
   if (route && route.length > 0)
     currPath = route.find((m) => m.pathname === location.pathname)?.route.path
@@ -71,7 +74,13 @@ const BackIcon = ({ customRoute, customAction }: Props) => {
     )
   }
   return (
-    <Button onClick={() => navigate(to ?? `/party/${id}`)} sx={styles.c}>
+    <Button
+      onClick={() => {
+        dispatch(setSwipeDirection('right'))
+        navigate(to ?? `/party/${id}`)
+      }}
+      sx={styles.c}
+    >
       <ArrowBackIosNewIcon sx={{ fontSize: 30 }} />
     </Button>
   )

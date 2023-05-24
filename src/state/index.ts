@@ -5,6 +5,7 @@ import API from '../api'
 
 const initialState = {
   party: undefined as Party | undefined | null,
+  swipeDirection: 'left' as 'none' | 'left' | 'right',
 }
 
 export type PartySlice = typeof initialState
@@ -26,6 +27,9 @@ export const partySlice = createSlice({
     setRParty: (state, action) => {
       state.party = action.payload
     },
+    setSwipeDirection: (state, action) => {
+      state.swipeDirection = action.payload
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchParty.fulfilled, (state, action) => {
@@ -37,5 +41,5 @@ export const partySlice = createSlice({
   },
 })
 
-export const { setRParty } = partySlice.actions
+export const { setRParty, setSwipeDirection } = partySlice.actions
 export default partySlice.reducer

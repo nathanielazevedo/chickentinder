@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import CustomDialog from './CustomDialog'
 import Checkbox from '@mui/material/Checkbox'
+import SlideIn from '../../components/SlideIn'
 import MainButton from '../../components/MainButton'
 import { Box, Link, Typography } from '@mui/material'
 import {
@@ -54,7 +55,7 @@ const RestaurantsPreview = ({
   }
 
   return (
-    <>
+    <SlideIn>
       {customOpen && (
         <CustomDialog
           open={customOpen}
@@ -131,7 +132,7 @@ const RestaurantsPreview = ({
           </Box>
         ))}
       </Box>
-    </>
+    </SlideIn>
   )
 }
 

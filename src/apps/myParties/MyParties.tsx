@@ -4,13 +4,14 @@ import { Box, Typography } from '@mui/material'
 import { useAppDispatch } from '../../state/redux'
 import MainButton from '../../components/MainButton'
 import { LocalParty, getPartiesFromLocal } from '../../utils/localStorage'
+import SlideIn from '../../components/SlideIn'
 
 const MyParties = () => {
   const dispatch = useAppDispatch()
   dispatch(setRParty(undefined))
 
   return (
-    <>
+    <SlideIn>
       <Typography variant='h4' mb='15px'>
         Your Parties
       </Typography>
@@ -25,7 +26,7 @@ const MyParties = () => {
           </Link>
         ))}
       </Box>
-    </>
+    </SlideIn>
   )
 }
 

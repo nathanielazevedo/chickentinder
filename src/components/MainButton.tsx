@@ -1,4 +1,6 @@
 import { Button, Typography } from '@mui/material'
+import { useAppDispatch } from '../state/redux'
+import { setSwipeDirection } from '../state'
 
 type Props = {
   text: string
@@ -7,10 +9,14 @@ type Props = {
 }
 
 const MainButton = ({ text, onClick, disabled = false }: Props) => {
+  const dispatch = useAppDispatch()
   return (
     <Button
       fullWidth
-      onClick={onClick}
+      onClick={() => {
+        dispatch(setSwipeDirection('left'))
+        onClick && onClick()
+      }}
       variant='outlined'
       disabled={disabled}
       sx={{

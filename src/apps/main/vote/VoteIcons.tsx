@@ -1,10 +1,10 @@
 import { useState } from 'react'
+import DownIcon from './DownIcon'
 import { Swipe } from './SwipeUtils'
-import { Box, Button } from '@mui/material'
+import { Box } from '@mui/material'
 import { Restaurant } from '../../../models/Restaurant'
-import ThumbUpIcon from '@mui/icons-material/ThumbUpOffAlt'
-import ThumbDownIcon from '@mui/icons-material/ThumbDownOffAlt'
-import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
+import UpIcon from './UpIcon'
+import BackIcon from './BackIcon'
 
 type Props = {
   index: number
@@ -16,62 +16,30 @@ type Props = {
 }
 
 const VoteIcons = (props: Props) => {
-  const { index, item, items, setSwipe, setIndex, setLikes } = props
+  const { index } = props
   const [buttonsActive, setButtonsActive] = useState<boolean>(true)
 
   return (
     <Box sx={styles.container}>
-      <Button sx={styles.button}>
-        <ThumbDownIcon
-          color='error'
-          sx={styles.icon}
-          onClick={() => {
-            if (!buttonsActive) return
-            setButtonsActive(false)
-            setSwipe({ id: item.id, direction: 'left' })
-            setTimeout(() => {
-              setIndex((prevState: number) => prevState + 1)
-              setButtonsActive(true)
-            }, 1000)
-          }}
-        />
-      </Button>
+      <DownIcon
+        {...props}
+        buttonsActive={buttonsActive}
+        setButtonsActive={setButtonsActive}
+      />
       {index !== 0 ? (
-        <Button sx={styles.button}>
-          <SettingsBackupRestoreIcon
-            color='warning'
-            sx={styles.icon}
-            onClick={() => {
-              if (!buttonsActive) return
-              setButtonsActive(false)
-              setSwipe({ id: '123', direction: 'left' })
-              setLikes((prevState) => [
-                ...prevState.filter((id) => id != items[index - 1].id),
-              ])
-              setIndex((prevState) => prevState - 1)
-              setButtonsActive(true)
-            }}
-          />
-        </Button>
-      ) : (
-        <Box minWidth='65px'></Box>
-      )}
-      <Button sx={styles.button}>
-        <ThumbUpIcon
-          color='primary'
-          sx={styles.icon}
-          onClick={() => {
-            if (!buttonsActive) return
-            setButtonsActive(false)
-            setLikes((prevState) => [...prevState, item.id])
-            setSwipe({ id: item.id, direction: 'right' })
-            setTimeout(() => {
-              setIndex((prevState) => prevState + 1)
-              setButtonsActive(true)
-            }, 1000)
-          }}
+        <BackIcon
+          {...props}
+          buttonsActive={buttonsActive}
+          setButtonsActive={setButtonsActive}
         />
-      </Button>
+      ) : (
+        <Box minWidth='50px'></Box>
+      )}
+      <UpIcon
+        {...props}
+        buttonsActive={buttonsActive}
+        setButtonsActive={setButtonsActive}
+      />
     </Box>
   )
 }
