@@ -3,7 +3,7 @@ import Hours from './Hours'
 import Options from './Options'
 import { useState } from 'react'
 import { daysType, hoursType } from '../CreateHelpers'
-import BackIcon from '../../../../components/backIcons/BackIconAction'
+import BackIcon from '../../../components/backIcons/BackIconAction'
 
 type Props = {
   days: daysType

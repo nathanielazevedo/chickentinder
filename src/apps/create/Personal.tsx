@@ -1,8 +1,9 @@
 import { Formik } from 'formik'
-import SlideIn from '../../../components/SlideIn'
+import SlideIn from '../../components/SlideIn'
+import MainButton from '../../components/MainButton'
 import { personalSchema, PersonalType } from './CreateHelpers'
-import BackIcon from '../../../components/backIcons/BackIconAction'
-import { Typography, FormControl, TextField, Button } from '@mui/material'
+import BackIcon from '../../components/backIcons/BackIconAction'
+import { Typography, FormControl, TextField } from '@mui/material'
 
 type Props = {
   personalData: PersonalType
@@ -11,10 +12,20 @@ type Props = {
   setPersonalData: (personalData: PersonalType) => void
 }
 
-const CreateForm = ({ personalData, setStep, createParty }: Props) => {
+const CreateForm = ({
+  personalData,
+  setStep,
+  createParty,
+  setPersonalData,
+}: Props) => {
   return (
     <>
-      <BackIcon action={() => setStep(3)} />
+      <BackIcon
+        action={() => {
+          setStep(3)
+          setPersonalData(personalData)
+        }}
+      />
       <SlideIn>
         <Formik
           onSubmit={createParty}
@@ -45,7 +56,10 @@ const CreateForm = ({ personalData, setStep, createParty }: Props) => {
                   label='Party Name'
                   onBlur={handleBlur}
                   value={values.name}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    setPersonalData({ ...personalData, name: e.target.value })
+                    handleChange(e)
+                  }}
                   helperText={touched.name && errors.name}
                   error={Boolean(touched.name) && Boolean(errors.name)}
                 />
@@ -54,7 +68,10 @@ const CreateForm = ({ personalData, setStep, createParty }: Props) => {
                   label='Email'
                   onBlur={handleBlur}
                   value={values.email}
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    setPersonalData({ ...personalData, email: e.target.value })
+                    handleChange(e)
+                  }}
                   helperText={touched.email && errors.email}
                   error={Boolean(touched.email) && Boolean(errors.email)}
                 />
@@ -63,7 +80,13 @@ const CreateForm = ({ personalData, setStep, createParty }: Props) => {
                   type='password'
                   onBlur={handleBlur}
                   fullWidth
-                  onChange={handleChange}
+                  onChange={(e) => {
+                    setPersonalData({
+                      ...personalData,
+                      password: e.target.value,
+                    })
+                    handleChange(e)
+                  }}
                   value={values.password}
                   name='password'
                   error={Boolean(touched.password) && Boolean(errors.password)}
@@ -73,17 +96,7 @@ const CreateForm = ({ personalData, setStep, createParty }: Props) => {
                       : 'You can use this later to manage the party.'
                   }
                 />
-                <Button
-                  type='submit'
-                  variant='outlined'
-                  sx={{
-                    height: '50px',
-                    border: 'none',
-                    backgroundColor: 'rgb(0, 213, 250, 15%)',
-                  }}
-                >
-                  <Typography>Create Party</Typography>
-                </Button>
+                <MainButton type='submit' text='Create Party' />
               </FormControl>
             </form>
           )}

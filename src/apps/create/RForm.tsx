@@ -1,8 +1,7 @@
 import { Formik } from 'formik'
-import SlideIn from '../../../components/SlideIn'
-import { setSwipeDirection } from '../../../state'
-import { useAppDispatch } from '../../../state/redux'
-import BackIcon from '../../../components/backIcons/BackIconTo'
+import SlideIn from '../../components/SlideIn'
+import MainButton from '../../components/MainButton'
+import BackIcon from '../../components/backIcons/BackIconTo'
 import { toMiles, toMeters, rFormSchema, RFormType } from './CreateHelpers'
 import {
   Box,
@@ -12,7 +11,6 @@ import {
   Slider,
   RadioGroup,
   FormControlLabel,
-  Button,
   Radio,
 } from '@mui/material'
 
@@ -22,7 +20,6 @@ type Props = {
 }
 
 const RForm = ({ formData, fetchRestaurants }: Props) => {
-  const dispatch = useAppDispatch()
   return (
     <>
       <BackIcon to='/' />
@@ -93,18 +90,7 @@ const RForm = ({ formData, fetchRestaurants }: Props) => {
                     label='Bars'
                   />
                 </RadioGroup>
-                <Button
-                  type='submit'
-                  onClick={() => dispatch(setSwipeDirection('left'))}
-                  variant='outlined'
-                  sx={{
-                    height: '50px',
-                    border: 'none',
-                    backgroundColor: 'rgb(0, 213, 250, 15%)',
-                  }}
-                >
-                  <Typography>Next</Typography>
-                </Button>
+                <MainButton type='submit' text='Next' />
               </FormControl>
             </form>
           )}

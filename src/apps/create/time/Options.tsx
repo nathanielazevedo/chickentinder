@@ -1,6 +1,6 @@
-import SlideIn from '../../../../components/SlideIn'
+import SlideIn from '../../../components/SlideIn'
 import { Box, Typography } from '@mui/material'
-import MainButton from '../../../../components/MainButton'
+import MainButton from '../../../components/MainButton'
 import { Check } from '@mui/icons-material'
 
 type Props = {

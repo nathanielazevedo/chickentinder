@@ -1,8 +1,8 @@
 import React from 'react'
 import { getLikedLength, hoursInitial, hoursType } from '../CreateHelpers'
-import SlideIn from '../../../../components/SlideIn'
-import MainButton from '../../../../components/MainButton'
-import BackIcon from '../../../../components/backIcons/BackIconAction'
+import SlideIn from '../../../components/SlideIn'
+import MainButton from '../../../components/MainButton'
+import BackIcon from '../../../components/backIcons/BackIconAction'
 import {
   Box,
   Typography,

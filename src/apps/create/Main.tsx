@@ -1,13 +1,14 @@
 import RForm from './RForm'
-import api from '../../../api'
+import api from '../../api'
 import CStepper from './Stepper'
 import { useState } from 'react'
 import RPreview from './RPreview'
 import Personal from './Personal'
 import Time from './time/TimeMain'
 import VotersInfo from './VotersInfo'
-import { CreateParty } from '../../../models/Party'
-import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
+import { useNavigate } from 'react-router-dom'
+import { CreateParty } from '../../models/Party'
+import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
 import {
   PersonalType,
   RFormType,
@@ -21,7 +22,6 @@ import {
   rValuesInitial,
   votersInitial,
 } from './CreateHelpers'
-import { useNavigate } from 'react-router-dom'
 
 type R = (Restaurant | CustomRestaurant)[]
 
@@ -38,11 +38,11 @@ const Main = () => {
   const [personalData, setPersonalData] = useState(pInitial)
 
   const fetchRestaurants = async (rFormData: RFormType) => {
+    setStep(1)
     setrFormData(rFormData)
     const restaurants = await api.fetchRestaurants(rFormData)
     const withChecks = addChecks(restaurants)
     setRestaurants(withChecks)
-    setStep(1)
   }
 
   const completeRestaurants = () => {
@@ -95,16 +95,14 @@ const Main = () => {
     },
     {
       component: () => {
-        if (!restaurants) return null
-        else
-          return (
-            <RPreview
-              setStep={setStep}
-              restaurants={restaurants}
-              setRestaurants={setRestaurants}
-              completeRestaurants={completeRestaurants}
-            />
-          )
+        return (
+          <RPreview
+            setStep={setStep}
+            restaurants={restaurants}
+            setRestaurants={setRestaurants}
+            completeRestaurants={completeRestaurants}
+          />
+        )
       },
     },
     {

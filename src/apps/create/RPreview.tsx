@@ -1,18 +1,18 @@
 import CustomDialog from './CustomDialog'
 import { useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
-import SlideIn from '../../../components/SlideIn'
-import { Box, Link, Typography } from '@mui/material'
-import MainButton from '../../../components/MainButton'
+import SlideIn from '../../components/SlideIn'
+import { Box, Link, Skeleton, Typography } from '@mui/material'
+import MainButton from '../../components/MainButton'
 import {
   CustomRestaurant,
   Restaurant,
   RestaurantCreate,
-} from '../../../models/Restaurant'
-import BackIconAction from '../../../components/backIcons/BackIconAction'
+} from '../../models/Restaurant'
+import BackIconAction from '../../components/backIcons/BackIconAction'
 
 type Props = {
-  restaurants: (Restaurant | CustomRestaurant)[]
+  restaurants: (Restaurant | CustomRestaurant)[] | undefined
   completeRestaurants: () => void
   setStep: React.Dispatch<React.SetStateAction<number>>
   setRestaurants: React.Dispatch<
@@ -41,8 +41,8 @@ const RPreview = ({
   }
 
   const checkedLength = () => {
-    const checked = restaurants.filter((restaurant) => restaurant.checked)
-    return checked.length
+    const checked = restaurants?.filter((restaurant) => restaurant.checked)
+    return checked?.length ? checked.length < 2 : true
   }
 
   const createRestaurant = (restaurant: RestaurantCreate) => {
@@ -85,7 +85,7 @@ const RPreview = ({
           </Box>
           <Box>
             <MainButton
-              disabled={checkedLength() < 2}
+              disabled={restaurants && checkedLength()}
               onClick={completeRestaurants}
               text={'Next'}
             />
@@ -96,7 +96,7 @@ const RPreview = ({
             minHeight: '21px',
           }}
         >
-          {checkedLength() < 2 && (
+          {restaurants && checkedLength() && (
             <Typography color='error' mt='0px'>
               You must select at least 2 restaurants.
             </Typography>
@@ -124,33 +124,41 @@ const RPreview = ({
               <Typography color='primary'>Create custom place</Typography>
             </Box>
           </Box>
-          {restaurants.map((restaurant) => (
-            <Box
-              key={restaurant.id}
-              sx={{
-                gap: '15px',
-                display: 'flex',
-                padding: '10px',
-                margin: '10px 0',
-                alignItems: 'center',
-                borderRadius: '10px',
-                border: '0.1px solid white',
-              }}
-            >
-              <Checkbox
-                checked={restaurant.checked}
-                onChange={() => handleCheck(restaurant.id)}
-              />
-              <Box>
-                <Typography>{restaurant.name}</Typography>
-                {restaurant?.url && (
-                  <Link href={restaurant?.url} target='_blank'>
-                    View on Yelp
-                  </Link>
-                )}
+          {restaurants ? (
+            restaurants.map((restaurant) => (
+              <Box
+                key={restaurant.id}
+                sx={{
+                  gap: '15px',
+                  display: 'flex',
+                  padding: '10px',
+                  margin: '10px 0',
+                  alignItems: 'center',
+                  borderRadius: '10px',
+                  border: '0.1px solid white',
+                }}
+              >
+                <Checkbox
+                  checked={restaurant.checked}
+                  onChange={() => handleCheck(restaurant.id)}
+                />
+                <Box>
+                  <Typography>{restaurant.name}</Typography>
+                  {restaurant?.url && (
+                    <Link href={restaurant?.url} target='_blank'>
+                      View on Yelp
+                    </Link>
+                  )}
+                </Box>
               </Box>
+            ))
+          ) : (
+            <Box display='flex' flexDirection='column' gap='15px' mt='20px'>
+              <Skeleton variant='rectangular' width='100%' height={50} />
+              <Skeleton variant='rectangular' width='100%' height={50} />
+              <Skeleton variant='rectangular' width='100%' height={50} />
             </Box>
-          ))}
+          )}
         </Box>
       </SlideIn>
     </>

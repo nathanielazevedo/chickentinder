@@ -9,7 +9,7 @@ import {
   getLikedLength,
   addChecks,
   getCheckedRestaurants,
-} from '../apps/create/new/CreateHelpers'
+} from '../apps/create/CreateHelpers'
 
 describe('Create Helpers', async () => {
   it('toMeters', async () => {

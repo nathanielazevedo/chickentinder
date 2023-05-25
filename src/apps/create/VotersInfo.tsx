@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
-import SlideIn from '../../../components/SlideIn'
+import SlideIn from '../../components/SlideIn'
 import { votersSchema, votersInitial } from './CreateHelpers'
-import BackIconAction from '../../../components/backIcons/BackIconAction'
+import BackIconAction from '../../components/backIcons/BackIconAction'
 import {
   Box,
   Button,
@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import MainButton from '../../components/MainButton'
 
 type Props = {
   voters: typeof votersInitial
@@ -95,9 +96,7 @@ const VotersInfo = ({ voters, setStep, completeVoteInfo }: Props) => {
                     />
                   )}
                 </FormControl>
-                <Button
-                  type='submit'
-                  variant='outlined'
+                <Box
                   sx={{
                     height: '50px',
                     width: '100px',
@@ -107,8 +106,8 @@ const VotersInfo = ({ voters, setStep, completeVoteInfo }: Props) => {
                     marginTop: '10px',
                   }}
                 >
-                  <Typography>Next</Typography>
-                </Button>
+                  <MainButton type='submit' text='Next' />
+                </Box>
               </Box>
             </form>
           )}

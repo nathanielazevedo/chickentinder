@@ -1,9 +1,10 @@
-import { Button } from '@mui/material'
+import { Box } from '@mui/material'
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import { Link, useNavigate } from 'react-router-dom'
+import MainButton from '../../components/MainButton'
 
 const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
   const navigate = useNavigate()
@@ -61,25 +62,13 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
             </Typography>
           </Link>
           {myPartys && (
-            <Button
-              sx={{
-                border: 'none',
-                backgroundColor: 'rgb(0, 213, 250, 15%)',
-              }}
-            >
-              <Typography
+            <Box>
+              <MainButton
+                text='My Parties'
+                height='30px'
                 onClick={() => navigate('/party/my-parties')}
-                fontWeight={300}
-                fontSize={{
-                  xs: '12px',
-                  sm: '14px',
-                  lg: '14px',
-                  color: 'white',
-                }}
-              >
-                My Parties
-              </Typography>
-            </Button>
+              />
+            </Box>
           )}
         </Toolbar>
       </Container>

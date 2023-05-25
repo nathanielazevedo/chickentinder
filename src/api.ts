@@ -17,16 +17,23 @@ export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl
 
 const getParty = async (id: string): Promise<Party> => {
-  if (mock) return party
-  return fetch(baseUrl + 'party/' + id, { method: 'GET' })
-    .then(async (res) => {
-      if (res.ok) return await res.json().then((data) => data)
-      else if (res.status === 403) throw new Error('deleted')
-      else throw new Error()
+  if (mock) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(party)
+      }, 2000)
     })
-    .catch(() => {
-      throw new Error()
-    })
+  } else {
+    return fetch(baseUrl + 'party/' + id, { method: 'GET' })
+      .then(async (res) => {
+        if (res.ok) return await res.json().then((data) => data)
+        else if (res.status === 403) throw new Error('deleted')
+        else throw new Error()
+      })
+      .catch(() => {
+        throw new Error()
+      })
+  }
 }
 
 const createParty = async (formData: CreateParty): Promise<Party> => {
@@ -50,16 +57,23 @@ type rP = {
 }
 
 const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
-  if (mock) return restaurantsNoChecks
-  const body = JSON.stringify(formData)
-  return fetch(baseUrl + 'restaurants', { ...POST, body })
-    .then(async (res) => {
-      if (!res.status) throw new Error()
-      return res.json().then((data) => data)
+  if (mock) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(restaurantsNoChecks)
+      }, 1000)
     })
-    .catch(() => {
-      throw new Error()
-    })
+  } else {
+    const body = JSON.stringify(formData)
+    return fetch(baseUrl + 'restaurants', { ...POST, body })
+      .then(async (res) => {
+        if (!res.status) throw new Error()
+        return res.json().then((data) => data)
+      })
+      .catch(() => {
+        throw new Error()
+      })
+  }
 }
 
 const vote = async (

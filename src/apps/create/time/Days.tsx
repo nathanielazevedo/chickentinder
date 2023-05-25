@@ -7,10 +7,10 @@ import {
   Checkbox,
 } from '@mui/material'
 import React from 'react'
-import MainButton from '../../../../components/MainButton'
-import SlideIn from '../../../../components/SlideIn'
+import MainButton from '../../../components/MainButton'
+import SlideIn from '../../../components/SlideIn'
 import { daysInitial, daysType, getLikedDaysLength } from '../CreateHelpers'
-import BackIcon from '../../../../components/backIcons/BackIconAction'
+import BackIcon from '../../../components/backIcons/BackIconAction'
 
 type Props = {
   days: daysType

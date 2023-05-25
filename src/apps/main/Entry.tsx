@@ -3,13 +3,12 @@ import { setRParty } from '../../state'
 import PartyDeleted from './PartyDeleted'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-import Loading from '../../components/Loading'
 import SlideIn from '../../components/SlideIn'
-import { Box, Typography } from '@mui/material'
+import { Box, Skeleton, Typography } from '@mui/material'
 import { getBaseUrl } from '../../utils/general'
 import { useAppSelector } from '../../state/redux'
 import MainButton from '../../components/MainButton'
-import { toMiles } from '../create/new/CreateHelpers'
+import { toMiles } from '../create/CreateHelpers'
 import NewPartyDialog from './dialogs/NewPartyDialog'
 import PasswordDialog from './dialogs/PasswordDialog'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
@@ -19,6 +18,7 @@ import {
   haveLocalParties,
   removePartyFromLocal,
 } from '../../utils/localStorage'
+import BackIcon from '../../components/backIcons/BackIconTo'
 
 const Entry = () => {
   const { id } = useParams()
@@ -59,10 +59,10 @@ const Entry = () => {
   }, [dispatch, id, searchParams])
 
   if (showDelete) return <PartyDeleted />
-  if (!party) return <Loading />
 
   return (
     <>
+      <BackIcon to='/party/my-parties' />
       <PasswordDialog open={showPassword} setOpen={setShowPassword} />
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
       <SlideIn>
@@ -76,27 +76,39 @@ const Entry = () => {
           }}
         >
           <Typography variant='h2' mb='10px'>
-            {party.name}
+            {party?.name ?? <Skeleton variant='text' width={200} />}
           </Typography>
+
           <Typography variant='h5'>Details:</Typography>
           <Typography color='secondary'>
-            Within {toMiles(party.max_distance)} miles from {party.location}.
+            {party?.max_distance ? (
+              `Within ${
+                party?.max_distance && toMiles(party?.max_distance)
+              } miles from ${party?.location}.`
+            ) : (
+              <Skeleton variant='text' width={200} />
+            )}
           </Typography>
-          {party.vote_on_hours && (
+          {party?.vote_on_hours && (
             <>
-              <Typography color='secondary' alignSelf='flex-start'>
-                Your party is voting on a time to meet.
-              </Typography>
               <Typography color='secondary' alignSelf='flex-start'>
                 {party.hours_to_vote_on.length} times to vote on.
               </Typography>
             </>
           )}
           <Typography color='secondary'>
-            {party.restaurants.length} {party.type} to vote on.
+            {party?.restaurants.length ? (
+              `${party?.restaurants.length} ${party?.type} to vote on.`
+            ) : (
+              <Skeleton variant='text' width={200} />
+            )}
           </Typography>
           <Typography color='secondary'>
-            {party.voters_so_far}/{party.max_voters} people have voted.
+            {party?.voters_so_far !== undefined ? (
+              `${party?.voters_so_far}/${party?.max_voters} people have voted.`
+            ) : (
+              <Skeleton variant='text' width={200} />
+            )}
           </Typography>
           <Typography mt='10px' variant='h5'>
             Party link:
@@ -105,10 +117,14 @@ const Entry = () => {
               color='primary.main'
               sx={{ wordBreak: 'break-word' }}
             >
-              {getBaseUrl() + 'party/' + party._id}
+              {party ? (
+                getBaseUrl() + 'party/' + party?._id
+              ) : (
+                <Skeleton variant='text' width={200} />
+              )}
             </Typography>
           </Typography>
-          {party.r_winner && (
+          {party?.r_winner && (
             <Typography mt='20px' color='error'>
               This party is closed. The winner is {party?.r_winner?.name}.
             </Typography>
@@ -122,16 +138,26 @@ const Entry = () => {
             to={
               voted
                 ? `/party/${id}/myVotes`
-                : party.r_winner
+                : party?.r_winner
                 ? `/party/${id}`
                 : `/party/${id}/vote`
             }
             style={{ height: '50px' }}
           >
             <MainButton
-              disabled={(party.r_winner && !voted) ?? false}
+              disabled={
+                !party
+                  ? true
+                  : party?.r_winner && !voted && party?.r_winner && !voted
+                  ? true
+                  : false
+              }
               text={
-                voted ? 'View My Votes' : party.r_winner ? 'Party Over' : 'Vote'
+                voted
+                  ? 'View My Votes'
+                  : party?.r_winner
+                  ? 'Party Over'
+                  : 'Vote'
               }
             />
           </Link>
@@ -140,11 +166,13 @@ const Entry = () => {
             style={{ width: '100%', height: '50px' }}
           >
             <MainButton
-              text={party.r_winner ? 'View Winner' : 'View All Votes'}
+              disabled={!party}
+              text={party?.r_winner ? 'View Winner' : 'View All Votes'}
             />
           </Link>
           <Box sx={{ height: '50px' }}>
             <MainButton
+              disabled={!party}
               text='Manage Party'
               onClick={() => setShowPassword(true)}
             />

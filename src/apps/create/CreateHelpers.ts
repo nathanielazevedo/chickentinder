@@ -1,5 +1,5 @@
 import { object, string, number, boolean } from 'yup'
-import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
+import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
 
 export const noRMessage = 'No restaurants found. Please try again.'
 export type hoursType = typeof hoursInitial
