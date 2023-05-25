@@ -1,14 +1,14 @@
 import { useState } from 'react'
 import CustomDialog from './CustomDialog'
 import Checkbox from '@mui/material/Checkbox'
-import SlideIn from '../../components/SlideIn'
-import MainButton from '../../components/MainButton'
+import SlideIn from '../../../components/SlideIn'
+import MainButton from '../../../components/MainButton'
 import { Box, Link, Typography } from '@mui/material'
 import {
   CustomRestaurant,
   Restaurant,
   RestaurantCreate,
-} from '../../models/Restaurant'
+} from '../../../models/Restaurant'
 
 type Props = {
   restaurants: (Restaurant | CustomRestaurant)[]

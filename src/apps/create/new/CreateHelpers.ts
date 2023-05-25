@@ -1,9 +1,8 @@
 import { object, string, number } from 'yup'
-import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
+import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
 
 export const noRMessage = 'No restaurants found. Please try again.'
 export type hoursType = typeof hoursInitial
-export type valueType = typeof valueInitial
 
 export const hoursInitial = {
   '7-8 AM': false,
@@ -25,14 +24,15 @@ export const hoursInitial = {
   '11-12 AM': false,
 }
 
-export const valueInitial = {
-  name: '',
-  location: '',
-  password: '',
-  type: 'restaurants',
-  max_voters: 5,
-  max_distance: 15000,
-  number_of_restaurants: 5,
+export type daysType = typeof daysInitial
+export const daysInitial = {
+  Monday: false,
+  Tuesday: false,
+  Wednesday: false,
+  Thursday: false,
+  Friday: false,
+  Saturday: false,
+  Sunday: false,
 }
 
 export const rvaluesInitial = {
@@ -42,23 +42,6 @@ export const rvaluesInitial = {
   checked: true,
   url: undefined,
 }
-
-export const partySchema = object({
-  name: string().required('Required'),
-  location: string().required('Required'),
-  max_distance: number()
-    .required('Required')
-    .positive()
-    .integer('Must be an integer'),
-  max_voters: number().required('Required').positive().integer().min(2),
-  password: string().required('Required'),
-  type: string().required('Required'),
-  number_of_restaurants: number()
-    .required('Required')
-    .positive()
-    .integer()
-    .min(2),
-})
 
 export const restaurantSchema = object({
   name: string().required('Required'),
@@ -106,4 +89,47 @@ export const getCheckedRestaurants = (
   restaurants: (Restaurant | CustomRestaurant)[]
 ) => {
   return restaurants.filter((r) => r.checked === true)
+}
+
+// Restaurant Form
+export const rFormSchema = object({
+  location: string().required('Required'),
+  max_distance: number()
+    .required('Required')
+    .positive()
+    .integer('Must be an integer'),
+  type: string().required('Required'),
+})
+
+export type rInitial = typeof rValuesInitial
+export const rValuesInitial = {
+  location: '',
+  type: 'restaurants',
+  max_distance: 15000,
+}
+
+// Personal Form
+export const personalSchema = object({
+  name: string().required('Required'),
+  email: string().email().required('Required'),
+  password: string().required('Required'),
+})
+
+export type pInitial = typeof pInitial
+export const pInitial = {
+  name: '',
+  email: '',
+  password: '',
+}
+
+// Voting Form
+export const votersSchema = object({
+  voters: string().required('Required'),
+  votersNumber: number().required('Required').positive().integer().min(2),
+})
+
+export type votersInitial = typeof votersInitial
+export const votersInitial = {
+  voters: false,
+  votersNumber: 0,
 }

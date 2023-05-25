@@ -46,7 +46,7 @@ type rP = {
   location: string
   type: string
   max_distance: number
-  number_of_restaurants: number
+  // number_of_restaurants: number
 }
 
 const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {

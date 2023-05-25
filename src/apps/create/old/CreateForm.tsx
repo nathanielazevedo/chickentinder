@@ -21,7 +21,7 @@ import {
   Button,
   Radio,
 } from '@mui/material'
-import SlideIn from '../../components/SlideIn'
+import SlideIn from '../../../components/SlideIn'
 
 type Props = {
   values: valueType

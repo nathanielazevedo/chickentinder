@@ -1,7 +1,7 @@
 import { Formik } from 'formik'
 import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
-import { RestaurantCreate } from '../../models/Restaurant'
+import { RestaurantCreate } from '../../../models/Restaurant'
 import { restaurantSchema, rvaluesInitial } from './CreateHelpers'
 import { Button, FormControl, TextField, Typography } from '@mui/material'
 
@@ -23,14 +23,12 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
         style: {
           padding: '20px',
           backgroundImage: 'none',
-          backgroundColor: 'black',
-          border: '1px solid #0e6b7d',
           width: '450px',
         },
       }}
     >
       <Typography mb='20px' variant='h3'>
-        Custom Restaurant
+        Custom Place
       </Typography>
       <Formik
         initialValues={values}
@@ -55,7 +53,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
             >
               <TextField
                 name='name'
-                label='Restaurant Name'
+                label='Name'
                 onBlur={handleBlur}
                 value={values.name}
                 onChange={handleChange}
@@ -64,7 +62,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
               />
               <TextField
                 name='location'
-                label='City Name or Zip Code'
+                label='Location'
                 onBlur={handleBlur}
                 onChange={handleChange}
                 value={values.location}
@@ -80,7 +78,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
                   backgroundColor: 'rgb(0, 213, 250, 15%)',
                 }}
               >
-                <Typography>Create Restaurant</Typography>
+                <Typography>Create</Typography>
               </Button>
             </FormControl>
           </form>

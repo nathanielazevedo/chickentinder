@@ -17,7 +17,7 @@ const Container = () => {
           width: { xs: '95%', sm: '500px' },
           maxHeight: { xs: '100%', sm: 'auto' },
           borderRadius: { xs: '0px', sm: '20px' },
-          padding: { xs: '80px 10px', sm: '40px' },
+          padding: { xs: '90px 10px', sm: '40px' },
           minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
         }}
       >

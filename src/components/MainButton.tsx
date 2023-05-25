@@ -21,11 +21,10 @@ const MainButton = ({ text, onClick, disabled = false }: Props) => {
       disabled={disabled}
       sx={{
         height: '100%',
-        border: 'none',
+
         backgroundColor: 'rgb(0, 213, 250, 15%)',
         '&:hover': {
           backgroundColor: 'rgb(0, 213, 250, 25%)',
-          border: 'none',
         },
       }}
     >
