@@ -11,12 +11,7 @@ type Props = {
   setPersonalData: (personalData: PersonalType) => void
 }
 
-const CreateForm = ({
-  personalData,
-  setStep,
-  setPersonalData,
-  createParty,
-}: Props) => {
+const CreateForm = ({ personalData, setStep, createParty }: Props) => {
   return (
     <>
       <BackIcon action={() => setStep(3)} />

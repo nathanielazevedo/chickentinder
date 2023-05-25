@@ -1,5 +1,5 @@
 import { party } from './mockData/mockP'
-import { restaurants, restaurantsNoChecks } from './mockData/mockR'
+import { restaurantsNoChecks } from './mockData/mockR'
 import { CreateParty, Party } from './models/Party'
 import { Restaurant } from './models/Restaurant'
 
