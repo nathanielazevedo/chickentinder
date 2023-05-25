@@ -32,14 +32,18 @@ export type Party = {
 export type CreateParty = {
   name: string
   location: string
+  email: string
   max_distance: number
-  number_of_restaurants: number
   max_voters: number
-  times_to_vote_on: {
-    id: string
-  }[]
-  vote_on_time: boolean
+  vote_on_hours: boolean
+  vote_on_days: boolean
   password: string
   restaurants: (Restaurant | CustomRestaurant)[]
   type: string
+  hours_to_vote_on: {
+    id: string
+  }[]
+  days_to_vote_on: {
+    id: string
+  }[]
 }

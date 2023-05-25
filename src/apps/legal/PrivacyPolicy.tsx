@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-import BackIcon from '../../components/BackIcon'
+import BackIcon from '../../components/backIcons/BackIconTo'
 
 const PrivacyPolicy = () => {
   return (

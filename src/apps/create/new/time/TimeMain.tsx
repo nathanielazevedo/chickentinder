@@ -1,10 +1,9 @@
 import Days from './Days'
 import Hours from './Hours'
 import Options from './Options'
-import { useEffect, useState } from 'react'
-import { setSwipeTo } from '../../../../state'
+import { useState } from 'react'
 import { daysType, hoursType } from '../CreateHelpers'
-import { useAppDispatch } from '../../../../state/redux'
+import BackIcon from '../../../../components/backIcons/BackIconAction'
 
 type Props = {
   days: daysType
@@ -27,12 +26,6 @@ const TimesQuestion = ({
   const [timeError, setTimeError] = useState(false)
   const [dayError, setDayError] = useState(false)
   const [stage, setStage] = useState(0)
-
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    dispatch(setSwipeTo(() => setStep(1)))
-  }, [dispatch, setStep])
 
   const handleTimeQuestion = (answer: string) => {
     setTimeAnswer(answer)
@@ -65,7 +58,7 @@ const TimesQuestion = ({
 
   const handleDays = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
-    console.log(value, checked)
+
     setDayError(false)
     setDays({ ...days, [value]: checked })
   }
@@ -80,7 +73,13 @@ const TimesQuestion = ({
 
   switch (stage) {
     case 0:
-      return <Options handleTimeQuestion={handleTimeQuestion} />
+      return (
+        <>
+          <BackIcon action={() => setStep(1)} />
+          <Options handleTimeQuestion={handleTimeQuestion} />
+        </>
+      )
+
     case 1:
       return (
         <Days

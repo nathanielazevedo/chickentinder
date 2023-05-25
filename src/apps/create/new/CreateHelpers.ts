@@ -1,4 +1,4 @@
-import { object, string, number } from 'yup'
+import { object, string, number, boolean } from 'yup'
 import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
 
 export const noRMessage = 'No restaurants found. Please try again.'
@@ -74,6 +74,16 @@ export const getLikedHours = (hours: hoursType) => {
   }, [] as { id: string }[])
 }
 
+export const getLikedDays = (days: daysType) => {
+  const likedDays = Object.keys(days).filter(
+    (h) => days[h as keyof daysType] === true
+  )
+  return likedDays.reduce((acc, h) => {
+    acc.push({ id: h })
+    return acc
+  }, [] as { id: string }[])
+}
+
 export const getLikedLength = (hours: hoursType) => {
   return Object.keys(hours).filter((h) => hours[h as keyof hoursType] === true)
     .length
@@ -100,8 +110,7 @@ export const rFormSchema = object({
     .integer('Must be an integer'),
   type: string().required('Required'),
 })
-
-export type rInitial = typeof rValuesInitial
+export type RFormType = typeof rValuesInitial
 export const rValuesInitial = {
   location: '',
   type: 'restaurants',
@@ -114,8 +123,7 @@ export const personalSchema = object({
   email: string().email().required('Required'),
   password: string().required('Required'),
 })
-
-export type pInitial = typeof pInitial
+export type PersonalType = typeof pInitial
 export const pInitial = {
   name: '',
   email: '',
@@ -124,12 +132,11 @@ export const pInitial = {
 
 // Voting Form
 export const votersSchema = object({
-  voters: string().required('Required'),
-  votersNumber: number().required('Required').positive().integer().min(2),
+  voters: boolean().required('Required'),
+  max_voters: number().required('Required').positive().integer().min(2),
 })
-
-export type votersInitial = typeof votersInitial
+export type VotersInfo = typeof votersInitial
 export const votersInitial = {
   voters: false,
-  votersNumber: 0,
+  max_voters: 2,
 }

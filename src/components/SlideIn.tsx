@@ -3,7 +3,7 @@ import { useAppSelector } from '../state/redux'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const SlideIn = ({ children }: any) => {
-  const dir = useAppSelector((state) => state.nav.swipeDirection)
+  const dir = useAppSelector((state) => state.swipeDirection)
 
   const props = useSpring({
     from:

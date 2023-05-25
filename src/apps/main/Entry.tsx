@@ -4,11 +4,12 @@ import PartyDeleted from './PartyDeleted'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import Loading from '../../components/Loading'
+import SlideIn from '../../components/SlideIn'
 import { Box, Typography } from '@mui/material'
 import { getBaseUrl } from '../../utils/general'
-import { toMiles } from '../create/old/CreateHelpers'
 import { useAppSelector } from '../../state/redux'
 import MainButton from '../../components/MainButton'
+import { toMiles } from '../create/new/CreateHelpers'
 import NewPartyDialog from './dialogs/NewPartyDialog'
 import PasswordDialog from './dialogs/PasswordDialog'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
@@ -18,7 +19,6 @@ import {
   haveLocalParties,
   removePartyFromLocal,
 } from '../../utils/localStorage'
-import SlideIn from '../../components/SlideIn'
 
 const Entry = () => {
   const { id } = useParams()

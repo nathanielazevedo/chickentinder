@@ -1,8 +1,6 @@
-import React, { useEffect } from 'react'
-import { setSwipeTo } from '../../../../state'
+import React from 'react'
 import { hoursInitial } from '../CreateHelpers'
 import SlideIn from '../../../../components/SlideIn'
-import { useAppDispatch } from '../../../../state/redux'
 import MainButton from '../../../../components/MainButton'
 import {
   Box,
@@ -28,16 +26,6 @@ const Hours = ({
   timeAnswer,
   setStage,
 }: Props) => {
-  const dispatch = useAppDispatch()
-
-  useEffect(() => {
-    if (timeAnswer === 'Just Time') {
-      dispatch(setSwipeTo(() => setStage(0)))
-    } else {
-      dispatch(setSwipeTo(() => setStage(1)))
-    }
-  }, [dispatch, setStage, timeAnswer])
-
   return (
     <SlideIn>
       <Box>

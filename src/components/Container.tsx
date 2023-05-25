@@ -1,4 +1,3 @@
-import BackIcon from './BackIcon'
 import { Box } from '@mui/material'
 import { Outlet } from 'react-router-dom'
 
@@ -21,7 +20,6 @@ const Container = () => {
           minHeight: { xs: 'calc(100vh - 56px)', sm: 'auto' },
         }}
       >
-        <BackIcon />
         <Outlet />
       </Box>
     </Box>

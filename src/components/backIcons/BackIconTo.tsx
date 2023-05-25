@@ -1,25 +1,18 @@
 import { Button } from '@mui/material'
-import { setSwipeDirection } from '../state'
-import { useAppDispatch, useAppSelector } from '../state/redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
+import { setSwipeDirection } from '../../state'
+import { useAppDispatch } from '../../state/redux'
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew'
 
-const BackIcon = () => {
-  const { id } = useParams()
+const BackIcon = ({ to }: { to: string }) => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
-  const to = useAppSelector((state) => state.nav.to)
 
   return (
     <Button
       onClick={() => {
-        if (typeof to === 'string') {
-          dispatch(setSwipeDirection('right'))
-          navigate(to ?? `/party/${id}`)
-        } else {
-          dispatch(setSwipeDirection('right'))
-          to()
-        }
+        dispatch(setSwipeDirection('right'))
+        navigate(to)
       }}
       sx={styles.c}
     >

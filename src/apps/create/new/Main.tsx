@@ -6,24 +6,26 @@ import RPreview from './RPreview'
 import Personal from './Personal'
 import Time from './time/TimeMain'
 import VotersInfo from './VotersInfo'
+import { CreateParty } from '../../../models/Party'
 import { restaurants as rMock } from '../../../mockData/mockR'
 import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
 import {
+  PersonalType,
+  RFormType,
   daysInitial,
+  getLikedDays,
+  getLikedHours,
   hoursInitial,
   pInitial,
-  rInitial,
   rValuesInitial,
   votersInitial,
 } from './CreateHelpers'
-import { Party } from '../../../models/Party'
 
 type R = (Restaurant | CustomRestaurant)[]
 
 const Main = () => {
   const [step, setStep] = useState(0)
   const [restaurants, setRestaurants] = useState<R>()
-  const [generalError, setGeneralError] = useState('')
 
   /// Form Data
   const [days, setDays] = useState(daysInitial)
@@ -33,7 +35,7 @@ const Main = () => {
   const [rFormData, setrFormData] = useState(rValuesInitial)
   const [personalData, setPersonalData] = useState(pInitial)
 
-  const fetchRestaurants = async (rFormData: rInitial) => {
+  const fetchRestaurants = async (rFormData: RFormType) => {
     setrFormData(rFormData)
     // const restaurants = await api.fetchRestaurants(rFormData)
     setRestaurants(rMock)
@@ -54,28 +56,32 @@ const Main = () => {
     setStep(4)
   }
 
-  const createParty = (personalData: any) => {
+  const createParty = (personalData: PersonalType) => {
     setPersonalData(personalData)
+    let vote_on_days = false
+    if (timeQuestion === 'Just Day') vote_on_days = true
+    if (timeQuestion === 'Time and Day') vote_on_days = true
+    let vote_on_hours = false
+    if (timeQuestion === 'Just Time') vote_on_hours = true
+    if (timeQuestion === 'Time and Day') vote_on_hours = true
+
     const data = {
       restaurants,
-      vote_on_time: timeQuestion,
-      days,
-      hours,
-      voters,
-      ...personalData,
       ...rFormData,
-    } as Party
+      vote_on_hours,
+      vote_on_days,
+      ...personalData,
+      max_voters: voters.max_voters,
+      days_to_vote_on: getLikedDays(days),
+      hours_to_vote_on: getLikedHours(hours),
+    } as CreateParty
     console.log(data)
   }
 
   const steps = [
     {
       component: () => (
-        <RForm
-          formData={rFormData}
-          generalError={generalError}
-          fetchRestaurants={fetchRestaurants}
-        />
+        <RForm formData={rFormData} fetchRestaurants={fetchRestaurants} />
       ),
     },
     {
@@ -107,10 +113,10 @@ const Main = () => {
     {
       component: () => (
         <VotersInfo
-          completeVoteInfo={completeVoteInfo}
-          setStep={setStep}
           voters={voters}
+          setStep={setStep}
           setVoters={setVoters}
+          completeVoteInfo={completeVoteInfo}
         />
       ),
     },
