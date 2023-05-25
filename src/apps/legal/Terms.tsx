@@ -10,7 +10,7 @@ const Terms = () => {
           padding: '70px 20px',
         }}
       >
-        <BackIcon />
+        <BackIcon to='/' />
         <style
           dangerouslySetInnerHTML={{
             __html:

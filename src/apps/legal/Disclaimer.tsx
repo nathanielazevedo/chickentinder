@@ -10,7 +10,7 @@ const Disclaimer = () => {
         minHeight: '100vh',
       }}
     >
-      <BackIcon />
+      <BackIcon to='/' />
       <style
         dangerouslySetInnerHTML={{
           __html:
