@@ -82,13 +82,13 @@ const Entry = () => {
           <Typography color='secondary'>
             Within {toMiles(party.max_distance)} miles from {party.location}.
           </Typography>
-          {party.vote_on_time && (
+          {party.vote_on_hours && (
             <>
               <Typography color='secondary' alignSelf='flex-start'>
                 Your party is voting on a time to meet.
               </Typography>
               <Typography color='secondary' alignSelf='flex-start'>
-                {party.times_to_vote_on.length} times to vote on.
+                {party.hours_to_vote_on.length} times to vote on.
               </Typography>
             </>
           )}

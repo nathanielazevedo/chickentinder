@@ -9,7 +9,7 @@ export const party = {
   number_of_restaurants: 5,
   max_voters: 5,
   type: 'restaurants',
-  times_to_vote_on: [
+  hours_to_vote_on: [
     {
       id: '8-9 PM',
     },
@@ -20,7 +20,19 @@ export const party = {
       id: '10-11 PM',
     },
   ],
-  vote_on_time: true,
+  days_to_vote_on: [
+    {
+      id: 'Monday',
+    },
+    {
+      id: 'Tuesday',
+    },
+    {
+      id: 'Wednesday',
+    },
+  ],
+  vote_on_hours: true,
+  vote_on_days: true,
   password: 'ddd',
   restaurants: [
     {
@@ -248,13 +260,19 @@ export const party = {
     SCrEOKR5uKHXo0a4BUsPhA: 0,
     tqjS0NLuXpNQ0D_eeE_ghA: 0,
   },
-  t_votes: {
+  h_votes: {
+    '8-9 PM': 2,
+    '9-10 PM': 0,
+    '10-11 PM': 0,
+  },
+  d_votes: {
     '8-9 PM': 2,
     '9-10 PM': 0,
     '10-11 PM': 0,
   },
   r_winner: null,
-  t_winner: null,
+  h_winner: null,
+  d_winner: null,
   voters_so_far: 0,
   createdAt: '2023-05-20T20:48:25.261Z',
   updatedAt: '2023-05-20T20:48:25.261Z',
