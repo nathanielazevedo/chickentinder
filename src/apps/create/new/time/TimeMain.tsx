@@ -8,24 +8,26 @@ import BackIcon from '../../../../components/backIcons/BackIconAction'
 type Props = {
   days: daysType
   hours: hoursType
+  timeAnswer: string
   completeTime: (time: string) => void
   setStep: React.Dispatch<React.SetStateAction<number>>
   setDays: React.Dispatch<React.SetStateAction<daysType>>
   setHours: React.Dispatch<React.SetStateAction<hoursType>>
+  setTimeAnswer: React.Dispatch<React.SetStateAction<string>>
 }
 
-const TimesQuestion = ({
-  completeTime,
-  setStep,
-  days,
-  hours,
-  setDays,
-  setHours,
-}: Props) => {
-  const [timeAnswer, setTimeAnswer] = useState('')
-  const [timeError, setTimeError] = useState(false)
-  const [dayError, setDayError] = useState(false)
+const TimesQuestion = (props: Props) => {
   const [stage, setStage] = useState(0)
+  const {
+    days,
+    hours,
+    setDays,
+    setStep,
+    setHours,
+    timeAnswer,
+    completeTime,
+    setTimeAnswer,
+  } = props
 
   const handleTimeQuestion = (answer: string) => {
     setTimeAnswer(answer)
@@ -52,14 +54,11 @@ const TimesQuestion = ({
 
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
-    setTimeError(false)
     setHours({ ...hours, [value]: checked })
   }
 
   const handleDays = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
-
-    setDayError(false)
     setDays({ ...days, [value]: checked })
   }
 
@@ -76,28 +75,32 @@ const TimesQuestion = ({
       return (
         <>
           <BackIcon action={() => setStep(1)} />
-          <Options handleTimeQuestion={handleTimeQuestion} />
+          <Options
+            handleTimeQuestion={handleTimeQuestion}
+            timeAnswer={timeAnswer}
+          />
         </>
       )
 
     case 1:
       return (
         <Days
-          completeTime={completeTime}
+          days={days}
           setStage={setStage}
           handleDays={handleDays}
-          handleDaysNext={handleDaysNext}
           isChecked={isCheckedDays}
+          handleDaysNext={handleDaysNext}
         />
       )
     case 2:
       return (
         <Hours
-          completeTime={completeTime}
+          hours={hours}
+          setStage={setStage}
+          timeAnswer={timeAnswer}
           handleHours={handleHours}
           isChecked={isCheckedHours}
-          timeAnswer={timeAnswer}
-          setStage={setStage}
+          completeTime={completeTime}
         />
       )
     default:

@@ -1,5 +1,5 @@
 import { party } from './mockData/mockP'
-import { restaurants } from './mockData/mockR'
+import { restaurants, restaurantsNoChecks } from './mockData/mockR'
 import { CreateParty, Party } from './models/Party'
 import { Restaurant } from './models/Restaurant'
 
@@ -50,7 +50,7 @@ type rP = {
 }
 
 const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
-  if (mock) return restaurants
+  if (mock) return restaurantsNoChecks
   const body = JSON.stringify(formData)
   return fetch(baseUrl + 'restaurants', { ...POST, body })
     .then(async (res) => {
@@ -65,15 +65,16 @@ const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
 const vote = async (
   id: string,
   rLikes: string[],
-  tLikes: string[] | null
+  hLikes: string[] | null
 ): Promise<Party> => {
-  const body = JSON.stringify({ rLikes, tLikes })
+  const body = JSON.stringify({ rLikes, hLikes })
   return fetch(baseUrl + 'party/' + id + '/vote', { ...POST, body })
     .then(async (res) => {
-      if (res.status !== 200) throw new Error('Error voting')
+      if (res.status !== 201) throw new Error('Error voting')
       return await res.json().then((party) => party)
     })
     .catch((err) => {
+      console.log('api 77')
       console.log(err)
     })
 }

@@ -89,6 +89,11 @@ export const getLikedLength = (hours: hoursType) => {
     .length
 }
 
+export const getLikedDaysLength = (days: daysType) => {
+  return Object.keys(days).filter((h) => days[h as keyof daysType] === true)
+    .length
+}
+
 export const addChecks = (restaurants: Restaurant[]) => {
   return restaurants.map((r: Restaurant) => {
     return { ...r, checked: true }

@@ -7,12 +7,13 @@ import Personal from './Personal'
 import Time from './time/TimeMain'
 import VotersInfo from './VotersInfo'
 import { CreateParty } from '../../../models/Party'
-import { restaurants as rMock } from '../../../mockData/mockR'
 import { CustomRestaurant, Restaurant } from '../../../models/Restaurant'
 import {
   PersonalType,
   RFormType,
+  addChecks,
   daysInitial,
+  getCheckedRestaurants,
   getLikedDays,
   getLikedHours,
   hoursInitial,
@@ -20,16 +21,17 @@ import {
   rValuesInitial,
   votersInitial,
 } from './CreateHelpers'
+import { useNavigate } from 'react-router-dom'
 
 type R = (Restaurant | CustomRestaurant)[]
 
 const Main = () => {
+  const navigate = useNavigate()
   const [step, setStep] = useState(0)
-  const [restaurants, setRestaurants] = useState<R>()
-
-  /// Form Data
   const [days, setDays] = useState(daysInitial)
   const [hours, setHours] = useState(hoursInitial)
+  const [timeAnswer, setTimeAnswer] = useState('')
+  const [restaurants, setRestaurants] = useState<R>()
   const [voters, setVoters] = useState(votersInitial)
   const [timeQuestion, setTimeQuestion] = useState('')
   const [rFormData, setrFormData] = useState(rValuesInitial)
@@ -37,8 +39,9 @@ const Main = () => {
 
   const fetchRestaurants = async (rFormData: RFormType) => {
     setrFormData(rFormData)
-    // const restaurants = await api.fetchRestaurants(rFormData)
-    setRestaurants(rMock)
+    const restaurants = await api.fetchRestaurants(rFormData)
+    const withChecks = addChecks(restaurants)
+    setRestaurants(withChecks)
     setStep(1)
   }
 
@@ -56,7 +59,8 @@ const Main = () => {
     setStep(4)
   }
 
-  const createParty = (personalData: PersonalType) => {
+  const createParty = async (personalData: PersonalType) => {
+    if (!restaurants) return
     setPersonalData(personalData)
     let vote_on_days = false
     if (timeQuestion === 'Just Day') vote_on_days = true
@@ -66,7 +70,7 @@ const Main = () => {
     if (timeQuestion === 'Time and Day') vote_on_hours = true
 
     const data = {
-      restaurants,
+      restaurants: getCheckedRestaurants(restaurants),
       ...rFormData,
       vote_on_hours,
       vote_on_days,
@@ -75,7 +79,12 @@ const Main = () => {
       days_to_vote_on: getLikedDays(days),
       hours_to_vote_on: getLikedHours(hours),
     } as CreateParty
-    console.log(data)
+    try {
+      const party = await api.createParty(data)
+      navigate('/party/' + party._id)
+    } catch {
+      console.log('error')
+    }
   }
 
   const steps = [
@@ -102,6 +111,8 @@ const Main = () => {
       component: () => (
         <Time
           completeTime={completeTime}
+          timeAnswer={timeAnswer}
+          setTimeAnswer={setTimeAnswer}
           setStep={setStep}
           hours={hours}
           setHours={setHours}
@@ -115,7 +126,6 @@ const Main = () => {
         <VotersInfo
           voters={voters}
           setStep={setStep}
-          setVoters={setVoters}
           completeVoteInfo={completeVoteInfo}
         />
       ),

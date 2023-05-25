@@ -11,6 +11,7 @@ import {
   getPartyFromLocal,
 } from '../../utils/localStorage'
 import SlideIn from '../../components/SlideIn'
+import BackIcon from '../../components/backIcons/BackIconTo'
 
 const MyVotes = () => {
   const { id } = useParams()
@@ -50,6 +51,7 @@ const MyVotes = () => {
 
   return (
     <>
+      <BackIcon to={'/party/' + id} />
       <MyVoteConfirmation open={showC} setOpen={setShowC} />
       <SlideIn>
         <Typography variant='h4' mb='20px'>

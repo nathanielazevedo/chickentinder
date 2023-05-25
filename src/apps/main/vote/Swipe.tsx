@@ -34,7 +34,7 @@ const Swipe = () => {
   }, [id, navigate])
 
   const fRV = async (rLikes: string[]) => {
-    if (party?.vote_on_time) {
+    if (party?.vote_on_hours) {
       setRLikes(rLikes)
       setVotingStage('times')
       return
@@ -57,6 +57,7 @@ const Swipe = () => {
   }
 
   const fTV = async (likes: string[]) => {
+    console.log('fTV')
     try {
       if (!id) return
       await API.vote(id, rLikes, likes)
@@ -83,7 +84,7 @@ const Swipe = () => {
     case 'restaurants':
       return <VoteRestaurant restaurants={party?.restaurants} fRV={fRV} />
     case 'times':
-      return <VoteTime times_to_vote_on={party.times_to_vote_on} fTV={fTV} />
+      return <VoteTime times_to_vote_on={party.hours_to_vote_on} fTV={fTV} />
     default:
       return <Loading />
   }

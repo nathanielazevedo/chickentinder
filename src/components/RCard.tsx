@@ -10,7 +10,6 @@ type Props = {
 }
 
 const RCard = ({ restaurant, swipe }: Props) => {
-  console.log(restaurant)
   return (
     <Box className={getSwipe(restaurant?.id, swipe)} sx={styles.c}>
       {restaurant?.image_url && (

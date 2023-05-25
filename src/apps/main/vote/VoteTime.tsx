@@ -15,6 +15,7 @@ const VoteTime = ({ times_to_vote_on, fTV }: Props) => {
   const length = times_to_vote_on.length
 
   if (index === length) {
+    console.log('vt19')
     fTV(likes)
     return <></>
   }

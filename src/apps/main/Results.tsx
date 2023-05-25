@@ -7,6 +7,7 @@ import { Box, Typography } from '@mui/material'
 import LinearProgess from '../../components/LinearProgess'
 import { useAppDispatch, useAppSelector } from '../../state/redux'
 import SlideIn from '../../components/SlideIn'
+import BackIcon from '../../components/backIcons/BackIconTo'
 
 const Results = () => {
   const dispatch = useAppDispatch()
@@ -26,66 +27,75 @@ const Results = () => {
 
   if (party.r_winner) {
     return (
-      <SlideIn>
-        <Typography variant='h4' color='secondary'>
-          Winner
-        </Typography>
-        {party.t_winner && (
-          <Typography color='secondary'>
-            {party.r_winner.name} at {party.t_winner}
+      <>
+        <BackIcon to={'/party/' + id} />
+        <SlideIn>
+          <Typography variant='h4' color='secondary'>
+            Winner
           </Typography>
-        )}
-        <RCard restaurant={party.r_winner} swipe={{ id: '', direction: '' }} />
-      </SlideIn>
+          {party.h_winner && (
+            <Typography color='secondary'>
+              {party.r_winner.name} at {party.h_winner}
+            </Typography>
+          )}
+          <RCard
+            restaurant={party.r_winner}
+            swipe={{ id: '', direction: '' }}
+          />
+        </SlideIn>
+      </>
     )
   }
 
   return (
-    <SlideIn>
-      <Box display='flex' flexDirection='column' alignItems='center'>
-        {party && (
-          <Typography variant='h4' alignSelf='flex-start' mb='10px'>
-            Restaurants
-          </Typography>
-        )}
-        {party.restaurants.map((restaurant) => {
-          return (
-            <Box key={restaurant.id} sx={styles.rC}>
-              <Typography color='secondary'>{restaurant.name}</Typography>
-              <Box width='100%'>
-                <LinearProgess
-                  realValue={party.r_votes[restaurant.id]}
-                  value={Math.round(
-                    (100 / party.max_voters) * party.r_votes[restaurant.id]
-                  )}
-                />
-              </Box>
-            </Box>
-          )
-        })}
-        {party.vote_on_time && (
-          <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
-            Times
-          </Typography>
-        )}
-        {party.vote_on_time &&
-          party.times_to_vote_on.map((time) => {
+    <>
+      <BackIcon to={'/party/' + id} />
+      <SlideIn>
+        <Box display='flex' flexDirection='column' alignItems='center'>
+          {party && (
+            <Typography variant='h4' alignSelf='flex-start' mb='10px'>
+              Restaurants
+            </Typography>
+          )}
+          {party.restaurants.map((restaurant) => {
             return (
-              <Box key={time.id} sx={styles.rC}>
-                <Typography color='secondary'>{time.id}</Typography>
+              <Box key={restaurant.id} sx={styles.rC}>
+                <Typography color='secondary'>{restaurant.name}</Typography>
                 <Box width='100%'>
                   <LinearProgess
-                    realValue={party.t_votes[time.id]}
+                    realValue={party.r_votes[restaurant.id]}
                     value={Math.round(
-                      (100 / party.max_voters) * party.t_votes[time.id]
+                      (100 / party.max_voters) * party.r_votes[restaurant.id]
                     )}
                   />
                 </Box>
               </Box>
             )
           })}
-      </Box>
-    </SlideIn>
+          {party.vote_on_hours && (
+            <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
+              Times
+            </Typography>
+          )}
+          {party.vote_on_hours &&
+            party.hours_to_vote_on.map((hour) => {
+              return (
+                <Box key={hour.id} sx={styles.rC}>
+                  <Typography color='secondary'>{hour.id}</Typography>
+                  <Box width='100%'>
+                    <LinearProgess
+                      realValue={party.h_votes[hour.id]}
+                      value={Math.round(
+                        (100 / party.max_voters) * party.h_votes[hour.id]
+                      )}
+                    />
+                  </Box>
+                </Box>
+              )
+            })}
+        </Box>
+      </SlideIn>
+    </>
   )
 }
 
