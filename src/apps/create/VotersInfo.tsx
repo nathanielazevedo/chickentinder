@@ -4,7 +4,6 @@ import { votersSchema, votersInitial } from './CreateHelpers'
 import BackIconAction from '../../components/backIcons/BackIconAction'
 import {
   Box,
-  Button,
   FormControl,
   FormControlLabel,
   Radio,
