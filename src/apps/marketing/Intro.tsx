@@ -6,6 +6,7 @@ import Organize from './Organize'
 import Decisions from './Decisions'
 import AppStore from './GetStarted'
 import HowItWorks from './HowItWorks'
+import CookieConsent from './CookieConsent'
 import { useEffect, useState } from 'react'
 import { getPartiesFromLocal, haveLocalParties } from '../../utils/localStorage'
 
@@ -27,6 +28,7 @@ const Intro = () => {
       <Decisions />
       <Faq />
       <Footer />
+      <CookieConsent />
     </>
   )
 }
