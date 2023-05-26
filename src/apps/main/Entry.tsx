@@ -4,14 +4,16 @@ import PartyDeleted from './PartyDeleted'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import SlideIn from '../../components/SlideIn'
-import { Box, Skeleton, Typography } from '@mui/material'
-import { getBaseUrl } from '../../utils/general'
+import { Alert, Box, Chip, Skeleton, Typography } from '@mui/material'
 import { useAppSelector } from '../../state/redux'
-import MainButton from '../../components/MainButton'
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
+import HowToVoteOutlinedIcon from '@mui/icons-material/HowToVoteOutlined'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { toMiles } from '../create/CreateHelpers'
 import NewPartyDialog from './dialogs/NewPartyDialog'
 import PasswordDialog from './dialogs/PasswordDialog'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
+import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined'
 import {
   addPartyToLocal,
   getPartyFromLocal,
@@ -70,7 +72,7 @@ const Entry = () => {
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
       <SlideIn>
         <Box
-          mb='30px'
+          mb='15px'
           sx={{
             padding: '20px',
             borderRadius: '10px',
@@ -82,7 +84,6 @@ const Entry = () => {
             {party?.name ?? <Skeleton variant='text' width={200} />}
           </Typography>
 
-          <Typography variant='h5'>Details:</Typography>
           <Typography color='secondary'>
             {party?.max_distance ? (
               `Within ${
@@ -113,30 +114,19 @@ const Entry = () => {
               <Skeleton variant='text' width={200} />
             )}
           </Typography>
-          <Typography mt='10px' variant='h5'>
-            Party link:
-            <Typography
-              fontSize='11px'
-              color='primary.main'
-              sx={{ wordBreak: 'break-word' }}
-            >
-              {party ? (
-                getBaseUrl() + 'party/' + party?._id
-              ) : (
-                <Skeleton variant='text' width={200} />
-              )}
-            </Typography>
-          </Typography>
           {party?.r_winner && (
             <Typography mt='20px' color='error'>
               This party is closed. The winner is {party?.r_winner?.name}.
             </Typography>
           )}
         </Box>
-        <Box display='flex' flexDirection='column' gap='20px' width='100%'>
-          <Typography variant='h4' color='secondary'>
-            What would you like to do?
-          </Typography>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+          }}
+        >
           <Link
             to={
               voted
@@ -145,42 +135,68 @@ const Entry = () => {
                 ? `/party/${id}`
                 : `/party/${id}/vote`
             }
-            style={{ height: '50px' }}
           >
-            <MainButton
-              disabled={
-                !party
-                  ? true
-                  : party?.r_winner && !voted && party?.r_winner && !voted
-                  ? true
-                  : false
-              }
-              text={
+            <Chip
+              label={
                 voted
                   ? 'View My Votes'
                   : party?.r_winner
                   ? 'Party Over'
                   : 'Vote'
               }
+              variant='outlined'
+              clickable
+              icon={
+                <HowToVoteOutlinedIcon
+                  sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
+                />
+              }
             />
           </Link>
-          <Link
-            to={`/party/${id}/results`}
-            style={{ width: '100%', height: '50px' }}
-          >
-            <MainButton
-              disabled={!party}
-              text={party?.r_winner ? 'View Winner' : 'View All Votes'}
+          <Link to={`/party/${id}/results`}>
+            <Chip
+              label={party?.r_winner ? 'View Winner' : 'View Votes'}
+              variant='outlined'
+              clickable
+              icon={
+                <RemoveRedEyeOutlinedIcon
+                  sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
+                />
+              }
             />
           </Link>
-          <Box sx={{ height: '50px' }}>
-            <MainButton
-              disabled={!party}
-              text='Manage Party'
-              onClick={() => setShowPassword(true)}
-            />
-          </Box>
+          <Chip
+            label='Manage'
+            variant='outlined'
+            onClick={() => setShowPassword(true)}
+            icon={
+              <ManageAccountsOutlinedIcon
+                sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
+              />
+            }
+          />
+          <Chip
+            label='Share'
+            variant='outlined'
+            clickable
+            icon={
+              <ShareOutlinedIcon
+                sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
+              />
+            }
+          />
         </Box>
+        {party?.r_winner && (
+          <Alert
+            severity='success'
+            variant='outlined'
+            sx={{
+              marginTop: '20px',
+            }}
+          >
+            This party is over!
+          </Alert>
+        )}
       </SlideIn>
     </>
   )

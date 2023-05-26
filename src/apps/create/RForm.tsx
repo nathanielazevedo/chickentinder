@@ -59,7 +59,6 @@ const RForm = ({ rError, formData, fetchRestaurants }: Props) => {
                     alignItems: 'center',
                   }}
                 >
-                  <Typography mr='20px'>Party Type:</Typography>
                   <FormControlLabel
                     value='restaurants'
                     control={<Radio />}
@@ -74,6 +73,7 @@ const RForm = ({ rError, formData, fetchRestaurants }: Props) => {
                 <TextField
                   name='location'
                   label='City Name or Zip Code'
+                  variant='outlined'
                   onBlur={handleBlur}
                   onChange={handleChange}
                   value={values.location}

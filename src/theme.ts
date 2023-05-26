@@ -84,4 +84,14 @@ export const theme = {
       fontSize: 14,
     },
   },
+  components: {
+    MuiChip: {
+      styleOverrides: {
+        outlined: {
+          borderColor: 'rgb(14, 107, 125)',
+          color: colorTokens.primary[500],
+        },
+      },
+    },
+  },
 }

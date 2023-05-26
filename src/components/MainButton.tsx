@@ -30,11 +30,8 @@ const MainButton = ({
         dispatch(setSwipeDirection('left'))
         onClick && onClick()
       }}
-      variant='outlined'
       disabled={disabled}
       sx={{
-        display: 'flex',
-        alignItems: 'center',
         height: height ?? '50px',
         border: !selected ? 'none' : 'grey 1px solid',
         backgroundColor: 'rgb(0, 213, 250, 15%)',
