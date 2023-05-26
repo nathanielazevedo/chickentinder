@@ -105,7 +105,6 @@ const Swipe = () => {
   }
 
   const handleBack = (res: string) => {
-    console.log(res)
     if (res === 'cancel') {
       setDialogOpen(false)
       return
@@ -126,7 +125,10 @@ const Swipe = () => {
     navigate(`/party/${id}`)
   }
 
-  if (!id) return navigate('/party/' + id)
+  if (!id) {
+    navigate('/party/' + id)
+    return null
+  }
 
   switch (votingStage) {
     case 'restaurants':
@@ -177,6 +179,8 @@ const Swipe = () => {
           />
         </>
       )
+    default:
+      return null
   }
 }
 
