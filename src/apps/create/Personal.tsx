@@ -42,7 +42,7 @@ const CreateForm = ({
           }) => (
             <form onSubmit={handleSubmit}>
               <Typography mb='20px' variant='h3'>
-                Let's Create a Party
+                Final Step
               </Typography>
               <FormControl
                 sx={{
@@ -72,7 +72,11 @@ const CreateForm = ({
                     setPersonalData({ ...personalData, email: e.target.value })
                     handleChange(e)
                   }}
-                  helperText={touched.email && errors.email}
+                  helperText={
+                    errors.email && touched.email
+                      ? errors.email
+                      : 'Used to handle a forgotten password or lost party link.'
+                  }
                   error={Boolean(touched.email) && Boolean(errors.email)}
                 />
                 <TextField

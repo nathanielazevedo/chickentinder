@@ -83,11 +83,15 @@ const RPreview = ({
               Uncheck the ones you don't like.
             </Typography>
           </Box>
-          <Box>
+          <Box
+            sx={{
+              width: '90px',
+            }}
+          >
             <MainButton
               disabled={restaurants && checkedLength()}
               onClick={completeRestaurants}
-              text={'Next'}
+              text='Next'
             />
           </Box>
         </Box>
@@ -103,27 +107,10 @@ const RPreview = ({
           )}
         </Box>
         <Box m='15px 0'>
-          <Box
-            onClick={() => setCustomOpen(!customOpen)}
-            sx={{
-              gap: '15px',
-              display: 'flex',
-              padding: '10px',
-              margin: '10px 0',
-              borderRadius: '10px',
-              cursor: 'pointer',
-              alignItems: 'center',
-              justifyContent: 'center',
-              border: '0.1px solid white',
-            }}
-          >
-            <Box display='flex' gap='5px' alignItems='center'>
-              <Typography color='primary' variant='h4'>
-                +
-              </Typography>
-              <Typography color='primary'>Create custom place</Typography>
-            </Box>
-          </Box>
+          <MainButton
+            text='+ Add custom place'
+            onClick={() => setCustomOpen(true)}
+          />
           {restaurants ? (
             restaurants.map((restaurant) => (
               <Box

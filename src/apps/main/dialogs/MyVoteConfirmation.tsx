@@ -18,8 +18,6 @@ const MyVoteConfirmation = ({ open, setOpen }: Props) => {
         style: {
           padding: '20px',
           backgroundImage: 'none',
-          backgroundColor: 'black',
-          border: '1px solid #0e6b7d',
         },
       }}
     >

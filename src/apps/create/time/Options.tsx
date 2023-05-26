@@ -1,7 +1,6 @@
-import SlideIn from '../../../components/SlideIn'
 import { Box, Typography } from '@mui/material'
+import SlideIn from '../../../components/SlideIn'
 import MainButton from '../../../components/MainButton'
-import { Check } from '@mui/icons-material'
 
 type Props = {
   handleTimeQuestion: (time: string) => void
@@ -27,33 +26,23 @@ const Options = ({ handleTimeQuestion, timeAnswer }: Props) => {
           <MainButton
             text='Just Time'
             onClick={() => handleTimeQuestion('Just Time')}
-            icon={
-              timeAnswer === 'Just Time' ? <Check color='success' /> : undefined
-            }
+            selected={timeAnswer === 'Just Time'}
           />
 
           <MainButton
             text='Just Day'
             onClick={() => handleTimeQuestion('Just Day')}
-            icon={
-              timeAnswer === 'Just Day' ? <Check color='success' /> : undefined
-            }
+            selected={timeAnswer === 'Just Day'}
           />
           <MainButton
             text='Time and Day'
             onClick={() => handleTimeQuestion('Time and Day')}
-            icon={
-              timeAnswer === 'Time and Day' ? (
-                <Check color='success' />
-              ) : undefined
-            }
+            selected={timeAnswer === 'Time and Day'}
           />
           <MainButton
             text='Neither'
             onClick={() => handleTimeQuestion('Neither')}
-            icon={
-              timeAnswer === 'Neither' ? <Check color='success' /> : undefined
-            }
+            selected={timeAnswer === 'Neither'}
           />
         </Box>
       </Box>

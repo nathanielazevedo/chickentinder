@@ -22,6 +22,7 @@ import {
   rValuesInitial,
   votersInitial,
 } from './CreateHelpers'
+import Loading from '../../components/Loading'
 
 type R = (Restaurant | CustomRestaurant)[]
 
@@ -80,9 +81,11 @@ const Main = () => {
       hours_to_vote_on: getLikedHours(hours),
     } as CreateParty
     try {
+      setStep(5)
       const party = await api.createParty(data)
-      navigate('/party/' + party._id)
+      navigate('/party/' + party._id + '?new=true')
     } catch {
+      setStep(4)
       console.log('error')
     }
   }
@@ -138,11 +141,14 @@ const Main = () => {
         />
       ),
     },
+    {
+      component: () => <Loading />,
+    },
   ]
 
   return (
     <>
-      <CStepper step={step} steps={steps} />
+      <CStepper step={step} steps={steps.slice(0, 5)} />
       {steps[step].component()}
     </>
   )

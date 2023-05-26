@@ -9,6 +9,7 @@ type Props = {
   icon?: React.ReactNode
   type?: 'button' | 'submit' | 'reset' | undefined
   height?: string
+  selected?: boolean
 }
 
 const MainButton = ({
@@ -18,6 +19,7 @@ const MainButton = ({
   icon,
   type,
   height,
+  selected,
 }: Props) => {
   const dispatch = useAppDispatch()
   return (
@@ -34,11 +36,11 @@ const MainButton = ({
         display: 'flex',
         alignItems: 'center',
         height: height ?? '50px',
-        border: 'none',
+        border: !selected ? 'none' : 'grey 1px solid',
         backgroundColor: 'rgb(0, 213, 250, 15%)',
         '&:hover': {
           backgroundColor: 'rgb(0, 213, 250, 25%)',
-          border: 'none',
+          border: !selected ? 'none' : 'grey 1px solid',
         },
         '&:disabled': {
           border: 'none',

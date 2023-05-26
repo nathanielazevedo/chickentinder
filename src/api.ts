@@ -37,16 +37,23 @@ const getParty = async (id: string): Promise<Party> => {
 }
 
 const createParty = async (formData: CreateParty): Promise<Party> => {
-  if (mock) return party
-  const body = JSON.stringify(formData)
-  return fetch(baseUrl, { ...POST, body })
-    .then(async (res) => {
-      if (!res.ok) throw new Error()
-      return res.json().then((party) => party)
+  if (mock) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(party)
+      }, 2000)
     })
-    .catch(() => {
-      throw new Error()
-    })
+  } else {
+    const body = JSON.stringify(formData)
+    return fetch(baseUrl, { ...POST, body })
+      .then(async (res) => {
+        if (!res.ok) throw new Error()
+        return res.json().then((party) => party)
+      })
+      .catch(() => {
+        throw new Error()
+      })
+  }
 }
 
 type rP = {

@@ -3,13 +3,31 @@ import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import { RestaurantCreate } from '../../models/Restaurant'
 import { restaurantSchema, rvaluesInitial } from './CreateHelpers'
-import { Button, FormControl, TextField, Typography } from '@mui/material'
+import {
+  Button,
+  FormControl,
+  Slide,
+  TextField,
+  Typography,
+} from '@mui/material'
+import { TransitionProps } from '@mui/material/transitions'
+import React from 'react'
 
 type Props = {
   open: boolean
   setOpen: (open: boolean) => void
   createRestaurant: (restaurant: RestaurantCreate) => void
 }
+
+const Transition = React.forwardRef(function Transition(
+  props: TransitionProps & {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    children: React.ReactElement<any, any>
+  },
+  ref: React.Ref<unknown>
+) {
+  return <Slide direction='down' ref={ref} {...props} />
+})
 
 const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
   rvaluesInitial.id = Math.floor(Math.random() * 1000) as unknown as string
@@ -19,6 +37,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
     <Dialog
       open={open}
       onClose={() => setOpen(false)}
+      TransitionComponent={Transition}
       PaperProps={{
         style: {
           padding: '20px',
@@ -27,7 +46,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
         },
       }}
     >
-      <Typography mb='20px' variant='h3'>
+      <Typography mb='20px' variant='h4'>
         Custom Place
       </Typography>
       <Formik

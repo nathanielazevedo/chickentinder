@@ -28,7 +28,15 @@ const Days = (props: Props) => {
       <SlideIn>
         <Box>
           <Typography>Choose the days you want to be voted on</Typography>
-          <FormControl>
+          <FormControl
+            sx={{
+              marginBottom: '20px',
+              marginTop: '20px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
             <RadioGroup>
               <Box display='flex' flexWrap='wrap' justifyContent='flex-start'>
                 {Object.keys(daysInitial).map((day) => (
@@ -37,9 +45,9 @@ const Days = (props: Props) => {
                     label={day}
                     value={day}
                     sx={{
-                      width: '120px',
+                      width: '110px',
                       '& .MuiFormControlLabel-label': {
-                        fontSize: '12px',
+                        fontSize: '14px',
                       },
                     }}
                     control={

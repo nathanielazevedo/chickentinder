@@ -48,6 +48,28 @@ const RForm = ({ formData, fetchRestaurants }: Props) => {
               <FormControl
                 sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
               >
+                <RadioGroup
+                  name='type'
+                  value={values.type}
+                  onChange={handleChange}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                  }}
+                >
+                  <Typography mr='20px'>Party Type:</Typography>
+                  <FormControlLabel
+                    value='restaurants'
+                    control={<Radio />}
+                    label='Restaurants'
+                  />
+                  <FormControlLabel
+                    value='bars'
+                    control={<Radio />}
+                    label='Bars'
+                  />
+                </RadioGroup>
                 <TextField
                   name='location'
                   label='City Name or Zip Code'
@@ -57,7 +79,14 @@ const RForm = ({ formData, fetchRestaurants }: Props) => {
                   error={Boolean(touched.location) && Boolean(errors.location)}
                   helperText={touched.location && errors.location}
                 />
-                <Box width='100%'>
+                <Box
+                  width='100%'
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                  }}
+                >
                   <Typography gutterBottom>
                     Max Distance From Location (miles)
                   </Typography>
@@ -73,23 +102,6 @@ const RForm = ({ formData, fetchRestaurants }: Props) => {
                     }
                   />
                 </Box>
-                <RadioGroup
-                  name='type'
-                  value={values.type}
-                  onChange={handleChange}
-                  sx={{ display: 'flex', flexDirection: 'row' }}
-                >
-                  <FormControlLabel
-                    value='restaurants'
-                    control={<Radio />}
-                    label='Restaurants'
-                  />
-                  <FormControlLabel
-                    value='bars'
-                    control={<Radio />}
-                    label='Bars'
-                  />
-                </RadioGroup>
                 <MainButton type='submit' text='Next' />
               </FormControl>
             </form>
