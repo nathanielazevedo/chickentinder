@@ -74,7 +74,7 @@ const Results = () => {
           })}
           {party.vote_on_hours && (
             <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
-              Times
+              Hours
             </Typography>
           )}
           {party.vote_on_hours &&
@@ -87,6 +87,27 @@ const Results = () => {
                       realValue={party.h_votes[hour.id]}
                       value={Math.round(
                         (100 / party.max_voters) * party.h_votes[hour.id]
+                      )}
+                    />
+                  </Box>
+                </Box>
+              )
+            })}
+          {party.vote_on_days && (
+            <Typography variant='h4' mb='10px' mt='20px' alignSelf='flex-start'>
+              Days
+            </Typography>
+          )}
+          {party.vote_on_days &&
+            party.days_to_vote_on.map((day) => {
+              return (
+                <Box key={day.id} sx={styles.rC}>
+                  <Typography color='secondary'>{day.id}</Typography>
+                  <Box width='100%'>
+                    <LinearProgess
+                      realValue={party.d_votes[day.id]}
+                      value={Math.round(
+                        (100 / party.max_voters) * party.d_votes[day.id]
                       )}
                     />
                   </Box>

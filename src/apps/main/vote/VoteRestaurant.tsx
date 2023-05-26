@@ -6,26 +6,26 @@ import { Box, Typography } from '@mui/material'
 import { Restaurant } from '../../../models/Restaurant'
 
 type Props = {
-  restaurants: Restaurant[]
-  fRV: (likes: string[]) => void
+  fRV: () => void
+  restaurants: Restaurant[] | undefined
+  setRLikes: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const VoteRestaurant = ({ restaurants, fRV }: Props) => {
+const VoteRestaurant = ({ restaurants, fRV, setRLikes }: Props) => {
   const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
-  const [likes, setLikes] = useState<string[]>([])
   const [index, setIndex] = useState<number>(0)
-  const restaurant = restaurants[index]
-  const length = restaurants.length
+  const restaurant = restaurants && restaurants[index]
+  const length = restaurants && restaurants.length
 
   useEffect(() => {
-    restaurants.forEach((restaurant) => {
+    restaurants?.forEach((restaurant) => {
       const img = new Image()
       img.src = restaurant.image_url
     })
   }, [restaurants])
 
   if (index === length) {
-    fRV(likes)
+    fRV()
     return <></>
   }
 
@@ -41,7 +41,7 @@ const VoteRestaurant = ({ restaurants, fRV }: Props) => {
         items={restaurants}
         setSwipe={setSwipe}
         setIndex={setIndex}
-        setLikes={setLikes}
+        setLikes={setRLikes}
       />
     </Box>
   )

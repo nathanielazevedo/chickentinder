@@ -86,9 +86,10 @@ const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
 const vote = async (
   id: string,
   rLikes: string[],
-  hLikes: string[] | null
+  hLikes: string[] | null,
+  dLikes: string[] | null
 ): Promise<Party> => {
-  const body = JSON.stringify({ rLikes, hLikes })
+  const body = JSON.stringify({ rLikes, hLikes, dLikes })
   return fetch(baseUrl + 'party/' + id + '/vote', { ...POST, body })
     .then(async (res) => {
       if (res.status !== 201) throw new Error('Error voting')

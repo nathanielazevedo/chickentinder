@@ -8,8 +8,8 @@ type Props = {
   index: number
   buttonsActive: boolean
   setSwipe: (swipe: Swipe) => void
-  item: Restaurant | { id: string }
-  items: Restaurant[] | { id: string }[]
+  item: Restaurant | { id: string } | undefined
+  items: Restaurant[] | { id: string }[] | undefined
   setIndex: React.Dispatch<React.SetStateAction<number>>
   setLikes: React.Dispatch<React.SetStateAction<string[]>>
   setButtonsActive: React.Dispatch<React.SetStateAction<boolean>>
@@ -47,8 +47,8 @@ const UpIcon = (props: Props) => {
           if (!buttonsActive) return
           toggle(!state)
           setButtonsActive(false)
-          setLikes((prevState) => [...prevState, item.id])
-          setSwipe({ id: item.id, direction: 'right' })
+          item && setLikes((prevState) => [...prevState, item.id])
+          item && setSwipe({ id: item.id, direction: 'right' })
           setTimeout(() => {
             setIndex((prevState) => prevState + 1)
             setButtonsActive(true)

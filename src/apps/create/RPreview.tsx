@@ -122,7 +122,7 @@ const RPreview = ({
                   margin: '10px 0',
                   alignItems: 'center',
                   borderRadius: '10px',
-                  border: '0.1px solid white',
+                  border: '1px solid grey',
                 }}
               >
                 <Checkbox

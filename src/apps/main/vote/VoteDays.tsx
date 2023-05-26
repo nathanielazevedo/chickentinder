@@ -4,22 +4,22 @@ import { Swipe, getSwipe } from './SwipeUtils'
 import { Box, Typography } from '@mui/material'
 
 type Props = {
-  times_to_vote_on: { id: string }[] | undefined
-  fTV: () => void
-  setHLikes: React.Dispatch<React.SetStateAction<string[]>>
+  days_to_vote_on: { id: string }[] | undefined
+  fDV: () => void
+  setDLikes: React.Dispatch<React.SetStateAction<string[]>>
 }
 
-const VoteTime = ({ times_to_vote_on, fTV, setHLikes }: Props) => {
+const VoteDays = ({ days_to_vote_on, fDV, setDLikes }: Props) => {
   const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
   const [index, setIndex] = useState<number>(0)
-  const length = times_to_vote_on?.length
+  const length = days_to_vote_on?.length
 
   if (index === length) {
-    fTV()
+    fDV()
     return <></>
   }
 
-  const time = times_to_vote_on && times_to_vote_on[index]
+  const time = days_to_vote_on && days_to_vote_on[index]
 
   return (
     <Box display='flex' alignItems='center' flexDirection='column'>
@@ -34,16 +34,16 @@ const VoteTime = ({ times_to_vote_on, fTV, setHLikes }: Props) => {
       <VoteIcons
         index={index}
         item={time}
-        items={times_to_vote_on}
+        items={days_to_vote_on}
         setSwipe={setSwipe}
         setIndex={setIndex}
-        setLikes={setHLikes}
+        setLikes={setDLikes}
       />
     </Box>
   )
 }
 
-export default VoteTime
+export default VoteDays
 
 const styles = {
   c: {

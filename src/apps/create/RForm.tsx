@@ -15,11 +15,12 @@ import {
 } from '@mui/material'
 
 type Props = {
+  rError: string | null
   formData: RFormType
   fetchRestaurants: (formData: RFormType) => void
 }
 
-const RForm = ({ formData, fetchRestaurants }: Props) => {
+const RForm = ({ rError, formData, fetchRestaurants }: Props) => {
   return (
     <>
       <BackIcon to='/' />
@@ -103,6 +104,11 @@ const RForm = ({ formData, fetchRestaurants }: Props) => {
                   />
                 </Box>
                 <MainButton type='submit' text='Next' />
+                {rError && (
+                  <Typography color='error' mt='px'>
+                    {rError}
+                  </Typography>
+                )}
               </FormControl>
             </form>
           )}

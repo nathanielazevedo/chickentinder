@@ -1,17 +1,20 @@
 import { Restaurant } from '../models/Restaurant'
-import { Box, Typography } from '@mui/material'
+import { Box, Skeleton, Typography } from '@mui/material'
 import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils'
 import { getStarsImage } from '../utils/general'
 import { yelp_logo } from '../assets/yelp'
 
 type Props = {
-  restaurant: Restaurant
+  restaurant: Restaurant | undefined
   swipe: Swipe
 }
 
 const RCard = ({ restaurant, swipe }: Props) => {
   return (
-    <Box className={getSwipe(restaurant?.id, swipe)} sx={styles.c}>
+    <Box
+      className={restaurant && getSwipe(restaurant?.id, swipe)}
+      sx={styles.c}
+    >
       {restaurant?.image_url && (
         <img
           alt={restaurant.name}
@@ -28,11 +31,27 @@ const RCard = ({ restaurant, swipe }: Props) => {
       )}
       <Box sx={styles.rContent}>
         <Box>
-          <Typography variant='h5'>{restaurant.name}</Typography>
-          <Typography>
-            {restaurant.location?.address1} {restaurant.location?.city}
+          <Typography variant='h5'>
+            {restaurant?.name ? (
+              restaurant?.name
+            ) : (
+              <Skeleton variant='text' width={200} />
+            )}
           </Typography>
-          {restaurant.price && (
+          <Typography>
+            {restaurant ? (
+              `${restaurant.location?.address1}; ${restaurant.location?.city}`
+            ) : (
+              <>
+                <Skeleton variant='text' width={200} />
+                <Skeleton variant='text' width={200} />
+                <Skeleton variant='text' width={200} />
+                <Skeleton variant='text' width={200} />
+                <Skeleton variant='text' width={200} />
+              </>
+            )}
+          </Typography>
+          {restaurant && (
             <>
               <Typography>Price: {restaurant.price}</Typography>
               <Box m='5px 0' gap='10px' display='flex'>
@@ -54,9 +73,17 @@ const RCard = ({ restaurant, swipe }: Props) => {
           )}
         </Box>
         <Box display='flex' gap='10px' justifySelf='flex-end' flexWrap='wrap'>
-          {restaurant?.categories?.map((category, i) => (
-            <Typography key={i}>#{category.title}</Typography>
-          ))}
+          {restaurant?.categories ? (
+            restaurant?.categories?.map((category, i) => (
+              <Typography key={i}>#{category.title}</Typography>
+            ))
+          ) : (
+            <>
+              <Skeleton variant='text' width={200} />
+              <Skeleton variant='text' width={200} />
+              <Skeleton variant='text' width={200} />
+            </>
+          )}
         </Box>
       </Box>
     </Box>

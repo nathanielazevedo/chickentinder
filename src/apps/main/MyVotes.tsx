@@ -20,6 +20,7 @@ const MyVotes = () => {
   const [searchParams] = useSearchParams()
   const [showC, setShowC] = useState(false)
   const [tLikes, setTLikes] = useState<string[]>()
+  const [dLikes, setDLikes] = useState<string[]>()
   const party = useAppSelector((state) => state.party)
   const [restaurants, setRestaurants] = useState<Restaurant[]>()
 
@@ -40,6 +41,8 @@ const MyVotes = () => {
           )
           if (lParty.voteTime) setTLikes(lParty.voteTime)
           else setTLikes([])
+          if (lParty.likedDays) setDLikes(lParty.likedDays)
+          else setDLikes([])
         }
       }
       searchParams.get('c') && setShowC(true)
@@ -47,7 +50,7 @@ const MyVotes = () => {
     getParty()
   }, [dispatch, id, navigate, party, searchParams])
 
-  if (!restaurants || !tLikes || !id) return <CreateLoad />
+  if (!restaurants || !tLikes || !id || !dLikes) return <CreateLoad />
 
   return (
     <>
@@ -66,7 +69,7 @@ const MyVotes = () => {
                   padding: '10px',
                   borderRadius: '10px',
                   position: 'relative',
-                  border: '0.1px solid white',
+                  border: '1px solid grey',
                 }}
               >
                 <Box
@@ -93,7 +96,7 @@ const MyVotes = () => {
         {tLikes.length > 0 && (
           <Box>
             <Typography variant='h4' mb='20px' mt='20px'>
-              Liked times
+              Liked hours
             </Typography>
             {tLikes.map((time) => (
               <Box
@@ -101,9 +104,27 @@ const MyVotes = () => {
                 mb='10px'
                 key={time}
                 borderRadius='10px'
-                border='0.1px solid white'
+                border='1px solid grey'
               >
                 <Typography color='secondary'>{time}</Typography>
+              </Box>
+            ))}
+          </Box>
+        )}
+        {dLikes.length > 0 && (
+          <Box>
+            <Typography variant='h4' mb='20px' mt='20px'>
+              Liked days
+            </Typography>
+            {dLikes.map((day) => (
+              <Box
+                p='10px'
+                mb='10px'
+                key={day}
+                borderRadius='10px'
+                border='1px solid grey'
+              >
+                <Typography color='secondary'>{day}</Typography>
               </Box>
             ))}
           </Box>

@@ -8,8 +8,8 @@ import BackIcon from './BackIcon'
 
 type Props = {
   index: number
-  item: Restaurant | { id: string }
-  items: Restaurant[] | { id: string }[]
+  item: Restaurant | { id: string } | undefined
+  items: Restaurant[] | { id: string }[] | undefined
   setSwipe: (swipe: Swipe) => void
   setIndex: React.Dispatch<React.SetStateAction<number>>
   setLikes: React.Dispatch<React.SetStateAction<string[]>>

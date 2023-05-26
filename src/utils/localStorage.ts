@@ -10,6 +10,7 @@ export type LocalParty = {
   voted: boolean
   voteRestaurants: string[]
   voteTime: string[]
+  likedDays: string[]
 }
 
 export const haveLocalParties = () => {

@@ -7,6 +7,8 @@ import { Typography, FormControl, TextField } from '@mui/material'
 
 type Props = {
   personalData: PersonalType
+  submitting: boolean
+  pError: string
   setStep: React.Dispatch<React.SetStateAction<number>>
   createParty: (values: PersonalType) => void
   setPersonalData: (personalData: PersonalType) => void
@@ -15,7 +17,9 @@ type Props = {
 const CreateForm = ({
   personalData,
   setStep,
+  pError,
   createParty,
+  submitting,
   setPersonalData,
 }: Props) => {
   return (
@@ -100,8 +104,17 @@ const CreateForm = ({
                       : 'You can use this later to manage the party.'
                   }
                 />
-                <MainButton type='submit' text='Create Party' />
+                <MainButton
+                  disabled={submitting}
+                  type='submit'
+                  text={submitting ? 'Creating Party!' : 'Create Party'}
+                />
               </FormControl>
+              {pError && (
+                <Typography color='error' mt='10px'>
+                  {pError}
+                </Typography>
+              )}
             </form>
           )}
         </Formik>

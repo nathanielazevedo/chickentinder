@@ -22,17 +22,19 @@ import {
   rValuesInitial,
   votersInitial,
 } from './CreateHelpers'
-import Loading from '../../components/Loading'
 
 type R = (Restaurant | CustomRestaurant)[]
 
 const Main = () => {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
+  const [pError, setPError] = useState('')
+  const [rError, setRError] = useState('')
   const [days, setDays] = useState(daysInitial)
-  const [hours, setHours] = useState(hoursInitial)
   const [timeAnswer, setTimeAnswer] = useState('')
+  const [hours, setHours] = useState(hoursInitial)
   const [restaurants, setRestaurants] = useState<R>()
+  const [submitting, setSubmitting] = useState(false)
   const [voters, setVoters] = useState(votersInitial)
   const [timeQuestion, setTimeQuestion] = useState('')
   const [rFormData, setrFormData] = useState(rValuesInitial)
@@ -41,9 +43,18 @@ const Main = () => {
   const fetchRestaurants = async (rFormData: RFormType) => {
     setStep(1)
     setrFormData(rFormData)
-    const restaurants = await api.fetchRestaurants(rFormData)
-    const withChecks = addChecks(restaurants)
-    setRestaurants(withChecks)
+    setRestaurants(undefined)
+    try {
+      const restaurants = await api.fetchRestaurants(rFormData)
+      const withChecks = addChecks(restaurants)
+      setRestaurants(withChecks)
+      setRError('')
+    } catch {
+      setStep(0)
+      setRError(
+        'There was an error fetching restaurants. Try a different location.'
+      )
+    }
   }
 
   const completeRestaurants = () => {
@@ -81,11 +92,12 @@ const Main = () => {
       hours_to_vote_on: getLikedHours(hours),
     } as CreateParty
     try {
-      setStep(5)
+      setSubmitting(true)
       const party = await api.createParty(data)
       navigate('/party/' + party._id + '?new=true')
     } catch {
-      setStep(4)
+      setSubmitting(false)
+      setPError('There was an error creating your party. Try again.')
       console.log('error')
     }
   }
@@ -93,7 +105,11 @@ const Main = () => {
   const steps = [
     {
       component: () => (
-        <RForm formData={rFormData} fetchRestaurants={fetchRestaurants} />
+        <RForm
+          rError={rError}
+          formData={rFormData}
+          fetchRestaurants={fetchRestaurants}
+        />
       ),
     },
     {
@@ -134,21 +150,20 @@ const Main = () => {
     {
       component: () => (
         <Personal
+          pError={pError}
           setStep={setStep}
+          submitting={submitting}
           createParty={createParty}
           personalData={personalData}
           setPersonalData={setPersonalData}
         />
       ),
     },
-    {
-      component: () => <Loading />,
-    },
   ]
 
   return (
     <>
-      <CStepper step={step} steps={steps.slice(0, 5)} />
+      <CStepper step={step} steps={steps} />
       {steps[step].component()}
     </>
   )
