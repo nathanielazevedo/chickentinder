@@ -30,8 +30,10 @@ const getParty = async (id: string): Promise<Party> => {
         else if (res.status === 403) throw new Error('deleted')
         else throw new Error()
       })
-      .catch(() => {
-        throw new Error()
+      .catch((err: unknown) => {
+        const error = err as Error
+        if (error.message === 'deleted') throw new Error('deleted')
+        else throw new Error()
       })
   }
 }

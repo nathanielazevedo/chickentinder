@@ -1,13 +1,13 @@
 import { useEffect } from 'react'
+import WinnerView from './WinnerView'
 import { fetchParty } from '../../state'
-import RCard from '../../components/RCard'
 import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
+import SlideIn from '../../components/SlideIn'
 import { Box, Typography } from '@mui/material'
 import LinearProgess from '../../components/LinearProgess'
-import { useAppDispatch, useAppSelector } from '../../state/redux'
-import SlideIn from '../../components/SlideIn'
 import BackIcon from '../../components/backIcons/BackIconTo'
+import { useAppDispatch, useAppSelector } from '../../state/redux'
 
 const Results = () => {
   const dispatch = useAppDispatch()
@@ -26,25 +26,7 @@ const Results = () => {
   if (!party) return <Loading />
 
   if (party.r_winner) {
-    return (
-      <>
-        <BackIcon to={'/party/' + id} />
-        <SlideIn>
-          <Typography variant='h4' color='secondary'>
-            Winner
-          </Typography>
-          {party.h_winner && (
-            <Typography color='secondary'>
-              {party.r_winner.name} at {party.h_winner}
-            </Typography>
-          )}
-          <RCard
-            restaurant={party.r_winner}
-            swipe={{ id: '', direction: '' }}
-          />
-        </SlideIn>
-      </>
-    )
+    return <WinnerView party={party} id={id ?? ''} />
   }
 
   return (

@@ -47,10 +47,13 @@ const Entry = () => {
         if (searchParams.get('new')) setShowNewDialog(true)
       } catch (error: unknown) {
         const err = error as Error
+        console.log('err', err)
         if (err?.message) {
           console.log('err', err.message)
           id && removePartyFromLocal(id)
           setShowDelete(true)
+        } else {
+          console.log('uh oh')
         }
       }
     }

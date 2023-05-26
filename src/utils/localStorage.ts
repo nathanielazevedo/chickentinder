@@ -54,6 +54,7 @@ export const updatePartyInLocal = (party: LocalParty) => {
 }
 
 export const removePartyFromLocal = (id: string) => {
+  console.log('removePartyFromLocal')
   const parties = getPartiesFromLocal()
   if (parties) {
     localStorage.setItem(
