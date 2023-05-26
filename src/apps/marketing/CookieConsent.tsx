@@ -9,14 +9,13 @@ const CookieConsent = () => {
       sx={{
         position: 'fixed',
         bottom: 0,
-        width: '100vw',
+        minWidth: '100vw',
         height: '15vh',
         backgroundColor: 'rgb(0, 53, 63, 95%)',
         display: open ? 'flex' : 'none',
         justifyContent: 'center',
         alignItems: 'center',
         zIndex: 100,
-        borderRadius: '20px 0 0 0',
       }}
     >
       <Box
@@ -26,6 +25,7 @@ const CookieConsent = () => {
           alignItems: 'center',
           width: { xs: '98%', sm: '90%' },
           height: '50%',
+          padding: '10px',
         }}
       >
         <Box
@@ -33,9 +33,10 @@ const CookieConsent = () => {
             display: 'flex',
             flexDirection: 'column',
             gap: '5px',
+            width: { xs: '65%', sm: '50%' },
           }}
         >
-          <Typography variant='h4'>CookieConsent</Typography>
+          <Typography variant='h5'>Cookie Consent</Typography>
           <Typography color='secondary'>
             We eat none of your cookies. Just wanted to let you know that.
           </Typography>
