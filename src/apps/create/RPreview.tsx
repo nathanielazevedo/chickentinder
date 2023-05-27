@@ -106,7 +106,7 @@ const RPreview = ({
             </Typography>
           )}
         </Box>
-        <Box m='15px 0'>
+        <Box m='5px 0'>
           <MainButton
             text='+ Add custom place'
             onClick={() => setCustomOpen(true)}

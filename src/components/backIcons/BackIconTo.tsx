@@ -18,6 +18,7 @@ const BackIcon = ({ to }: { to: string }) => {
         top: '10px',
         left: '0px',
         width: '100%',
+        justifyContent: 'space-between',
       }}
     >
       <Button
@@ -27,8 +28,10 @@ const BackIcon = ({ to }: { to: string }) => {
         }}
         sx={styles.c}
       >
-        <ArrowBackIosNewIcon sx={{ fontSize: 20 }} />
+        <ArrowBackIosNewIcon sx={{ fontSize: 10, mr: '3px' }} />
+        Back
       </Button>
+      {/* <Typography color='secondary'>Chicken Tinder</Typography> */}
     </Box>
   )
 }

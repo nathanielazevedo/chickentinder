@@ -27,7 +27,6 @@ const styles = {
   container: {
     display: 'flex',
     alignItems: 'center',
-    backgroundColor: 'black',
     justifyContent: 'center',
     padding: { xs: '70px 0', lg: '100px 0' },
   },

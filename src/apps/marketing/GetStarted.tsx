@@ -33,7 +33,6 @@ const styles = {
     padding: '50px 0',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'black',
   },
   innerContainer: {
     display: 'flex',

@@ -35,7 +35,6 @@ const styles = {
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    backgroundColor: 'black',
     padding: { xs: '70px 0', lg: '0' },
     height: { xs: '100%', lg: '50vh' },
   },

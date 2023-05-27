@@ -72,7 +72,7 @@ const Entry = () => {
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
       <SlideIn>
         <Box
-          mb='15px'
+          mt='15px'
           sx={{
             padding: '20px',
             borderRadius: '10px',
@@ -80,11 +80,10 @@ const Entry = () => {
             backgroundColor: 'rgb(14, 107, 125, 15%)',
           }}
         >
-          <Typography variant='h2' mb='10px'>
+          <Typography variant='h3'>
             {party?.name ?? <Skeleton variant='text' width={200} />}
           </Typography>
-
-          <Typography color='secondary'>
+          <Typography color='secondary' mt='10px'>
             {party?.max_distance ? (
               `Within ${
                 party?.max_distance && toMiles(party?.max_distance)
@@ -93,38 +92,13 @@ const Entry = () => {
               <Skeleton variant='text' width={200} />
             )}
           </Typography>
-          {party?.vote_on_hours && (
-            <>
-              <Typography color='secondary' alignSelf='flex-start'>
-                {party.hours_to_vote_on.length} times to vote on.
-              </Typography>
-            </>
-          )}
-          <Typography color='secondary'>
-            {party?.restaurants.length ? (
-              `${party?.restaurants.length} ${party?.type} to vote on.`
-            ) : (
-              <Skeleton variant='text' width={200} />
-            )}
-          </Typography>
-          <Typography color='secondary'>
-            {party?.voters_so_far !== undefined ? (
-              `${party?.voters_so_far}/${party?.max_voters} people have voted.`
-            ) : (
-              <Skeleton variant='text' width={200} />
-            )}
-          </Typography>
-          {party?.r_winner && (
-            <Typography mt='20px' color='error'>
-              This party is closed. The winner is {party?.r_winner?.name}.
-            </Typography>
-          )}
         </Box>
         <Box
           sx={{
             display: 'flex',
             flexDirection: 'row',
             justifyContent: 'space-between',
+            margin: '20px 0px',
           }}
         >
           <Link
@@ -132,69 +106,185 @@ const Entry = () => {
               voted
                 ? `/party/${id}/myVotes`
                 : party?.r_winner
-                ? `/party/${id}`
+                ? `/party/${id}/myVotes`
                 : `/party/${id}/vote`
             }
           >
             <Chip
-              label={
-                voted
-                  ? 'View My Votes'
-                  : party?.r_winner
-                  ? 'Party Over'
-                  : 'Vote'
-              }
+              label={voted ? 'My Votes' : party?.r_winner ? 'My Votes' : 'Vote'}
               variant='outlined'
               clickable
-              icon={
-                <HowToVoteOutlinedIcon
-                  sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
-                />
-              }
+              icon={<HowToVoteOutlinedIcon sx={{ fontSize: '16px' }} />}
             />
           </Link>
           <Link to={`/party/${id}/results`}>
             <Chip
-              label={party?.r_winner ? 'View Winner' : 'View Votes'}
+              label={party?.r_winner ? 'Winner' : 'All Votes'}
               variant='outlined'
               clickable
-              icon={
-                <RemoveRedEyeOutlinedIcon
-                  sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
-                />
-              }
+              icon={<RemoveRedEyeOutlinedIcon sx={{ fontSize: '16px' }} />}
             />
           </Link>
           <Chip
             label='Manage'
             variant='outlined'
             onClick={() => setShowPassword(true)}
-            icon={
-              <ManageAccountsOutlinedIcon
-                sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
-              />
-            }
+            icon={<ManageAccountsOutlinedIcon sx={{ fontSize: '16px' }} />}
           />
           <Chip
             label='Share'
             variant='outlined'
             clickable
-            icon={
-              <ShareOutlinedIcon
-                sx={{ color: 'rgb(14, 107, 125)', fontSize: '16px' }}
-              />
-            }
+            icon={<ShareOutlinedIcon sx={{ fontSize: '16px' }} />}
+            onClick={async () => {
+              try {
+                await navigator.share({
+                  title: party?.name ?? 'Chicken Tinder',
+                  text: `thechickentinder.com/party/${id}`,
+                  url: `thechickentinder.com/party/${id}`,
+                })
+              } catch {
+                console.log('hello')
+              }
+            }}
           />
         </Box>
-        {party?.r_winner && (
-          <Alert
-            severity='success'
-            variant='outlined'
+        <Box
+          sx={{
+            display: 'flex',
+            gap: '20px',
+            flexWrap: 'wrap',
+          }}
+        >
+          <Box
             sx={{
-              marginTop: '20px',
+              flex: '40%',
+              width: '100%',
+              padding: '20px',
+              borderRadius: '10px',
+              border: '1px solid rgb(14, 107, 125)',
+              backgroundColor: 'rgb(14, 107, 125, 15%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
             }}
           >
-            This party is over!
+            <Typography variant='h4'>
+              {party?.voters_so_far !== undefined ? (
+                `${party?.voters_so_far}`
+              ) : (
+                <Skeleton variant='text' width={50} />
+              )}
+            </Typography>
+            <Typography variant='h6' color='secondary'>
+              Voters So Far
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              flex: '40%',
+              width: '100%',
+              padding: '20px',
+              borderRadius: '10px',
+              border: '1px solid rgb(14, 107, 125)',
+              backgroundColor: 'rgb(14, 107, 125, 15%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h4'>
+              {party?.max_voters !== undefined ? (
+                `${party?.max_voters}`
+              ) : (
+                <Skeleton variant='text' width={50} />
+              )}
+            </Typography>
+            <Typography variant='h6' color='secondary'>
+              Party Size
+            </Typography>
+          </Box>
+
+          <Box
+            mt='0px'
+            sx={{
+              flex: '40%',
+              width: '100%',
+              padding: '20px',
+              borderRadius: '10px',
+              border: '1px solid rgb(14, 107, 125)',
+              backgroundColor: 'rgb(14, 107, 125, 15%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h4'>
+              {party?.restaurants !== undefined ? (
+                `${party?.restaurants.length}`
+              ) : (
+                <Skeleton variant='text' width={50} />
+              )}
+            </Typography>
+            <Typography variant='h6' color='secondary'>
+              {party?.type}
+            </Typography>
+          </Box>
+          <Box
+            mt='0px'
+            sx={{
+              flex: '40%',
+              width: '100%',
+              padding: '20px',
+              borderRadius: '10px',
+              border: '1px solid rgb(14, 107, 125)',
+              backgroundColor: 'rgb(14, 107, 125, 15%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h4'>
+              {party?.max_voters !== undefined ? (
+                ` ${party.hours_to_vote_on.length}`
+              ) : (
+                <Skeleton variant='text' width={50} />
+              )}
+            </Typography>
+            <Typography variant='h6' color='secondary'>
+              Hours to vote on.
+            </Typography>
+          </Box>
+          <Box
+            mb='15px'
+            mt='0px'
+            sx={{
+              flex: '40%',
+              width: '100%',
+              padding: '20px',
+              borderRadius: '10px',
+              border: '1px solid rgb(14, 107, 125)',
+              backgroundColor: 'rgb(14, 107, 125, 15%)',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Typography variant='h4'>
+              {party?.vote_on_days !== undefined ? (
+                ` ${party.days_to_vote_on.length}`
+              ) : (
+                <Skeleton variant='text' width={50} />
+              )}
+            </Typography>
+            <Typography variant='h6' color='secondary'>
+              Days to vote on.
+            </Typography>
+          </Box>
+        </Box>
+        {party?.r_winner && (
+          <Alert severity='warning' variant='outlined'>
+            This party is over! Enjoy the party!
           </Alert>
         )}
       </SlideIn>

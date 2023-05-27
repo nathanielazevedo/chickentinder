@@ -14,7 +14,8 @@ const NavBar = ({ myPartys }: { myPartys?: boolean }) => {
       elevation={0}
       sx={{
         overflowX: 'hidden',
-        backgroundColor: 'rgb(0,0,0)',
+        backgroundColor: '#0A0A0A',
+
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',

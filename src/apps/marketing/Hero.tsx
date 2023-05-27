@@ -30,7 +30,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgb(0,0,0)',
   },
   innerContainer: {
     display: 'flex',

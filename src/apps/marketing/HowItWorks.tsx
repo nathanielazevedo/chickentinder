@@ -54,7 +54,6 @@ const styles = {
     alignItems: 'center',
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: 'black',
     padding: { xs: '100px 0', lg: '100px' },
   },
   innerContainer: {

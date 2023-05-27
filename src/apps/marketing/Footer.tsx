@@ -9,7 +9,6 @@ const Footer = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'black',
       }}
     >
       <Box

@@ -8,7 +8,7 @@ const Container = () => {
       alignItems='center'
       pt={{ sm: '100px' }}
       justifyContent='center'
-      sx={{ backgroundColor: 'rgb(0,0,0)' }}
+      // sx={{ backgroundColor: 'rgb(0,0,0)' }}
     >
       <Box
         sx={{

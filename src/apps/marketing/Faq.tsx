@@ -141,7 +141,6 @@ const styles = {
     justifyContent: 'center',
     alignItems: 'center',
     padding: { xs: '100px 0', lg: '100px' },
-    backgroundColor: 'black',
   },
   innerContainer: {
     display: 'flex',

@@ -48,6 +48,8 @@ export const theme = {
       light: colorTokens.grey[700],
     },
     background: {
+      // default: '#0b1929',
+      // alt: '#0b1929',
       default: colorTokens.grey[900],
       alt: colorTokens.grey[800],
     },
@@ -88,8 +90,8 @@ export const theme = {
     MuiChip: {
       styleOverrides: {
         outlined: {
-          borderColor: 'rgb(14, 107, 125)',
-          color: colorTokens.primary[500],
+          // borderColor: 'rgb(14, 107, 125)',
+          // color: colorTokens.grey[200],
         },
       },
     },
