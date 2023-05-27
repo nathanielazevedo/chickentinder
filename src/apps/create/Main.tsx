@@ -28,6 +28,7 @@ type R = (Restaurant | CustomRestaurant)[]
 const Main = () => {
   const navigate = useNavigate()
   const [step, setStep] = useState(0)
+  const [offset, setOffset] = useState(20)
   const [pError, setPError] = useState('')
   const [rError, setRError] = useState('')
   const [days, setDays] = useState(daysInitial)
@@ -37,7 +38,6 @@ const Main = () => {
   const [submitting, setSubmitting] = useState(false)
   const [voters, setVoters] = useState(votersInitial)
   const [timeQuestion, setTimeQuestion] = useState('')
-  const [offset, setOffset] = useState(20)
   const [rFormData, setrFormData] = useState(rValuesInitial)
   const [personalData, setPersonalData] = useState(pInitial)
 

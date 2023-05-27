@@ -6,8 +6,8 @@ import { toMiles, toMeters, rFormSchema, RFormType } from './CreateHelpers'
 import { Box, Typography, FormControl, TextField, Slider } from '@mui/material'
 
 type Props = {
-  rError: string | null
   formData: RFormType
+  rError: string | null
   fetchRestaurants: (formData: RFormType) => void
 }
 

@@ -1,10 +1,10 @@
 import { useEffect } from 'react'
 import WinnerView from './WinnerView'
 import { fetchParty } from '../../state'
-import { useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import SlideIn from '../../components/SlideIn'
 import { Box, Typography } from '@mui/material'
+import { useNavigate, useParams } from 'react-router-dom'
 import LinearProgess from '../../components/LinearProgess'
 import BackIcon from '../../components/backIcons/BackIconTo'
 import { useAppDispatch, useAppSelector } from '../../state/redux'
@@ -12,6 +12,7 @@ import { useAppDispatch, useAppSelector } from '../../state/redux'
 const Results = () => {
   const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>()
+  const navigate = useNavigate()
   const party = useAppSelector((state) => state.party)
 
   useEffect(() => {
@@ -19,9 +20,9 @@ const Results = () => {
       if (!id || party) return
       dispatch(fetchParty(id))
     } catch {
-      console.log('error')
+      navigate('/party/' + id)
     }
-  }, [dispatch, id, party])
+  }, [dispatch, id, navigate, party])
 
   if (!party) return <Loading />
 
@@ -105,19 +106,6 @@ const Results = () => {
 export default Results
 
 const styles = {
-  restaurantContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    alignItems: 'flex-start',
-    height: '400px',
-    width: { xs: '100%', md: '500px' },
-    borderRadius: '10px',
-    backgroundColor: 'black',
-    position: 'relative',
-    padding: '20px',
-    minHeight: '300px',
-  },
   rC: {
     display: 'flex',
     flexDirection: 'column',

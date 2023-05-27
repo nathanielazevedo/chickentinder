@@ -1,17 +1,17 @@
 import API from '../../../api'
 import VoteTime from './VoteTime'
+import VoteDays from './VoteDays'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import VoteRestaurant from './VoteRestaurant'
 import { Party } from '../../../models/Party'
 import { useNavigate } from 'react-router-dom'
+import BackDialog from '../dialogs/BackDialog'
+import BackIcon from '../../../components/backIcons/BackIconAction'
 import {
   getPartyFromLocal,
   updatePartyInLocal,
 } from '../../../utils/localStorage'
-import VoteDays from './VoteDays'
-import BackIcon from '../../../components/backIcons/BackIconAction'
-import BackDialog from '../dialogs/BackDialog'
 
 const Swipe = () => {
   const navigate = useNavigate()

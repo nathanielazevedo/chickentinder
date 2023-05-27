@@ -12,10 +12,10 @@ type Props = {
 }
 
 const VoteRestaurant = ({ restaurants, fRV, setRLikes }: Props) => {
-  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
   const [index, setIndex] = useState<number>(0)
-  const restaurant = restaurants && restaurants[index]
   const length = restaurants && restaurants.length
+  const restaurant = restaurants && restaurants[index]
+  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
 
   useEffect(() => {
     restaurants?.forEach((restaurant) => {

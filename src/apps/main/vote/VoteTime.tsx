@@ -10,16 +10,15 @@ type Props = {
 }
 
 const VoteTime = ({ times_to_vote_on, fTV, setHLikes }: Props) => {
-  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
-  const [index, setIndex] = useState<number>(0)
   const length = times_to_vote_on?.length
+  const [index, setIndex] = useState<number>(0)
+  const time = times_to_vote_on && times_to_vote_on[index]
+  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
 
   if (index === length) {
     fTV()
     return <></>
   }
-
-  const time = times_to_vote_on && times_to_vote_on[index]
 
   return (
     <Box display='flex' alignItems='center' flexDirection='column'>

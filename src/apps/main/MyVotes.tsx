@@ -1,8 +1,10 @@
 import { fetchParty } from '../../state'
 import { useEffect, useState } from 'react'
+import SlideIn from '../../components/SlideIn'
 import { Typography, Box } from '@mui/material'
 import CreateLoad from '../../components/Loading'
 import { Restaurant } from '../../models/Restaurant'
+import BackIcon from '../../components/backIcons/BackIconTo'
 import MyVoteConfirmation from './dialogs/MyVoteConfirmation'
 import { useAppDispatch, useAppSelector } from '../../state/redux'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -10,8 +12,6 @@ import {
   getPartiesFromLocal,
   getPartyFromLocal,
 } from '../../utils/localStorage'
-import SlideIn from '../../components/SlideIn'
-import BackIcon from '../../components/backIcons/BackIconTo'
 
 const MyVotes = () => {
   const { id } = useParams()

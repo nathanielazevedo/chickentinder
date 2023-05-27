@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import { Swipe } from './SwipeUtils'
 import { animated, useSpring } from 'react-spring'
 import { Restaurant } from '../../../models/Restaurant'
 import ThumbUpIcon from '@mui/icons-material/ThumbUpOffAlt'
-import { useState } from 'react'
 
 type Props = {
   index: number

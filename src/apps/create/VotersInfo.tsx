@@ -1,5 +1,6 @@
 import { Formik } from 'formik'
 import SlideIn from '../../components/SlideIn'
+import MainButton from '../../components/MainButton'
 import { votersSchema, votersInitial } from './CreateHelpers'
 import BackIconAction from '../../components/backIcons/BackIconAction'
 import {
@@ -11,7 +12,6 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
-import MainButton from '../../components/MainButton'
 
 type Props = {
   voters: typeof votersInitial

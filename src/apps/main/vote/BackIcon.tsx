@@ -1,8 +1,8 @@
+import { useState } from 'react'
 import { Swipe } from './SwipeUtils'
 import { animated, useSpring } from 'react-spring'
 import { Restaurant } from '../../../models/Restaurant'
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
-import { useState } from 'react'
 
 type Props = {
   index: number
@@ -16,16 +16,16 @@ type Props = {
 }
 
 const UpIcon = (props: Props) => {
+  const [state, toggle] = useState(false)
   const {
+    items,
     index,
     setSwipe,
     setLikes,
     setIndex,
     buttonsActive,
     setButtonsActive,
-    items,
   } = props
-  const [state, toggle] = useState(false)
 
   const { x } = useSpring({
     from: { x: 0 },

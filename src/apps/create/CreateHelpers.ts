@@ -2,8 +2,8 @@ import { object, string, number, boolean } from 'yup'
 import { CustomRestaurant, Restaurant } from '../../models/Restaurant'
 
 export const noRMessage = 'No restaurants found. Please try again.'
-export type hoursType = typeof hoursInitial
 
+export type hoursType = typeof hoursInitial
 export const hoursInitial = {
   '7-8 AM': false,
   '8-9 AM': false,

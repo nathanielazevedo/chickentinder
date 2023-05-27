@@ -1,9 +1,9 @@
+import React from 'react'
 import Dialog from '@mui/material/Dialog'
-import { Button, DialogActions, Slide, Typography } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import { TransitionProps } from '@mui/material/transitions'
-import React from 'react'
+import { Button, DialogActions, Slide, Typography } from '@mui/material'
 
 type Props = {
   open: boolean

@@ -2,9 +2,7 @@ import { Box, Step, StepLabel, Stepper } from '@mui/material'
 
 type Props = {
   step: number
-  steps: {
-    component: () => JSX.Element | null
-  }[]
+  steps: { component: () => JSX.Element | null }[]
 }
 
 const CStepper = ({ step, steps }: Props) => {

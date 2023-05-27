@@ -1,58 +1,53 @@
-import { Box, Button, Typography } from '@mui/material'
-import { useAppDispatch } from '../state/redux'
 import { setSwipeDirection } from '../state'
+import { useAppDispatch } from '../state/redux'
+import { Box, Button, Typography } from '@mui/material'
 
 type Props = {
   text: string
-  onClick?: () => void
-  disabled?: boolean | undefined
-  icon?: React.ReactNode
-  type?: 'button' | 'submit' | 'reset' | undefined
   height?: string
   selected?: boolean
+  onClick?: () => void
+  icon?: React.ReactNode
+  disabled?: boolean | undefined
+  type?: 'button' | 'submit' | 'reset' | undefined
 }
 
 const MainButton = ({
   text,
-  onClick,
-  disabled = false,
   icon,
   type,
   height,
+  onClick,
+  selected = false,
+  disabled = false,
 }: Props) => {
   const dispatch = useAppDispatch()
   return (
     <Button
       fullWidth
+      variant='outlined'
+      disabled={disabled}
       type={type ?? 'button'}
       onClick={() => {
-        dispatch(setSwipeDirection('left'))
         onClick && onClick()
+        dispatch(setSwipeDirection('left'))
       }}
-      disabled={disabled}
-      variant='outlined'
       sx={{
         height: height ?? '50px',
         // border: !selected ? 'none' : 'grey 1px solid',
         // backgroundColor: 'rgb(0, 213, 250, 15%)',
-        // '&:hover': {
-        //   backgroundColor: 'rgb(0, 213, 250, 25%)',
-        //   border: !selected ? 'none' : 'grey 1px solid',
-        // },
-        // '&:disabled': {
-        //   border: 'none',
-        // },
+        '&:hover': {
+          // backgroundColor: 'rgb(0, 213, 250, 25%)',
+          border: !selected ? 'none' : 'grey 1px solid',
+        },
+        '&:disabled': {
+          border: 'none',
+        },
       }}
     >
       <Typography>{text}</Typography>
       {icon && (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            alignSelf: 'center',
-          }}
-        >
+        <Box display='flex' alignSelf='center' alignItems='center'>
           {icon}
         </Box>
       )}

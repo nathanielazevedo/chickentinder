@@ -1,6 +1,6 @@
-import { Button as MuiButton, Typography } from '@mui/material'
-import { useAppDispatch } from '../../state/redux'
 import { setSwipeDirection } from '../../state'
+import { useAppDispatch } from '../../state/redux'
+import { Button as MuiButton, Typography } from '@mui/material'
 
 const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   const dispatch = useAppDispatch()

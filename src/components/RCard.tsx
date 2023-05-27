@@ -1,19 +1,19 @@
+import { yelp_logo } from '../assets/yelp'
+import { getStarsImage } from '../utils/general'
 import { Restaurant } from '../models/Restaurant'
 import { Box, Skeleton, Typography } from '@mui/material'
 import { Swipe, getSwipe } from '../apps/main/vote/SwipeUtils'
-import { getStarsImage } from '../utils/general'
-import { yelp_logo } from '../assets/yelp'
 
 type Props = {
-  restaurant: Restaurant | undefined
   swipe: Swipe
+  restaurant: Restaurant | undefined
 }
 
 const RCard = ({ restaurant, swipe }: Props) => {
   return (
     <Box
-      className={restaurant && getSwipe(restaurant?.id, swipe)}
       sx={styles.c}
+      className={restaurant && getSwipe(restaurant?.id, swipe)}
     >
       {restaurant?.image_url && (
         <img
@@ -40,7 +40,7 @@ const RCard = ({ restaurant, swipe }: Props) => {
           </Typography>
           <Typography>
             {restaurant ? (
-              `${restaurant.location?.address1}; ${restaurant.location?.city}`
+              `${restaurant.location?.address1}, ${restaurant.location?.city}`
             ) : (
               <>
                 <Skeleton variant='text' width={200} />
@@ -57,8 +57,8 @@ const RCard = ({ restaurant, swipe }: Props) => {
               <Box m='5px 0' gap='10px' display='flex'>
                 <img
                   alt='rating'
-                  src={getStarsImage(restaurant.rating)}
                   width='100px'
+                  src={getStarsImage(restaurant.rating)}
                 />
                 <img alt='yelp logo' width='50px' src={yelp_logo} />
               </Box>

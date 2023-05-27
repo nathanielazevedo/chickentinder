@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { Party } from '../models/Party'
 import API from '../api'
+import { Party } from '../models/Party'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   party: undefined as Party | undefined | null,

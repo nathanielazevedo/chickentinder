@@ -1,3 +1,8 @@
+import React from 'react'
+import SlideIn from '../../../components/SlideIn'
+import MainButton from '../../../components/MainButton'
+import BackIcon from '../../../components/backIcons/BackIconAction'
+import { daysInitial, daysType, getLikedDaysLength } from '../CreateHelpers'
 import {
   Box,
   Typography,
@@ -6,18 +11,13 @@ import {
   FormControlLabel,
   Checkbox,
 } from '@mui/material'
-import React from 'react'
-import MainButton from '../../../components/MainButton'
-import SlideIn from '../../../components/SlideIn'
-import { daysInitial, daysType, getLikedDaysLength } from '../CreateHelpers'
-import BackIcon from '../../../components/backIcons/BackIconAction'
 
 type Props = {
   days: daysType
-  setStage: React.Dispatch<React.SetStateAction<number>>
-  handleDays: (e: React.ChangeEvent<HTMLInputElement>) => void
   handleDaysNext: () => void
   isChecked: (value: string) => boolean
+  setStage: React.Dispatch<React.SetStateAction<number>>
+  handleDays: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
 const Days = (props: Props) => {
@@ -30,11 +30,11 @@ const Days = (props: Props) => {
           <Typography>Choose the days you want to be voted on</Typography>
           <FormControl
             sx={{
-              marginBottom: '20px',
-              marginTop: '20px',
-              display: 'flex',
-              flexDirection: 'column',
               gap: '20px',
+              display: 'flex',
+              marginTop: '20px',
+              marginBottom: '20px',
+              flexDirection: 'column',
             }}
           >
             <RadioGroup>

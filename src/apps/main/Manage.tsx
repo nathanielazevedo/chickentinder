@@ -1,15 +1,16 @@
 import API from '../../api'
 import Results from './Results'
-import { fetchParty, endParty as rEndParty } from '../../state'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Box, Chip, Skeleton, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../state/redux'
+import { useNavigate, useParams } from 'react-router-dom'
 import Loading from '../../components/Loading'
 import BackIcon from '../../components/backIcons/BackIconTo'
+import { fetchParty, endParty as rEndParty } from '../../state'
+import { Box, Chip, Skeleton, Typography } from '@mui/material'
+import { useAppDispatch, useAppSelector } from '../../state/redux'
 
 const Manage = () => {
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
   const { id } = useParams<{ id: string }>()
   const [winner, setWinner] = useState(false)
   const party = useAppSelector((state) => state.party)
@@ -19,9 +20,9 @@ const Manage = () => {
       if (!id || party) return
       dispatch(fetchParty(id))
     } catch {
-      console.log('error')
+      navigate('/party' + id)
     }
-  }, [dispatch, id, party])
+  }, [dispatch, id, navigate, party])
 
   //todo move this into redux
   const endParty = async () => {

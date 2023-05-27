@@ -49,8 +49,8 @@ const TimesQuestion = (props: Props) => {
     }
   }
 
-  const isCheckedHours = (value: string) => hours[value as keyof hoursType]
   const isCheckedDays = (value: string) => days[value as keyof daysType]
+  const isCheckedHours = (value: string) => hours[value as keyof hoursType]
 
   const handleHours = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target
@@ -76,8 +76,8 @@ const TimesQuestion = (props: Props) => {
         <>
           <BackIcon action={() => setStep(1)} />
           <Options
-            handleTimeQuestion={handleTimeQuestion}
             timeAnswer={timeAnswer}
+            handleTimeQuestion={handleTimeQuestion}
           />
         </>
       )

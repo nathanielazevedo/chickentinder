@@ -3,8 +3,8 @@ import SlideIn from '../../../components/SlideIn'
 import MainButton from '../../../components/MainButton'
 
 type Props = {
-  handleTimeQuestion: (time: string) => void
   timeAnswer: string
+  handleTimeQuestion: (time: string) => void
 }
 
 const Options = ({ handleTimeQuestion, timeAnswer }: Props) => {

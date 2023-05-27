@@ -1,8 +1,8 @@
 import Dialog from '@mui/material/Dialog'
-import { Box, DialogActions, Typography } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import MainButton from '../../../components/MainButton'
+import { Box, DialogActions, Typography } from '@mui/material'
 
 type Props = {
   open: boolean
@@ -13,9 +13,9 @@ type Props = {
 const BackDialog = ({ open, setOpen, handleBack }: Props) => {
   return (
     <Dialog
+      fullWidth
       open={open}
       onClose={() => setOpen(false)}
-      fullWidth
       PaperProps={{
         style: {
           padding: '10px 0px',
@@ -33,17 +33,17 @@ const BackDialog = ({ open, setOpen, handleBack }: Props) => {
       </DialogContent>
       <DialogActions
         sx={{
+          gap: '10px',
           display: 'flex',
           flexDirection: 'column',
-          gap: '10px',
         }}
       >
         <Box
           sx={{
+            gap: '10px',
+            width: '100%',
             display: 'flex',
             justifyContent: 'space-between',
-            width: '100%',
-            gap: '10px',
           }}
         >
           <MainButton onClick={() => handleBack('cancel')} text='Cancel' />

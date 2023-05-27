@@ -6,20 +6,20 @@ import BackIcon from '../../components/backIcons/BackIconAction'
 import { Typography, FormControl, TextField } from '@mui/material'
 
 type Props = {
-  personalData: PersonalType
-  submitting: boolean
   pError: string
-  setStep: React.Dispatch<React.SetStateAction<number>>
+  submitting: boolean
+  personalData: PersonalType
   createParty: (values: PersonalType) => void
+  setStep: React.Dispatch<React.SetStateAction<number>>
   setPersonalData: (personalData: PersonalType) => void
 }
 
 const CreateForm = ({
-  personalData,
-  setStep,
   pError,
-  createParty,
+  setStep,
   submitting,
+  createParty,
+  personalData,
   setPersonalData,
 }: Props) => {
   return (

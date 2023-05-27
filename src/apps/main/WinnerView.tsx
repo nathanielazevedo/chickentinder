@@ -1,8 +1,8 @@
 import { Typography } from '@mui/material'
 import RCard from '../../components/RCard'
 import SlideIn from '../../components/SlideIn'
-import BackIcon from '../../components/backIcons/BackIconTo'
 import { Party } from '../../models/Party'
+import BackIcon from '../../components/backIcons/BackIconTo'
 
 type Props = {
   party: Party

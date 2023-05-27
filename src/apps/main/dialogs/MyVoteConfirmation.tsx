@@ -1,8 +1,8 @@
 import Dialog from '@mui/material/Dialog'
-import { DialogActions, Typography } from '@mui/material'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import MainButton from '../../../components/MainButton'
+import { DialogActions, Typography } from '@mui/material'
 
 type Props = {
   open: boolean

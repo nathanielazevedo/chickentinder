@@ -1,5 +1,5 @@
-import Button from '../apps/marketing/Button'
 import { Link } from 'react-router-dom'
+import Button from '../apps/marketing/Button'
 import { Box, Typography } from '@mui/material'
 
 type Props = {

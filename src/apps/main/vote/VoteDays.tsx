@@ -4,22 +4,21 @@ import { Swipe, getSwipe } from './SwipeUtils'
 import { Box, Typography } from '@mui/material'
 
 type Props = {
-  days_to_vote_on: { id: string }[] | undefined
   fDV: () => void
+  days_to_vote_on: { id: string }[] | undefined
   setDLikes: React.Dispatch<React.SetStateAction<string[]>>
 }
 
 const VoteDays = ({ days_to_vote_on, fDV, setDLikes }: Props) => {
-  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
-  const [index, setIndex] = useState<number>(0)
   const length = days_to_vote_on?.length
+  const [index, setIndex] = useState<number>(0)
+  const time = days_to_vote_on && days_to_vote_on[index]
+  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
 
   if (index === length) {
     fDV()
     return <></>
   }
-
-  const time = days_to_vote_on && days_to_vote_on[index]
 
   return (
     <Box display='flex' alignItems='center' flexDirection='column'>

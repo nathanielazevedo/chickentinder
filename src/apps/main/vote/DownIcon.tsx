@@ -1,23 +1,23 @@
+import { useState } from 'react'
 import { Swipe } from './SwipeUtils'
 import { animated, useSpring } from 'react-spring'
 import { Restaurant } from '../../../models/Restaurant'
 import ThumbDownIcon from '@mui/icons-material/ThumbDownOffAlt'
-import { useState } from 'react'
 
 type Props = {
   index: number
   buttonsActive: boolean
   setSwipe: (swipe: Swipe) => void
+  setLikes: (likes: string[]) => void
   item: Restaurant | { id: string } | undefined
   items: Restaurant[] | { id: string }[] | undefined
   setIndex: React.Dispatch<React.SetStateAction<number>>
-  setLikes: (likes: string[]) => void
   setButtonsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const DownIcon = (props: Props) => {
-  const { item, setSwipe, setIndex, buttonsActive, setButtonsActive } = props
   const [state, toggle] = useState(false)
+  const { item, setSwipe, setIndex, buttonsActive, setButtonsActive } = props
 
   const { x } = useSpring({
     from: { x: 0 },

@@ -1,32 +1,32 @@
-import CustomDialog from './CustomDialog'
 import { useState } from 'react'
+import CustomDialog from './CustomDialog'
 import Checkbox from '@mui/material/Checkbox'
 import SlideIn from '../../components/SlideIn'
-import { Box, Chip, Link, Skeleton, Typography } from '@mui/material'
 import MainButton from '../../components/MainButton'
+import { Box, Chip, Link, Skeleton, Typography } from '@mui/material'
+import BackIconAction from '../../components/backIcons/BackIconAction'
 import {
   CustomRestaurant,
   Restaurant,
   RestaurantCreate,
 } from '../../models/Restaurant'
-import BackIconAction from '../../components/backIcons/BackIconAction'
 
 type Props = {
-  restaurants: (Restaurant | CustomRestaurant)[] | undefined
-  completeRestaurants: () => void
   fetchMore: () => void
+  completeRestaurants: () => void
   setStep: React.Dispatch<React.SetStateAction<number>>
+  restaurants: (Restaurant | CustomRestaurant)[] | undefined
   setRestaurants: React.Dispatch<
     React.SetStateAction<(Restaurant | CustomRestaurant)[] | undefined>
   >
 }
 
 const RPreview = ({
-  restaurants,
-  completeRestaurants,
-  fetchMore,
-  setRestaurants,
   setStep,
+  fetchMore,
+  restaurants,
+  setRestaurants,
+  completeRestaurants,
 }: Props) => {
   const [customOpen, setCustomOpen] = useState(false)
 

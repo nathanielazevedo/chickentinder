@@ -1,12 +1,12 @@
+import React from 'react'
 import { Formik } from 'formik'
 import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
+import MainButton from '../../components/MainButton'
 import { RestaurantCreate } from '../../models/Restaurant'
+import { TransitionProps } from '@mui/material/transitions'
 import { restaurantSchema, rvaluesInitial } from './CreateHelpers'
 import { FormControl, Slide, TextField, Typography } from '@mui/material'
-import { TransitionProps } from '@mui/material/transitions'
-import React from 'react'
-import MainButton from '../../components/MainButton'
 
 type Props = {
   open: boolean
@@ -35,9 +35,9 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
       TransitionComponent={Transition}
       PaperProps={{
         style: {
+          width: '450px',
           padding: '20px',
           backgroundImage: 'none',
-          width: '450px',
         },
       }}
     >
@@ -60,9 +60,9 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
           <form onSubmit={handleSubmit}>
             <FormControl
               sx={{
+                gap: '20px',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '20px',
               }}
             >
               <TextField

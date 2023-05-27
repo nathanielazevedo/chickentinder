@@ -4,15 +4,16 @@ import PartyDeleted from './PartyDeleted'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
 import SlideIn from '../../components/SlideIn'
-import { Alert, Box, Chip, Skeleton, Typography } from '@mui/material'
-import { useAppSelector } from '../../state/redux'
-import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
-import HowToVoteOutlinedIcon from '@mui/icons-material/HowToVoteOutlined'
-import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { toMiles } from '../create/CreateHelpers'
+import { useAppSelector } from '../../state/redux'
 import NewPartyDialog from './dialogs/NewPartyDialog'
 import PasswordDialog from './dialogs/PasswordDialog'
+import BackIcon from '../../components/backIcons/BackIconTo'
+import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
+import { Alert, Box, Chip, Skeleton, Typography } from '@mui/material'
+import HowToVoteOutlinedIcon from '@mui/icons-material/HowToVoteOutlined'
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined'
 import ManageAccountsOutlinedIcon from '@mui/icons-material/ManageAccountsOutlined'
 import {
   addPartyToLocal,
@@ -20,7 +21,6 @@ import {
   haveLocalParties,
   removePartyFromLocal,
 } from '../../utils/localStorage'
-import BackIcon from '../../components/backIcons/BackIconTo'
 
 const Entry = () => {
   const { id } = useParams()
@@ -49,9 +49,7 @@ const Entry = () => {
         if (searchParams.get('new')) setShowNewDialog(true)
       } catch (error: unknown) {
         const err = error as Error
-        console.log('err', err)
         if (err?.message) {
-          console.log('err', err.message)
           id && removePartyFromLocal(id)
           setShowDelete(true)
         } else {
