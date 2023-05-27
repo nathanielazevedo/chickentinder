@@ -37,7 +37,12 @@ const VotersInfo = ({ voters, setStep, completeVoteInfo }: Props) => {
             errors,
             setFieldValue,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                marginTop: '50px',
+              }}
+            >
               <Typography mb='10px' variant='h4'>
                 Do you want a set number of voters?
               </Typography>
@@ -100,7 +105,6 @@ const VotersInfo = ({ voters, setStep, completeVoteInfo }: Props) => {
                     height: '50px',
                     width: '100px',
                     border: 'none',
-                    backgroundColor: 'rgb(0, 213, 250, 15%)',
                     alignSelf: 'flex-start',
                     marginTop: '10px',
                   }}

@@ -5,7 +5,7 @@ import { Restaurant } from './models/Restaurant'
 
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
-const mock = process.env.NODE_ENV === 'production' ? false : false
+const mock = process.env.NODE_ENV === 'production' ? false : true
 const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
@@ -62,7 +62,7 @@ type rP = {
   location: string
   type: string
   max_distance: number
-  // number_of_restaurants: number
+  offset?: number
 }
 
 const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {

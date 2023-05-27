@@ -2,7 +2,7 @@ import CustomDialog from './CustomDialog'
 import { useState } from 'react'
 import Checkbox from '@mui/material/Checkbox'
 import SlideIn from '../../components/SlideIn'
-import { Box, Link, Skeleton, Typography } from '@mui/material'
+import { Box, Chip, Link, Skeleton, Typography } from '@mui/material'
 import MainButton from '../../components/MainButton'
 import {
   CustomRestaurant,
@@ -14,6 +14,7 @@ import BackIconAction from '../../components/backIcons/BackIconAction'
 type Props = {
   restaurants: (Restaurant | CustomRestaurant)[] | undefined
   completeRestaurants: () => void
+  fetchMore: () => void
   setStep: React.Dispatch<React.SetStateAction<number>>
   setRestaurants: React.Dispatch<
     React.SetStateAction<(Restaurant | CustomRestaurant)[] | undefined>
@@ -23,6 +24,7 @@ type Props = {
 const RPreview = ({
   restaurants,
   completeRestaurants,
+  fetchMore,
   setRestaurants,
   setStep,
 }: Props) => {
@@ -56,6 +58,16 @@ const RPreview = ({
       } as CustomRestaurant
       if (!prevState) return [obj]
       return [...prevState, obj]
+    })
+  }
+
+  const clearUnChecked = () => {
+    setRestaurants((prevState) => {
+      if (!prevState) return []
+      const newRestaurants = prevState.filter(
+        (restaurant) => restaurant.checked
+      )
+      return [...newRestaurants]
     })
   }
 
@@ -101,16 +113,36 @@ const RPreview = ({
           }}
         >
           {restaurants && checkedLength() && (
-            <Typography color='error' mt='0px'>
-              You must select at least 2 restaurants.
+            <Typography
+              color='error'
+              mt='0px'
+              sx={{
+                fontSize: '12px',
+              }}
+            >
+              You must select at least 2 places.
             </Typography>
           )}
         </Box>
         <Box m='5px 0'>
-          <MainButton
-            text='+ Add custom place'
-            onClick={() => setCustomOpen(true)}
-          />
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <Chip
+              label='Clear Unchecked'
+              variant='outlined'
+              onClick={clearUnChecked}
+            />
+            <Chip label='Fetch More' variant='outlined' onClick={fetchMore} />
+            <Chip
+              label='Create Custom'
+              variant='outlined'
+              onClick={() => setCustomOpen(true)}
+            />
+          </Box>
           {restaurants ? (
             restaurants.map((restaurant) => (
               <Box

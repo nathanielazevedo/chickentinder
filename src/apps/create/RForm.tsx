@@ -3,16 +3,7 @@ import SlideIn from '../../components/SlideIn'
 import MainButton from '../../components/MainButton'
 import BackIcon from '../../components/backIcons/BackIconTo'
 import { toMiles, toMeters, rFormSchema, RFormType } from './CreateHelpers'
-import {
-  Box,
-  Typography,
-  FormControl,
-  TextField,
-  Slider,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-} from '@mui/material'
+import { Box, Typography, FormControl, TextField, Slider } from '@mui/material'
 
 type Props = {
   rError: string | null
@@ -39,37 +30,30 @@ const RForm = ({ rError, formData, fetchRestaurants }: Props) => {
             handleSubmit,
             setFieldValue,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} style={{ marginTop: '50px' }}>
               <Typography mb='5px' variant='h3'>
                 Where's the Party?
               </Typography>
-              <Typography mb='20px' color='secondary'>
+              <Typography mb='30px' color='secondary'>
                 We'll find the best places near you!
               </Typography>
               <FormControl
                 sx={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
               >
-                <RadioGroup
+                <TextField
                   name='type'
-                  value={values.type}
+                  label='Type of Place'
+                  variant='outlined'
+                  onBlur={handleBlur}
                   onChange={handleChange}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    alignItems: 'center',
-                  }}
-                >
-                  <FormControlLabel
-                    value='restaurants'
-                    control={<Radio />}
-                    label='Restaurants'
-                  />
-                  <FormControlLabel
-                    value='bars'
-                    control={<Radio />}
-                    label='Bars'
-                  />
-                </RadioGroup>
+                  value={values.type}
+                  error={Boolean(touched.type) && Boolean(errors.type)}
+                  helperText={
+                    errors.type && touched.type
+                      ? errors.type
+                      : 'ex. Bars, Restaurants, Cafes'
+                  }
+                />
                 <TextField
                   name='location'
                   label='City Name or Zip Code'

@@ -37,6 +37,7 @@ const Main = () => {
   const [submitting, setSubmitting] = useState(false)
   const [voters, setVoters] = useState(votersInitial)
   const [timeQuestion, setTimeQuestion] = useState('')
+  const [offset, setOffset] = useState(20)
   const [rFormData, setrFormData] = useState(rValuesInitial)
   const [personalData, setPersonalData] = useState(pInitial)
 
@@ -48,6 +49,28 @@ const Main = () => {
       const restaurants = await api.fetchRestaurants(rFormData)
       const withChecks = addChecks(restaurants)
       setRestaurants(withChecks)
+      setRError('')
+    } catch {
+      setStep(0)
+      setRError(
+        'There was an error fetching restaurants. Try a different location.'
+      )
+    }
+  }
+
+  const fetchMore = async () => {
+    try {
+      const data = {
+        ...rFormData,
+        offset,
+      }
+      const restaurants = await api.fetchRestaurants(data)
+      const withChecks = addChecks(restaurants)
+      setOffset((prevState) => prevState + 20)
+      setRestaurants((prevState) => {
+        if (!prevState) return withChecks
+        return [...prevState, ...withChecks]
+      })
       setRError('')
     } catch {
       setStep(0)
@@ -117,6 +140,7 @@ const Main = () => {
         return (
           <RPreview
             setStep={setStep}
+            fetchMore={fetchMore}
             restaurants={restaurants}
             setRestaurants={setRestaurants}
             completeRestaurants={completeRestaurants}

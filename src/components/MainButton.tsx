@@ -19,7 +19,6 @@ const MainButton = ({
   icon,
   type,
   height,
-  selected,
 }: Props) => {
   const dispatch = useAppDispatch()
   return (
@@ -31,17 +30,18 @@ const MainButton = ({
         onClick && onClick()
       }}
       disabled={disabled}
+      variant='outlined'
       sx={{
         height: height ?? '50px',
-        border: !selected ? 'none' : 'grey 1px solid',
-        backgroundColor: 'rgb(0, 213, 250, 15%)',
-        '&:hover': {
-          backgroundColor: 'rgb(0, 213, 250, 25%)',
-          border: !selected ? 'none' : 'grey 1px solid',
-        },
-        '&:disabled': {
-          border: 'none',
-        },
+        // border: !selected ? 'none' : 'grey 1px solid',
+        // backgroundColor: 'rgb(0, 213, 250, 15%)',
+        // '&:hover': {
+        //   backgroundColor: 'rgb(0, 213, 250, 25%)',
+        //   border: !selected ? 'none' : 'grey 1px solid',
+        // },
+        // '&:disabled': {
+        //   border: 'none',
+        // },
       }}
     >
       <Typography>{text}</Typography>

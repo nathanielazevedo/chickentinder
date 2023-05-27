@@ -44,7 +44,12 @@ const CreateForm = ({
             handleChange,
             handleSubmit,
           }) => (
-            <form onSubmit={handleSubmit}>
+            <form
+              onSubmit={handleSubmit}
+              style={{
+                marginTop: '50px',
+              }}
+            >
               <Typography mb='20px' variant='h3'>
                 Final Step
               </Typography>

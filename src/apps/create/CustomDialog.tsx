@@ -3,15 +3,10 @@ import { useState } from 'react'
 import Dialog from '@mui/material/Dialog'
 import { RestaurantCreate } from '../../models/Restaurant'
 import { restaurantSchema, rvaluesInitial } from './CreateHelpers'
-import {
-  Button,
-  FormControl,
-  Slide,
-  TextField,
-  Typography,
-} from '@mui/material'
+import { FormControl, Slide, TextField, Typography } from '@mui/material'
 import { TransitionProps } from '@mui/material/transitions'
 import React from 'react'
+import MainButton from '../../components/MainButton'
 
 type Props = {
   open: boolean
@@ -88,17 +83,7 @@ const CustomDialog = ({ open, setOpen, createRestaurant }: Props) => {
                 error={Boolean(touched.location) && Boolean(errors.location)}
                 helperText={touched.location && errors.location}
               />
-              <Button
-                type='submit'
-                variant='outlined'
-                sx={{
-                  height: '50px',
-                  border: 'none',
-                  backgroundColor: 'rgb(0, 213, 250, 15%)',
-                }}
-              >
-                <Typography>Create</Typography>
-              </Button>
+              <MainButton type='submit' text='Create' />
             </FormControl>
           </form>
         )}

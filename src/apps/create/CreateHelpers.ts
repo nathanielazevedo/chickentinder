@@ -118,7 +118,7 @@ export const rFormSchema = object({
 export type RFormType = typeof rValuesInitial
 export const rValuesInitial = {
   location: '',
-  type: 'restaurants',
+  type: 'Restaurants',
   max_distance: 15000,
 }
 

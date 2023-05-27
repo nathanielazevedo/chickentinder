@@ -7,13 +7,13 @@ const Button = ({ text, onClick }: { text: string; onClick?: () => void }) => {
   return (
     <MuiButton
       fullWidth
-      variant='contained'
+      variant='outlined'
       sx={{
         height: '50px',
-        backgroundColor: 'rgb(0, 213, 250, 15%)',
-        '&:hover': {
-          backgroundColor: 'rgb(0, 213, 250, 25%)',
-        },
+        // backgroundColor: 'rgb(0, 213, 250, 15%)',
+        // '&:hover': {
+        //   backgroundColor: 'rgb(0, 213, 250, 25%)',
+        // },
       }}
       onClick={() => {
         dispatch(setSwipeDirection('left'))

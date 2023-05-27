@@ -10,7 +10,7 @@ type Props = {
 const Options = ({ handleTimeQuestion, timeAnswer }: Props) => {
   return (
     <SlideIn>
-      <Box>
+      <Box mt='50px'>
         <Typography variant='h4'>Vote on a time or day?</Typography>
         <Typography color='secondary'>
           If your trying to decide on a time and/or day, we can help with that.
@@ -19,31 +19,59 @@ const Options = ({ handleTimeQuestion, timeAnswer }: Props) => {
           mt='20px'
           sx={{
             display: 'flex',
-            flexDirection: 'column',
             gap: '20px',
+            flexWrap: 'wrap',
           }}
         >
-          <MainButton
-            text='Just Time'
-            onClick={() => handleTimeQuestion('Just Time')}
-            selected={timeAnswer === 'Just Time'}
-          />
+          <Box
+            sx={{
+              flex: '30%',
+              width: '100%',
+            }}
+          >
+            <MainButton
+              text='Just Time'
+              onClick={() => handleTimeQuestion('Just Time')}
+              selected={timeAnswer === 'Just Time'}
+            />
+          </Box>
 
-          <MainButton
-            text='Just Day'
-            onClick={() => handleTimeQuestion('Just Day')}
-            selected={timeAnswer === 'Just Day'}
-          />
-          <MainButton
-            text='Time and Day'
-            onClick={() => handleTimeQuestion('Time and Day')}
-            selected={timeAnswer === 'Time and Day'}
-          />
-          <MainButton
-            text='Neither'
-            onClick={() => handleTimeQuestion('Neither')}
-            selected={timeAnswer === 'Neither'}
-          />
+          <Box
+            sx={{
+              flex: '30%',
+              width: '100%',
+            }}
+          >
+            <MainButton
+              text='Just Day'
+              onClick={() => handleTimeQuestion('Just Day')}
+              selected={timeAnswer === 'Just Day'}
+            />
+          </Box>
+          <Box
+            sx={{
+              flex: '30%',
+              width: '100%',
+            }}
+          >
+            <MainButton
+              text='Time and Day'
+              onClick={() => handleTimeQuestion('Time and Day')}
+              selected={timeAnswer === 'Time and Day'}
+            />
+          </Box>
+          <Box
+            sx={{
+              flex: '30%',
+              width: '100%',
+            }}
+          >
+            <MainButton
+              text='Neither'
+              onClick={() => handleTimeQuestion('Neither')}
+              selected={timeAnswer === 'Neither'}
+            />
+          </Box>
         </Box>
       </Box>
     </SlideIn>
