@@ -93,6 +93,17 @@ const Entry = () => {
             )}
           </Typography>
         </Box>
+        {party?.r_winner && (
+          <Alert
+            severity='warning'
+            variant='outlined'
+            sx={{
+              margin: '20px 0px',
+            }}
+          >
+            This party is over! Enjoy the party!
+          </Alert>
+        )}
         <Box
           sx={{
             display: 'flex',
@@ -282,11 +293,6 @@ const Entry = () => {
             </Typography>
           </Box>
         </Box>
-        {party?.r_winner && (
-          <Alert severity='warning' variant='outlined'>
-            This party is over! Enjoy the party!
-          </Alert>
-        )}
       </SlideIn>
     </>
   )

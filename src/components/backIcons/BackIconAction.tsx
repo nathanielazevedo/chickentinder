@@ -25,7 +25,8 @@ const BackIcon = ({ action }: { action: () => void }) => {
         }}
         sx={styles.c}
       >
-        <ArrowBackIosNewIcon sx={{ fontSize: 20 }} />
+        <ArrowBackIosNewIcon sx={{ fontSize: 10, mr: '3px' }} />
+        Back
       </Button>
     </Box>
   )

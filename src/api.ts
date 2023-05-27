@@ -5,7 +5,7 @@ import { Restaurant } from './models/Restaurant'
 
 const localUrl = 'http://localhost:6001/'
 const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
-const mock = process.env.NODE_ENV === 'production' ? false : true
+const mock = process.env.NODE_ENV === 'production' ? false : false
 const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',

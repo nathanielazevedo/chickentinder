@@ -24,7 +24,7 @@ const UpIcon = (props: Props) => {
     buttonsActive,
     setButtonsActive,
   } = props
-  const [state, toggle] = useState(true)
+  const [state, toggle] = useState(false)
 
   const { x } = useSpring({
     from: { x: 0 },
