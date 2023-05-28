@@ -1,4 +1,4 @@
-import Entry from './apps/main/Entry'
+import Entry from './apps/main/entry/Entry'
 import Terms from './apps/legal/Terms'
 import Create from './apps/create/Main'
 import Manage from './apps/main/Manage'

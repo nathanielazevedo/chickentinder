@@ -1,12 +1,12 @@
 import API from '../../../api'
-import VoteTime from './VoteTime'
-import VoteDays from './VoteDays'
+import VoteTime from './types/VoteTime'
+import VoteDays from './types/VoteDays'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import VoteRestaurant from './VoteRestaurant'
 import { Party } from '../../../models/Party'
 import { useNavigate } from 'react-router-dom'
 import BackDialog from '../dialogs/BackDialog'
+import VoteRestaurant from './types/VoteRestaurant'
 import BackIcon from '../../../components/backIcons/BackIconAction'
 import {
   getPartyFromLocal,
@@ -50,8 +50,8 @@ const Swipe = () => {
 
       const party = getPartyFromLocal(id)
       if (party) {
-        party.voteRestaurants = rLikes
-        party.voted = true
+        party.r_likes = rLikes
+        party.has_voted = true
         updatePartyInLocal(party)
       }
 
@@ -72,9 +72,9 @@ const Swipe = () => {
 
       const party = getPartyFromLocal(id)
       if (party) {
-        party.voteRestaurants = rLikes
-        party.voteTime = hLikes
-        party.voted = true
+        party.r_likes = rLikes
+        party.h_likes = hLikes
+        party.has_voted = true
         updatePartyInLocal(party)
       }
 
@@ -91,10 +91,10 @@ const Swipe = () => {
 
       const party = getPartyFromLocal(id)
       if (party) {
-        party.voteRestaurants = rLikes
-        party.voteTime = hLikes
-        party.likedDays = dLikes
-        party.voted = true
+        party.r_likes = rLikes
+        party.h_likes = hLikes
+        party.d_likes = dLikes
+        party.has_voted = true
         updatePartyInLocal(party)
       }
 

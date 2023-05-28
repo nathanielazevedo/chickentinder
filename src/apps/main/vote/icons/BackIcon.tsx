@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { Swipe } from './SwipeUtils'
+import { Swipe } from '../SwipeUtils'
 import { animated, useSpring } from 'react-spring'
-import { Restaurant } from '../../../models/Restaurant'
+import { Restaurant } from '../../../../models/Restaurant'
 import SettingsBackupRestoreIcon from '@mui/icons-material/SettingsBackupRestore'
 
 type Props = {

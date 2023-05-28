@@ -1,23 +1,30 @@
 import { useState } from 'react'
-import { Swipe } from './SwipeUtils'
+import { Swipe } from '../SwipeUtils'
 import { animated, useSpring } from 'react-spring'
-import { Restaurant } from '../../../models/Restaurant'
-import ThumbDownIcon from '@mui/icons-material/ThumbDownOffAlt'
+import { Restaurant } from '../../../../models/Restaurant'
+import ThumbUpIcon from '@mui/icons-material/ThumbUpOffAlt'
 
 type Props = {
   index: number
   buttonsActive: boolean
   setSwipe: (swipe: Swipe) => void
-  setLikes: (likes: string[]) => void
   item: Restaurant | { id: string } | undefined
   items: Restaurant[] | { id: string }[] | undefined
   setIndex: React.Dispatch<React.SetStateAction<number>>
+  setLikes: React.Dispatch<React.SetStateAction<string[]>>
   setButtonsActive: React.Dispatch<React.SetStateAction<boolean>>
 }
 
-const DownIcon = (props: Props) => {
+const UpIcon = (props: Props) => {
+  const {
+    item,
+    setSwipe,
+    setLikes,
+    setIndex,
+    buttonsActive,
+    setButtonsActive,
+  } = props
   const [state, toggle] = useState(false)
-  const { item, setSwipe, setIndex, buttonsActive, setButtonsActive } = props
 
   const { x } = useSpring({
     from: { x: 0 },
@@ -33,16 +40,17 @@ const DownIcon = (props: Props) => {
         }),
       }}
     >
-      <ThumbDownIcon
-        color='error'
+      <ThumbUpIcon
+        color='primary'
         sx={styles.icon}
         onClick={() => {
           if (!buttonsActive) return
           toggle(!state)
           setButtonsActive(false)
-          item && setSwipe({ id: item.id, direction: 'left' })
+          item && setLikes((prevState) => [...prevState, item.id])
+          item && setSwipe({ id: item.id, direction: 'right' })
           setTimeout(() => {
-            setIndex((prevState: number) => prevState + 1)
+            setIndex((prevState) => prevState + 1)
             setButtonsActive(true)
           }, 1000)
         }}
@@ -51,7 +59,7 @@ const DownIcon = (props: Props) => {
   )
 }
 
-export default DownIcon
+export default UpIcon
 
 const styles = {
   icon: {

@@ -32,16 +32,16 @@ const MyVotes = () => {
       if (!partiesInLocal) navigate('/party/' + id)
       else {
         const lParty = getPartyFromLocal(id)
-        if (!lParty || !lParty.voted) navigate('/party/' + id)
+        if (!lParty || !lParty.has_voted) navigate('/party/' + id)
         else {
           setRestaurants(
             party.restaurants.filter((restaurant) =>
-              lParty.voteRestaurants.includes(restaurant.id)
+              lParty.r_likes.includes(restaurant.id)
             )
           )
-          if (lParty.voteTime) setTLikes(lParty.voteTime)
+          if (lParty.h_likes) setTLikes(lParty.h_likes)
           else setTLikes([])
-          if (lParty.likedDays) setDLikes(lParty.likedDays)
+          if (lParty.d_likes) setDLikes(lParty.d_likes)
           else setDLikes([])
         }
       }

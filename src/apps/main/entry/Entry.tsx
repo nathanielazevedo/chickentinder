@@ -1,14 +1,14 @@
-import API from '../../api'
-import { setRParty } from '../../state'
-import PartyDeleted from './PartyDeleted'
+import API from '../../../api'
+import { setRParty } from '../../../state'
+import PartyDeleted from '../PartyDeleted'
 import { useDispatch } from 'react-redux'
 import { useEffect, useState } from 'react'
-import SlideIn from '../../components/SlideIn'
-import { toMiles } from '../create/CreateHelpers'
-import { useAppSelector } from '../../state/redux'
-import NewPartyDialog from './dialogs/NewPartyDialog'
-import PasswordDialog from './dialogs/PasswordDialog'
-import BackIcon from '../../components/backIcons/BackIconTo'
+import SlideIn from '../../../components/SlideIn'
+import { toMiles } from '../../create/CreateHelpers'
+import { useAppSelector } from '../../../state/redux'
+import NewPartyDialog from '../dialogs/NewPartyDialog'
+import PasswordDialog from '../dialogs/PasswordDialog'
+import BackIcon from '../../../components/backIcons/BackIconTo'
 import ShareOutlinedIcon from '@mui/icons-material/ShareOutlined'
 import { Link, useParams, useSearchParams } from 'react-router-dom'
 import { Alert, Box, Chip, Skeleton, Typography } from '@mui/material'
@@ -20,7 +20,7 @@ import {
   getPartyFromLocal,
   haveLocalParties,
   removePartyFromLocal,
-} from '../../utils/localStorage'
+} from '../../../utils/localStorage'
 
 const Entry = () => {
   const { id } = useParams()
@@ -38,13 +38,13 @@ const Entry = () => {
         if (!id) return
         const res = await API.getParty(id)
         dispatch(setRParty(res))
-        const newParty = { _id: id, voted: false, name: res.name }
+        const newParty = { _id: id, has_voted: false, name: res.name }
         const partiesInLocal = haveLocalParties()
         if (!partiesInLocal) addPartyToLocal(newParty)
         else {
           const party = getPartyFromLocal(id)
           if (!party) addPartyToLocal(newParty)
-          else setVoted(party.voted)
+          else setVoted(party.has_voted)
         }
         if (searchParams.get('new')) setShowNewDialog(true)
       } catch (error: unknown) {

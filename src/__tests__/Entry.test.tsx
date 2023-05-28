@@ -1,6 +1,6 @@
 import { rest } from 'msw'
 import { store } from '../store'
-import Entry from '../apps/main/Entry'
+import Entry from '../apps/main/entry/Entry'
 import { Provider } from 'react-redux'
 import { setupServer } from 'msw/node'
 import { party } from '../mockData/mockP'

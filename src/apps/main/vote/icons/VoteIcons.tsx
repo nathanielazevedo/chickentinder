@@ -3,8 +3,8 @@ import { useState } from 'react'
 import DownIcon from './DownIcon'
 import BackIcon from './BackIcon'
 import { Box } from '@mui/material'
-import { Swipe } from './SwipeUtils'
-import { Restaurant } from '../../../models/Restaurant'
+import { Swipe } from '../SwipeUtils'
+import { Restaurant } from '../../../../models/Restaurant'
 
 type Props = {
   index: number

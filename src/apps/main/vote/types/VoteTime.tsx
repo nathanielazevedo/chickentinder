@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import VoteIcons from './VoteIcons'
-import { Swipe, getSwipe } from './SwipeUtils'
+import VoteIcons from '../icons/VoteIcons'
+import { Swipe, getSwipe } from '../SwipeUtils'
 import { Box, Typography } from '@mui/material'
 
 type Props = {

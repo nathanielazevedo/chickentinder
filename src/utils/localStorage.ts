@@ -1,16 +1,16 @@
 export type PreLocalParty = {
   _id: string
   name: string
-  voted: boolean
+  has_voted: boolean
 }
 
 export type LocalParty = {
   _id: string
   name: string
-  voted: boolean
-  voteRestaurants: string[]
-  voteTime: string[]
-  likedDays: string[]
+  has_voted: boolean
+  r_likes: string[]
+  h_likes: string[]
+  d_likes: string[]
 }
 
 export const haveLocalParties = () => {
@@ -30,8 +30,9 @@ export const getPartyFromLocal = (id: string) => {
 export const addPartyToLocal = (preParty: PreLocalParty) => {
   const party = {
     ...preParty,
-    voteRestaurants: [],
-    voteTimes: [],
+    r_likes: [],
+    h_likes: [],
+    d_likes: [],
   }
   const parties = getPartiesFromLocal()
   if (parties) {

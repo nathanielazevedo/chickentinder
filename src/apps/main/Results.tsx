@@ -10,9 +10,9 @@ import BackIcon from '../../components/backIcons/BackIconTo'
 import { useAppDispatch, useAppSelector } from '../../state/redux'
 
 const Results = () => {
+  const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const { id } = useParams<{ id: string }>()
-  const navigate = useNavigate()
   const party = useAppSelector((state) => state.party)
 
   useEffect(() => {
@@ -26,9 +26,7 @@ const Results = () => {
 
   if (!party) return <Loading />
 
-  if (party.r_winner) {
-    return <WinnerView party={party} id={id ?? ''} />
-  }
+  if (party.r_winner) return <WinnerView party={party} id={id ?? ''} />
 
   return (
     <>

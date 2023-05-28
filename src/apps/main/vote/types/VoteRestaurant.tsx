@@ -1,9 +1,9 @@
-import VoteIcons from './VoteIcons'
-import { Swipe } from './SwipeUtils'
+import VoteIcons from '../icons/VoteIcons'
+import { Swipe } from '../SwipeUtils'
 import { useEffect, useState } from 'react'
-import RCard from '../../../components/RCard'
+import RCard from '../../../../components/RCard'
 import { Box, Typography } from '@mui/material'
-import { Restaurant } from '../../../models/Restaurant'
+import { Restaurant } from '../../../../models/Restaurant'
 
 type Props = {
   fRV: () => void
