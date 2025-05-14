@@ -4,7 +4,7 @@ import { CreateParty, Party } from './models/Party'
 import { Restaurant } from './models/Restaurant'
 
 const localUrl = 'http://localhost:6001/'
-const prodUrl = 'https://shy-red-boa-suit.cyclic.app/'
+const prodUrl = 'https://github.com/nathanielazevedo/chickentinder.git'
 const mock = process.env.NODE_ENV === 'production' ? false : true
 const headers = {
   'Content-Type': 'application/json',
