@@ -1,18 +1,18 @@
-import { Formik } from 'formik'
-import SlideIn from '../../components/SlideIn'
-import MainButton from '../../components/MainButton'
-import { personalSchema, PersonalType } from './CreateHelpers'
-import BackIcon from '../../components/backIcons/BackIconAction'
-import { Typography, FormControl, TextField } from '@mui/material'
+import { Formik } from "formik";
+import SlideIn from "../../components/SlideIn";
+import MainButton from "../../components/MainButton";
+import { personalSchema, PersonalType } from "./CreateHelpers";
+import BackIcon from "../../components/backIcons/BackIconAction";
+import { Typography, FormControl, TextField } from "@mui/material";
 
 type Props = {
-  pError: string
-  submitting: boolean
-  personalData: PersonalType
-  createParty: (values: PersonalType) => void
-  setStep: React.Dispatch<React.SetStateAction<number>>
-  setPersonalData: (personalData: PersonalType) => void
-}
+  pError: string;
+  submitting: boolean;
+  personalData: PersonalType;
+  createParty: (values: PersonalType) => void;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  setPersonalData: (personalData: PersonalType) => void;
+};
 
 const CreateForm = ({
   pError,
@@ -26,8 +26,8 @@ const CreateForm = ({
     <>
       <BackIcon
         action={() => {
-          setStep(3)
-          setPersonalData(personalData)
+          setStep(3);
+          setPersonalData(personalData);
         }}
       />
       <SlideIn>
@@ -47,76 +47,62 @@ const CreateForm = ({
             <form
               onSubmit={handleSubmit}
               style={{
-                marginTop: '50px',
+                marginTop: "50px",
               }}
             >
-              <Typography mb='20px' variant='h3'>
-                Final Step
+              <Typography mb="20px" variant="h3">
+                Let's get this party started!
               </Typography>
               <FormControl
                 sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '20px',
+                  display: "flex",
+                  flexDirection: "column",
+                  gap: "20px",
                 }}
               >
                 <TextField
-                  name='name'
-                  label='Party Name'
+                  name="name"
+                  label="Party Name"
                   onBlur={handleBlur}
                   value={values.name}
+                  required
                   onChange={(e) => {
-                    setPersonalData({ ...personalData, name: e.target.value })
-                    handleChange(e)
+                    setPersonalData({ ...personalData, name: e.target.value });
+                    handleChange(e);
                   }}
                   helperText={touched.name && errors.name}
                   error={Boolean(touched.name) && Boolean(errors.name)}
                 />
                 <TextField
-                  name='email'
-                  label='Email'
+                  label="Password"
+                  type="password"
                   onBlur={handleBlur}
-                  value={values.email}
-                  onChange={(e) => {
-                    setPersonalData({ ...personalData, email: e.target.value })
-                    handleChange(e)
-                  }}
-                  helperText={
-                    errors.email && touched.email
-                      ? errors.email
-                      : 'Used to handle a forgotten password or lost party link.'
-                  }
-                  error={Boolean(touched.email) && Boolean(errors.email)}
-                />
-                <TextField
-                  label='Password'
-                  type='password'
-                  onBlur={handleBlur}
+                  required
                   fullWidth
                   onChange={(e) => {
                     setPersonalData({
                       ...personalData,
                       password: e.target.value,
-                    })
-                    handleChange(e)
+                    });
+                    handleChange(e);
                   }}
                   value={values.password}
-                  name='password'
+                  name="password"
                   error={Boolean(touched.password) && Boolean(errors.password)}
                   helperText={
                     errors.password && touched.password
                       ? errors.password
-                      : 'You can use this later to manage the party.'
+                      : "You can use this later to manage the party."
                   }
                 />
                 <MainButton
                   disabled={submitting}
-                  type='submit'
-                  text={submitting ? 'Creating Party!' : 'Create Party'}
+                  type="submit"
+                  text={submitting ? "Creating Party!" : "Create Party"}
                 />
               </FormControl>
               {pError && (
-                <Typography color='error' mt='10px'>
+                <Typography color="error" mt="10px">
                   {pError}
                 </Typography>
               )}
@@ -125,7 +111,7 @@ const CreateForm = ({
         </Formik>
       </SlideIn>
     </>
-  )
-}
+  );
+};
 
-export default CreateForm
+export default CreateForm;

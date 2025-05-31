@@ -41,7 +41,6 @@ export type Party = {
 export type CreateParty = {
   name: string
   location: string
-  email: string
   max_distance: number
   max_voters: number
   vote_on_hours: boolean

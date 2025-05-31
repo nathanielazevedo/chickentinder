@@ -1,11 +1,9 @@
-import { party } from './mockData/mockP'
-import { restaurantsNoChecks } from './mockData/mockR'
 import { CreateParty, Party } from './models/Party'
 import { Restaurant } from './models/Restaurant'
 
-const localUrl = 'http://localhost:6001/'
+const localUrl = 'http://192.168.0.27:6001/'
 const prodUrl = 'https://bct-production.up.railway.app/'
-const mock = process.env.NODE_ENV === 'production' ? false : true
+
 const headers = {
   'Content-Type': 'application/json',
   'Access-Control-Allow-Origin': '*',
@@ -17,45 +15,29 @@ export const baseUrl =
   process.env.NODE_ENV === 'production' ? prodUrl : localUrl
 
 const getParty = async (id: string): Promise<Party> => {
-  if (mock) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(party)
-      }, 2000)
+  return fetch(baseUrl + 'party/' + id, { method: 'GET' })
+    .then(async (res) => {
+      if (res.ok) return await res.json()
+      else if (res.status === 403) throw new Error('deleted')
+      else throw new Error()
     })
-  } else {
-    return fetch(baseUrl + 'party/' + id, { method: 'GET' })
-      .then(async (res) => {
-        if (res.ok) return await res.json().then((data) => data)
-        else if (res.status === 403) throw new Error('deleted')
-        else throw new Error()
-      })
-      .catch((err: unknown) => {
-        const error = err as Error
-        if (error.message === 'deleted') throw new Error('deleted')
-        else throw new Error()
-      })
-  }
+    .catch((err: unknown) => {
+      const error = err as Error
+      if (error.message === 'deleted') throw new Error('deleted')
+      else throw new Error()
+    })
 }
 
 const createParty = async (formData: CreateParty): Promise<Party> => {
-  if (mock) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(party)
-      }, 2000)
+  const body = JSON.stringify(formData)
+  return fetch(baseUrl, { ...POST, body })
+    .then(async (res) => {
+      if (!res.ok) throw new Error()
+      return res.json()
     })
-  } else {
-    const body = JSON.stringify(formData)
-    return fetch(baseUrl, { ...POST, body })
-      .then(async (res) => {
-        if (!res.ok) throw new Error()
-        return res.json().then((party) => party)
-      })
-      .catch(() => {
-        throw new Error()
-      })
-  }
+    .catch(() => {
+      throw new Error()
+    })
 }
 
 type rP = {
@@ -66,23 +48,15 @@ type rP = {
 }
 
 const fetchRestaurants = async (formData: rP): Promise<Restaurant[]> => {
-  if (mock) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve(restaurantsNoChecks)
-      }, 1000)
+  const body = JSON.stringify(formData)
+  return fetch(baseUrl + 'restaurants', { ...POST, body })
+    .then(async (res) => {
+      if (!res.status) throw new Error()
+      return res.json()
     })
-  } else {
-    const body = JSON.stringify(formData)
-    return fetch(baseUrl + 'restaurants', { ...POST, body })
-      .then(async (res) => {
-        if (!res.status) throw new Error()
-        return res.json().then((data) => data)
-      })
-      .catch(() => {
-        throw new Error()
-      })
-  }
+    .catch(() => {
+      throw new Error()
+    })
 }
 
 const vote = async (
@@ -95,7 +69,7 @@ const vote = async (
   return fetch(baseUrl + 'party/' + id + '/vote', { ...POST, body })
     .then(async (res) => {
       if (res.status !== 201) throw new Error('Error voting')
-      return await res.json().then((party) => party)
+      return await res.json()
     })
     .catch((err) => {
       console.log('api 77')
@@ -107,12 +81,10 @@ const validatePassword = async (
   id: string,
   password: string
 ): Promise<boolean | void> => {
-  if (mock) return true
   const body = JSON.stringify({ password })
   return fetch(baseUrl + 'party/' + id + '/password', { ...POST, body })
     .then((res) => {
-      if (res.ok) return true
-      else return false
+      return res.ok
     })
     .catch((err) => {
       console.log(err)
@@ -122,7 +94,7 @@ const validatePassword = async (
 const endParty = async (id: string): Promise<Party> => {
   return fetch(baseUrl + 'party/' + id + '/end', { ...POST })
     .then((res) => {
-      if (res.ok) return res.json().then((party) => party)
+      if (res.ok) return res.json()
       else return false
     })
     .catch((err) => {
