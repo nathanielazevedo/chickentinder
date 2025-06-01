@@ -1,35 +1,32 @@
-import { useState } from 'react'
-import VoteIcons from '../icons/VoteIcons'
-import { Swipe, getSwipe } from '../SwipeUtils'
-import { Box, Typography } from '@mui/material'
+import { useState } from "react";
+import VoteIcons from "../icons/VoteIcons";
+import { Swipe } from "../SwipeUtils";
+import { Box, Typography } from "@mui/material";
+import DayVoteCard from "../../components/DayVoteCard";
 
 type Props = {
-  fDV: () => void
-  days_to_vote_on: { id: string }[] | undefined
-  setDLikes: React.Dispatch<React.SetStateAction<string[]>>
-}
+  fDV: () => void;
+  days_to_vote_on: { id: string }[] | undefined;
+  setDLikes: React.Dispatch<React.SetStateAction<string[]>>;
+};
 
 const VoteDays = ({ days_to_vote_on, fDV, setDLikes }: Props) => {
-  const length = days_to_vote_on?.length
-  const [index, setIndex] = useState<number>(0)
-  const time = days_to_vote_on && days_to_vote_on[index]
-  const [swipe, setSwipe] = useState<Swipe>({ id: '', direction: '' })
+  const length = days_to_vote_on?.length;
+  const [index, setIndex] = useState<number>(0);
+  const time = days_to_vote_on && days_to_vote_on[index];
+  const [swipe, setSwipe] = useState<Swipe>({ id: "", direction: "" });
 
   if (index === length) {
-    fDV()
-    return <></>
+    fDV();
+    return <></>;
   }
 
   return (
-    <Box display='flex' alignItems='center' flexDirection='column'>
-      <Typography variant='h5' alignSelf='flex-end' mb='5px'>
+    <Box display="flex" alignItems="center" flexDirection="column">
+      <Typography variant="h5" alignSelf="flex-end" mb="5px">
         {index + 1} of {length}
       </Typography>
-      <Box className={time && getSwipe(time.id, swipe)} sx={styles.c}>
-        <Box sx={styles.iC}>
-          <Typography variant='h1'>{time?.id}</Typography>
-        </Box>
-      </Box>
+      <DayVoteCard dayId={time?.id} swipe={swipe} />
       <VoteIcons
         index={index}
         item={time}
@@ -39,27 +36,7 @@ const VoteDays = ({ days_to_vote_on, fDV, setDLikes }: Props) => {
         setLikes={setDLikes}
       />
     </Box>
-  )
-}
+  );
+};
 
-export default VoteDays
-
-const styles = {
-  c: {
-    height: '350px',
-    display: 'flex',
-    borderRadius: '10px',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    backgroundColor: 'black',
-    width: { xs: '350px', md: '500px' },
-  },
-  iC: {
-    height: '100%',
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-    justifyContent: 'center',
-  },
-}
+export default VoteDays;

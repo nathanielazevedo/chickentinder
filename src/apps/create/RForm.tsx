@@ -126,25 +126,27 @@ const RForm = ({ rError, formData, fetchRestaurants }: Props) => {
                       {toMiles(values.max_distance)} miles
                     </Typography>
                   </Box>
-                  <Slider
-                    min={1}
-                    step={1}
-                    max={24}
-                    marks={[
-                      { value: 1, label: "1" },
-                      { value: 5, label: "5" },
-                      { value: 10, label: "10" },
-                      { value: 15, label: "15" },
-                      { value: 20, label: "20" },
-                      { value: 24, label: "24" },
-                    ]}
-                    valueLabelDisplay="auto"
-                    aria-label="Max Distance"
-                    value={toMiles(values.max_distance)}
-                    onChange={(_e, value) =>
-                      setFieldValue("max_distance", toMeters(value as number))
-                    }
-                  />
+                  <Box sx={{ mr: 1 }}>
+                    <Slider
+                      min={1}
+                      step={1}
+                      max={24}
+                      marks={[
+                        { value: 1, label: "1" },
+                        { value: 5, label: "5" },
+                        { value: 10, label: "10" },
+                        { value: 15, label: "15" },
+                        { value: 20, label: "20" },
+                        { value: 24, label: "24" },
+                      ]}
+                      valueLabelDisplay="auto"
+                      aria-label="Max Distance"
+                      value={toMiles(values.max_distance)}
+                      onChange={(_e, value) =>
+                        setFieldValue("max_distance", toMeters(value as number))
+                      }
+                    />
+                  </Box>
                 </Box>
 
                 <MainButton type="submit" text="Find Places" />

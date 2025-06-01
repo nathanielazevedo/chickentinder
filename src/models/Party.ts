@@ -35,7 +35,8 @@ export type Party = {
   updatedAt: string
   voters_so_far: number
   __v: number
-  type: string
+  type: string;
+  price: number;
 }
 
 export type CreateParty = {

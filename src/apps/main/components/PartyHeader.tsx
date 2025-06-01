@@ -1,93 +1,68 @@
-import { Box, Skeleton, Typography, IconButton, Tooltip } from "@mui/material";
-import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import { Box, Skeleton, Typography } from "@mui/material";
 import { toMiles } from "../../create/CreateHelpers";
-import { useState } from "react";
+import { Party } from "../../../models/Party";
 
 type Props = {
-  party: {
-    _id?: string;
-    name?: string;
-    location?: string;
-    max_distance?: number;
-    type?: string;
-    price?: number;
-    max_voters?: number;
-    topic?: string; // ex: "Where to go", "When to go"
-    vote_on_days?: string; // ISO string
-    vote_on_time?: string; // ISO time or string
-  };
+  party: Party;
+  onManageClick: any;
 };
 
-const PartyHeader = ({ party }: Props) => {
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = () => {
-    if (!party._id) return;
-    const url = `${window.location.origin}/party/${party.id}`;
-    navigator.clipboard.writeText(url);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
+const PartyHeader = ({ party, onManageClick }: Props) => {
   return (
     <Box
-      mt={2}
       sx={{
         padding: "20px",
         borderRadius: "10px",
-        // border: "1px solid rgb(14, 107, 125)",
         backgroundColor: "rgba(14, 107, 125, 0.1)",
       }}
     >
-      <Box display="flex" alignItems="center" justifyContent="space-between">
+      <Box
+        display="flex"
+        alignItems="center"
+        justifyContent="space-between"
+        flexWrap="wrap"
+        gap={1}
+      >
         <Typography variant="h3">
           {party.name ?? <Skeleton variant="text" width={200} />}
         </Typography>
-        {party._id && (
-          <Tooltip title={copied ? "Copied!" : "Copy link"}>
-            <IconButton onClick={handleCopy}>
-              <ContentCopyIcon fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
       </Box>
 
-      <Typography color="secondary" mt={1}>
-        Location:{" "}
+      <Typography color="text.secondary" mt={2}>
         {party.max_distance && party.location ? (
-          `Within ${toMiles(party.max_distance)} miles from ${party.location}.`
+          `Your party is voting on ${party.type} within ${toMiles(
+            party.max_distance
+          )} miles from ${party.location}.`
         ) : (
           <Skeleton variant="text" width={200} />
         )}
       </Typography>
 
-      <Box mt={2} display="flex" flexDirection="column" gap={0.5}>
-        {party.topic && (
-          <Typography color="secondary">
-            <strong>Voting on:</strong> {party.topic}
-          </Typography>
-        )}
-        {party.type && (
-          <Typography>
-            <strong>Type of place:</strong> {party.type}
-          </Typography>
-        )}
+      <Box mt={1} display="flex" flexDirection="column" gap={1}>
         {party.price !== undefined && (
-          <Typography>
-            <strong>Max price:</strong>{" "}
-            {party.price > 0 ? "$".repeat(party.price) : "No limit"}
+          <Typography color="text.secondary">
+            Max price:{" "}
+            <strong>
+              {party.price > 0 ? "$".repeat(party.price) : "No limit"}
+            </strong>
           </Typography>
         )}
-        <Typography>
-          <strong>Max voters:</strong>{" "}
-          {party.max_voters ? party.max_voters : "No limit"}
+        <Typography color="text.secondary">
+          Max voters: <strong>{party.max_voters ?? "No limit"}</strong>
         </Typography>
         {party.vote_on_days && (
-          <Typography>This party is voting on days</Typography>
+          <Typography color="text.secondary">
+            Party is voting on available days.
+          </Typography>
         )}
-        {party.vote_on_time && (
-          <Typography>This party is voting on a time</Typography>
+        {party.vote_on_hours && (
+          <Typography color="text.secondary">
+            Party is voting on time of day.
+          </Typography>
         )}
+        <Typography color="text.secondary">
+          Voters so far: {party.voters_so_far}
+        </Typography>
       </Box>
     </Box>
   );

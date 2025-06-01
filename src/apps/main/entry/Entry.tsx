@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useParams, useSearchParams } from "react-router-dom";
-import { Alert } from "@mui/material";
+import { Link, useParams, useSearchParams } from "react-router-dom";
+import { Button } from "@mui/material";
 
 import API from "../../../api";
 import { setRParty } from "../../../state";
@@ -20,8 +20,12 @@ import PasswordDialog from "../dialogs/PasswordDialog";
 import BackIcon from "../../../components/backIcons/BackIconTo";
 
 import PartyHeader from "../components/PartyHeader";
-import PartyActions from "../components/PartyActions";
-import PartyStats from "../components/PartyStats";
+import RCarousel from "../components/RCarousel";
+import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
+import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
+import DCarousel from "../components/DCarousel";
+import HCarousel from "../components/HCarousel";
 
 const Entry = () => {
   const { id } = useParams();
@@ -71,6 +75,16 @@ const Entry = () => {
     getParty();
   }, [dispatch, id, searchParams]);
 
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    if (!party._id) return;
+    const url = `${window.location.origin}/party/${party._id}`;
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   if (showDelete) return <PartyDeleted />;
   if (!party) return "loading";
 
@@ -81,23 +95,54 @@ const Entry = () => {
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
 
       <SlideIn>
-        <PartyHeader party={party} id={id} />
-
-        {party?.r_winner && (
-          <Alert severity="warning" variant="outlined" sx={{ my: 2 }}>
-            This party is over! Enjoy the party!
-          </Alert>
-        )}
-
-        <PartyActions
-          id={id!}
-          voted={voted}
-          hasWinner={!!party?.r_winner}
-          onManageClick={() => setShowPassword(true)}
+        <PartyHeader
           party={party}
+          onManageClick={() => setShowPassword(true)}
         />
+        {party._id && (
+          <Button
+            size="medium"
+            startIcon={<ContentCopyIcon />}
+            onClick={handleCopy}
+            variant="outlined"
+            sx={{ mt: 2 }}
+            fullWidth
+          >
+            {copied ? "Link Copied!" : "Copy Share Link"}
+          </Button>
+        )}
+        <Link
+          to={`/party/${id}/vote`}
+          style={{
+            textDecoration: "none",
+            pointerEvents: voted ? "none" : "auto", // prevent navigation if disabled
+          }}
+        >
+          <Button
+            size="medium"
+            startIcon={<HowToVoteOutlinedIcon sx={{ fontSize: 18 }} />}
+            variant="outlined"
+            fullWidth
+            sx={{ mt: 2 }}
+            disabled={voted}
+          >
+            Vote
+          </Button>
+        </Link>
 
-        <PartyStats party={party} />
+        <Button
+          size="medium"
+          startIcon={<ManageAccountsOutlinedIcon sx={{ fontSize: 18 }} />}
+          onClick={() => setShowPassword(true)}
+          variant="outlined"
+          sx={{ mt: 2 }}
+          fullWidth
+        >
+          Manage Party
+        </Button>
+        <RCarousel party={party} swipe={{ id: 1, direction: "right" }} />
+        {party.vote_on_days && <DCarousel party={party} />}
+        {party.vote_on_hours && <HCarousel party={party} />}
       </SlideIn>
     </>
   );

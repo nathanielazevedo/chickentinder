@@ -58,7 +58,7 @@ const PartyActions = ({
         />
       </Link>
 
-      <Link to={`/party/${id}/results`} style={{ textDecoration: "none" }}>
+      {/* <Link to={`/party/${id}/results`} style={{ textDecoration: "none" }}>
         <Chip
           label={hasWinner ? "Winner" : "All Votes"}
           variant="filled"
@@ -66,7 +66,7 @@ const PartyActions = ({
           icon={<RemoveRedEyeOutlinedIcon sx={{ fontSize: 18 }} />}
           sx={chipSx}
         />
-      </Link>
+      </Link> */}
 
       <Chip
         label="Manage"
