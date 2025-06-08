@@ -78,7 +78,7 @@ const Entry = () => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    if (!party._id) return;
+    if (!party || !party._id) return;
     const url = `${window.location.origin}/party/${party._id}`;
     navigator.clipboard.writeText(url);
     setCopied(true);
@@ -86,12 +86,16 @@ const Entry = () => {
   };
 
   if (showDelete) return <PartyDeleted />;
-  if (!party) return "loading";
+  if (!party) return <>loading</>;
 
   return (
     <>
       <BackIcon to="/party/my-parties" />
-      <PasswordDialog open={showPassword} setOpen={setShowPassword} />
+      <PasswordDialog
+        open={showPassword}
+        setOpen={setShowPassword}
+        party={party}
+      />
       <NewPartyDialog open={showNewDialog} setOpen={setShowNewDialog} />
 
       <SlideIn>
@@ -137,10 +141,11 @@ const Entry = () => {
           variant="outlined"
           sx={{ mt: 2 }}
           fullWidth
+          disabled={party.r_winner ? true : false}
         >
-          Manage Party
+          End Voting
         </Button>
-        <RCarousel party={party} swipe={{ id: 1, direction: "right" }} />
+        <RCarousel party={party} swipe={{ id: "1", direction: "right" }} />
         {party.vote_on_days && <DCarousel party={party} />}
         {party.vote_on_hours && <HCarousel party={party} />}
       </SlideIn>

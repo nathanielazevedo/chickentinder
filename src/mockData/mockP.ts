@@ -1,4 +1,4 @@
-import { Party } from '../models/Party'
+// import { Party } from '../models/Party'
 import { Restaurant } from '../models/Restaurant'
 
 export const party = {
@@ -277,4 +277,4 @@ export const party = {
   createdAt: '2023-05-20T20:48:25.261Z',
   updatedAt: '2023-05-20T20:48:25.261Z',
   __v: 0,
-} as Party
+} as any

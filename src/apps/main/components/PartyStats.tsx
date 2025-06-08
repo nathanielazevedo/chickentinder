@@ -6,8 +6,8 @@ type Props = {
 };
 
 const PartyStats = ({ party }: Props) => {
-  const showHours = party?.vote_on_hours;
-  const showDays = party?.vote_on_days;
+  // const showHours = party?.vote_on_hours;
+  // const showDays = party?.vote_on_days;
 
   return (
     <Box

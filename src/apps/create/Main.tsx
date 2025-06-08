@@ -8,7 +8,7 @@ import Time from "./time/TimeMain";
 import VotersInfo from "./VotersInfo";
 import { useNavigate } from "react-router-dom";
 import { CreateParty } from "../../models/Party";
-import { CustomRestaurant, Restaurant } from "../../models/Restaurant";
+// import { CustomRestaurant, Restaurant } from "../../models/Restaurant";
 import {
   PersonalType,
   RFormType,
@@ -23,7 +23,8 @@ import {
   votersInitial,
 } from "./CreateHelpers";
 
-type R = (Restaurant | CustomRestaurant)[];
+// type R = (Restaurant | CustomRestaurant)[];
+type R = any;
 
 const Main = () => {
   const navigate = useNavigate();
@@ -70,7 +71,7 @@ const Main = () => {
       const restaurants = await api.fetchRestaurants(data);
       const withChecks = addChecks(restaurants);
       setOffset((prevState) => prevState + 20);
-      setRestaurants((prevState) => {
+      setRestaurants((prevState: any) => {
         if (!prevState) return withChecks;
         return [...prevState, ...withChecks];
       });

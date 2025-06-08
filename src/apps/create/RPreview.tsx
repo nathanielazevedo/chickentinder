@@ -16,7 +16,7 @@ type Props = {
   fetchMore: () => void;
   completeRestaurants: () => void;
   setStep: React.Dispatch<React.SetStateAction<number>>;
-  restaurants: (Restaurant | CustomRestaurant)[] | undefined;
+  restaurants: Restaurant[] | undefined;
   setRestaurants: React.Dispatch<
     React.SetStateAction<(Restaurant | CustomRestaurant)[] | undefined>
   >;
@@ -168,7 +168,7 @@ const RPreview = ({
                 </Box>
 
                 {/* Restaurant Image */}
-                {restaurant.image_url && (
+                {restaurant?.image_url && (
                   <Box
                     component="img"
                     src={restaurant.image_url}

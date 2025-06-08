@@ -7,7 +7,7 @@ type Props = {
   onManageClick: any;
 };
 
-const PartyHeader = ({ party, onManageClick }: Props) => {
+const PartyHeader = ({ party }: Props) => {
   return (
     <Box
       sx={{

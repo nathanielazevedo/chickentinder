@@ -1,7 +1,6 @@
 import { Box, Chip } from "@mui/material";
 import { Link } from "react-router-dom";
 import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
-import RemoveRedEyeOutlinedIcon from "@mui/icons-material/RemoveRedEyeOutlined";
 import ManageAccountsOutlinedIcon from "@mui/icons-material/ManageAccountsOutlined";
 import ShareChip from "./ShareChip";
 

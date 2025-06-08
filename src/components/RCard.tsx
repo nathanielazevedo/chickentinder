@@ -22,7 +22,7 @@ const RCard = ({ restaurant, swipe, voteCount, isWinner, votedOn }: Props) => {
         <Box
           sx={{
             position: "absolute",
-            top: 0,
+            top: 5,
             right: 8,
             backgroundColor: "gold",
             color: "black",
@@ -43,7 +43,7 @@ const RCard = ({ restaurant, swipe, voteCount, isWinner, votedOn }: Props) => {
         <Box
           sx={{
             position: "absolute",
-            top: 30,
+            top: 35,
             right: 8,
             borderRadius: "12px",
             padding: "2px 8px",

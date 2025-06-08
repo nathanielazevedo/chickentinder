@@ -15,6 +15,7 @@ const HCarousel = ({ party }: Props) => {
     if (!containerRef.current) return;
 
     const scrollLeft = containerRef.current.scrollLeft;
+    // @ts-expect-error aa
     const cardWidth = containerRef.current.firstChild?.clientWidth || 1;
     const index = Math.round(scrollLeft / (cardWidth + 16));
     setActiveIndex(index);

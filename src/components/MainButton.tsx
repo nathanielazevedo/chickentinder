@@ -18,7 +18,7 @@ const MainButton = ({
   type,
   height,
   onClick,
-  selected = false,
+  // selected = false,
   disabled = false,
 }: Props) => {
   const dispatch = useAppDispatch();
