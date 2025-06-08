@@ -24,6 +24,16 @@ export const hoursInitial = {
   '11-12 AM': false,
 }
 
+export const typeOptions = [
+  { value: "restaurants", label: "Restaurants" },
+  { value: "bars", label: "Bars" },
+  { value: "cafes", label: "Cafes" },
+  { value: "foodtrucks", label: "Food Trucks" },
+  { value: "nightlife", label: "Nightlife" },
+  { value: "bakeries", label: "Bakeries" },
+  { value: "desserts", label: "Desserts" },
+];
+
 export type daysType = typeof daysInitial
 export const daysInitial = {
   Monday: false,
@@ -118,20 +128,20 @@ export const rFormSchema = object({
 export type RFormType = typeof rValuesInitial
 export const rValuesInitial = {
   location: '',
-  type: 'Restaurants',
+  type: 'restaurants',
   max_distance: 15000,
+  price: '0', // or default to '1,2,3,4' to allow all
 }
+
 
 // Personal Form
 export const personalSchema = object({
   name: string().required('Required'),
-  email: string().email().required('Required'),
   password: string().required('Required'),
 })
 export type PersonalType = typeof pInitial
 export const pInitial = {
   name: '',
-  email: '',
   password: '',
 }
 

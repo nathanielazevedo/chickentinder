@@ -35,13 +35,13 @@ export type Party = {
   updatedAt: string
   voters_so_far: number
   __v: number
-  type: string
+  type: string;
+  price: number;
 }
 
 export type CreateParty = {
   name: string
   location: string
-  email: string
   max_distance: number
   max_voters: number
   vote_on_hours: boolean

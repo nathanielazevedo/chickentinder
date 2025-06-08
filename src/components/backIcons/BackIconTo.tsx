@@ -11,10 +11,10 @@ const BackIcon = ({ to }: { to: string }) => {
   return (
     <Box
       sx={{
-        top: "10px",
-        left: "0px",
+        top: "20px",
+        left: "10px",
         width: "100%",
-        height: "50px",
+        // height: "53px",
         display: "flex",
         alignItems: "center",
         position: "absolute",
@@ -22,29 +22,17 @@ const BackIcon = ({ to }: { to: string }) => {
       }}
     >
       <Button
+        // variant="outlined"
         onClick={() => {
           navigate(to);
           dispatch(setSwipeDirection("right"));
         }}
-        sx={styles.c}
+        startIcon={<ArrowBackIosNewIcon />}
       >
-        <ArrowBackIosNewIcon sx={{ fontSize: 10, mr: "3px" }} />
         Back
       </Button>
-      {/* <Typography color='secondary'>Chicken Tinder</Typography> */}
     </Box>
   );
 };
 
 export default BackIcon;
-
-const styles = {
-  c: {
-    // borderRadius: '50%',
-    // minWidth: '50px',
-    // minHeight: '50px',
-    // position: 'absolute',
-    // top: '10px',
-    // left: '0px',
-  },
-};
